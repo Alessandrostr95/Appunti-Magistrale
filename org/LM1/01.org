@@ -1,0 +1,81 @@
+#+title: Algebra Universale - Lesson 01
+#+date: <2021-10-11 lun>
+#+setupfile: ../../org-template/appunti.org
+
+* Definizione (provvisoria) di Struttura Algebrica
+  Un'/algebra/ è una coppia $(A, F)$ dove:
+  - $A \neq \emptyset$  è un inseme
+  - $F = (f_1, f_2, ..., f_k)$ è un insieme di operazioni sull'insieme $A$ di arietà $n$ -aria
+    \[
+    \forall f \in F \;\;\; \exists n \in \mathbb{N} : \\
+    f: A^{n} \rightarrow A \\
+    (a_1, a_2, ..., a_n) \mapsto a_m \in A
+    \]
+  In un'algebra si considerano anche delle costanti $c \in A$, le quali possono anche essere definite come funzioni di $F$ di arietà 0-aria
+  \[
+  c : A^0 \rightarrow A \\
+  c() = c \in A
+  \]
+  *N.B:*
+  1. Le funzioni $f \in F$ considerate sono *totali*, ovvero *sempre definite*. Esiste anche un' A.U. che studia le /algebre parziali/ con la presenza di funzioni non totali.
+  2. Non verranno considerate strutture ulteriori (altre algebre...)
+  3. Verrà considerato un $n \in \mathbb{N}$ *sempre finito*.
+  4. Verrano considerate operazioni $f$ solamente *interne*, ovvero $A$ deve essere chiusa rispetto alle operazioni in $F$.
+     e.g.
+     - il /prodotto scalare/ tra due vettori non è una operazione interna a uno spazio vettoriale $V$ in qunato il risultato è un numero realte
+       \[ \langle , \rangle : V \times V \rightarrow \mathbb{R}  \]
+     - il /prodotto/ tra sclare e vettore nemmeno è interno in qunato si vuole (per definizione di $F$) che le operazioni siano applicabili in $V^n$
+       \[ \cdot : \mathbb{R} \times V \rightarrow V \]
+     - il /prodotto vettoriale/ è invece una funzione interna a uno spazio vettoriale $V$
+       \[ \times : V^2 \rightarrow V \]
+
+* Esempi di strutture algebriche
+Di seguito alcuni esempi di strutture algebrice.
+** Gruppi
+   Un /gruppo/ è una coppia $(G, \circ)$ dove:
+   - $G \neq \emptyset$
+   - $\circ$ è una operazione /binaria/ con le seguenti proprietà:
+     - *proprietà associativa*: $\forall a,b,c \in G$ vale che
+       \[ a \circ (b \circ c) = (a \circ b) \circ c  \]
+     - *esistenza di un elemento neutro*: $\exists e \in G$ detto /elemento neutro per/ $\circ$ tale che $\forall a \in G$ vale che
+       \[ a \circ e = e \circ a = a \]
+     - *esistenza elemento inverso*: $\forall a \in G \;\;\; \exists a^{-1} \in G$ tale che
+       \[ a \circ a^{-1} = a^{-1} \circ a = e \]
+   Se l'operatore $\circ$ è anche commutativo allora il gruppo si dice *commutativo* (o *abeliano*).
+** Semigruppo
+   Un /semigruppo/ è una coppia $(G, \circ)$ tale che $G$ è un inseme e $\circ$ è un'operazione binaria su $G$ che gode della sola proprietà associativa.
+** Anello
+   Un /anello/ è un insieme $(A, +, \cdot)$ dove valgono le seguenti proprietà:
+   - $(A,+)$ è un /gruppo abeliano/ con elemento neutro 0, ovvero
+     - $a + (b + c) = (a+b) + c$
+     - $a+0 = 0+a = a$
+     - $\forall a \in A$ esiste un elemento inverso $-a \in A$, ovvero tale che $a + (-a) = (-a) + a = 0$
+   - $(A, \cdot)$ è un semigruppo, ovvero vale la proprietà associativa su $\circ$
+     \[ a \cdot (b \cdot c) = (a \cdot b) \cdot c \]
+   - L'operazione $\cdot$ (moltiplicazione) è *distributiva* risetto a $+$ (somma)
+     \[
+     a \cdot (b+c) = (a \cdot b) + (a \cdot c) \\
+     (a+b) \cdot c = (a \cdot c) + (b \cdot c)
+     \]
+  Degli esempi di anelli possono essere $(\mathbb{Z}, +, \cdot)$ o $(\mathbb{R}, +, \cdot)$
+** Spazio Vettoriale
+   Come abbiamo visto in precedenza l'insieme $(V, +, \cdot)$ non può essere una struttura algebrica sullo spazio vettoriale $V$ in quanto l'operazione $\cdot$ non è /interna/.
+   Si potrebbe perciò aggirare questo problema definendo un anello nel seguente modo.
+   \[
+   (V, +, \lambda_k)_{k \in \mathbb{K}} : \forall k \in \mathbb{K} \\
+   \lambda_k : V \rightarrow V \\
+   \vec{v} \mapsto k \cdot \vec{v} \;\;\; \forall \vec{v} \in V
+   \]
+** Quasigruppo
+   Un /quasigruppo/ è un un insieme $(Q, *)$ simile a un semigruppo, dove $Q$ è un insieme non vuoto e $*$ è una operazione binaria interna che riespetta la seguente proprietà:\\
+   $\forall a,b \in Q$ *distinti* tra loro, esiste una unica soluzione al seguente sistema
+   \begin{cases}
+a * x = b \\
+y * a = b
+   \end{cases}
+   L'unica soluzione è spesso scritta nella seguente notazione
+   \begin{cases}
+x = a \backslash b \\
+y = b / a
+   \end{cases}
+   

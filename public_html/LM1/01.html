@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-10-12 mar 23:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Algebra Universale - Lesson 01</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Algebra Universale - Lesson 01</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf977971">1. Definizione (provvisoria) di Struttura Algebrica</a></li>
+<li><a href="#org285c083">2. Esempi di strutture algebriche</a>
+<ul>
+<li><a href="#orgcb0aa6b">2.1. Gruppi</a></li>
+<li><a href="#org622c09f">2.2. Semigruppo</a></li>
+<li><a href="#org9c6bf02">2.3. Anello</a></li>
+<li><a href="#orgdfe31d2">2.4. Spazio Vettoriale</a></li>
+<li><a href="#org76bed6e">2.5. Quasigruppo</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf977971" class="outline-2">
+<h2 id="orgf977971"><span class="section-number-2">1</span> Definizione (provvisoria) di Struttura Algebrica</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Un'<i>algebra</i> è una coppia \((A, F)\) dove:
+</p>
+<ul class="org-ul">
+<li>\(A \neq \emptyset\)  è un inseme</li>
+<li>\(F = (f_1, f_2, ..., f_k)\) è un insieme di operazioni sull'insieme \(A\) di arietà \(n\) -aria
+\[
+    \forall f \in F \;\;\; \exists n \in \mathbb{N} : \\
+    f: A^{n} \rightarrow A \\
+    (a_1, a_2, ..., a_n) \mapsto a_m \in A
+    \]</li>
+</ul>
+<p>
+In un'algebra si considerano anche delle costanti \(c \in A\), le quali possono anche essere definite come funzioni di \(F\) di arietà 0-aria
+\[
+  c : A^0 \rightarrow A \\
+  c() = c \in A
+  \]
+<b>N.B:</b>
+</p>
+<ol class="org-ol">
+<li>Le funzioni \(f \in F\) considerate sono <b>totali</b>, ovvero <b>sempre definite</b>. Esiste anche un' A.U. che studia le <i>algebre parziali</i> con la presenza di funzioni non totali.</li>
+<li>Non verranno considerate strutture ulteriori (altre algebre&#x2026;)</li>
+<li>Verrà considerato un \(n \in \mathbb{N}\) <b>sempre finito</b>.</li>
+<li>Verrano considerate operazioni \(f\) solamente <b>interne</b>, ovvero \(A\) deve essere chiusa rispetto alle operazioni in \(F\).
+e.g.
+<ul class="org-ul">
+<li>il <i>prodotto scalare</i> tra due vettori non è una operazione interna a uno spazio vettoriale \(V\) in qunato il risultato è un numero realte
+\[ \langle , \rangle : V \times V \rightarrow \mathbb{R}  \]</li>
+<li>il <i>prodotto</i> tra sclare e vettore nemmeno è interno in qunato si vuole (per definizione di \(F\)) che le operazioni siano applicabili in \(V^n\)
+\[ \cdot : \mathbb{R} \times V \rightarrow V \]</li>
+<li>il <i>prodotto vettoriale</i> è invece una funzione interna a uno spazio vettoriale \(V\)
+\[ \times : V^2 \rightarrow V \]</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org285c083" class="outline-2">
+<h2 id="org285c083"><span class="section-number-2">2</span> Esempi di strutture algebriche</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Di seguito alcuni esempi di strutture algebrice.
+</p>
+</div>
+<div id="outline-container-orgcb0aa6b" class="outline-3">
+<h3 id="orgcb0aa6b"><span class="section-number-3">2.1</span> Gruppi</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Un <i>gruppo</i> è una coppia \((G, \circ)\) dove:
+</p>
+<ul class="org-ul">
+<li>\(G \neq \emptyset\)</li>
+<li>\(\circ\) è una operazione <i>binaria</i> con le seguenti proprietà:
+<ul class="org-ul">
+<li><b>proprietà associativa</b>: \(\forall a,b,c \in G\) vale che
+\[ a \circ (b \circ c) = (a \circ b) \circ c  \]</li>
+<li><b>esistenza di un elemento neutro</b>: \(\exists e \in G\) detto <i>elemento neutro per</i> \(\circ\) tale che \(\forall a \in G\) vale che
+\[ a \circ e = e \circ a = a \]</li>
+<li><b>esistenza elemento inverso</b>: \(\forall a \in G \;\;\; \exists a^{-1} \in G\) tale che
+\[ a \circ a^{-1} = a^{-1} \circ a = e \]</li>
+</ul></li>
+</ul>
+<p>
+Se l'operatore \(\circ\) è anche commutativo allora il gruppo si dice <b>commutativo</b> (o <b>abeliano</b>).
+</p>
+</div>
+</div>
+<div id="outline-container-org622c09f" class="outline-3">
+<h3 id="org622c09f"><span class="section-number-3">2.2</span> Semigruppo</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Un <i>semigruppo</i> è una coppia \((G, \circ)\) tale che \(G\) è un inseme e \(\circ\) è un'operazione binaria su \(G\) che gode della sola proprietà associativa.
+</p>
+</div>
+</div>
+<div id="outline-container-org9c6bf02" class="outline-3">
+<h3 id="org9c6bf02"><span class="section-number-3">2.3</span> Anello</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Un <i>anello</i> è un insieme \((A, +, \cdot)\) dove valgono le seguenti proprietà:
+</p>
+<ul class="org-ul">
+<li>\((A,+)\) è un <i>gruppo abeliano</i> con elemento neutro 0, ovvero
+<ul class="org-ul">
+<li>\(a + (b + c) = (a+b) + c\)</li>
+<li>\(a+0 = 0+a = a\)</li>
+<li>\(\forall a \in A\) esiste un elemento inverso \(-a \in A\), ovvero tale che \(a + (-a) = (-a) + a = 0\)</li>
+</ul></li>
+<li>\((A, \cdot)\) è un semigruppo, ovvero vale la proprietà associativa su \(\circ\)
+\[ a \cdot (b \cdot c) = (a \cdot b) \cdot c \]</li>
+<li>L'operazione \(\cdot\) (moltiplicazione) è <b>distributiva</b> risetto a \(+\) (somma)
+\[
+     a \cdot (b+c) = (a \cdot b) + (a \cdot c) \\
+     (a+b) \cdot c = (a \cdot c) + (b \cdot c)
+     \]</li>
+</ul>
+<p>
+Degli esempi di anelli possono essere \((\mathbb{Z}, +, \cdot)\) o \((\mathbb{R}, +, \cdot)\)
+</p>
+</div>
+</div>
+<div id="outline-container-orgdfe31d2" class="outline-3">
+<h3 id="orgdfe31d2"><span class="section-number-3">2.4</span> Spazio Vettoriale</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Come abbiamo visto in precedenza l'insieme \((V, +, \cdot)\) non può essere una struttura algebrica sullo spazio vettoriale \(V\) in quanto l'operazione \(\cdot\) non è <i>interna</i>.
+Si potrebbe perciò aggirare questo problema definendo un anello nel seguente modo.
+\[
+   (V, +, \lambda_k)_{k \in \mathbb{K}} : \forall k \in \mathbb{K} \\
+   \lambda_k : V \rightarrow V \\
+   \vec{v} \mapsto k \cdot \vec{v} \;\;\; \forall \vec{v} \in V
+   \]
+</p>
+</div>
+</div>
+<div id="outline-container-org76bed6e" class="outline-3">
+<h3 id="org76bed6e"><span class="section-number-3">2.5</span> Quasigruppo</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Un <i>quasigruppo</i> è un un insieme \((Q, *)\) simile a un semigruppo, dove \(Q\) è un insieme non vuoto e \(*\) è una operazione binaria interna che riespetta la seguente proprietà:<br />
+\(\forall a,b \in Q\) <b>distinti</b> tra loro, esiste una unica soluzione al seguente sistema
+</p>
+   \begin{cases}
+a * x = b \\
+y * a = b
+   \end{cases}
+<p>
+L'unica soluzione è spesso scritta nella seguente notazione
+</p>
+   \begin{cases}
+x = a \backslash b \\
+y = b / a
+   \end{cases}
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2021-10-11 lun 00:00</p>
+<p class="author">Author: Alessandro Straziota</p>
+<p class="date">Created: 2021-10-12 mar 23:52</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
