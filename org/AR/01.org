@@ -3,10 +3,11 @@
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
-#+title: Lesson 01
+#+title: AR - Lesson 01
 #+date: <2021-10-11 lun>
 #+author: Alessandro Straziota
 #+email: alessandrostr95@gmail.com
+#+teacher: Miriam Di Ianni
 #+language: it
 #+select_tags: export
 #+exclude_tags: noexport
@@ -139,10 +140,10 @@
     *THM* sia $G_{n,p}$ un Erdős–Rényi random graph di parametri $n,p$, e sia $X$ la /variabile aleatori/ che indica il numero
     di nodi della più grande componente connessa di $G_{n,p}$.
     \[
-    p > \frac{ \ln{64} }{ n } \implies \mathcal{P} \left( X \geq \frac{n}{2} \right) = \geq 1 - 2^{-n/8}
+    p > \frac{ \ln{64} }{ n } \implies \mathcal{P} \left( X \geq \frac{n}{2} \right) \geq 1 - 2^{-n/8}
     \]
     #+end_quote
-Per dimostrare il teorema è prima necessario introdurre il seguente lemma
+    Per dimostrare il teorema è prima necessario introdurre il seguente lemma
     #+begin_quote
     *Lemma* Se $X < \frac{n}{2}$ allora esiste un insieme $A \subset \left[ n \right]$, detto /*insieme buono*/, tale che
     \[ \frac{n}{4} \leq |A| <    \frac{3}{4}n \]
@@ -173,7 +174,7 @@ Per dimostrare il teorema è prima necessario introdurre il seguente lemma
     - $|A| = \underbrace{|C_1| + |C_2| + ... + |C_{k-1}|}_{ < n/4 } + \underbrace{|C_k|}_{< n/2} < \frac{n}{4} + \frac{n}{2} = \frac{3}{4}n$
     - Non ci possono essere archi nel taglio $(A,\left[ n \right] \setminus A)$, in quanto i due insiemi sono composti da componenti connesse.
       Infatti se esistesse un arco nel taglio, i due estremi apperterrebbero a due componenti connesse $C_i, C_j$ distinte,
-      ma ciò significherebbe che $C_i \cup C_j$ è a sua volta una componente connessa (*assurdo!*).
+      ma ciò significherebbe che $C_i \cup C_j$ è a sua volta una componente connessa (*assurdo!*).  $\square$
     #+end_quote
 
     Una diretta conseguenza del lemma è che la probabilità che la più grande componente connessa di $G_{n,p}$ sia più piccola di $n/2$ è
@@ -191,7 +192,84 @@ Per dimostrare il teorema è prima necessario introdurre il seguente lemma
     \mathcal{P}\left( X < \frac{n}{2} \right) \leq \mathcal{P}( \exists A \subset \left[ n \right] : A \mbox{ è buono})\\
     = \mathcal{P}\left( \bigcup_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n }  A : \mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per definizione di insieme buono}\\
     \leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } \mathcal{P}\left(\mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per il principio di union bound}\\
-    = \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{|A| \cdot |\overline{A}|}\\
-    \leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{\frac{3}{16}n^2}\\
+    = \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{|A| \cdot |\overline{A}|} \;\;\; \mbox{(1)}\\
+    \leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{\frac{3}{16}n^2} \;\;\; \mbox{(2)}\\
+    \leq 2^{n} (1-p)^{\frac{3}{16}n^2} \;\;\; (3)\\
+    < 2^{n} \left(1 - \frac{ \ln{64} }{n} \right)^{\frac{3}{16}n^2} \;\;\; (4)\\
+    = 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^n \right]^{\frac{3}{16}n}\\
+    = 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^{n \cdot \left( \frac{ -\ln{64} }{ -\ln{64} }  \right)  } \right]^{\frac{3}{16}n}\\
+    \approx 2^{n} \left[ e^{-\ln{64}}  \right]^{\frac{3}{16}n} \;\;\; (5)\\
+    = 2^{n} \left[ 64^{-1}  \right]^{\frac{3}{16}n}\\
+    = 2^{n} \left[ 2^{-6}  \right]^{\frac{3}{16}n} = 2^{n} 2^{ -\frac{18}{16}n } = 2^{-\frac{n}{8}} \;\;\; \square
     \]
+   
+    Di seguito spiegate le disuguaglianze:
+    - *(1)* è data dal fatto che tale probabilità è data dalla probabilità che *non* esista un arco nel taglio, ovvero $(1-p)$, moltiplicato tante volte quanti i archi possono esistere tra $A$ e $\overline{A}$, ovvero $|A| \cdot |\overline{A}|$.
+    - *(2)* è invece data dal fatto chef il punto di /minimo/ della funzione $|A| \cdot |\overline{A}|$ è per valori di $|A| = \frac{1}{4}, \frac{3}{4}$. Ci interessano i punti di minimo in quanto essendo $(1-p) < 1$, $(1-p)^{x}$ assume valori massimi per $x$ minimo.
+    - *(3)* è dato dal fatto che il numero /massimo/ di sottoinsiemi $A \subseteq \left[ n \right]$ è $2^n$.
+    - *(4)* per ipotesi del teorema
+    - *(5)* perché $\lim_{n \rightarrow \infty} \left( 1 + \frac{1}{n} \right) = e^{n}$
     #+end_quote
+    
+    Una versione più generale del precedente teorema è la seguente
+    #+begin_quote
+    *Teorema generale* Sia $G_{n,p}$ un grafo aleatorio campionato dalla /distribuzione Erdős–Rényi/, allora:
+    1. se $p(n-1) < 1$ allora /quasi sicuramente/ (/asymptotically almost surely/, o in breve /a.a.s./) tutte le componenti connesse di $G_{n,p}$ avranno $O( \log{n} )$ nodi (ovvero saranno molto piccole).
+    2. se $p(n-1) = 1$ allora /a.a.s./ $G_{n,p}$ avrà una componente connessa grande $\approx n^{ \frac{2}{3} }$.
+    3. se $p(n-1) > 1$ allora /a.a.s./ $G_{n,p}$ avrà una componente connessa grande $\Omega (n)$ nodi e tutte le altre grandi $O(\log{n})$.
+    #+end_quote
+    Ciò che suggerisce il teorema più generale è che la presenza di componenti connesse dipende 
+    in qualche modo dal prodotto $p(n-1)$, ma cosa rappresenta questa quantità?
+    Questo verrà mostrato nella seguente sezione.
+
+
+*** Grado dei nodi
+    Dato un grafo /Erdős–Rényi/ $G_{n,p}$, definiamo col simbolo $\delta_i$ la /variabile aleatoria/ che esprime il *grado* del nodo $i$.
+    Sia inoltre  la v.a. binaria $j \in \left[ n \right] \setminus \lbrace i \rbrace$
+    \[
+    X_{i,j} = \begin{cases}
+    1 &\mbox{se esiste l'arco }(i,j) \in E\\
+    0 &\mbox{altrimenti}
+    \end{cases}
+    \]
+    Perciò il [[https://it.wikipedia.org/wiki/Valore_atteso][valore atteso]] di $\delta_i$ sarà
+    \[
+    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{i,j} \right]\\
+    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{i,j} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
+    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
+    \]
+    Perciò la quantità $p(n-1)$ vista nella precedente sezione, altro non è che il /grado medio/ di un nodo.
+    Ciò significa che, fissato un $p$ *costante*, ogni individuo nella rete sarà in contatto con una porzione constante della reta stessa, ovvero il grado medio cresce in maniera /lineare nel numero di nodi/.
+    Ovviamente è inverosimile che in una rete di un social network composta da centinaia di milioni (se non miliardi) di nodi, io abbia un numero di amicizie proporzionale al numero di utenti (non penso sarà mai così famoso).\\
+
+    Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che $p$ sia una funzione di $n$, e che magari /descresca/ in maniera
+    inversamente proporzionale, del tipo
+    \[ p = p(n) = \frac{ \lambda }{n} \]
+    Scegliendo $p$ in questa maniera, avremo che il grado medio di un nodo sarà pari alla *costante* $\lambda$, indipendentemente dalla dimensione della rete.\\
+
+    Un'altra domanda che è utile chiedersi è: fissato un $k \leq n$, con quale probabilità che un nodo $i \in \left[ n \right]$ ha *esattamente* grado $k$.
+    Intuitivamente, questa è pari alla probabilità che esistano esattamente $k$ archi incidenti a $i$.
+    Tale probabilità è esattamente definita dalla [[https://it.wikipedia.org/wiki/Distribuzione_binomiale][legge binomiale]] $\mathcal{B}(n-1,p)$, ovvero
+    \[
+    \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}
+    \]
+    Questo perché:
+    1. $\binom{n-1}{k}$ è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] \setminus \lbrace i \rbrace $.
+    2. $p^k$ è la probabilità che eistano gli archi tra $i$ e i nodi di una $k$-upla.
+    3. $\left( 1-p \right)^{(n-1) - k}$ è la probabilità che non esista nessun altro arco (ne vogliamo solo $k$).
+    
+    Scegliendo $p = \frac{ \lambda }{n}$ in funzione di $n$ come detto in precedenza, avremo che la probabilità che un nodo abbia grado
+    medio esattamente $k$ è
+    \[
+    \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}\\
+    \binom{n-1}{k} \left(  \frac{ \lambda }{n} \right)^k \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+    = \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+    < \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}} \;\;\; (1)\\
+    < \frac{n^k}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}}\\
+    \approx \frac{ \lambda^k }{ k! } e^{ -\lambda } \;\;\; \mbox{per } n \mbox{ sufficientemente grande}
+    \]
+    Più semplicemente
+    \[ \mathcal{P}\left( \delta_i = k \right) < \frac{ \lambda^k }{ k! } e^{ -\lambda } \]
+
+    Applicando l'[[https://it.wikipedia.org/wiki/Approssimazione_di_Stirling][approssimazione di Stirling]] secondo la quale $k! \thicksim \sqrt{2 \pi k} \left( \frac{k}{e}  \right)^k$,
+    
