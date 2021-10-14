@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-14 gio 01:18 -->
+<!-- 2021-10-14 gio 12:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 01</title>
@@ -663,10 +663,45 @@ medio esattamente \(k\) è
     \]
 Più semplicemente
 \[ \mathcal{P}\left( \delta_i = k \right) < \frac{ \lambda^k }{ k! } e^{ -\lambda } \]
+La disuguaglianza <b>(1)</b> è data dal fatto che \(\forall x < 1\) vale sempre che \(1-x < e^{-x}\).
 </p>
 
 <p>
 Applicando l'<a href="https://it.wikipedia.org/wiki/Approssimazione_di_Stirling">approssimazione di Stirling</a> secondo la quale \(k! \thicksim \sqrt{2 \pi k} \left( \frac{k}{e}  \right)^k\),
+possiamo semplificare il tutto con
+\[
+    \mathcal{P} \left( \delta_i = k \right) < \frac{ (\lambda e)^k }{ \sqrt{2 \pi k} k^k }e^{ -\lambda }
+    = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
+    \]
+Quest'ultima disuguaglianza ci suggerisce che la probabilità che un generico nodo abbia grado \(k\)
+<i>decresce</i> molto velocemente al crescere di \(k\), più precisamente decresce <i>esponenzialmente</i> in \(k\)
+(come \(k^{-k}\)).<br />
+</p>
+
+<p>
+Una volta stabilità questa probabilità, si può calcolare il numero atteso di nodi che hanno grado esattamente \(k\).
+Per prima cosa definiamo la variabile aleatoria binaria \(\delta_{i,k}\) tale che
+\[
+    \delta_{i,k} = \begin{cases}
+    1 &\mbox{se } \delta_i = k\\
+    0 &\mbox{altrimenti}
+    \end{cases}
+    \]
+Definiamo in oltre la v.a. \(F_k\) che indica la <i>frazione</i> di nodi della rete che hanno grado \(k\)
+\[ F_k = \frac{ \sum_{i \in \left[ n \right] } \delta_{i,k}  }{n} \]
+con valore atteso
+\[
+    \mathbb{E} \left[ F_k \right]
+    = \mathbb{E} \left[ \frac{ \sum_{i \in \left[ n \right] } \delta_{i,k}  }{n} \right]\\
+    = \frac{1}{n} \sum_{i \in \left[ n \right] } \mathbb{E} \left[ \delta_{i,k} \right] \;\;\; \mbox{per linearità}\\
+    = \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_{i,k} = 1) + 0 \cdot \mathcal{p}(\delta_{i,k} = 0) \right)\\
+    = \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_i = k) + 0 \cdot \mathcal{p}(\delta_i \neq k) \right)\\
+    = \frac{1}{n} \sum_{i \in \left[ n \right] } \mathcal{p}(\delta_i = k)\\
+    < \frac{1}{n} \sum_{i \in \left[ n \right] } \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k\\
+    = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
+    \]
+Perciò, in un grafo <i>Erdős–Rényi</i> \(G_{n,p}\) con grado medio constante, ovvero con parametro \(p = \frac{\lambda}{n}\),
+il numero di nodi di grado esattamente \(k\) descrese esponenzialmente in \(k\) (come \(k^{-k}\)).
 </p>
 </div>
 </div>
@@ -676,7 +711,7 @@ Applicando l'<a href="https://it.wikipedia.org/wiki/Approssimazione_di_Stirling"
 <div id="postamble" class="status">
 <p class="date">Date: 2021-10-11 lun 00:00</p>
 <p class="author">Author: Alessandro Straziota Alessandro Straziota</p>
-<p class="date">Created: 2021-10-14 gio 01:18</p>
+<p class="date">Created: 2021-10-14 gio 12:00</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
