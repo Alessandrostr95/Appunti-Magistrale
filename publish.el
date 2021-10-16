@@ -20,7 +20,13 @@
 	 :recursive t
 	 :publishing-function org-publish-attachment
 	 )
-       ("all" :components ("appunti" "static"))
-
+	("images"
+	 :base-directory "./images/"
+	 :base-extension "png\\|jpg\\|gif\\|pdf\\|mp3"
+	 :publishing-directory "./public_html/images"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	 )
+       ("all" :components ("appunti" "static" "images"))
 	)
       )

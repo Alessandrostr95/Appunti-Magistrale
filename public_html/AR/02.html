@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-10-16 sab 14:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AR - Lesson 02</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">AR - Lesson 02</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf5d6e22">1. Power Law</a>
+<ul>
+<li><a href="#org110d78b">1.1. Riconoscere una power law</a></li>
+</ul>
+</li>
+<li><a href="#org50b35e4">2. Fenomeno <i>rich-get-richer</i></a>
+<ul>
+<li><a href="#org69f35cc">2.1. Un modello per <i>rich-get-richer</i></a>
+<ul>
+<li><a href="#org4650a81">2.1.1. Procedura per la generazione</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf5d6e22" class="outline-2">
+<h2 id="orgf5d6e22"><span class="section-number-2">1</span> Power Law</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Nella <a href="./01.html">lezione 1</a> si è visto che in un <i>Erdős–Rény random graph</i> il numero di nodi che hanno grado esattamente \(k\) decresce <i>esponenzialmente</i> in \(k\).
+Per comprendere meglio il perché di questo andamento è necessario enunciare (quantomeno in maniera informale e intuitiva) il <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">teorema del limite centrale</a>.
+</p>
+
+<hr>
+
+<blockquote>
+<p>
+<b>Teorema del limite centrale</b><br />
+    Siano \(X_1, X_2, ..., X_n\) una sequenza di \(n\) variabili aleatorie <b>indipendenti</b> e <b>identicamente distribuite</b>,
+    con <i>valore atteso</i> \(\mu\) e <i>varianza</i> \(\sigma^2 < \infty\).
+    Consideriamo la semplice media aritmetica
+    \[
+    \overline{X}_n \equiv \frac{ X_1 + X_2 + ... + X_n }{n}
+    \]
+    ovviamente con valore atteso che tende a \(\mu\) per \(n \rightarrow \infty\).
+    Il teorema dice che
+    \[
+    \lim_{n \rightarrow \infty} \sqrt{n} \left( \overline{X}_n - \mu \right) = \mathcal{N}(0, \sigma^2)
+    \]
+    In termini più intuitivi si può interpretare questo enunciato come segue:
+    la somma di <i>tante</i> variabili aleatorie indipendenti e identicamente distribuite si distribuisce come una <a href="https://en.wikipedia.org/wiki/Normal_distribution">distribuzione normale</a>
+    intorno al valore atteso.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson02-img1.png" alt="ar-lesson02-img1.png" width="60%" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Esempio distribuzione Normale</p>
+</div>
+</blockquote>
+
+<hr>
+
+<p>
+Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado \(k\) in un <i>Erdős–Rény random graph</i>
+è proprio una <b>somma</b> di v.a. <i>i.i.d.</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, in quanto ogni arco è aggiunto in maniera totalmente indipendete ed equamente
+distribuita rispetto agli archi.<br />
+</p>
+
+<p>
+Nella realtà però si sono osservati fenomeni <b>sostanzialmente</b> differenti.<br />
+Consideriamo il grafo di informazioni del <i>web</i>: possiamo modellarlo tramite un grafo <b>diretto</b> dove ogni nodo rappresenta un pagina, ed esiste 
+un arco diretto \((a,b)\) se nella pagine \(a\) c'è un iper-link alla pagina \(b\).<br />
+In uno studio fatto<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> si è osservato che la frazione di nodi con <i>grado entrante</i> \(k\) decresce come \(k^{-c}\) (per qualche costante \(c > 0\)),
+e non come \(k^{-k}\).<br />
+</p>
+
+<p>
+Una funzione che decresce in questa maniera, ovvero come l'<i>inverso di un polinomio</i>, è detta <b>power law</b>.
+Un'altra definizione più formale è la seguente:
+</p>
+
+<blockquote>
+<p>
+<b>def. Power Law:</b> siano le costanti \(C > 0\) ed \(\alpha > 1\). Una <b>legge di potenza</b> (o <b>power law</b>) è una funzione prporzionale a \(C x^{-\alpha}\).
+</p>
+</blockquote>
+
+<p>
+Il fatto che in una rete reale (come il web) il numero di nodi di grado alto decresca decisamente <b>molto</b> più lentamente rispetto
+a quanto ci si aspetta nel modello <i>Erdős–Rény</i>, implica che non è del tutto appropriato considerare l'esistenza di un arco 
+<i>indipendente</i> rispetto agli altri.
+</p>
+</div>
+
+<div id="outline-container-org110d78b" class="outline-3">
+<h3 id="org110d78b"><span class="section-number-3">1.1</span> Riconoscere una power law</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Non è sempre scontato il riconoscere a vista una funzione power law rispetto a una funzione che decresce esponenzialmente.
+Per fare ciò è necessario considerare un grafico di tipo <b>log-log</b>, ovvero dove i <i>tick</i><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> degli assi crescono esponenzialmente.
+All'atto pratico, invece di considerare la funzione \(y = f(x)\), verrà mostrata la funzione \(\log{(y)} = \log{\left( f(x) \right)}\). 
+</p>
+
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson02-img2.png" alt="ar-lesson02-img2.png" width="60%" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Esempio di scala <i>lineare</i> (a sinistra) e scala <i>log-log</i> (a destra)</p>
+</div>
+
+<p>
+Come si può notare nell'immagine precedente, è difficile stabilire ad occhio quale delle due funzioni è power law.
+Invece, con la scala <i>log-log</i>, la funzione power law assume un andamento lineare.
+Questo perché \(\log{(y)} \approx -c \log{(k)}\).
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org50b35e4" class="outline-2">
+<h2 id="org50b35e4"><span class="section-number-2">2</span> Fenomeno <i>rich-get-richer</i></h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Uno dei fenomi più noti nelle reti è il cosidetto fenomeno <i>rich-get-richer</i>.
+Un esempio reale che spiega questo fenomeno è il seguente:
+</p>
+
+<blockquote>
+<p>
+In questo momento sto scrivendo queste note riguardo la scorsa lezione della professoressa Di Ianni.
+A un certo punto ho citato il teorema del limite centrale, mettendo un hyper-link alla relativa pagina wikipedia.
+Il teorema del limite centrale è un teorema che fa parte della "letteratura classica" del calcolo delle probabilità,
+perciò su internet si possono trovare <b>milioni</b> di pagine che lo descrivono.
+Già solo cercando col motore di ricerca di google la parola <code>central limit theorem</code> vengono riportati più di
+33 milioni di pagine inerenti.
+Allora perché ho scelto proprio la pagina di wikipedia, piuttosto che l'ultima delle 33 milioni indicizzate da google?
+Semplice, ho puntato alla pagina che risultasse "più autorevole", ovvero quella che so essere più indicizzata rispetto
+all'ultima povera pagina delle 33 milioni.
+</p>
+</blockquote>
+
+<p>
+Perciò, se consideriamo il grado entrante di una pagina web come il numero di hyper-link che la puntano, avremo che sulla
+base del precedente ragionamento, il grado della pagina del teorema del limite centrale di wikipedia tenderà sempre di più
+a crescere rispetto all'ultima pagina<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> indicizzata da google.<br />
+</p>
+
+<p>
+Tutto questo implica che nel grafo del web l'esistenza di un arco <b>dipende</b> dall'esistenza di altri archi.<br />
+</p>
+
+<p>
+Un altro esempio concreto del fenomeno <i>rich-get-richer</i> avviene nelle reti sociali di un social network:
+se una persona è famosa ed ha molti follower tenderà a diventare sempre più popolare.<br />
+</p>
+</div>
+
+<div id="outline-container-org69f35cc" class="outline-3">
+<h3 id="org69f35cc"><span class="section-number-3">2.1</span> Un modello per <i>rich-get-richer</i></h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Si vuole descrivere un modello secodno il quale la scelta di un nuovo arco da aggiungere si basa sull'esistenza degli archi già presenti,
+in modo tale che gli individui tendano a "copiare" il comportamento degli altri.
+Verrà proposto un <b>processo incrementale</b> di creazione di una rete che rispecchia le seguenti proprietà, simile alla creazione del web:
+</p>
+<ol class="org-ol">
+<li>i nodi vengono generati in sequenza</li>
+<li>ogni volta che viene inserito un nuovo nodo si decide quali archi inserire sulla base di quelli già presenti</li>
+</ol>
+</div>
+<div id="outline-container-org4650a81" class="outline-4">
+<h4 id="org4650a81"><span class="section-number-4">2.1.1</span> Procedura per la generazione</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+Fissata una probabilità \(p \in \left[ 0,1 \right]\), vengono eseguite le seguenti operazioni in maniera sequenziale:
+</p>
+<ol class="org-ol">
+<li>Al tempo \(t=1\) viene inserito il solo nodo \(1\).</li>
+<li>Al tempo \(t=2\) viene inserito il nodo \(2\) e l'arco diretto \((2,1)\).</li>
+<li>Al generico passo \(t = i > 2\) viene inserito il nodo \(i\), scelto <i>u.a.r.</i><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> un nodo \(j \in \left[ i-1 \right]\) tra quelli già esistenti, e
+<ul class="org-ul">
+<li>con probabilità \(p\) viene inserito l'arco diretto \((i,j)\)</li>
+<li>con probabilità \(1-p\) viene inserito l'arco \((i,k)\), dove \(k\) è l'estremo dell'arco \((j,k)\) (ovvero il nodo puntato da \(j\))</li>
+</ul></li>
+</ol>
+<p>
+<b>n.b.</b> se dovesse capitare di scegliere il nodo \(j=1\), esso viene considerato essere <i>autoreferenziato</i>, ovvere si considera la presenza
+dell'arco \((1,1)\) (per questioni di consistenza del processo).<br />
+</p>
+
+<p>
+Intuitivamente questo processo genera un grafo che cattura il fenomeno <i>rich-get-richer</i>, è molto più probabile che un nuovo arco inserito
+punti a un nodo con grado entrante alto.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<i>i.i.d.</i> sta per <i>indipendenti e identicamente distribuite</i>.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+[Broder et al., 2000]
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+per <i>tick</i> si intende gli indici del grafico che vengono segnati sugli assi.
+Generalmente si è abituati a vedere dei tick che crescono in maniera lineare \([0, 1, 2, ...]\), però spesso
+è necessario visualizzare l'asse secodno una scala differete, per esempio che cresce in maniera quadratica \([0, 1, 4, 9, 16, ...]\).
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+magari quell'ultima pagina delle 33 milioni è la migliore di tutte, ma probabilmente non lo saprò mai finché non salirà
+tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+<i>u.r.a.</i> sta per uniformemente a caso
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Date: 2021-10-11 lun 00:00</p>
+<p class="author">Author: Alessandro Straziota Alessandro Straziota</p>
+<p class="date">Created: 2021-10-16 sab 14:37</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
