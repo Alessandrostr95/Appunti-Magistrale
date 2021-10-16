@@ -29,6 +29,7 @@
      - il /prodotto vettoriale/ è invece una funzione interna a uno spazio vettoriale $V$
        \[ \times : V^2 \rightarrow V \]
 
+
 * Esempi di strutture algebriche
 Di seguito alcuni esempi di strutture algebrice.
 ** Gruppi
@@ -79,3 +80,6 @@ x = a \backslash b \\
 y = b / a
    \end{cases}
    
+
+
+#+html:<hr>

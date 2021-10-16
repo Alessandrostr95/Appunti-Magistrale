@@ -1,0 +1,129 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 02
+#+date: <2021-10-11 lun>
+#+author: Alessandro Straziota
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+*Nota:* parto direttamente dagli appunti della seconda lezione di /Algoritmi Distribuiti e Reti Complesse/
+in quanto la prima consisteva solamente in alcuni esempi che introducevano agli argomenti del corso.
+Probabilmente in futuro verrà fatta la pagina con gli esempi della prima lezione.
+
+* Ambiente distribuito
+Prima di procedere allo studio di algoritmi distribuiti è necessario definire in maniera rigorosa (e non ambigua)
+un /modello di calcolo/.
+Tale definizione di modello sarà utile non solo per definire algoritmi distribuiti, ma anche per fare un'analisi
+della loro /correttezza/ e /stabilità/.\\
+
+In maniera informale possiamo definire un *ambiente distribuito* (il nostro modello di calcolo) come un *insieme di agenti*,
+aventi ognuno delle *capacità computazionali*, e che interagiscono tra di loro scambiandosi messaggi (/message passing/)
+tramite una serie di *interconnesioni*.
+
+Ovviamente, tale definizione di ambiente distribuito sarà modellata rigorosamente tramite la struttura matematica del *grafo*.
+
+[IMAGINE GRAFO]
+
+** Entità
+   Come già detto, ogni *entità* (o *nodo*) della rete ha delle capacità computazionali, le quali sono definite come
+   un insieme di *operazioni possibili*, quali:
+   - *local storage e processing* ovvero la capacità di conservare informazioni di processarle in maniera *locale*
+   - *scambio di messaggi* con altri nodi della rete
+   - *(re-)impostare il clock*. Ogni nodo ha un *clock* interno che standisce come eseguire le sue azioni, il quale può essere impostato
+   - *cambiare il valore dei regitstri*. Ogni nodo ha dei *registri* usati per eseguire le operazioni e/o mantere uno *stato*[fn:1]
+   
+*** Stato di una entità
+    Come detto, una entità può avere uno *stato* interno, il quale rappresenta un'informazione necessaria per il corretto funzionamento 
+    di un /protocollo/[fn:2] distribuito.\\
+    Più formalmente ogni nodo ha un *insieme finito* di stati possibili $\Sigma$ _*defnito a priori*_ (per esempio {idle, computing, waiting, processing, ...}),
+    e in ogni istante una un entità è in uno dei suoi possibili stati (il quale dovrà essere *sempre definito*).\\
+
+
+** Eventi
+   Il /comportamento/ di ogni entità é *reattivo*, ovvero scaneta in seguito all'avvenire di *eventi*
+   Alcuni esempi di eventi possono essere:
+   - il /tick/ del clock (/evento interno al nodo/)
+   - la ricezioni di un messaggio (/evento esterno al nodo/)
+   - un /impulso/ esterno alla rete
+   Anche se in un contesto reale gli eventi avvengono su una /linea temporale discreta/[fn:3],
+   essi verranno considerati essere avvenuti in maniera *sequenziale* (o ordinata).
+   Questo perché in un intervallo di tempo continuo, la probabilità che due eventi indipendenti
+   occorrano nello stesso identico istante è pari a 0.
+
+
+** Azioni
+   Come accennato, un'entità reagisce in seguito a un evento.
+   In realtà l'azione che compie in risposta a un evento dipende anche dal suo stato interno nel momento dello stimolo.
+   \[
+   \mbox{State } \times \mbox{ Evento} \mapsto \mbox{ Action}
+   \]
+   In realtà per /azione/ si intende una /sequenza di task/ (o attività) da svolgere (non necessariamente una sola)
+   come per esempio
+   - computare un algoritmo
+   - mangare un messaggio
+   - cambiare stato
+   Un'azione è considerata essere *atomica*, ovvero una volta avviata non può essere interrotta in alcuna maniera.
+   Inoltre è importante specificare che nel nostro modello le azioni *terminano sempre in un tempo finito*.\\
+   
+
+** Comportamento delle entità
+   Come detto in precedenza, per ogni coppia di stato ed evento corrisponde un'azione.
+   Questa associazione è dette *regola*.\\
+
+   Più in generale possiamo definire un *comportamento* di un'entità come un insieme di regole.
+   Quindi, dato un'entità $x$, sia $\Sigma$ il suo insieme di stati possibili, $\mathcal{E}$
+   l'insieme degli eventi ed $A$ l'insieme delle azioni che può eseguire.
+   Il suo comportamento $B(x)$ è la /funzione/
+   \[
+   B(x) : \Sigma \times \mathcal{E} \mapsto A
+   \]
+   tale che è *deterministica* e *completa*
+   \[
+   \forall (s,e) \in \Sigma \times \mathcal{E} \;\; \exists ! a \in A
+   \]
+   
+
+** Comportamento del sistema - protocollo
+   Raggruppando tutti i comportamenti delle entita di un sistema è possibile definire
+   il cosidetto /protocollo/ (o /algoritmo/) /distribuito/.\\
+   Più formalmente un protocollo è l'insieme
+   \[
+   B := \lbrace B(x) : x \mbox{ è un'entità del sistema}  \rbrace
+   \]
+   Un sistema si dice *simmetrico* (o *omogeneo*) se ogni entità ha uno stesso comportamento
+   \[
+   \forall x,y \mbox { entità} \left[ B(x) \equiv B(y) \right]
+   \]
+   In realtà è possibile trasformare ogni sistema in un sistema simmetrico.\\
+   Consideriamo un sistema dove esistono due tipi di entità, entità /server/ ed entità /client/.
+   Per ogni entità definiamo un *ruolo*, e in base ad esso eseguiamo l'azione corrispondete.
+   
+   #+caption: Esempio in =python= di come poter rendere un sistema simmetrico
+   #+begin_src python
+     class Entity:
+	 def __init__(self, role):
+	     self.role = role
+
+	 def action(self, state, event):
+	     if self.role == 'server':
+		 server_action(self, state, event)
+	     else:
+		 client_action(self, state, event)
+   #+end_src
+   
+
+[... da completare]
+
+
+#+html: <hr>
+[fn:1] generalmente viene usato un *registro di stato* apposito
+[fn:2] gli algoritmi distribuiti sono anche detti protocolli
+[fn:3] io direi *approssimativamente discreta*, in quanto (a parer mio) non c'è certezza dell'esistenza del continuo

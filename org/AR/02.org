@@ -135,6 +135,7 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
    Verrà proposto un *processo incrementale* di creazione di una rete che rispecchia le seguenti proprietà, simile alla creazione del web:
    1. i nodi vengono generati in sequenza
    2. ogni volta che viene inserito un nuovo nodo si decide quali archi inserire sulla base di quelli già presenti
+
 *** Procedura per la generazione
     Fissata una probabilità $p \in \left[ 0,1 \right]$, vengono eseguite le seguenti operazioni in maniera sequenziale:
     1. Al tempo $t=1$ viene inserito il solo nodo $1$.
@@ -148,8 +149,9 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
     Intuitivamente questo processo genera un grafo che cattura il fenomeno /rich-get-richer/, è molto più probabile che un nuovo arco inserito
     punti a un nodo con grado entrante alto.
 
+[da completare ...]
 
-
+#+html: <hr>
 [fn:1] /i.i.d./ sta per /indipendenti e identicamente distribuite/.
 [fn:2] [Broder et al., 2000]
 [fn:3] per /tick/ si intende gli indici del grafico che vengono segnati sugli assi.

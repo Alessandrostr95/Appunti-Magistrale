@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-16 sab 20:02 -->
+<!-- 2021-10-16 sab 20:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AR - Lesson 02</title>
+<title>ADRC - Lesson 02</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota Alessandro Straziota" />
 <style type="text/css">
@@ -269,211 +269,198 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">AR - Lesson 02</h1>
+<h1 class="title">ADRC - Lesson 02</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf5d6e22">1. Power Law</a>
+<li><a href="#orgfb6d73b">1. Ambiente distribuito</a>
 <ul>
-<li><a href="#org110d78b">1.1. Riconoscere una power law</a></li>
+<li><a href="#org2e5c97a">1.1. Entità</a>
+<ul>
+<li><a href="#org2a28e8a">1.1.1. Stato di una entità</a></li>
 </ul>
 </li>
-<li><a href="#org50b35e4">2. Fenomeno <i>rich-get-richer</i></a>
-<ul>
-<li><a href="#org69f35cc">2.1. Un modello per <i>rich-get-richer</i></a>
-<ul>
-<li><a href="#org4650a81">2.1.1. Procedura per la generazione</a></li>
-</ul>
-</li>
+<li><a href="#orga19d458">1.2. Eventi</a></li>
+<li><a href="#org7b20fe5">1.3. Azioni</a></li>
+<li><a href="#org808c605">1.4. Comportamento delle entità</a></li>
+<li><a href="#orgd4e68aa">1.5. Comportamento del sistema - protocollo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+<p>
+<b>Nota:</b> parto direttamente dagli appunti della seconda lezione di <i>Algoritmi Distribuiti e Reti Complesse</i>
+in quanto la prima consisteva solamente in alcuni esempi che introducevano agli argomenti del corso.
+Probabilmente in futuro verrà fatta la pagina con gli esempi della prima lezione.
+</p>
 
-<div id="outline-container-orgf5d6e22" class="outline-2">
-<h2 id="orgf5d6e22"><span class="section-number-2">1</span> Power Law</h2>
+<div id="outline-container-orgfb6d73b" class="outline-2">
+<h2 id="orgfb6d73b"><span class="section-number-2">1</span> Ambiente distribuito</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Nella <a href="./01.html">lezione 1</a> si è visto che in un <i>Erdős–Rény random graph</i> il numero di nodi che hanno grado esattamente \(k\) decresce <i>esponenzialmente</i> in \(k\).
-Per comprendere meglio il perché di questo andamento è necessario enunciare (quantomeno in maniera informale e intuitiva) il <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">teorema del limite centrale</a>.
-</p>
-
-<hr>
-
-<blockquote>
-<p>
-<b>Teorema del limite centrale</b><br />
-    Siano \(X_1, X_2, ..., X_n\) una sequenza di \(n\) variabili aleatorie <b>indipendenti</b> e <b>identicamente distribuite</b>,
-    con <i>valore atteso</i> \(\mu\) e <i>varianza</i> \(\sigma^2 < \infty\).
-    Consideriamo la semplice media aritmetica
-    \[
-    \overline{X}_n \equiv \frac{ X_1 + X_2 + ... + X_n }{n}
-    \]
-    ovviamente con valore atteso che tende a \(\mu\) per \(n \rightarrow \infty\).
-    Il teorema dice che
-    \[
-    \lim_{n \rightarrow \infty} \sqrt{n} \left( \overline{X}_n - \mu \right) = \mathcal{N}(0, \sigma^2)
-    \]
-    In termini più intuitivi si può interpretare questo enunciato come segue:
-    la somma di <i>tante</i> variabili aleatorie indipendenti e identicamente distribuite si distribuisce come una <a href="https://en.wikipedia.org/wiki/Normal_distribution">distribuzione normale</a>
-    intorno al valore atteso.<br />
-</p>
-
-
-<div class="figure">
-<p><img src="../images/ar-lesson02-img1.png" alt="ar-lesson02-img1.png" width="60%" />
-</p>
-<p><span class="figure-number">Figure 1: </span>Esempio distribuzione Normale</p>
-</div>
-</blockquote>
-
-<hr>
-
-<p>
-Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado \(k\) in un <i>Erdős–Rény random graph</i>
-è proprio una <b>somma</b> di v.a. <i>i.i.d.</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, in quanto ogni arco è aggiunto in maniera totalmente indipendete ed equamente
-distribuita rispetto agli archi.<br />
+Prima di procedere allo studio di algoritmi distribuiti è necessario definire in maniera rigorosa (e non ambigua)
+un <i>modello di calcolo</i>.
+Tale definizione di modello sarà utile non solo per definire algoritmi distribuiti, ma anche per fare un'analisi
+della loro <i>correttezza</i> e <i>stabilità</i>.<br />
 </p>
 
 <p>
-Nella realtà però si sono osservati fenomeni <b>sostanzialmente</b> differenti.<br />
-Consideriamo il grafo di informazioni del <i>web</i>: possiamo modellarlo tramite un grafo <b>diretto</b> dove ogni nodo rappresenta un pagina, ed esiste 
-un arco diretto \((a,b)\) se nella pagine \(a\) c'è un iper-link alla pagina \(b\).<br />
-In uno studio fatto<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> si è osservato che la frazione di nodi con <i>grado entrante</i> \(k\) decresce come \(k^{-c}\) (per qualche costante \(c > 0\)),
-e non come \(k^{-k}\).<br />
+In maniera informale possiamo definire un <b>ambiente distribuito</b> (il nostro modello di calcolo) come un <b>insieme di agenti</b>,
+aventi ognuno delle <b>capacità computazionali</b>, e che interagiscono tra di loro scambiandosi messaggi (<i>message passing</i>)
+tramite una serie di <b>interconnesioni</b>.
 </p>
 
 <p>
-Una funzione che decresce in questa maniera, ovvero come l'<i>inverso di un polinomio</i>, è detta <b>power law</b>.
-Un'altra definizione più formale è la seguente:
+Ovviamente, tale definizione di ambiente distribuito sarà modellata rigorosamente tramite la struttura matematica del <b>grafo</b>.
 </p>
 
-<blockquote>
 <p>
-<b>def. Power Law:</b> siano le costanti \(C > 0\) ed \(\alpha > 1\). Una <b>legge di potenza</b> (o <b>power law</b>) è una funzione prporzionale a \(C x^{-\alpha}\).
-</p>
-</blockquote>
-
-<p>
-Il fatto che in una rete reale (come il web) il numero di nodi di grado alto decresca decisamente <b>molto</b> più lentamente rispetto
-a quanto ci si aspetta nel modello <i>Erdős–Rény</i>, implica che non è del tutto appropriato considerare l'esistenza di un arco 
-<i>indipendente</i> rispetto agli altri.
+[IMAGINE GRAFO]
 </p>
 </div>
 
-<div id="outline-container-org110d78b" class="outline-3">
-<h3 id="org110d78b"><span class="section-number-3">1.1</span> Riconoscere una power law</h3>
+<div id="outline-container-org2e5c97a" class="outline-3">
+<h3 id="org2e5c97a"><span class="section-number-3">1.1</span> Entità</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-Non è sempre scontato il riconoscere a vista una funzione power law rispetto a una funzione che decresce esponenzialmente.
-Per fare ciò è necessario considerare un grafico di tipo <b>log-log</b>, ovvero dove i <i>tick</i><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> degli assi crescono esponenzialmente.
-All'atto pratico, invece di considerare la funzione \(y = f(x)\), verrà mostrata la funzione \(\log{(y)} = \log{\left( f(x) \right)}\). 
+Come già detto, ogni <b>entità</b> (o <b>nodo</b>) della rete ha delle capacità computazionali, le quali sono definite come
+un insieme di <b>operazioni possibili</b>, quali:
 </p>
-
-
-
-<div class="figure">
-<p><img src="../images/ar-lesson02-img2.png" alt="ar-lesson02-img2.png" width="60%" />
-</p>
-<p><span class="figure-number">Figure 2: </span>Esempio di scala <i>lineare</i> (a sinistra) e scala <i>log-log</i> (a destra)</p>
-</div>
-
-<p>
-Come si può notare nell'immagine precedente, è difficile stabilire ad occhio quale delle due funzioni è power law.
-Invece, con la scala <i>log-log</i>, la funzione power law assume un andamento lineare.
-Questo perché \(\log{(y)} \approx -c \log{(k)}\).
-</p>
-</div>
-</div>
-</div>
-
-
-
-<div id="outline-container-org50b35e4" class="outline-2">
-<h2 id="org50b35e4"><span class="section-number-2">2</span> Fenomeno <i>rich-get-richer</i></h2>
-<div class="outline-text-2" id="text-2">
-<p>
-Uno dei fenomi più noti nelle reti è il cosidetto fenomeno <i>rich-get-richer</i>.
-Un esempio reale che spiega questo fenomeno è il seguente:
-</p>
-
-<blockquote>
-<p>
-In questo momento sto scrivendo queste note riguardo la scorsa lezione della professoressa Di Ianni.
-A un certo punto ho citato il teorema del limite centrale, mettendo un hyper-link alla relativa pagina wikipedia.
-Il teorema del limite centrale è un teorema che fa parte della "letteratura classica" del calcolo delle probabilità,
-perciò su internet si possono trovare <b>milioni</b> di pagine che lo descrivono.
-Già solo cercando col motore di ricerca di google la parola <code>central limit theorem</code> vengono riportati più di
-33 milioni di pagine inerenti.
-Allora perché ho scelto proprio la pagina di wikipedia, piuttosto che l'ultima delle 33 milioni indicizzate da google?
-Semplice, ho puntato alla pagina che risultasse "più autorevole", ovvero quella che so essere più indicizzata rispetto
-all'ultima povera pagina delle 33 milioni.
-</p>
-</blockquote>
-
-<p>
-Perciò, se consideriamo il grado entrante di una pagina web come il numero di hyper-link che la puntano, avremo che sulla
-base del precedente ragionamento, il grado della pagina del teorema del limite centrale di wikipedia tenderà sempre di più
-a crescere rispetto all'ultima pagina<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> indicizzata da google.<br />
-</p>
-
-<p>
-Tutto questo implica che nel grafo del web l'esistenza di un arco <b>dipende</b> dall'esistenza di altri archi.<br />
-</p>
-
-<p>
-Un altro esempio concreto del fenomeno <i>rich-get-richer</i> avviene nelle reti sociali di un social network:
-se una persona è famosa ed ha molti follower tenderà a diventare sempre più popolare.<br />
-</p>
-</div>
-
-<div id="outline-container-org69f35cc" class="outline-3">
-<h3 id="org69f35cc"><span class="section-number-3">2.1</span> Un modello per <i>rich-get-richer</i></h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-Si vuole descrivere un modello secodno il quale la scelta di un nuovo arco da aggiungere si basa sull'esistenza degli archi già presenti,
-in modo tale che gli individui tendano a "copiare" il comportamento degli altri.
-Verrà proposto un <b>processo incrementale</b> di creazione di una rete che rispecchia le seguenti proprietà, simile alla creazione del web:
-</p>
-<ol class="org-ol">
-<li>i nodi vengono generati in sequenza</li>
-<li>ogni volta che viene inserito un nuovo nodo si decide quali archi inserire sulla base di quelli già presenti</li>
-</ol>
-</div>
-
-<div id="outline-container-org4650a81" class="outline-4">
-<h4 id="org4650a81"><span class="section-number-4">2.1.1</span> Procedura per la generazione</h4>
-<div class="outline-text-4" id="text-2-1-1">
-<p>
-Fissata una probabilità \(p \in \left[ 0,1 \right]\), vengono eseguite le seguenti operazioni in maniera sequenziale:
-</p>
-<ol class="org-ol">
-<li>Al tempo \(t=1\) viene inserito il solo nodo \(1\).</li>
-<li>Al tempo \(t=2\) viene inserito il nodo \(2\) e l'arco diretto \((2,1)\).</li>
-<li>Al generico passo \(t = i > 2\) viene inserito il nodo \(i\), scelto <i>u.a.r.</i><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> un nodo \(j \in \left[ i-1 \right]\) tra quelli già esistenti, e
 <ul class="org-ul">
-<li>con probabilità \(p\) viene inserito l'arco diretto \((i,j)\)</li>
-<li>con probabilità \(1-p\) viene inserito l'arco \((i,k)\), dove \(k\) è l'estremo dell'arco \((j,k)\) (ovvero il nodo puntato da \(j\))</li>
-</ul></li>
-</ol>
+<li><b>local storage e processing</b> ovvero la capacità di conservare informazioni di processarle in maniera <b>locale</b></li>
+<li><b>scambio di messaggi</b> con altri nodi della rete</li>
+<li><b>(re-)impostare il clock</b>. Ogni nodo ha un <b>clock</b> interno che standisce come eseguire le sue azioni, il quale può essere impostato</li>
+<li><b>cambiare il valore dei regitstri</b>. Ogni nodo ha dei <b>registri</b> usati per eseguire le operazioni e/o mantere uno <b>stato</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup></li>
+</ul>
+</div>
+
+<div id="outline-container-org2a28e8a" class="outline-4">
+<h4 id="org2a28e8a"><span class="section-number-4">1.1.1</span> Stato di una entità</h4>
+<div class="outline-text-4" id="text-1-1-1">
 <p>
-<b>n.b.</b> se dovesse capitare di scegliere il nodo \(j=1\), esso viene considerato essere <i>autoreferenziato</i>, ovvere si considera la presenza
-dell'arco \((1,1)\) (per questioni di consistenza del processo).<br />
+Come detto, una entità può avere uno <b>stato</b> interno, il quale rappresenta un'informazione necessaria per il corretto funzionamento 
+di un <i>protocollo</i><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> distribuito.<br />
+Più formalmente ogni nodo ha un <b>insieme finito</b> di stati possibili \(\Sigma\) <span class="underline"><b>defnito a priori</b></span> (per esempio {idle, computing, waiting, processing, &#x2026;}),
+e in ogni istante una un entità è in uno dei suoi possibili stati (il quale dovrà essere <b>sempre definito</b>).<br />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orga19d458" class="outline-3">
+<h3 id="orga19d458"><span class="section-number-3">1.2</span> Eventi</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Il <i>comportamento</i> di ogni entità é <b>reattivo</b>, ovvero scaneta in seguito all'avvenire di <b>eventi</b>
+Alcuni esempi di eventi possono essere:
+</p>
+<ul class="org-ul">
+<li>il <i>tick</i> del clock (<i>evento interno al nodo</i>)</li>
+<li>la ricezioni di un messaggio (<i>evento esterno al nodo</i>)</li>
+<li>un <i>impulso</i> esterno alla rete</li>
+</ul>
+<p>
+Anche se in un contesto reale gli eventi avvengono su una <i>linea temporale discreta</i><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>,
+essi verranno considerati essere avvenuti in maniera <b>sequenziale</b> (o ordinata).
+Questo perché in un intervallo di tempo continuo, la probabilità che due eventi indipendenti
+occorrano nello stesso identico istante è pari a 0.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7b20fe5" class="outline-3">
+<h3 id="org7b20fe5"><span class="section-number-3">1.3</span> Azioni</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Come accennato, un'entità reagisce in seguito a un evento.
+In realtà l'azione che compie in risposta a un evento dipende anche dal suo stato interno nel momento dello stimolo.
+\[
+   \mbox{State } \times \mbox{ Evento} \mapsto \mbox{ Action}
+   \]
+In realtà per <i>azione</i> si intende una <i>sequenza di task</i> (o attività) da svolgere (non necessariamente una sola)
+come per esempio
+</p>
+<ul class="org-ul">
+<li>computare un algoritmo</li>
+<li>mangare un messaggio</li>
+<li>cambiare stato</li>
+</ul>
+<p>
+Un'azione è considerata essere <b>atomica</b>, ovvero una volta avviata non può essere interrotta in alcuna maniera.
+Inoltre è importante specificare che nel nostro modello le azioni <b>terminano sempre in un tempo finito</b>.<br />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org808c605" class="outline-3">
+<h3 id="org808c605"><span class="section-number-3">1.4</span> Comportamento delle entità</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Come detto in precedenza, per ogni coppia di stato ed evento corrisponde un'azione.
+Questa associazione è dette <b>regola</b>.<br />
 </p>
 
 <p>
-Intuitivamente questo processo genera un grafo che cattura il fenomeno <i>rich-get-richer</i>, è molto più probabile che un nuovo arco inserito
-punti a un nodo con grado entrante alto.
+Più in generale possiamo definire un <b>comportamento</b> di un'entità come un insieme di regole.
+Quindi, dato un'entità \(x\), sia \(\Sigma\) il suo insieme di stati possibili, \(\mathcal{E}\)
+l'insieme degli eventi ed \(A\) l'insieme delle azioni che può eseguire.
+Il suo comportamento \(B(x)\) è la <i>funzione</i>
+\[
+   B(x) : \Sigma \times \mathcal{E} \mapsto A
+   \]
+tale che è <b>deterministica</b> e <b>completa</b>
+\[
+   \forall (s,e) \in \Sigma \times \mathcal{E} \;\; \exists ! a \in A
+   \]
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd4e68aa" class="outline-3">
+<h3 id="orgd4e68aa"><span class="section-number-3">1.5</span> Comportamento del sistema - protocollo</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Raggruppando tutti i comportamenti delle entita di un sistema è possibile definire
+il cosidetto <i>protocollo</i> (o <i>algoritmo</i>) <i>distribuito</i>.<br />
+Più formalmente un protocollo è l'insieme
+\[
+   B := \lbrace B(x) : x \mbox{ è un'entità del sistema}  \rbrace
+   \]
+Un sistema si dice <b>simmetrico</b> (o <b>omogeneo</b>) se ogni entità ha uno stesso comportamento
+\[
+   \forall x,y \mbox { entità} \left[ B(x) \equiv B(y) \right]
+   \]
+In realtà è possibile trasformare ogni sistema in un sistema simmetrico.<br />
+Consideriamo un sistema dove esistono due tipi di entità, entità <i>server</i> ed entità <i>client</i>.
+Per ogni entità definiamo un <b>ruolo</b>, e in base ad esso eseguiamo l'azione corrispondete.
 </p>
 
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Esempio in <code>python</code> di come poter rendere un sistema simmetrico</label><pre class="src src-python">class Entity:
+    def __init__(self, role):
+	self.role = role
+
+    def action(self, state, event):
+	if self.role == 'server':
+	    server_action(self, state, event)
+	else:
+	    client_action(self, state, event)
+</pre>
+</div>
+
+
 <p>
-[da completare &#x2026;]
+[&#x2026; da completare]
 </p>
+
 
 <hr>
-</div>
 </div>
 </div>
 </div>
@@ -482,26 +469,15 @@ punti a un nodo con grado entrante alto.
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-<i>i.i.d.</i> sta per <i>indipendenti e identicamente distribuite</i>.
+generalmente viene usato un <b>registro di stato</b> apposito
 </p></div></div>
 
 <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
-[Broder et al., 2000]
+gli algoritmi distribuiti sono anche detti protocolli
 </p></div></div>
 
 <div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
-per <i>tick</i> si intende gli indici del grafico che vengono segnati sugli assi.
-Generalmente si è abituati a vedere dei tick che crescono in maniera lineare \([0, 1, 2, ...]\), però spesso
-è necessario visualizzare l'asse secodno una scala differete, per esempio che cresce in maniera quadratica \([0, 1, 4, 9, 16, ...]\).
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
-magari quell'ultima pagina delle 33 milioni è la migliore di tutte, ma probabilmente non lo saprò mai finché non salirà
-tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
-<i>u.r.a.</i> sta per uniformemente a caso
+io direi <b>approssimativamente discreta</b>, in quanto (a parer mio) non c'è certezza dell'esistenza del continuo
 </p></div></div>
 
 
@@ -510,7 +486,7 @@ tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
 <div id="postamble" class="status">
 <p class="date">Date: 2021-10-11 lun 00:00</p>
 <p class="author">Author: Alessandro Straziota Alessandro Straziota</p>
-<p class="date">Created: 2021-10-16 sab 20:02</p>
+<p class="date">Created: 2021-10-16 sab 20:00</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -306,3 +306,4 @@
     Perciò, in un grafo /Erdős–Rényi/ $G_{n,p}$ con grado medio constante, ovvero con parametro $p = \frac{\lambda}{n}$,
     il numero di nodi di grado esattamente $k$ descrese esponenzialmente in $k$ (come $k^{-k}$).
    
+#+html: <hr>

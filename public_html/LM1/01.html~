@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-12 mar 23:52 -->
+<!-- 2021-10-16 sab 20:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Algebra Universale - Lesson 01</title>
@@ -274,22 +274,22 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf977971">1. Definizione (provvisoria) di Struttura Algebrica</a></li>
-<li><a href="#org285c083">2. Esempi di strutture algebriche</a>
+<li><a href="#org01b896e">1. Definizione (provvisoria) di Struttura Algebrica</a></li>
+<li><a href="#org3a5f8ea">2. Esempi di strutture algebriche</a>
 <ul>
-<li><a href="#orgcb0aa6b">2.1. Gruppi</a></li>
-<li><a href="#org622c09f">2.2. Semigruppo</a></li>
-<li><a href="#org9c6bf02">2.3. Anello</a></li>
-<li><a href="#orgdfe31d2">2.4. Spazio Vettoriale</a></li>
-<li><a href="#org76bed6e">2.5. Quasigruppo</a></li>
+<li><a href="#org0d3ea96">2.1. Gruppi</a></li>
+<li><a href="#orgd30144c">2.2. Semigruppo</a></li>
+<li><a href="#org9f5a1ce">2.3. Anello</a></li>
+<li><a href="#orgff59381">2.4. Spazio Vettoriale</a></li>
+<li><a href="#org6f03435">2.5. Quasigruppo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf977971" class="outline-2">
-<h2 id="orgf977971"><span class="section-number-2">1</span> Definizione (provvisoria) di Struttura Algebrica</h2>
+<div id="outline-container-org01b896e" class="outline-2">
+<h2 id="org01b896e"><span class="section-number-2">1</span> Definizione (provvisoria) di Struttura Algebrica</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Un'<i>algebra</i> è una coppia \((A, F)\) dove:
@@ -329,15 +329,16 @@ e.g.
 </div>
 </div>
 
-<div id="outline-container-org285c083" class="outline-2">
-<h2 id="org285c083"><span class="section-number-2">2</span> Esempi di strutture algebriche</h2>
+
+<div id="outline-container-org3a5f8ea" class="outline-2">
+<h2 id="org3a5f8ea"><span class="section-number-2">2</span> Esempi di strutture algebriche</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Di seguito alcuni esempi di strutture algebrice.
 </p>
 </div>
-<div id="outline-container-orgcb0aa6b" class="outline-3">
-<h3 id="orgcb0aa6b"><span class="section-number-3">2.1</span> Gruppi</h3>
+<div id="outline-container-org0d3ea96" class="outline-3">
+<h3 id="org0d3ea96"><span class="section-number-3">2.1</span> Gruppi</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Un <i>gruppo</i> è una coppia \((G, \circ)\) dove:
@@ -359,16 +360,16 @@ Se l'operatore \(\circ\) è anche commutativo allora il gruppo si dice <b>commut
 </p>
 </div>
 </div>
-<div id="outline-container-org622c09f" class="outline-3">
-<h3 id="org622c09f"><span class="section-number-3">2.2</span> Semigruppo</h3>
+<div id="outline-container-orgd30144c" class="outline-3">
+<h3 id="orgd30144c"><span class="section-number-3">2.2</span> Semigruppo</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Un <i>semigruppo</i> è una coppia \((G, \circ)\) tale che \(G\) è un inseme e \(\circ\) è un'operazione binaria su \(G\) che gode della sola proprietà associativa.
 </p>
 </div>
 </div>
-<div id="outline-container-org9c6bf02" class="outline-3">
-<h3 id="org9c6bf02"><span class="section-number-3">2.3</span> Anello</h3>
+<div id="outline-container-org9f5a1ce" class="outline-3">
+<h3 id="org9f5a1ce"><span class="section-number-3">2.3</span> Anello</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Un <i>anello</i> è un insieme \((A, +, \cdot)\) dove valgono le seguenti proprietà:
@@ -393,8 +394,8 @@ Degli esempi di anelli possono essere \((\mathbb{Z}, +, \cdot)\) o \((\mathbb{R}
 </p>
 </div>
 </div>
-<div id="outline-container-orgdfe31d2" class="outline-3">
-<h3 id="orgdfe31d2"><span class="section-number-3">2.4</span> Spazio Vettoriale</h3>
+<div id="outline-container-orgff59381" class="outline-3">
+<h3 id="orgff59381"><span class="section-number-3">2.4</span> Spazio Vettoriale</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 Come abbiamo visto in precedenza l'insieme \((V, +, \cdot)\) non può essere una struttura algebrica sullo spazio vettoriale \(V\) in quanto l'operazione \(\cdot\) non è <i>interna</i>.
@@ -407,8 +408,8 @@ Si potrebbe perciò aggirare questo problema definendo un anello nel seguente mo
 </p>
 </div>
 </div>
-<div id="outline-container-org76bed6e" class="outline-3">
-<h3 id="org76bed6e"><span class="section-number-3">2.5</span> Quasigruppo</h3>
+<div id="outline-container-org6f03435" class="outline-3">
+<h3 id="org6f03435"><span class="section-number-3">2.5</span> Quasigruppo</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 Un <i>quasigruppo</i> è un un insieme \((Q, *)\) simile a un semigruppo, dove \(Q\) è un insieme non vuoto e \(*\) è una operazione binaria interna che riespetta la seguente proprietà:<br />
@@ -425,6 +426,9 @@ L'unica soluzione è spesso scritta nella seguente notazione
 x = a \backslash b \\
 y = b / a
    \end{cases}
+
+
+<hr>
 </div>
 </div>
 </div>
@@ -432,7 +436,7 @@ y = b / a
 <div id="postamble" class="status">
 <p class="date">Date: 2021-10-11 lun 00:00</p>
 <p class="author">Author: Alessandro Straziota</p>
-<p class="date">Created: 2021-10-12 mar 23:52</p>
+<p class="date">Created: 2021-10-16 sab 20:02</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
