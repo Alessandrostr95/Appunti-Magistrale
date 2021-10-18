@@ -210,21 +210,17 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      Questo perché generalmente le leggi /discrete/ e /probabilistiche/ sono troppo complesse da analizzare.\\
 
      Per prima cosa si può rimuovere il fattore aleatorio e renderla deterministica con la seguente approssimazione
-     \[
      \begin{cases}
      X_j(j) = 0\\
      X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
      \end{cases}
-     \forall t \geq j
-     \]
+     $\forall t \geq j$.\\
      
      La seconda approssimazione da fare è passare dal /discreto/ al /continuo/
-     \[
      \begin{cases}
      x_j(j) = 0\\
      \frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
      \end{cases}     
-     \]
      Non è detto che questa approssimazione si avvicini alla legge reale.
      Notare in fine che la seconda equazione del sistema è una /equazione differenziale/[fn:6]
 
@@ -232,7 +228,7 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      Si vuole risolvere la seguente eq. differenziale $\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)$.
      Per prima cosa la si può raccogliere il fattore $1/t$
      \[ \frac{d}{dt}x_j(t) = \frac{1}{t} \left[ p + (1-p)x_j(t) \right] \]
-     e poi dividendo entrambi i membri per \left[ p + (1-p)x_j(t) \right]
+     e poi dividendo entrambi i membri per $\left[ p + (1-p)x_j(t) \right]$
      \[ \frac{1}{p + (1-p)x_j(t)}  \frac{d}{dt}x_j(t) = \frac{1}{t} \]
 
      A questo punto si può procedere integrando in $dt$

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-18 lun 16:04 -->
+<!-- 2021-10-18 lun 16:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 02</title>
@@ -574,27 +574,23 @@ Questo perché generalmente le leggi <i>discrete</i> e <i>probabilistiche</i> so
 
 <p>
 Per prima cosa si può rimuovere il fattore aleatorio e renderla deterministica con la seguente approssimazione
-\[
 </p>
 \begin{cases}
 X_j(j) = 0\\
 X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
 \end{cases}
 <p>
-&forall; t &ge; j
-\]
+\(\forall t \geq j\).<br />
 </p>
 
 <p>
 La seconda approssimazione da fare è passare dal <i>discreto</i> al <i>continuo</i>
-\[
 </p>
 \begin{cases}
 x_j(j) = 0\\
 \frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
 \end{cases}     
 <p>
-\]
 Non è detto che questa approssimazione si avvicini alla legge reale.
 Notare in fine che la seconda equazione del sistema è una <i>equazione differenziale</i><sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup>
 </p>
@@ -607,7 +603,7 @@ Notare in fine che la seconda equazione del sistema è una <i>equazione differen
 Si vuole risolvere la seguente eq. differenziale \(\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)\).
 Per prima cosa la si può raccogliere il fattore \(1/t\)
 \[ \frac{d}{dt}x_j(t) = \frac{1}{t} \left[ p + (1-p)x_j(t) \right] \]
-e poi dividendo entrambi i membri per \left[ p + (1-p)x_j(t) \right]
+e poi dividendo entrambi i membri per \(\left[ p + (1-p)x_j(t) \right]\)
 \[ \frac{1}{p + (1-p)x_j(t)}  \frac{d}{dt}x_j(t) = \frac{1}{t} \]
 </p>
 
@@ -754,7 +750,7 @@ una <i>eq. differenziale</i> è una equazione che lega una funzione alla sua der
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-18 lun 16:04</p>
+<p class="date">Created: 2021-10-18 lun 16:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
