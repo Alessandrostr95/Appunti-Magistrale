@@ -55,6 +55,9 @@
    (Proprio non vorrei essere nei panni di /Bob/...).
 
 
+#+html: <hr>   
+
+
 * Struttura di una Rete
 #+LABEL: sec:struttura
   Generalmente si è interessati a studiare reti di deminsioni enormi, perciò diventa estremamente complicato studiare ed analizzare
@@ -82,6 +85,8 @@
   Lo studio di queste prorietà globali sarà fatto sia a /livello di popolazione/, ovvero considerando mediamente ciò che succede agli
   individui, sia a /livello di singolo individui/, andando a considerare la topologia della rete (relazione per relazione).
 
+  #+html: <hr>
+  
 
 * Rappresentazione di una rete
   Come si è poptuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
@@ -225,17 +230,17 @@
 
 *** Grado dei nodi
     Dato un grafo /Erdős–Rényi/ $G_{n,p}$, definiamo col simbolo $\delta_i$ la /variabile aleatoria/ che esprime il *grado* del nodo $i$.
-    Sia inoltre  la v.a. binaria $j \in \left[ n \right] \setminus \lbrace i \rbrace$
+    Sia inoltre  la v.a. binaria tale che $\forall j \in \left[ n \right] \setminus \lbrace i \rbrace$
     \[
     X_{i,j} = \begin{cases}
-    1 &\mbox{se esiste l'arco }(i,j) \in E\\
+    1 &\mbox{se esiste l'arco }(j,i) \in E\\
     0 &\mbox{altrimenti}
     \end{cases}
     \]
     Perciò il [[https://it.wikipedia.org/wiki/Valore_atteso][valore atteso]] di $\delta_i$ sarà
     \[
-    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{i,j} \right]\\
-    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{i,j} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
+    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{j,i} \right]\\
+    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{j,i} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
     = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
     \]
     Perciò la quantità $p(n-1)$ vista nella precedente sezione, altro non è che il /grado medio/ di un nodo.
@@ -254,8 +259,8 @@
     \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}
     \]
     Questo perché:
-    1. $\binom{n-1}{k}$ è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] \setminus \lbrace i \rbrace $.
-    2. $p^k$ è la probabilità che eistano gli archi tra $i$ e i nodi di una $k$-upla.
+    1. $\binom{n-1}{k}$ è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] \setminus \lbrace i \rbrace$.
+    2. $p^k$ è la probabilità che eistano gli archi tra $i$ e i nodi di una $k$ -upla.
     3. $\left( 1-p \right)^{(n-1) - k}$ è la probabilità che non esista nessun altro arco (ne vogliamo solo $k$).
     
     Scegliendo $p = \frac{ \lambda }{n}$ in funzione di $n$ come detto in precedenza, avremo che la probabilità che un nodo abbia grado

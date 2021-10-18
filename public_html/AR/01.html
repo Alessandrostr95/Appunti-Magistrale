@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-18 lun 17:01 -->
+<!-- 2021-10-19 mar 00:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 01</title>
@@ -357,6 +357,9 @@ Dovendo scegliere per forza una delle due con la quale passare più tempo, neces
 tenderà a rompersi, rendendo così la rete più stabile.
 (Proprio non vorrei essere nei panni di <i>Bob</i>&#x2026;).
 </p>
+
+
+<hr>
 </div>
 </div>
 </div>
@@ -397,6 +400,8 @@ Mediamente, tramite solo 5 intermediari, lattera arriverà al presidente Joe Bid
 Lo studio di queste prorietà globali sarà fatto sia a <i>livello di popolazione</i>, ovvero considerando mediamente ciò che succede agli
 individui, sia a <i>livello di singolo individui</i>, andando a considerare la topologia della rete (relazione per relazione).
 </p>
+
+<hr>
 </div>
 </div>
 
@@ -610,17 +615,17 @@ Questo verrà mostrato nella seguente sezione.
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Dato un grafo <i>Erdős–Rényi</i> \(G_{n,p}\), definiamo col simbolo \(\delta_i\) la <i>variabile aleatoria</i> che esprime il <b>grado</b> del nodo \(i\).
-Sia inoltre  la v.a. binaria \(j \in \left[ n \right] \setminus \lbrace i \rbrace\)
+Sia inoltre  la v.a. binaria tale che \(\forall j \in \left[ n \right] \setminus \lbrace i \rbrace\)
 \[
     X_{i,j} = \begin{cases}
-    1 &\mbox{se esiste l'arco }(i,j) \in E\\
+    1 &\mbox{se esiste l'arco }(j,i) \in E\\
     0 &\mbox{altrimenti}
     \end{cases}
     \]
 Perciò il <a href="https://it.wikipedia.org/wiki/Valore_atteso">valore atteso</a> di \(\delta_i\) sarà
 \[
-    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{i,j} \right]\\
-    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{i,j} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
+    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{j,i} \right]\\
+    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{j,i} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
     = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
     \]
 Perciò la quantità \(p(n-1)\) vista nella precedente sezione, altro non è che il <i>grado medio</i> di un nodo.
@@ -645,8 +650,8 @@ Tale probabilità è esattamente definita dalla <a href="https://it.wikipedia.or
 Questo perché:
 </p>
 <ol class="org-ol">
-<li>\(\binom{n-1}{k}\) è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] &setminus; \lbrace i \rbrace $.</li>
-<li>\(p^k\) è la probabilità che eistano gli archi tra \(i\) e i nodi di una $k$-upla.</li>
+<li>\(\binom{n-1}{k}\) è il numero di tutte le possibili $k$-uple di nodi in \(\left[ n \right] \setminus \lbrace i \rbrace\).</li>
+<li>\(p^k\) è la probabilità che eistano gli archi tra \(i\) e i nodi di una \(k\) -upla.</li>
 <li>\(\left( 1-p \right)^{(n-1) - k}\) è la probabilità che non esista nessun altro arco (ne vogliamo solo \(k\)).</li>
 </ol>
 
@@ -714,7 +719,7 @@ il numero di nodi di grado esattamente \(k\) descrese esponenzialmente in \(k\) 
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-18 lun 17:01</p>
+<p class="date">Created: 2021-10-19 mar 00:19</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

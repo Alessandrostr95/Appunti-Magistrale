@@ -6,7 +6,7 @@
 Supponiamo di avere un /sistema distribuito/ formato da una serie $p_1,p_2,...,p_n$ di /peer/, ovvero di entità che hanno uno *stesso ruolo*.
 Supponiamo inoltre che un /peer/ $p_i$ debba effettuare una transazione verso un altro peer $p_j$.
 Per far sì che ciò avvenga si necessita che ci sia *fiducia* (o *trust*) tra i peer.
-Più in particolare che $p_j$ /si fidi/ fidi di $p_i$.\\
+Più in particolare che $p_j$ /si fidi/ di $p_i$.\\
 
 Generalmente questo è il lavoro che le banche cercano[fn:1] di fare: garantire la fiducia tra i peer facendo da intermediario. 
 Nascono perciò due domande:
