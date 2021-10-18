@@ -1,0 +1,77 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/alessandro/Appunti-Magistrale/org/AR/01.org
+
+
+* Grado dei nodi
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-10-14 gio 11:05
+  :ARCHIVE_FILE: ~/Appunti-Magistrale/org/AR/01.org
+  :ARCHIVE_OLPATH: Rappresentazione di una rete/Il modello Erdős–Rényi
+  :ARCHIVE_CATEGORY: 01
+  :END:
+  Dato un grafo /Erdős–Rényi/ $G_{n,p}$, definiamo col simbolo $\delta_i$ la /variabile aleatoria/ che esprime il *grado* del nodo $i$.
+  Sia inoltre  la v.a. binaria $j \in \left[ n \right] \setminus \lbrace i \rbrace$
+  \[
+  X_{i,j} = \begin{cases}
+  1 &\mbox{se esiste l'arco }(i,j) \in E\\
+  0 &\mbox{altrimenti}
+  \end{cases}
+  \]
+  Perciò il [[https://it.wikipedia.org/wiki/Valore_atteso][valore atteso]] di $\delta_i$ sarà
+  \[
+  \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{i,j} \right]\\
+  = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{i,j} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
+  = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
+  \]
+  Perciò la quantità $p(n-1)$ vista nella precedente sezione, altro non è che il /grado medio/ di un nodo.
+  Ciò significa che, fissato un $p$ *costante*, ogni individuo nella rete sarà in contatto con una porzione constante della reta stessa, ovvero il grado medio cresce in maniera /lineare nel numero di nodi/.
+  Ovviamente è inverosimile che in una rete di un social network composta da centinaia di milioni (se non miliardi) di nodi, io abbia un numero di amicizie proporzionale al numero di utenti (non penso sarà mai così famoso).\\
+
+  Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che $p$ sia una funzione di $n$, e che magari /descresca/ in maniera
+  inversamente proporzionale, del tipo
+  \[ p = p(n) = \frac{ \lambda }{n} \]
+  Scegliendo $p$ in questa maniera, avremo che il grado medio di un nodo sarà pari alla *costante* $\lambda$, indipendentemente dalla dimensione della rete.\\
+
+  Un'altra domanda che è utile chiedersi è: fissato un $k \leq n$, con quale probabilità che un nodo $i \in \left[ n \right]$ ha *esattamente* grado $k$.
+  Intuitivamente, questa è pari alla probabilità che esistano esattamente $k$ archi incidenti a $i$.
+  Tale probabilità è esattamente definita dalla [[https://it.wikipedia.org/wiki/Distribuzione_binomiale][legge binomiale]] $\mathcal{B}(n-1,p)$, ovvero
+  \[
+  \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}
+  \]
+  Questo perché:
+  1. $\binom{n-1}{k}$ è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] \setminus \lbrace i \rbrace $.
+  2. $p^k$ è la probabilità che eistano gli archi tra $i$ e i nodi di una $k$-upla.
+  3. $\left( 1-p \right)^{(n-1) - k}$ è la probabilità che non esista nessun altro arco (ne vogliamo solo $k$).
+    
+  Scegliendo $p = \frac{ \lambda }{n}$ in funzione di $n$ come detto in precedenza, avremo che la probabilità che un nodo abbia grado
+  medio esattamente $k$ è
+  \[
+  \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}\\
+  \binom{n-1}{k} \left(  \frac{ \lambda }{n} \right)^k \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+  = \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+  < \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}} \;\;\; (1)\\
+  < \frac{n^k}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}}\\
+  \approx \frac{ \lambda^k }{ k! } e^{ -\lambda } \;\;\; \mbox{per } n \mbox{ sufficientemente grande}
+  \]
+  Più semplicemente
+  \[ \mathcal{P}\left( \delta_i = k \right) < \frac{ \lambda^k }{ k! } e^{ -\lambda } \]
+  La disuguaglianza *(1)* è data dal fatto che $\forall x < 1$ vale sempre che $1-x < e^{-x}$.
+
+  Applicando l'[[https://it.wikipedia.org/wiki/Approssimazione_di_Stirling][approssimazione di Stirling]] secondo la quale $k! \thicksim \sqrt{2 \pi k} \left( \frac{k}{e}  \right)^k$,
+  possiamo semplificare il tutto con
+  \[
+  \mathcal{P} \left( \delta_i = k \right) < \frac{ (\lambda e)^k }{ \sqrt{2 \pi k} k^k }e^{ -\lambda }
+  = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
+  \]
+  Quest'ultima disuguaglianza ci suggerisce che la probabilità che un generico nodo abbia grado $k$
+  /decresce/ molto velocemente al crescere di $k$, più precisamente decresce /esponenzialmente/ in $k$
+  (come $k^{-k}$).\\
+
+  Una volta stabilità questa probabilità, si può calcolare il numero atteso di nodi che hanno grado esattamente $k$.
+  Per prima cosa definiamo la variabile aleatoria binaria $\delta_{i,k}$ tale che
+  \[
+    
+  \]
+   

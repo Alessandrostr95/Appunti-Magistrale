@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-16 sab 20:02 -->
+<!-- 2021-10-18 lun 16:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 02</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Alessandro Straziota Alessandro Straziota" />
+<meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -271,19 +271,20 @@ for the JavaScript code in this tag.
 </div><div id="content">
 <h1 class="title">AR - Lesson 02</h1>
 <div id="table-of-contents">
-<h2>Table of Contents</h2>
+<h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf5d6e22">1. Power Law</a>
+<li><a href="#orga1bc5eb">1. Power Law</a>
 <ul>
-<li><a href="#org110d78b">1.1. Riconoscere una power law</a></li>
+<li><a href="#org16901b4">1.1. Riconoscere una power law</a></li>
 </ul>
 </li>
-<li><a href="#org50b35e4">2. Fenomeno <i>rich-get-richer</i></a>
+<li><a href="#org2eac95a">2. Fenomeno <i>rich-get-richer</i></a>
 <ul>
-<li><a href="#org69f35cc">2.1. Un modello per <i>rich-get-richer</i></a>
+<li><a href="#orgce8665b">2.1. Un modello per <i>rich-get-richer</i></a>
 <ul>
-<li><a href="#org4650a81">2.1.1. Procedura per la generazione</a></li>
+<li><a href="#orgc0febd6">2.1.1. Procedura per la generazione</a></li>
+<li><a href="#org33053e8">2.1.2. Verifica correttezza</a></li>
 </ul>
 </li>
 </ul>
@@ -292,17 +293,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgf5d6e22" class="outline-2">
-<h2 id="orgf5d6e22"><span class="section-number-2">1</span> Power Law</h2>
+
+<div id="outline-container-orga1bc5eb" class="outline-2">
+<h2 id="orga1bc5eb"><span class="section-number-2">1</span> Power Law</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Nella <a href="./01.html">lezione 1</a> si è visto che in un <i>Erdős–Rény random graph</i> il numero di nodi che hanno grado esattamente \(k\) decresce <i>esponenzialmente</i> in \(k\).
 Per comprendere meglio il perché di questo andamento è necessario enunciare (quantomeno in maniera informale e intuitiva) il <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">teorema del limite centrale</a>.
 </p>
 
+<blockquote>
 <hr>
 
-<blockquote>
 <p>
 <b>Teorema del limite centrale</b><br />
     Siano \(X_1, X_2, ..., X_n\) una sequenza di \(n\) variabili aleatorie <b>indipendenti</b> e <b>identicamente distribuite</b>,
@@ -325,11 +327,11 @@ Per comprendere meglio il perché di questo andamento è necessario enunciare (q
 <div class="figure">
 <p><img src="../images/ar-lesson02-img1.png" alt="ar-lesson02-img1.png" width="60%" />
 </p>
-<p><span class="figure-number">Figure 1: </span>Esempio distribuzione Normale</p>
+<p><span class="figure-number">Figura 1: </span>Esempio distribuzione Normale</p>
 </div>
-</blockquote>
 
 <hr>
+</blockquote>
 
 <p>
 Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado \(k\) in un <i>Erdős–Rény random graph</i>
@@ -363,8 +365,8 @@ a quanto ci si aspetta nel modello <i>Erdős–Rény</i>, implica che non è del
 </p>
 </div>
 
-<div id="outline-container-org110d78b" class="outline-3">
-<h3 id="org110d78b"><span class="section-number-3">1.1</span> Riconoscere una power law</h3>
+<div id="outline-container-org16901b4" class="outline-3">
+<h3 id="org16901b4"><span class="section-number-3">1.1</span> Riconoscere una power law</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Non è sempre scontato il riconoscere a vista una funzione power law rispetto a una funzione che decresce esponenzialmente.
@@ -377,7 +379,7 @@ All'atto pratico, invece di considerare la funzione \(y = f(x)\), verrà mostrat
 <div class="figure">
 <p><img src="../images/ar-lesson02-img2.png" alt="ar-lesson02-img2.png" width="60%" />
 </p>
-<p><span class="figure-number">Figure 2: </span>Esempio di scala <i>lineare</i> (a sinistra) e scala <i>log-log</i> (a destra)</p>
+<p><span class="figure-number">Figura 2: </span>Esempio di scala <i>lineare</i> (a sinistra) e scala <i>log-log</i> (a destra)</p>
 </div>
 
 <p>
@@ -385,14 +387,17 @@ Come si può notare nell'immagine precedente, è difficile stabilire ad occhio q
 Invece, con la scala <i>log-log</i>, la funzione power law assume un andamento lineare.
 Questo perché \(\log{(y)} \approx -c \log{(k)}\).
 </p>
+
+
+
+<hr>
 </div>
 </div>
 </div>
 
 
-
-<div id="outline-container-org50b35e4" class="outline-2">
-<h2 id="org50b35e4"><span class="section-number-2">2</span> Fenomeno <i>rich-get-richer</i></h2>
+<div id="outline-container-org2eac95a" class="outline-2">
+<h2 id="org2eac95a"><span class="section-number-2">2</span> Fenomeno <i>rich-get-richer</i></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Uno dei fenomi più noti nelle reti è il cosidetto fenomeno <i>rich-get-richer</i>.
@@ -429,8 +434,8 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 </p>
 </div>
 
-<div id="outline-container-org69f35cc" class="outline-3">
-<h3 id="org69f35cc"><span class="section-number-3">2.1</span> Un modello per <i>rich-get-richer</i></h3>
+<div id="outline-container-orgce8665b" class="outline-3">
+<h3 id="orgce8665b"><span class="section-number-3">2.1</span> Un modello per <i>rich-get-richer</i></h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Si vuole descrivere un modello secodno il quale la scelta di un nuovo arco da aggiungere si basa sull'esistenza degli archi già presenti,
@@ -443,8 +448,8 @@ Verrà proposto un <b>processo incrementale</b> di creazione di una rete che ris
 </ol>
 </div>
 
-<div id="outline-container-org4650a81" class="outline-4">
-<h4 id="org4650a81"><span class="section-number-4">2.1.1</span> Procedura per la generazione</h4>
+<div id="outline-container-orgc0febd6" class="outline-4">
+<h4 id="orgc0febd6"><span class="section-number-4">2.1.1</span> Procedura per la generazione</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <p>
 Fissata una probabilità \(p \in \left[ 0,1 \right]\), vengono eseguite le seguenti operazioni in maniera sequenziale:
@@ -464,8 +469,240 @@ dell'arco \((1,1)\) (per questioni di consistenza del processo).<br />
 </p>
 
 <p>
-Intuitivamente questo processo genera un grafo che cattura il fenomeno <i>rich-get-richer</i>, è molto più probabile che un nuovo arco inserito
+Intuitivamente questo processo genera un grafo che cattura il fenomeno <i>rich-get-richer</i>: è molto più probabile che un nuovo arco inserito
 punti a un nodo con grado entrante alto.
+Si osservi inoltre che ogni nodo ha <i>esattamente</i> un arco uscente.<br />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org33053e8" class="outline-4">
+<h4 id="org33053e8"><span class="section-number-4">2.1.2</span> Verifica correttezza</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+Bisogna ora da verificare che il modello precedentemente descritto rispetti una <i>power-law</i>:
+ovvero se il numero di nodi con grado \(k\) decresce come l'inversa di un polinomio in \(k\).<br />
+</p>
+
+<p>
+Per prima cosa definiamo la v.a. binaria \(\delta_{i,j}\) che vale 1 se esiste l'arco \((i,j)\), 0 altrimenti
+\[
+    \delta_{i,j} = \begin{cases}
+    1 &\mbox{se } (i,j) \in E\\
+    0 &\mbox{altrimenti}
+    \end{cases}
+    \;\;\; \forall i > j
+    \]
+Perciò la probabilità che esista un arco diretto \((i,j)\) può essere calcolata come segue
+\[
+    \mathcal{P}(\delta_{i,j} = 1) = p \cdot \mathcal{P}\left( \mbox{viene scleto } j \right) +
+    (1-p) \cdot \mathcal{P}\left( \mbox{scelgo un nodo } h : \delta_{h,j} = 1 \right)\\
+    = \frac{p}{i-1} + (1-p)\mathcal{P} \left( \bigcup_{h < j : (h,j) \in E} \mbox{viene scleto } h \right)\\
+    = \frac{p}{i-1} + (1-p)\sum_{h < j : (h,j) \in E} \mathcal{P} \left( \mbox{viene scleto } h \right) \;\;\; (1)\\
+    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{h < j : (h,j) \in E} 1 \;\;\; (2)\\
+    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} 
+    \]
+dove:
+</p>
+<ul class="org-ul">
+<li><b>(1)</b> la probabilità dell'unione di eventi <i>disgiunti</i> è pari alla somma delle loro probabilità.</li>
+<li><b>(2)</b> la probabilità di scegliere un nodo \(h < i\) è equamente distribuita come \(\frac{1}{i-1}\).</li>
+</ul>
+
+<p>
+Facciamo una considerazione: dato che ogni nodo \(i > 2\) ha esattamente un arco uscente, deve essere
+necessariamente vero che \(\mathcal{P}(\exists j < i : (i,j) \in E ) = 1\).
+Infatti \(\mathcal{P}(\exists j < i : (i,j) \in E ) = \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E )\).
+Questo si può dimostrare per induzione su \(i\):
+</p>
+<ul class="org-ul">
+<li>per \(i = 2\) avremo che \(\sum_{1 \leq j < 2} \mathcal{P}( (2,j) \in E ) = \mathcal{P}( (2,1) \in E ) = 1\), e questo è vero <b>per costruzione</b>.</li>
+<li>supponiamo sia vero per \(i \leq k - 1\), per \(i = k\) avremo che
+\[
+      \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E ) = \sum_{1 \leq j < i} \left[ \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j}  \right]\\ 
+      = \sum_{1 \leq j < i} \frac{p}{i-1} + \sum_{1 \leq j < i} \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} \;\;\; \mbox{spezzo la serie}\\
+      = \frac{(i-1)p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq j < i} \sum_{1 \leq h < i} \delta_{h,j}\\
+      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \underbrace{ \sum_{1 \leq j < i} \delta_{h,j} }_{\small{ \mbox{1 solo arco uscente} }} \;\;\; \mbox{inverto le due serie}\\
+      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} 1\\
+      = p + (1 - p) = 1
+      \]</li>
+</ul>
+
+<p>
+Siamo ora pronti a verificare la reale presenza di una <i>power law</i>.
+Questo procedimento avverrà in 4 fase:
+</p>
+<ol class="org-ol">
+<li>Definizione di una legge aleatoria che esprima la variazione del grado (entrante) di un nodo nel tempo.</li>
+<li>Approssimazione <b>deterministica</b> e <b>continua</b> della legge.</li>
+<li>Risoluzione di una <i>equazione differenziale</i> che calcola il valore di tale approssimazione.</li>
+<li>Individuazione di una <i>power law</i>.</li>
+</ol>
+</div>
+
+<ol class="org-ol">
+<li><a id="org84111ea"></a><b>Legge aleatoria</b><br />
+<div class="outline-text-5" id="text-2-1-2-1">
+<p>
+Sia la <i>v.a. discreta</i> \(D_j(t)\) che esprima il grado entrante del nodo \(j\) al tempo \(t\) del processo di generazione del grafo.
+Si osservi che \(D_j(t)\) è difinita <b>solamente</b> per \(t \geq j\), e che \(D_j(j) = 0\) per ogni \(j\) (per costruzione).<br />
+</p>
+
+<p>
+Ritornando alla variazione del grado entrante nel tempo, possiamo dire che dal tempo \(t\) al tempo \(t+1\) esso potrà essere aumentato di <b>al più</b> una unità.
+Perciò possiamo esprimere la variazione nel tempo del grado entrante del nodo \(j\) come la differenza \(D_j(t+1) - D_j(t)\).<br />
+</p>
+
+<p>
+Possiamo quindi calcolare la probabilità che il grado del nodo \(j\) aumenti di 1 come
+\[
+     \mathcal{P}(D_j(t+1) - D_j(t) = 1) = \mathcal{P}(\delta_{t+1, j} = 1)\\
+     = \frac{p}{(t+1)-1} + \frac{(1-p)}{(t+1)-1} \sum_{1 \leq h < (t+1)} \delta_{h,j}\\
+     = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)
+     \]
+</p>
+</div>
+</li>
+
+<li><a id="org62fdfec"></a><b>Approssimazione deterministica e continua</b><br />
+<div class="outline-text-5" id="text-2-1-2-2">
+<p>
+Stabilita la legge \(\mathcal{P}(D_j(t+1) - D_j(t) = 1) = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)\), la si vuole approssimare.
+Questo perché generalmente le leggi <i>discrete</i> e <i>probabilistiche</i> sono troppo complesse da analizzare.<br />
+</p>
+
+<p>
+Per prima cosa si può rimuovere il fattore aleatorio e renderla deterministica con la seguente approssimazione
+\[
+</p>
+\begin{cases}
+X_j(j) = 0\\
+X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
+\end{cases}
+<p>
+&forall; t &ge; j
+\]
+</p>
+
+<p>
+La seconda approssimazione da fare è passare dal <i>discreto</i> al <i>continuo</i>
+\[
+</p>
+\begin{cases}
+x_j(j) = 0\\
+\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
+\end{cases}     
+<p>
+\]
+Non è detto che questa approssimazione si avvicini alla legge reale.
+Notare in fine che la seconda equazione del sistema è una <i>equazione differenziale</i><sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup>
+</p>
+</div>
+</li>
+
+<li><a id="org8c553f5"></a><b>Risoluzione equazione differenziale</b><br />
+<div class="outline-text-5" id="text-2-1-2-3">
+<p>
+Si vuole risolvere la seguente eq. differenziale \(\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)\).
+Per prima cosa la si può raccogliere il fattore \(1/t\)
+\[ \frac{d}{dt}x_j(t) = \frac{1}{t} \left[ p + (1-p)x_j(t) \right] \]
+e poi dividendo entrambi i membri per \left[ p + (1-p)x_j(t) \right]
+\[ \frac{1}{p + (1-p)x_j(t)}  \frac{d}{dt}x_j(t) = \frac{1}{t} \]
+</p>
+
+<p>
+A questo punto si può procedere integrando in \(dt\)
+\[
+     \int \frac{1}{p + (1-p)x_j(t)}  \frac{d x_j(t)}{dt} \, dt = \int \frac{dt}{t}\\
+     \int \frac{d x_j(t)}{p + (1-p)x_j(t)} = \int \frac{dt}{t}
+     \]
+Moltiplichiamo entrambi i membri per \((1-p)\)
+\[ \int \frac{(1-p) d x_j(t)}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t} \]
+Poniamo poi \(y = p + (1-p)x_j(t)\).
+La sua derivata di \(y\) sarà \(y' = \frac{dy}{dx_j(t)} = (1-p)x_j(t)\), ovvero il numeratore della frazione nel primo integrale.
+\[ \int \frac{y'}{y} \, dx_j(t) = (1-p) \int \frac{dt}{t} \]
+Il quale si può semplificare come
+\[
+      \int \frac{y'}{y} \, dx_j(t) =  \int \frac{\frac{dy}{dx_j(t)}}{y} \, dx_j(t) = \int \frac{dy}{y}
+     \]
+</p>
+
+<p>
+Adesso che è rimasto solo il fattore \(y\) al primo membro, risostituiamo col valore origianle 
+\[
+     \int \frac{d \left[p + (1-p) x_j(t) \right]}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t}
+     \]
+A questo punto è facile integrare, ottenendo che
+\[ \ln{\left( p + (1-p) x_j(t) \right)} = (1-p) \ln{(t)} + c \]
+Da cui poi elevando a potenza
+\[ p + (1-p) x_j(t) = t^{1-p} \cdot e^c = C \cdot t^{1-p}  \]
+</p>
+
+
+<p>
+Per calcolare la costante \(C\) basta considerare la condizione iniziale per cui \(x_j(j) = 0\), ottenendo che
+\[ p = C \cdot j^{1-p} \implies C = \frac{p}{ j^(1-p) } \]
+</p>
+
+<p>
+Concludendo che
+\[
+     p + (1-p) x_j(t) = C \cdot t^{1-p}\\
+     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^(1-p) } \cdot t^{1-p} = p \left( \frac{j}{t}  \right)^{1-p}\\
+     (1-p) x_j(t) = p \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\\
+     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]
+     \]
+</p>
+</div>
+</li>
+
+<li><a id="org22071fa"></a><b>Individuazione Power Law</b><br />
+<div class="outline-text-5" id="text-2-1-2-4">
+<p>
+Dati quindi dei valori di \(k\) e \(t\), cerchiamo di calcolare quanto vale la frazione di nodi che al tempo \(t\) ha esattamente grado entrante \(k\).
+Per fare ciò iniziamo col definire l'insieme \(A_t(k) = \lbrace j \leq t : x_j(t) \geq k \rbrace\), ovvero l'insieme
+dei nodi che hanno grado entrante <b>almeno</b> \(k\) (secondo la nostra approssimazione continua e deterministica).
+Perciò la frazione dei nodi con grado \(k\) sarà la differenza tra il numero di nodi congrado <span class="underline">almeno</span> \(k\) e il numero di nodi
+con grado <span class="underline">almeno</span> \(k+1\), fratto il numero di nodi inseriti fino al tempo \(t\) (che ovviamente equivale a \(t\)).
+\[
+     \frac{1}{t} | A_t(k) - A_t(k+1) | = \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right)
+     \]
+</p>
+
+<p>
+Per definizione quindi un nodo \(j\) appartiene all'insieme \(A_t(k)\) se e solo se \(j \leq t\) e \(x_j(t) \leq k\).
+Ma sappiamo dalla precedente eq differenziale che \(x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\),
+\(x_j(t) \geq k\) se e solo se \(\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\).<br />
+</p>
+
+<p>
+Risolvendo questa disequazione per trovere i valori di \(j\) che rispettano la disuguaglianza
+\[
+     \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\\
+     \left( \frac{j}{t}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
+     \left( \frac{j}{t}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
+     \frac{j}{t} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
+     j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }
+     \]
+</p>
+
+<p>
+Si osservi che poichè \(k \frac{1-p}{p} + 1\) è maggiore di 1 e l'esponente \(- \frac{1}{1-p}\) è minore di 0, è vero che
+\[
+     \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \leq 1 \implies t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \leq t
+     \]
+</p>
+
+<p>
+Riformulando l'affermazione di prima, il nodo \(j\) appartiene all'insieme \(A_t(k)\) se e soltanto se \(j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }\).<br />
+</p>
+
+<p>
+Perciò possiamo riformulare la definizione dell'insieme \(A_t(k)\) come
+\[ A_t(k) := \lbrace j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \rbrace \]
+il quale avrà cardinalità
+\[ |A_t(k)| =  t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \]
 </p>
 
 <p>
@@ -474,11 +711,13 @@ punti a un nodo con grado entrante alto.
 
 <hr>
 </div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
@@ -504,13 +743,18 @@ tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
 <i>u.r.a.</i> sta per uniformemente a caso
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6">6</a></sup> <div class="footpara"><p class="footpara">
+una <i>eq. differenziale</i> è una equazione che lega una funzione alla sua derivata, del tipo \(f'(x) = a \cdot f(x) + b\)
+</p></div></div>
+
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Date: 2021-10-11 lun 00:00</p>
-<p class="author">Author: Alessandro Straziota Alessandro Straziota</p>
-<p class="date">Created: 2021-10-16 sab 20:02</p>
+<p class="date">Data: 2021-10-11 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-10-18 lun 16:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

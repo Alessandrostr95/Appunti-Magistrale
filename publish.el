@@ -6,7 +6,7 @@
 	 :publishing-directory "./public_html/"
 	 :recursive t
 	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4             ; default for this project.
+	 :headline-levels 6
 	 :auto-preamble t
 	 :sitemap-filename "index.org"
 	 :sitemap-title "Appunti Magistrale"

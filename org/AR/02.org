@@ -1,26 +1,16 @@
-#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+options: author:t broken-links:nil c:nil creator:nil
-#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
-#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
-#+options: timestamp:t title:t toc:t todo:t |:t
 #+title: AR - Lesson 02
 #+date: <2021-10-11 lun>
-#+author: Alessandro Straziota
-#+email: alessandrostr95@gmail.com
 #+teacher: Miriam Di Ianni
-#+language: it
-#+select_tags: export
-#+exclude_tags: noexport
-#+creator: Emacs 27.1 (Org mode 9.4.6)
 #+setupfile: ../../org-template/appunti.org
+
 
 * Power Law
 Nella [[./01.html][lezione 1]] si è visto che in un /Erdős–Rény random graph/ il numero di nodi che hanno grado esattamente $k$ decresce /esponenzialmente/ in $k$.
 Per comprendere meglio il perché di questo andamento è necessario enunciare (quantomeno in maniera informale e intuitiva) il [[https://en.wikipedia.org/wiki/Central_limit_theorem][teorema del limite centrale]].
 
+#+begin_quote
 #+html: <hr>
 
-#+begin_quote
 #+attr_html: align: center
 *Teorema del limite centrale*\\
     Siano $X_1, X_2, ..., X_n$ una sequenza di $n$ variabili aleatorie *indipendenti* e *identicamente distribuite*,
@@ -62,10 +52,10 @@ Per comprendere meglio il perché di questo andamento è necessario enunciare (q
     #+caption: Esempio distribuzione Normale 
     #+attr_html: :width 60%
     [[../images/ar-lesson02-img1.png]]
-    
-#+end_quote
 
 #+html: <hr>
+    
+#+end_quote
 
 Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado $k$ in un /Erdős–Rény random graph/
 è proprio una *somma* di v.a. /i.i.d./[fn:1], in quanto ogni arco è aggiunto in maniera totalmente indipendete ed equamente
@@ -103,6 +93,9 @@ a quanto ci si aspetta nel modello /Erdős–Rény/, implica che non è del tutt
     Questo perché $\log{(y)} \approx -c \log{(k)}$.
        
    
+
+#+html: <hr>
+
 
 * Fenomeno /rich-get-richer/
 Uno dei fenomi più noti nelle reti è il cosidetto fenomeno /rich-get-richer/.
@@ -146,8 +139,172 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
     *n.b.* se dovesse capitare di scegliere il nodo $j=1$, esso viene considerato essere /autoreferenziato/, ovvere si considera la presenza
     dell'arco $(1,1)$ (per questioni di consistenza del processo).\\
     
-    Intuitivamente questo processo genera un grafo che cattura il fenomeno /rich-get-richer/, è molto più probabile che un nuovo arco inserito
+    Intuitivamente questo processo genera un grafo che cattura il fenomeno /rich-get-richer/: è molto più probabile che un nuovo arco inserito
     punti a un nodo con grado entrante alto.
+    Si osservi inoltre che ogni nodo ha /esattamente/ un arco uscente.\\
+
+
+*** Verifica correttezza
+    Bisogna ora da verificare che il modello precedentemente descritto rispetti una /power-law/:
+    ovvero se il numero di nodi con grado $k$ decresce come l'inversa di un polinomio in $k$.\\
+
+    Per prima cosa definiamo la v.a. binaria $\delta_{i,j}$ che vale 1 se esiste l'arco $(i,j)$, 0 altrimenti
+    \[
+    \delta_{i,j} = \begin{cases}
+    1 &\mbox{se } (i,j) \in E\\
+    0 &\mbox{altrimenti}
+    \end{cases}
+    \;\;\; \forall i > j
+    \]
+    Perciò la probabilità che esista un arco diretto $(i,j)$ può essere calcolata come segue
+    \[
+    \mathcal{P}(\delta_{i,j} = 1) = p \cdot \mathcal{P}\left( \mbox{viene scleto } j \right) +
+    (1-p) \cdot \mathcal{P}\left( \mbox{scelgo un nodo } h : \delta_{h,j} = 1 \right)\\
+    = \frac{p}{i-1} + (1-p)\mathcal{P} \left( \bigcup_{h < j : (h,j) \in E} \mbox{viene scleto } h \right)\\
+    = \frac{p}{i-1} + (1-p)\sum_{h < j : (h,j) \in E} \mathcal{P} \left( \mbox{viene scleto } h \right) \;\;\; (1)\\
+    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{h < j : (h,j) \in E} 1 \;\;\; (2)\\
+    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} 
+    \]
+    dove:
+    - *(1)* la probabilità dell'unione di eventi /disgiunti/ è pari alla somma delle loro probabilità.
+    - *(2)* la probabilità di scegliere un nodo $h < i$ è equamente distribuita come $\frac{1}{i-1}$.
+
+    Facciamo una considerazione: dato che ogni nodo $i > 2$ ha esattamente un arco uscente, deve essere
+    necessariamente vero che $\mathcal{P}(\exists j < i : (i,j) \in E ) = 1$.
+    Infatti $\mathcal{P}(\exists j < i : (i,j) \in E ) = \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E )$.
+    Questo si può dimostrare per induzione su $i$:
+    - per $i = 2$ avremo che $\sum_{1 \leq j < 2} \mathcal{P}( (2,j) \in E ) = \mathcal{P}( (2,1) \in E ) = 1$, e questo è vero *per costruzione*.
+    - supponiamo sia vero per $i \leq k - 1$, per $i = k$ avremo che
+      \[
+      \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E ) = \sum_{1 \leq j < i} \left[ \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j}  \right]\\ 
+      = \sum_{1 \leq j < i} \frac{p}{i-1} + \sum_{1 \leq j < i} \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} \;\;\; \mbox{spezzo la serie}\\
+      = \frac{(i-1)p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq j < i} \sum_{1 \leq h < i} \delta_{h,j}\\
+      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \underbrace{ \sum_{1 \leq j < i} \delta_{h,j} }_{\small{ \mbox{1 solo arco uscente} }} \;\;\; \mbox{inverto le due serie}\\
+      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} 1\\
+      = p + (1 - p) = 1
+      \]
+      
+    Siamo ora pronti a verificare la reale presenza di una /power law/.
+    Questo procedimento avverrà in 4 fase:
+    1. Definizione di una legge aleatoria che esprima la variazione del grado (entrante) di un nodo nel tempo.
+    2. Approssimazione *deterministica* e *continua* della legge.
+    3. Risoluzione di una /equazione differenziale/ che calcola il valore di tale approssimazione.
+    4. Individuazione di una /power law/.
+
+**** *Legge aleatoria*
+     Sia la /v.a. discreta/ $D_j(t)$ che esprima il grado entrante del nodo $j$ al tempo $t$ del processo di generazione del grafo.
+     Si osservi che $D_j(t)$ è difinita *solamente* per $t \geq j$, e che $D_j(j) = 0$ per ogni $j$ (per costruzione).\\
+
+     Ritornando alla variazione del grado entrante nel tempo, possiamo dire che dal tempo $t$ al tempo $t+1$ esso potrà essere aumentato di *al più* una unità.
+     Perciò possiamo esprimere la variazione nel tempo del grado entrante del nodo $j$ come la differenza $D_j(t+1) - D_j(t)$.\\
+
+     Possiamo quindi calcolare la probabilità che il grado del nodo $j$ aumenti di 1 come
+     \[
+     \mathcal{P}(D_j(t+1) - D_j(t) = 1) = \mathcal{P}(\delta_{t+1, j} = 1)\\
+     = \frac{p}{(t+1)-1} + \frac{(1-p)}{(t+1)-1} \sum_{1 \leq h < (t+1)} \delta_{h,j}\\
+     = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)
+     \]
+
+**** *Approssimazione deterministica e continua*
+     Stabilita la legge $\mathcal{P}(D_j(t+1) - D_j(t) = 1) = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)$, la si vuole approssimare.
+     Questo perché generalmente le leggi /discrete/ e /probabilistiche/ sono troppo complesse da analizzare.\\
+
+     Per prima cosa si può rimuovere il fattore aleatorio e renderla deterministica con la seguente approssimazione
+     \[
+     \begin{cases}
+     X_j(j) = 0\\
+     X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
+     \end{cases}
+     \forall t \geq j
+     \]
+     
+     La seconda approssimazione da fare è passare dal /discreto/ al /continuo/
+     \[
+     \begin{cases}
+     x_j(j) = 0\\
+     \frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
+     \end{cases}     
+     \]
+     Non è detto che questa approssimazione si avvicini alla legge reale.
+     Notare in fine che la seconda equazione del sistema è una /equazione differenziale/[fn:6]
+
+**** *Risoluzione equazione differenziale*
+     Si vuole risolvere la seguente eq. differenziale $\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)$.
+     Per prima cosa la si può raccogliere il fattore $1/t$
+     \[ \frac{d}{dt}x_j(t) = \frac{1}{t} \left[ p + (1-p)x_j(t) \right] \]
+     e poi dividendo entrambi i membri per \left[ p + (1-p)x_j(t) \right]
+     \[ \frac{1}{p + (1-p)x_j(t)}  \frac{d}{dt}x_j(t) = \frac{1}{t} \]
+
+     A questo punto si può procedere integrando in $dt$
+     \[
+     \int \frac{1}{p + (1-p)x_j(t)}  \frac{d x_j(t)}{dt} \, dt = \int \frac{dt}{t}\\
+     \int \frac{d x_j(t)}{p + (1-p)x_j(t)} = \int \frac{dt}{t}
+     \]
+     Moltiplichiamo entrambi i membri per $(1-p)$
+     \[ \int \frac{(1-p) d x_j(t)}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t} \]
+     Poniamo poi $y = p + (1-p)x_j(t)$.
+     La sua derivata di $y$ sarà $y' = \frac{dy}{dx_j(t)} = (1-p)x_j(t)$, ovvero il numeratore della frazione nel primo integrale.
+     \[ \int \frac{y'}{y} \, dx_j(t) = (1-p) \int \frac{dt}{t} \]
+     Il quale si può semplificare come
+     \[
+      \int \frac{y'}{y} \, dx_j(t) =  \int \frac{\frac{dy}{dx_j(t)}}{y} \, dx_j(t) = \int \frac{dy}{y}
+     \]
+
+     Adesso che è rimasto solo il fattore $y$ al primo membro, risostituiamo col valore origianle 
+     \[
+     \int \frac{d \left[p + (1-p) x_j(t) \right]}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t}
+     \]
+     A questo punto è facile integrare, ottenendo che
+     \[ \ln{\left( p + (1-p) x_j(t) \right)} = (1-p) \ln{(t)} + c \]
+     Da cui poi elevando a potenza
+     \[ p + (1-p) x_j(t) = t^{1-p} \cdot e^c = C \cdot t^{1-p}  \]
+     
+
+     Per calcolare la costante $C$ basta considerare la condizione iniziale per cui $x_j(j) = 0$, ottenendo che
+     \[ p = C \cdot j^{1-p} \implies C = \frac{p}{ j^(1-p) } \]
+
+     Concludendo che
+     \[
+     p + (1-p) x_j(t) = C \cdot t^{1-p}\\
+     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^(1-p) } \cdot t^{1-p} = p \left( \frac{j}{t}  \right)^{1-p}\\
+     (1-p) x_j(t) = p \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\\
+     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]
+     \]
+
+**** *Individuazione Power Law*
+     Dati quindi dei valori di $k$ e $t$, cerchiamo di calcolare quanto vale la frazione di nodi che al tempo $t$ ha esattamente grado entrante $k$.
+     Per fare ciò iniziamo col definire l'insieme $A_t(k) = \lbrace j \leq t : x_j(t) \geq k \rbrace$, ovvero l'insieme
+     dei nodi che hanno grado entrante *almeno* $k$ (secondo la nostra approssimazione continua e deterministica).
+     Perciò la frazione dei nodi con grado $k$ sarà la differenza tra il numero di nodi congrado _almeno_ $k$ e il numero di nodi
+     con grado _almeno_ $k+1$, fratto il numero di nodi inseriti fino al tempo $t$ (che ovviamente equivale a $t$).
+     \[
+     \frac{1}{t} | A_t(k) - A_t(k+1) | = \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right)
+     \]
+
+     Per definizione quindi un nodo $j$ appartiene all'insieme $A_t(k)$ se e solo se $j \leq t$ e $x_j(t) \leq k$.
+     Ma sappiamo dalla precedente eq differenziale che $x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]$,
+     $x_j(t) \geq k$ se e solo se $\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k$.\\
+
+     Risolvendo questa disequazione per trovere i valori di $j$ che rispettano la disuguaglianza
+     \[
+     \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\\
+     \left( \frac{j}{t}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
+     \left( \frac{j}{t}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
+     \frac{j}{t} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
+     j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }
+     \]
+
+     Si osservi che poichè $k \frac{1-p}{p} + 1$ è maggiore di 1 e l'esponente $- \frac{1}{1-p}$ è minore di 0, è vero che
+     \[
+     \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \leq 1 \implies t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \leq t
+     \]
+
+     Riformulando l'affermazione di prima, il nodo $j$ appartiene all'insieme $A_t(k)$ se e soltanto se $j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }$.\\
+
+     Perciò possiamo riformulare la definizione dell'insieme $A_t(k)$ come
+     \[ A_t(k) := \lbrace j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \rbrace \]
+     il quale avrà cardinalità
+     \[ |A_t(k)| =  t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \]
 
 [da completare ...]
 
@@ -160,3 +317,4 @@ Generalmente si è abituati a vedere dei tick che crescono in maniera lineare $[
 [fn:4] magari quell'ultima pagina delle 33 milioni è la migliore di tutte, ma probabilmente non lo saprò mai finché non salirà
 tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
 [fn:5] /u.r.a./ sta per uniformemente a caso
+[fn:6] una /eq. differenziale/ è una equazione che lega una funzione alla sua derivata, del tipo $f'(x) = a \cdot f(x) + b$
