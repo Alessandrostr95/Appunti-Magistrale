@@ -1,0 +1,80 @@
+#+title: SDC - Lesson 01
+#+date: <2021-10-11 lun>
+#+teacher: 
+#+setupfile: ../../org-template/appunti.org
+
+Supponiamo di avere un /sistema distribuito/ formato da una serie $p_1,p_2,...,p_n$ di /peer/, ovvero di entità che hanno uno *stesso ruolo*.
+Supponiamo inoltre che un /peer/ $p_i$ debba effettuare una transazione verso un altro peer $p_j$.
+Per far sì che ciò avvenga si necessita che ci sia *fiducia* (o *trust*) tra i peer.
+Più in particolare che $p_j$ /si fidi/ fidi di $p_i$.\\
+
+Generalmente questo è il lavoro che le banche cercano[fn:1] di fare: garantire la fiducia tra i peer facendo da intermediario. 
+Nascono perciò due domande:
+1. È possibile ottenere la fiducia *dei* clienti[fn:2]?
+2. È possibile ottenere la fiducia *tra* clienti[fn:2]?
+
+Per quanto riguarda la prima domanda, in effetti all'atto pratico non sempre le banche si sono dimostrate affidabili.
+Basta guardare la grande recessione del 2008:
+#+begin_quote
+fino a prima del 2007 le banche rilasciavano molto facilmente mutui /subprime/[fn:3] per l'acquito di beni immobiliari, con rate abbordabili
+e un tasso di interesse di circa l'1%.
+Le banche quindi traevano guadagni "impacchettando" i mutui in [[https://it.wikipedia.org/wiki/Collateralized_debt_obligation][CDO]] e vendendoli sul mercato.
+Chi comprava guadagnava dal debito di chi pagava i mutui.
+Per chi non pagava, bastava pignolare e rivendere l'immobile, tanto in quel periodo il mercato immobiliare era in sicuro e in crescita.\\
+Il problema è che le banche si approfittarono di questo meccanismo, rilasciando molti mutui anche a gente che effettivamente non
+poteva permetterselo.
+Quando poi avvenne la crisi del mercato immobiliare del 2007, crollò anche il mercato di CDO, e di conseguenza molte banche importanti
+andarono in /default/[fn:4] perchè non avevano i soldi liquidi per garantire i mutui che avevano acceso ai loro clieni.
+#+end_quote
+Di conseguenza, anche la fiducia tra i clienti non può essere garantita in un sistema centralizzato, se prima non c'è la fiducia verso le banche.
+Infatti in un sistema centralizzato, le interazioni tra i peer non avvengono in maniera /trasperente/, bensì sempre attraverso una terza parte.\\
+
+In un sistema distribuito (non centralizzato), teoricamente basterebbe che il 50% + 1 dei peer siano di una stessa opinione per renderla attendibile.
+In realtà non è così semplice, in quanto ci vorrebbe la garanzia che *tutti* i peer abbiano preso una decisione sulla base di stesse informazioni.
+Inoltre chi garantisce che queste informazioni siano attendibili?\\
+
+Per fare ciò si necessita quindi di un *registro*, detto *ledger*, che funge da unica fonte di verità, nel quale è presente *tutta la storia completa*
+delle transazioni, il quale deve essere *immutabile* ovver:
+1. si può solo scrivere (/append-only/).
+2. non si possono effettuare modifiche.
+3. non si possono effettuare cancellazioni.
+Un esempio reale di *ledger* è l'Archivio di Stato Civile.\\
+
+La presenza di un ledger di questo tipo non è sufficiente: è necessario *identificare univocamente* la moneta.
+Vediamo un esempio del perchè è necesario:
+#+begin_quote
+supponiamo di avere un sistema monetario in cui ci sono solo 2 monete da 1€ e due peer, /Alice/ e /Bob/.
+Sappiamo solamente che /Alice/ possiede 1€ e /Bob/ 0€.
+A un certo punto viene registrato sul ledger che /Alice/ paga a /Bob/ una quantità di 1€.
+Ma in realtà quale delle due monete ha pagato a /Bob/?
+#+end_quote
+Questo non si può sapere, a meno che non identifichiamo /univocamente/ le due monete, per esempio con
+le sigle =moneta01= e =moneta02=.
+In questa maniera è possibile assicurarsi che /Alice/ non dia a /Bob/ una moneta che non possiede.\\
+
+Perciò, dato un registro immutabile e data un'identificazione univoca della moneta, si potrebbe pensare a un sistema in cui ci si mette
+d'accordo in base a un consenso comune basato sull'opinione della maggiornaza.
+Il problema che sorge però è:
+per quale motivo dovrebbe convinera a un peer dare la propria opinione?
+In effetti potrebbe risultare molto dispendioso andare a verificare ogni volta l'intero ledger per verificare che /Alice/ non abbia effettivamente
+speso una moneta che non ha.\\
+Per questo motivo è necessario avere un sistema che /premia/ chi contribuisce a un'opinione esatta[fn:5].\\
+Inoltre dare un'opinione deve avere un *costo*.\\
+Questo processo di opinione è detto *schema* (o *algoritmo*) *di consenso*.\\
+
+
+La sfida che cerca di risolvere la *blockchain* è quella di cercare di coordinare i peer in un contesto decentralizzato, in modo
+tale che tutti si accordino su un'unica opinione condivisa.
+
+Lo schema da seguire per sviluppare una blockchain è:
+1. definire un *modello di business* (una moneta)
+2. definire uno *schema di consenso*
+3. applicare il tutto in un contesto reale (*implementare*)
+
+#+html: <hr>
+
+[fn:1] /dicono/
+[fn:2] cliente = peer
+[fn:3] è un tipo di mutuo concesso sostanzialmente senza alcuna garanzia
+[fn:4] fallimento
+[fn:5] che viene riconosciuta dalla maggior parte come vera

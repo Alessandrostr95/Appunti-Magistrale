@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-18 lun 14:33 -->
+<!-- 2021-10-18 lun 19:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Algebra Universale - Lesson 01</title>
+<title>SDC - Lesson 01</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,175 +269,142 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">Algebra Universale - Lesson 01</h1>
-<div id="table-of-contents">
-<h2>Indice</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgdcecbfc">1. Definizione (provvisoria) di Struttura Algebrica</a></li>
-<li><a href="#orgf2f8d6c">2. Esempi di strutture algebriche</a>
-<ul>
-<li><a href="#org5e2df43">2.1. Gruppi</a></li>
-<li><a href="#org3ff1446">2.2. Semigruppo</a></li>
-<li><a href="#org672c7b4">2.3. Anello</a></li>
-<li><a href="#org452926a">2.4. Spazio Vettoriale</a></li>
-<li><a href="#org4811fe8">2.5. Quasigruppo</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgdcecbfc" class="outline-2">
-<h2 id="orgdcecbfc"><span class="section-number-2">1</span> Definizione (provvisoria) di Struttura Algebrica</h2>
-<div class="outline-text-2" id="text-1">
+<h1 class="title">SDC - Lesson 01</h1>
 <p>
-Un'<i>algebra</i> è una coppia \((A, F)\) dove:
+Supponiamo di avere un <i>sistema distribuito</i> formato da una serie \(p_1,p_2,...,p_n\) di <i>peer</i>, ovvero di entità che hanno uno <b>stesso ruolo</b>.
+Supponiamo inoltre che un <i>peer</i> \(p_i\) debba effettuare una transazione verso un altro peer \(p_j\).
+Per far sì che ciò avvenga si necessita che ci sia <b>fiducia</b> (o <b>trust</b>) tra i peer.
+Più in particolare che \(p_j\) <i>si fidi</i> fidi di \(p_i\).<br />
 </p>
-<ul class="org-ul">
-<li>\(A \neq \emptyset\)  è un inseme</li>
-<li>\(F = (f_1, f_2, ..., f_k)\) è un insieme di operazioni sull'insieme \(A\) di arietà \(n\) -aria
-\[
-    \forall f \in F \;\;\; \exists n \in \mathbb{N} : \\
-    f: A^{n} \rightarrow A \\
-    (a_1, a_2, ..., a_n) \mapsto a_m \in A
-    \]</li>
-</ul>
+
 <p>
-In un'algebra si considerano anche delle costanti \(c \in A\), le quali possono anche essere definite come funzioni di \(F\) di arietà 0-aria
-\[
-  c : A^0 \rightarrow A \\
-  c() = c \in A
-  \]
-<b>N.B:</b>
+Generalmente questo è il lavoro che le banche cercano<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> di fare: garantire la fiducia tra i peer facendo da intermediario. 
+Nascono perciò due domande:
 </p>
 <ol class="org-ol">
-<li>Le funzioni \(f \in F\) considerate sono <b>totali</b>, ovvero <b>sempre definite</b>. Esiste anche un' A.U. che studia le <i>algebre parziali</i> con la presenza di funzioni non totali.</li>
-<li>Non verranno considerate strutture ulteriori (altre algebre&#x2026;)</li>
-<li>Verrà considerato un \(n \in \mathbb{N}\) <b>sempre finito</b>.</li>
-<li>Verrano considerate operazioni \(f\) solamente <b>interne</b>, ovvero \(A\) deve essere chiusa rispetto alle operazioni in \(F\).
-e.g.
-<ul class="org-ul">
-<li>il <i>prodotto scalare</i> tra due vettori non è una operazione interna a uno spazio vettoriale \(V\) in qunato il risultato è un numero realte
-\[ \langle , \rangle : V \times V \rightarrow \mathbb{R}  \]</li>
-<li>il <i>prodotto</i> tra sclare e vettore nemmeno è interno in qunato si vuole (per definizione di \(F\)) che le operazioni siano applicabili in \(V^n\)
-\[ \cdot : \mathbb{R} \times V \rightarrow V \]</li>
-<li>il <i>prodotto vettoriale</i> è invece una funzione interna a uno spazio vettoriale \(V\)
-\[ \times : V^2 \rightarrow V \]</li>
-</ul></li>
+<li>È possibile ottenere la fiducia <b>dei</b> clienti<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>?</li>
+<li>È possibile ottenere la fiducia <b>tra</b> clienti<sup><a id="fnr.2.100" class="footref" href="#fn.2">2</a></sup>?</li>
 </ol>
-</div>
-</div>
+
+<p>
+Per quanto riguarda la prima domanda, in effetti all'atto pratico non sempre le banche si sono dimostrate affidabili.
+Basta guardare la grande recessione del 2008:
+</p>
+<blockquote>
+<p>
+fino a prima del 2007 le banche rilasciavano molto facilmente mutui <i>subprime</i><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> per l'acquito di beni immobiliari, con rate abbordabili
+e un tasso di interesse di circa l'1%.
+Le banche quindi traevano guadagni "impacchettando" i mutui in <a href="https://it.wikipedia.org/wiki/Collateralized_debt_obligation">CDO</a> e vendendoli sul mercato.
+Chi comprava guadagnava dal debito di chi pagava i mutui.
+Per chi non pagava, bastava pignolare e rivendere l'immobile, tanto in quel periodo il mercato immobiliare era in sicuro e in crescita.<br />
+Il problema è che le banche si approfittarono di questo meccanismo, rilasciando molti mutui anche a gente che effettivamente non
+poteva permetterselo.
+Quando poi avvenne la crisi del mercato immobiliare del 2007, crollò anche il mercato di CDO, e di conseguenza molte banche importanti
+andarono in <i>default</i><sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> perchè non avevano i soldi liquidi per garantire i mutui che avevano acceso ai loro clieni.
+</p>
+</blockquote>
+<p>
+Di conseguenza, anche la fiducia tra i clienti non può essere garantita in un sistema centralizzato, se prima non c'è la fiducia verso le banche.
+Infatti in un sistema centralizzato, le interazioni tra i peer non avvengono in maniera <i>trasperente</i>, bensì sempre attraverso una terza parte.<br />
+</p>
+
+<p>
+In un sistema distribuito (non centralizzato), teoricamente basterebbe che il 50% + 1 dei peer siano di una stessa opinione per renderla attendibile.
+In realtà non è così semplice, in quanto ci vorrebbe la garanzia che <b>tutti</b> i peer abbiano preso una decisione sulla base di stesse informazioni.
+Inoltre chi garantisce che queste informazioni siano attendibili?<br />
+</p>
+
+<p>
+Per fare ciò si necessita quindi di un <b>registro</b>, detto <b>ledger</b>, che funge da unica fonte di verità, nel quale è presente <b>tutta la storia completa</b>
+delle transazioni, il quale deve essere <b>immutabile</b> ovver:
+</p>
+<ol class="org-ol">
+<li>si può solo scrivere (<i>append-only</i>).</li>
+<li>non si possono effettuare modifiche.</li>
+<li>non si possono effettuare cancellazioni.</li>
+</ol>
+<p>
+Un esempio reale di <b>ledger</b> è l'Archivio di Stato Civile.<br />
+</p>
+
+<p>
+La presenza di un ledger di questo tipo non è sufficiente: è necessario <b>identificare univocamente</b> la moneta.
+Vediamo un esempio del perchè è necesario:
+</p>
+<blockquote>
+<p>
+supponiamo di avere un sistema monetario in cui ci sono solo 2 monete da 1€ e due peer, <i>Alice</i> e <i>Bob</i>.
+Sappiamo solamente che <i>Alice</i> possiede 1€ e <i>Bob</i> 0€.
+A un certo punto viene registrato sul ledger che <i>Alice</i> paga a <i>Bob</i> una quantità di 1€.
+Ma in realtà quale delle due monete ha pagato a <i>Bob</i>?
+</p>
+</blockquote>
+<p>
+Questo non si può sapere, a meno che non identifichiamo <i>univocamente</i> le due monete, per esempio con
+le sigle <code>moneta01</code> e <code>moneta02</code>.
+In questa maniera è possibile assicurarsi che <i>Alice</i> non dia a <i>Bob</i> una moneta che non possiede.<br />
+</p>
+
+<p>
+Perciò, dato un registro immutabile e data un'identificazione univoca della moneta, si potrebbe pensare a un sistema in cui ci si mette
+d'accordo in base a un consenso comune basato sull'opinione della maggiornaza.
+Il problema che sorge però è:
+per quale motivo dovrebbe convinera a un peer dare la propria opinione?
+In effetti potrebbe risultare molto dispendioso andare a verificare ogni volta l'intero ledger per verificare che <i>Alice</i> non abbia effettivamente
+speso una moneta che non ha.<br />
+Per questo motivo è necessario avere un sistema che <i>premia</i> chi contribuisce a un'opinione esatta<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>.<br />
+Inoltre dare un'opinione deve avere un <b>costo</b>.<br />
+Questo processo di opinione è detto <b>schema</b> (o <b>algoritmo</b>) <b>di consenso</b>.<br />
+</p>
 
 
-<div id="outline-container-orgf2f8d6c" class="outline-2">
-<h2 id="orgf2f8d6c"><span class="section-number-2">2</span> Esempi di strutture algebriche</h2>
-<div class="outline-text-2" id="text-2">
 <p>
-Di seguito alcuni esempi di strutture algebrice.
+La sfida che cerca di risolvere la <b>blockchain</b> è quella di cercare di coordinare i peer in un contesto decentralizzato, in modo
+tale che tutti si accordino su un'unica opinione condivisa.
 </p>
-</div>
-<div id="outline-container-org5e2df43" class="outline-3">
-<h3 id="org5e2df43"><span class="section-number-3">2.1</span> Gruppi</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-Un <i>gruppo</i> è una coppia \((G, \circ)\) dove:
-</p>
-<ul class="org-ul">
-<li>\(G \neq \emptyset\)</li>
-<li>\(\circ\) è una operazione <i>binaria</i> con le seguenti proprietà:
-<ul class="org-ul">
-<li><b>proprietà associativa</b>: \(\forall a,b,c \in G\) vale che
-\[ a \circ (b \circ c) = (a \circ b) \circ c  \]</li>
-<li><b>esistenza di un elemento neutro</b>: \(\exists e \in G\) detto <i>elemento neutro per</i> \(\circ\) tale che \(\forall a \in G\) vale che
-\[ a \circ e = e \circ a = a \]</li>
-<li><b>esistenza elemento inverso</b>: \(\forall a \in G \;\;\; \exists a^{-1} \in G\) tale che
-\[ a \circ a^{-1} = a^{-1} \circ a = e \]</li>
-</ul></li>
-</ul>
-<p>
-Se l'operatore \(\circ\) è anche commutativo allora il gruppo si dice <b>commutativo</b> (o <b>abeliano</b>).
-</p>
-</div>
-</div>
-<div id="outline-container-org3ff1446" class="outline-3">
-<h3 id="org3ff1446"><span class="section-number-3">2.2</span> Semigruppo</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-Un <i>semigruppo</i> è una coppia \((G, \circ)\) tale che \(G\) è un inseme e \(\circ\) è un'operazione binaria su \(G\) che gode della sola proprietà associativa.
-</p>
-</div>
-</div>
-<div id="outline-container-org672c7b4" class="outline-3">
-<h3 id="org672c7b4"><span class="section-number-3">2.3</span> Anello</h3>
-<div class="outline-text-3" id="text-2-3">
-<p>
-Un <i>anello</i> è un insieme \((A, +, \cdot)\) dove valgono le seguenti proprietà:
-</p>
-<ul class="org-ul">
-<li>\((A,+)\) è un <i>gruppo abeliano</i> con elemento neutro 0, ovvero
-<ul class="org-ul">
-<li>\(a + (b + c) = (a+b) + c\)</li>
-<li>\(a+0 = 0+a = a\)</li>
-<li>\(\forall a \in A\) esiste un elemento inverso \(-a \in A\), ovvero tale che \(a + (-a) = (-a) + a = 0\)</li>
-</ul></li>
-<li>\((A, \cdot)\) è un semigruppo, ovvero vale la proprietà associativa su \(\circ\)
-\[ a \cdot (b \cdot c) = (a \cdot b) \cdot c \]</li>
-<li>L'operazione \(\cdot\) (moltiplicazione) è <b>distributiva</b> risetto a \(+\) (somma)
-\[
-     a \cdot (b+c) = (a \cdot b) + (a \cdot c) \\
-     (a+b) \cdot c = (a \cdot c) + (b \cdot c)
-     \]</li>
-</ul>
-<p>
-Degli esempi di anelli possono essere \((\mathbb{Z}, +, \cdot)\) o \((\mathbb{R}, +, \cdot)\)
-</p>
-</div>
-</div>
-<div id="outline-container-org452926a" class="outline-3">
-<h3 id="org452926a"><span class="section-number-3">2.4</span> Spazio Vettoriale</h3>
-<div class="outline-text-3" id="text-2-4">
-<p>
-Come abbiamo visto in precedenza l'insieme \((V, +, \cdot)\) non può essere una struttura algebrica sullo spazio vettoriale \(V\) in quanto l'operazione \(\cdot\) non è <i>interna</i>.
-Si potrebbe perciò aggirare questo problema definendo un anello nel seguente modo.
-\[
-   (V, +, \lambda_k)_{k \in \mathbb{K}} : \forall k \in \mathbb{K} \\
-   \lambda_k : V \rightarrow V \\
-   \vec{v} \mapsto k \cdot \vec{v} \;\;\; \forall \vec{v} \in V
-   \]
-</p>
-</div>
-</div>
-<div id="outline-container-org4811fe8" class="outline-3">
-<h3 id="org4811fe8"><span class="section-number-3">2.5</span> Quasigruppo</h3>
-<div class="outline-text-3" id="text-2-5">
-<p>
-Un <i>quasigruppo</i> è un un insieme \((Q, *)\) simile a un semigruppo, dove \(Q\) è un insieme non vuoto e \(*\) è una operazione binaria interna che riespetta la seguente proprietà:<br />
-\(\forall a,b \in Q\) <b>distinti</b> tra loro, esiste una unica soluzione al seguente sistema
-</p>
-   \begin{cases}
-a * x = b \\
-y * a = b
-   \end{cases}
-<p>
-L'unica soluzione è spesso scritta nella seguente notazione
-</p>
-   \begin{cases}
-x = a \backslash b \\
-y = b / a
-   \end{cases}
 
-
+<p>
+Lo schema da seguire per sviluppare una blockchain è:
+</p>
+<ol class="org-ol">
+<li>definire un <b>modello di business</b> (una moneta)</li>
+<li>definire uno <b>schema di consenso</b></li>
+<li>applicare il tutto in un contesto reale (<b>implementare</b>)</li>
+</ol>
 
 <hr>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<i>dicono</i>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+cliente = peer
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+è un tipo di mutuo concesso sostanzialmente senza alcuna garanzia
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+fallimento
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+che viene riconosciuta dalla maggior parte come vera
+</p></div></div>
+
+
 </div>
-</div>
-</div>
-</div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
-<p class="date">Created: 2021-10-18 lun 14:33</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-10-18 lun 19:13</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
