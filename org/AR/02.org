@@ -1,8 +1,9 @@
-#+title: AR - Lesson 02
+#+title: AR - Lesson 02-03
 #+date: <2021-10-11 lun>
 #+teacher: Miriam Di Ianni
 #+setupfile: ../../org-template/appunti.org
 
+In questa pagina sono riportati gli appunti delle lezioni 2 e 3, essendo tali lezioni strettamente correllate.
 
 * Power Law
 Nella [[./01.html][lezione 1]] si è visto che in un /Erdős–Rény random graph/ il numero di nodi che hanno grado esattamente $k$ decresce /esponenzialmente/ in $k$.
@@ -54,7 +55,6 @@ Per comprendere meglio il perché di questo andamento è necessario enunciare (q
     [[../images/ar-lesson02-img1.png]]
 
 #+html: <hr>
-    
 #+end_quote
 
 Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado $k$ in un /Erdős–Rény random graph/
@@ -271,15 +271,15 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      Dati quindi dei valori di $k$ e $t$, cerchiamo di calcolare quanto vale la frazione di nodi che al tempo $t$ ha esattamente grado entrante $k$.
      Per fare ciò iniziamo col definire l'insieme $A_t(k) = \lbrace j \leq t : x_j(t) \geq k \rbrace$, ovvero l'insieme
      dei nodi che hanno grado entrante *almeno* $k$ (secondo la nostra approssimazione continua e deterministica).
-     Perciò la frazione dei nodi con grado $k$ sarà la differenza tra il numero di nodi congrado _almeno_ $k$ e il numero di nodi
+     Perciò la frazione dei nodi con grado $k$ sarà la differenza tra il numero di nodi con grado _almeno_ $k$ e il numero di nodi
      con grado _almeno_ $k+1$, fratto il numero di nodi inseriti fino al tempo $t$ (che ovviamente equivale a $t$).
      \[
      \frac{1}{t} | A_t(k) - A_t(k+1) | = \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right)
      \]
 
      Per definizione quindi un nodo $j$ appartiene all'insieme $A_t(k)$ se e solo se $j \leq t$ e $x_j(t) \leq k$.
-     Ma sappiamo dalla precedente eq differenziale che $x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]$,
-     $x_j(t) \geq k$ se e solo se $\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k$.\\
+     Ma sappiamo dalla precedente eq. differenziale che $x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]$,
+     perciò $x_j(t) \geq k$ se e solo se $\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k$.\\
 
      Risolvendo questa disequazione per trovere i valori di $j$ che rispettano la disuguaglianza
      \[
@@ -297,14 +297,56 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 
      Riformulando l'affermazione di prima, il nodo $j$ appartiene all'insieme $A_t(k)$ se e soltanto se $j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }$.\\
 
-     Perciò possiamo riformulare la definizione dell'insieme $A_t(k)$ come
-     \[ A_t(k) := \lbrace j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \rbrace \]
-     il quale avrà cardinalità
+     Perciò possiamo riformulare anche la definizione dell'insieme $A_t(k)$ come
+     \[ A_t(k) := \bigg\{ j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }  \bigg\} \]
+     il quale avrà cardinalità esattamente
      \[ |A_t(k)| =  t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \]
 
-[da completare ...]
+     Per comodità definiamo la funzione $F(k) = \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }$.
+     Perciò la quantità che vogliamo calcolare al possiamo riscrivere come
+     \[ \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right) = F(k) - F(k+1) = f(k) \]
+
+     A questo punto possiamo /approssimare/ $f(k)$ come la derivata $-\frac{d}{dk}F(k)$.
+     Se il segno =-= confonde, con la seguente equazione apparirà più chiaro
+     \[
+     F(k) - F(k+1)
+     = \frac{(-1)}{(-1)} \left( F(k) - F(k+1) \right)
+     = - \left( - \frac{ F(k) - F(k+1) }{1} \right)
+     = - \left( \frac{ F(k+1) - F(k) }{1} \right)
+     \approx -\frac{d}{dk}F(k)
+     \]
+
+     Assodata questa approssimazione, si può procedere derivando[fn:7] in $k$.
+     \begin{align*}
+     f(k) &\approx -\frac{d}{dk} F(k)\\
+     &= - \left( \frac{1}{1 - p} \right)
+     \cdot \left( \frac{1-p}{p} \right)
+     \cdot \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} - 1 }\\
+     &= \frac{1}{p} \cdot
+     \left[ k \frac{1-p}{p} + 1 \right]^{ - \left( 1 + \frac{1}{1-p} \right) }
+     \end{align*}
+
+     Tale funzione è l'inversa di un polinomio in $k$ con esponente massimo $\left( 1 + \frac{1}{1-p} \right)$,
+     e in quanto tale è una /power-law/.
+
+     #+html: <hr>
+
+
+*** Osservazioni sull'analisi
+    In realtà l'approssimazione continua e deterministica fatta per analizzare la correttezza della procedura di generazione del modello potrebbe
+    discostarsi molto dal valore effettivo, ovvero quello descritto in maniera discreta e probabilistica.\\
+    In realtà è stato dimostrato[fn:8] che /w.h.p./[fn:9] nel modello di rete per /rich-get-richer/ proposto, la frazione di nodi
+    con grado $k$ è proporzionale a $k^{- \left(1 + \frac{1}{1-p} \right)}$.
 
 #+html: <hr>
+
+
+* Impredicibilità della popolarità
+
+[da finire ...]
+
+#+html: <hr>
+  
 [fn:1] /i.i.d./ sta per /indipendenti e identicamente distribuite/.
 [fn:2] [Broder et al., 2000]
 [fn:3] per /tick/ si intende gli indici del grafico che vengono segnati sugli assi.
@@ -314,3 +356,6 @@ Generalmente si è abituati a vedere dei tick che crescono in maniera lineare $[
 tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
 [fn:5] /u.r.a./ sta per uniformemente a caso
 [fn:6] una /eq. differenziale/ è una equazione che lega una funzione alla sua derivata, del tipo $f'(x) = a \cdot f(x) + b$
+[fn:7] si ricordi che la derivata di una funzione del tipo $y = \left[ h(x) \right]^n$ è pari a $y' = n \cdot \left[ h(x) \right]^{n-1} \cdot h'(x)$.
+[fn:8] [Bollobas, Riordan - 2005]
+[fn:9] /with high probability/, ovvero con probabilità /almeno/ $1 - \left( \frac{1}{n} \right)^{\Omega(1)}$

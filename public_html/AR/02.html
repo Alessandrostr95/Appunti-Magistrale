@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-18 lun 17:01 -->
+<!-- 2021-10-19 mar 23:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AR - Lesson 02</title>
+<title>AR - Lesson 02-03</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,7 +269,7 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">AR - Lesson 02</h1>
+<h1 class="title">AR - Lesson 02-03</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
@@ -285,14 +285,18 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#org639c4d0">2.1.1. Procedura per la generazione</a></li>
 <li><a href="#org9b6677a">2.1.2. Verifica correttezza</a></li>
+<li><a href="#org4b798b2">2.1.3. Osservazioni sull'analisi</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#org0809b7e">3. Impredicibilità della popolarità</a></li>
 </ul>
 </div>
 </div>
-
+<p>
+In questa pagina sono riportati gli appunti delle lezioni 2 e 3, essendo tali lezioni strettamente correllate.
+</p>
 
 <div id="outline-container-org4f22a4a" class="outline-2">
 <h2 id="org4f22a4a"><span class="section-number-2">1</span> Power Law</h2>
@@ -659,7 +663,7 @@ Concludendo che
 Dati quindi dei valori di \(k\) e \(t\), cerchiamo di calcolare quanto vale la frazione di nodi che al tempo \(t\) ha esattamente grado entrante \(k\).
 Per fare ciò iniziamo col definire l'insieme \(A_t(k) = \lbrace j \leq t : x_j(t) \geq k \rbrace\), ovvero l'insieme
 dei nodi che hanno grado entrante <b>almeno</b> \(k\) (secondo la nostra approssimazione continua e deterministica).
-Perciò la frazione dei nodi con grado \(k\) sarà la differenza tra il numero di nodi congrado <span class="underline">almeno</span> \(k\) e il numero di nodi
+Perciò la frazione dei nodi con grado \(k\) sarà la differenza tra il numero di nodi con grado <span class="underline">almeno</span> \(k\) e il numero di nodi
 con grado <span class="underline">almeno</span> \(k+1\), fratto il numero di nodi inseriti fino al tempo \(t\) (che ovviamente equivale a \(t\)).
 \[
      \frac{1}{t} | A_t(k) - A_t(k+1) | = \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right)
@@ -668,8 +672,8 @@ con grado <span class="underline">almeno</span> \(k+1\), fratto il numero di nod
 
 <p>
 Per definizione quindi un nodo \(j\) appartiene all'insieme \(A_t(k)\) se e solo se \(j \leq t\) e \(x_j(t) \leq k\).
-Ma sappiamo dalla precedente eq differenziale che \(x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\),
-\(x_j(t) \geq k\) se e solo se \(\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\).<br />
+Ma sappiamo dalla precedente eq. differenziale che \(x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\),
+perciò \(x_j(t) \geq k\) se e solo se \(\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\).<br />
 </p>
 
 <p>
@@ -695,14 +699,45 @@ Riformulando l'affermazione di prima, il nodo \(j\) appartiene all'insieme \(A_t
 </p>
 
 <p>
-Perciò possiamo riformulare la definizione dell'insieme \(A_t(k)\) come
-\[ A_t(k) := \lbrace j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \rbrace \]
-il quale avrà cardinalità
+Perciò possiamo riformulare anche la definizione dell'insieme \(A_t(k)\) come
+\[ A_t(k) := \bigg\{ j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }  \bigg\} \]
+il quale avrà cardinalità esattamente
 \[ |A_t(k)| =  t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} } \]
 </p>
 
 <p>
-[da completare &#x2026;]
+Per comodità definiamo la funzione \(F(k) = \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }\).
+Perciò la quantità che vogliamo calcolare al possiamo riscrivere come
+\[ \frac{1}{t} \left( |A_t(k)| + |A_t(k+1)| \right) = F(k) - F(k+1) = f(k) \]
+</p>
+
+<p>
+A questo punto possiamo <i>approssimare</i> \(f(k)\) come la derivata \(-\frac{d}{dk}F(k)\).
+Se il segno <code>-</code> confonde, con la seguente equazione apparirà più chiaro
+\[
+     F(k) - F(k+1)
+     = \frac{(-1)}{(-1)} \left( F(k) - F(k+1) \right)
+     = - \left( - \frac{ F(k) - F(k+1) }{1} \right)
+     = - \left( \frac{ F(k+1) - F(k) }{1} \right)
+     \approx -\frac{d}{dk}F(k)
+     \]
+</p>
+
+<p>
+Assodata questa approssimazione, si può procedere derivando<sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup> in \(k\).
+</p>
+\begin{align*}
+f(k) &\approx -\frac{d}{dk} F(k)\\
+&= - \left( \frac{1}{1 - p} \right)
+\cdot \left( \frac{1-p}{p} \right)
+\cdot \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} - 1 }\\
+&= \frac{1}{p} \cdot
+\left[ k \frac{1-p}{p} + 1 \right]^{ - \left( 1 + \frac{1}{1-p} \right) }
+\end{align*}
+
+<p>
+Tale funzione è l'inversa di un polinomio in \(k\) con esponente massimo \(\left( 1 + \frac{1}{1-p} \right)\),
+e in quanto tale è una <i>power-law</i>.
 </p>
 
 <hr>
@@ -710,6 +745,33 @@ il quale avrà cardinalità
 </li>
 </ol>
 </div>
+
+
+<div id="outline-container-org4b798b2" class="outline-4">
+<h4 id="org4b798b2"><span class="section-number-4">2.1.3</span> Osservazioni sull'analisi</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+In realtà l'approssimazione continua e deterministica fatta per analizzare la correttezza della procedura di generazione del modello potrebbe
+discostarsi molto dal valore effettivo, ovvero quello descritto in maniera discreta e probabilistica.<br />
+In realtà è stato dimostrato<sup><a id="fnr.8" class="footref" href="#fn.8">8</a></sup> che <i>w.h.p.</i><sup><a id="fnr.9" class="footref" href="#fn.9">9</a></sup> nel modello di rete per <i>rich-get-richer</i> proposto, la frazione di nodi
+con grado \(k\) è proporzionale a \(k^{- \left(1 + \frac{1}{1-p} \right)}\).
+</p>
+
+<hr>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0809b7e" class="outline-2">
+<h2 id="org0809b7e"><span class="section-number-2">3</span> Impredicibilità della popolarità</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+[da finire &#x2026;]
+</p>
+
+<hr>
 </div>
 </div>
 <div id="footnotes">
@@ -743,6 +805,18 @@ tra le prime 5 o 6 indicizzate (è difficile che io vada oltre).
 una <i>eq. differenziale</i> è una equazione che lega una funzione alla sua derivata, del tipo \(f'(x) = a \cdot f(x) + b\)
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7">7</a></sup> <div class="footpara"><p class="footpara">
+si ricordi che la derivata di una funzione del tipo \(y = \left[ h(x) \right]^n\) è pari a \(y' = n \cdot \left[ h(x) \right]^{n-1} \cdot h'(x)\).
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8">8</a></sup> <div class="footpara"><p class="footpara">
+[Bollobas, Riordan - 2005]
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9">9</a></sup> <div class="footpara"><p class="footpara">
+<i>with high probability</i>, ovvero con probabilità <i>almeno</i> \(1 - \left( \frac{1}{n} \right)^{\Omega(1)}\)
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -750,7 +824,7 @@ una <i>eq. differenziale</i> è una equazione che lega una funzione alla sua der
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-18 lun 17:01</p>
+<p class="date">Created: 2021-10-19 mar 23:07</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
