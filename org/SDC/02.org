@@ -1,0 +1,78 @@
+#+title: SDC - Lesson 02
+#+date: <2021-10-11 lun>
+#+teacher: 
+#+setupfile: ../../org-template/appunti.org
+
+#+html: <hr>
+
+Come visto nella [[./01.html][lezione 1]] si è visto che i requisiti fondamentali per costruire una /blockchain/ sono:
+1. un sistema che garantisca la /fiducia/ tra i peer
+2. una /identificazione univoca/ della moneta
+3. la presenza di un /ledger/ *distribuito* e *immutabile*
+
+Un primo prblema da affrontare è:
+#+begin_quote
+realizzare una criptovaluta che sia il più possibile "simile" a una moneta metallica e che soddisfi ri requisit fondamentali di una blockchain
+#+end_quote
+In realtà questo primo problema in un certo modo /rilassa/[fn:1] il secondo dei requisiti fondamentali,
+in quanto la moneta metallica non è univocamente identificata (lo sono solo le banconote cartacee).\\
+Eseguire una transazione con una moneta metallica è del tutto *non* tracciabile.
+Il problema nello scambio di monete metalliche sta nel fatto che accettando un pagamento in moneta
+devo /dare fiducia/ a chi mi sta pagando.
+Infatti per questo motivo, quando si fa un viaggio e si necessita di uno scambio di valuta,
+vengono accettate solamente banconote (in quanto univocamente identificate e rintracciabili).
+Nel mondo reale invece noi diamo fiducia a chi stampa le monete, come per esempio la zecca di stato o la BCE[fn:2].
+Chi stampa monete, per evitare che vengano contraffatte, fanno sì che il processo produzione e lavorazione
+abbia un costo /maggiore/ della moneta stessa.\\
+Quello che fa il /bitcoin/ è cercare di rimuovere la fiducia in queste terze parti che producono monete.\\
+
+Perciò gli attributi che si desidera avere dalla moneta che si vuole creare sono:
+1. *portabilità fisica*: si vuole l'opportunità di poter portare fisicamente appresso la moneta.
+2. *non falsificabile*: non deve essere possibile falsificare la moneta, o quantomento il costo per farlo non deve valerne il fine.
+3. *ben scalabile o frazionabile*: deve essere possibile poter frazionare l'/unità/ della moneta in maniera comoda, per esempio seguendo il sistema decimale (0.1, 10, 0.01, ...).
+4. *riconoscibile*: deve essere facile poter distinguere la moneta.
+5. *limitata in numerosità*: deve essere presente solo una quantità *finita* di moneta in circolazione.
+
+#+html: <hr>
+
+La criptovaluta /bitcoin/ è una moneta che consente di eseguire transazioni in maniera /anonima/, ed evitando il cosiddetto problema del /double spending/[fn:3].
+Per fare ciò, il bitcoin non associa un identificatore univoco alle singole monete, bensì associa univocamente una moneta a un solo possessore.
+Il possessore di moneta è definito da un /chiave pubblica/.
+In generale chi desidera può generare una /coppia di chiavi/ pubblica e privata, per esempio usando l'algoritmo di crittografia dell'[[https://it.wikipedia.org/wiki/RSA_(crittografia)][RSA]] oppure la crittografia
+a [[https://it.wikipedia.org/wiki/Crittografia_ellittica][curve ellittiche]].
+In questa maniera, *solamente* il possessore di una chiave privata può /firmare/ qualcosa "a nome" della relativa chiave pubblica associata.
+Questo significa che nel ledger è segnato che esiste un bitcoin associato alla mia chiave pubblica, solo io che sono il possessore della relativa
+chiave privata posso scrivere e *firmare* sul ledger che ho speso quel bitcoin.
+Inoltre non posso spendere una moneta che non posseggo, dato che esse saranno associato ad altre chiavi pubbliche delle quali non possego la
+relativa privata.
+#+attr_html: :align center
+| *public keys* | *bitcoin* |
+|---------------+-----------|
+| =pk1=         |         3 |
+| =pk2=         |       4.1 |
+| =pk3=         |       1.2 |
+|---------------+-----------|
+
+#+html: <br> <br>
+
+#+attr_html: :align center
+| *public keys*      | *bitcoin* | *firma*                       |
+|--------------------+-----------+-------------------------------|
+| =pk1=              |         3 |                               |
+| =pk2=              |       4.1 |                               |
+| =pk3=              |       1.2 |                               |
+|--------------------+-----------+-------------------------------|
+| =pk1=              |       1.5 |                               |
+| =pk2=              |       5.6 |                               |
+| =pk3=              |       1.2 |                               |
+| =pk1= paga a =pk2= |       1.5 | /frima/ fatta con =sk1=[fn:4] |
+|--------------------+-----------+-------------------------------|
+
+
+#+html: <hr>
+
+  
+[fn:1] non vincola in maniera forte
+[fn:2] Banca Centrale Europe
+[fn:3] spendere una moneta della quale non si è in possesso. Vedi [[./01.html][lezione 1]].
+[fn:4] le sigle =sk= e =pk= stanno rispettivamente per /secret-key/ e /public-key/
