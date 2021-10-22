@@ -1,0 +1,86 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 03
+#+date: <2021-10-21 lun>
+#+author: Alessandro Straziota
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+* Single source broadcast problem
+  Come introdotto nella [[./02.html][lezione 2]], in un sistema /distribuito/ non ha senso parlare di =input/output= di un algoritmo,
+  besì di /configurazioni iniziali e finali ammissibili del sistema/, rispettivamente.
+  Inoltre per un protocollo distribuito si parla di /assunzioni/[fn:1] sotto le quali il protocollo deve lavorare.\\
+
+  Definiamo quindi il problema del /broadcasting/ a singola sorgente come segue:\\
+  Dato grafo non diretto $G=(V,E)$, un messaggio $m \in \lbrace 0,1 \rbrace^\star$ e una funzione di stato $state: V \rightarrow \lbrace \texttt{informed},\texttt{not_informed} \rbrace$,
+  si vuole progettare un protocollo che propaghi il messaggio a tutti i nodi.
+  - *configurazioni iniziale*
+    $\exists ! s \in V : state(s) = \texttt{informed}$
+  - *assunzioni*
+    1. unique initiator
+    2. totale reliability
+    3. bidirectionale links
+    4. $G$ is connected
+  - *configurazioni finali*
+    $\forall v \in V \;\; state(v) = \texttt{informed}$
+
+  Necessario specificare che i nodi passano dallo stato =not_informed= ad =informed= nel momento in cui ricevono un messagio.\\
+
+  Si osservi che mentre possono esistere $n$ configurazioni iniziali possibili, la configurazione finale è unica.
+  Inoltre, è sottointeso che lo /unique initiator/ corrisponda al primissino nodo informato.
+  In realtà questo non è sempre vero, potrebbe capitare un problema in cui l'initiator non corrisponda col primo nodo informato.\\
+
+  Una volta progettato il protocollo, si richiede:
+  1. un'analisi della *correttezza*, ovvero se il protocollo porta a termine il suo task
+  2. verificare se *termina*: non è detto che se un protocollo completi il suo compito allora necessariamente termini la sua esecuzione
+  3. calcolare la sua *message complexity*
+
+* Trivial Flooding protocol
+  Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
+  Intuitivamente questa idea porterà ad una configurazione finale, basandosi sul fatto che il grafo è connesso.
+
+  #+caption: Idea protocollo
+  [[file:../images/adrc-lesson03-img1.png]]
+
+  Perciò, possiamo definire lo stato =INITIATOR= nel quale si trova l'unico nodo inziale col messaggio il quale si dovrà preccupare di
+  far iniziare il protocollo, e lo stato =SLEEPING= in cui i si trovano gli altri nodi in attessa di ricevere il messaggio.\\
+  Una possibile descrizione del protocollo potrebbe essere la seguente:
+  -----
+  #+begin_src python
+    # protocollo trivial-flood
+    if self.state == "INITIATOR":
+	spontaneously:
+	    send(self.message) to N(self)
+    
+    elif self.state == "SLEEPING":
+	receiving(m):
+	    send(m) to N(self)
+  #+end_src
+  #+html: <p align="center"><span class="figure-number">Code 1:</span>Pseudocodice python-like</p> 
+  -----
+
+** Correttezza
+   *THM* se eseguiamo il protocollo /trivial-flood/ sotto le assunzioni =1,2,3,4=, esiste un tempo $t \in \mathbb{R}^+$ tale che
+   ogni nodo di $G$ ha ricevuto il messaggio $m$ /almeno/ una volta, ovvero 
+   \[ \forall v \in V \;\; state(v) = \texttt{informed} \]
+
+   *Proof*: sia $L_d$ l'insieme di nodi distanti esattamente $d$ dalla sorgente $s$.
+   Si vuole dimostrare per /induzione/ su $d$ che esiste un tempo $t_d$ tale che tutti i nodi in $L_d$ hanno ricevuto almeno una volta il messaggio.\\
+   Per $d = 0$ è banale in quanto $L_0 := \lbrace s \rbrace$.
+   Perciò come vase prendiamo $d = 1$.
+   Per definizione avremo che $L_1 \equiv N(s)$
+
+   *[da finire ...]*
+
+
+----- 
+ 
+[fn:1] /restrizioni/

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-10-23 sab 00:34 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 03</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 03</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4fef608">1. Single source broadcast problem</a></li>
+<li><a href="#org707b3d8">2. Trivial Flooding protocol</a>
+<ul>
+<li><a href="#org50923ed">2.1. Correttezza</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4fef608" class="outline-2">
+<h2 id="org4fef608"><span class="section-number-2">1</span> Single source broadcast problem</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Come introdotto nella <a href="./02.html">lezione 2</a>, in un sistema <i>distribuito</i> non ha senso parlare di <code>input/output</code> di un algoritmo,
+besì di <i>configurazioni iniziali e finali ammissibili del sistema</i>, rispettivamente.
+Inoltre per un protocollo distribuito si parla di <i>assunzioni</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> sotto le quali il protocollo deve lavorare.<br />
+</p>
+
+<p>
+Definiamo quindi il problema del <i>broadcasting</i> a singola sorgente come segue:<br />
+Dato grafo non diretto \(G=(V,E)\), un messaggio \(m \in \lbrace 0,1 \rbrace^\star\) e una funzione di stato \(state: V \rightarrow \lbrace \texttt{informed},\texttt{not_informed} \rbrace\),
+si vuole progettare un protocollo che propaghi il messaggio a tutti i nodi.
+</p>
+<ul class="org-ul">
+<li><b>configurazioni iniziale</b>
+\(\exists ! s \in V : state(s) = \texttt{informed}\)</li>
+<li><b>assunzioni</b>
+<ol class="org-ol">
+<li>unique initiator</li>
+<li>totale reliability</li>
+<li>bidirectionale links</li>
+<li>\(G\) is connected</li>
+</ol></li>
+<li><b>configurazioni finali</b>
+\(\forall v \in V \;\; state(v) = \texttt{informed}\)</li>
+</ul>
+
+<p>
+Necessario specificare che i nodi passano dallo stato <code>not_informed</code> ad <code>informed</code> nel momento in cui ricevono un messagio.<br />
+</p>
+
+<p>
+Si osservi che mentre possono esistere \(n\) configurazioni iniziali possibili, la configurazione finale è unica.
+Inoltre, è sottointeso che lo <i>unique initiator</i> corrisponda al primissino nodo informato.
+In realtà questo non è sempre vero, potrebbe capitare un problema in cui l'initiator non corrisponda col primo nodo informato.<br />
+</p>
+
+<p>
+Una volta progettato il protocollo, si richiede:
+</p>
+<ol class="org-ol">
+<li>un'analisi della <b>correttezza</b>, ovvero se il protocollo porta a termine il suo task</li>
+<li>verificare se <b>termina</b>: non è detto che se un protocollo completi il suo compito allora necessariamente termini la sua esecuzione</li>
+<li>calcolare la sua <b>message complexity</b></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org707b3d8" class="outline-2">
+<h2 id="org707b3d8"><span class="section-number-2">2</span> Trivial Flooding protocol</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
+Intuitivamente questa idea porterà ad una configurazione finale, basandosi sul fatto che il grafo è connesso.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson03-img1.png" alt="adrc-lesson03-img1.png" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Idea protocollo</p>
+</div>
+
+<p>
+Perciò, possiamo definire lo stato <code>INITIATOR</code> nel quale si trova l'unico nodo inziale col messaggio il quale si dovrà preccupare di
+far iniziare il protocollo, e lo stato <code>SLEEPING</code> in cui i si trovano gli altri nodi in attessa di ricevere il messaggio.<br />
+Una possibile descrizione del protocollo potrebbe essere la seguente:
+</p>
+<hr />
+<div class="org-src-container">
+<pre class="src src-python"># protocollo trivial-flood
+if self.state == "INITIATOR":
+    spontaneously:
+	send(self.message) to N(self)
+
+elif self.state == "SLEEPING":
+    receiving(m):
+	send(m) to N(self)
+</pre>
+</div>
+<p align="center"><span class="figure-number">Code 1:</span>Pseudocodice python-like</p>
+<hr />
+</div>
+
+<div id="outline-container-org50923ed" class="outline-3">
+<h3 id="org50923ed"><span class="section-number-3">2.1</span> Correttezza</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<b>THM</b> se eseguiamo il protocollo <i>trivial-flood</i> sotto le assunzioni <code>1,2,3,4</code>, esiste un tempo \(t \in \mathbb{R}^+\) tale che
+ogni nodo di \(G\) ha ricevuto il messaggio \(m\) <i>almeno</i> una volta, ovvero 
+\[ \forall v \in V \;\; state(v) = \texttt{informed} \]
+</p>
+
+<p>
+<b>Proof</b>: sia \(L_d\) l'insieme di nodi distanti esattamente \(d\) dalla sorgente \(s\).
+Si vuole dimostrare per <i>induzione</i> su \(d\) che esiste un tempo \(t_d\) tale che tutti i nodi in \(L_d\) hanno ricevuto almeno una volta il messaggio.<br />
+Per \(d = 0\) è banale in quanto \(L_0 := \lbrace s \rbrace\).
+Perciò come vase prendiamo \(d = 1\).
+Per definizione avremo che \(L_1 \equiv N(s)\)
+</p>
+
+<p>
+<b>[da finire &#x2026;]</b>
+</p>
+
+
+<hr />
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<i>restrizioni</i>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-10-21 gio 00:00</p>
+<p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-10-23 sab 00:34</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
