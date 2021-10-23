@@ -73,11 +73,29 @@
    \[ \forall v \in V \;\; state(v) = \texttt{informed} \]
 
    *Proof*: sia $L_d$ l'insieme di nodi distanti esattamente $d$ dalla sorgente $s$.
-   Si vuole dimostrare per /induzione/ su $d$ che esiste un tempo $t_d$ tale che tutti i nodi in $L_d$ hanno ricevuto almeno una volta il messaggio.\\
-   Per $d = 0$ è banale in quanto $L_0 := \lbrace s \rbrace$.
-   Perciò come vase prendiamo $d = 1$.
-   Per definizione avremo che $L_1 \equiv N(s)$
+   Si vuole dimostrare per /induzione/ su $d$ che esiste un tempo $t_d$ tale che tutti i nodi in $L_d$ hanno ricevuto almeno una volta il messaggio,
+   ovvero che lo stato dei nodi al tempo $t_d$ sia $state_{t_d}(v) = \texttt{informed}$, per ogni $v \in V$.\\
 
+   Per $d = 0$ è banale in quanto $L_0 := \lbrace s \rbrace$.
+   Perciò come base prendiamo $d = 1$.
+   Per definizione avremo che $L_1 \equiv N(s)$.
+   Per come è descritto il protocollo, la srogente $s$ a un certo punto invierà in maniera spontanea il messaggio a tutti in nodi in $N(s)$, ergo in $L_1$.
+   Dato che stiamo sotto l'assunzione di *total reliability* siamo certi che non ci saranno /failures/ durante al trasmissione, quindi per $d=1$ certamente
+   esisterà un istante $t_1 \in \mathbb{R}^+$ entro il quale tutti i nodi in $L_1$ verranno informati.\\
+
+   Supponiamo ora che l'ipotesi sia vera fino a un certo $d-1$; si vuole dimostrare che sia vera anche per $d$, ovvero che
+   \[ \forall x \in L_d \implies \exists t_d \in \mathbb{R}^+ : state_{t_d}(x) = \texttt{informed} \]
+   Consideriamo un qualsiasi nodo $x \in L_d$, allora per definizione esisterà un nodo $y \in L_{d-1}$ tale che $(y,x) \in E$ (sfruttando
+   anche l'ipotesi di *bidirectional links*).\\
+   
+   Se $y \equiv s$ allora vuol dire che $x \in L_1$, riconducendoci quindi al caso base.
+   Se invece $y \not\equiv s$, allora certamente $y$ avrà ricevuto il messaggio mentre era nello stato =SLEEPING=, e per definizione
+   del protocollo $y$ avrà inviato il messaggio al suo vicinato $N(y)$, compreso $x$.
+   Sfruttando ancora l'ipotesi di *total reliability* sappiamo che il messaggio arriverà in un tempo finito e intatto a $x$ tramite $y$.\\
+
+   Infine sfruttando l'*ipotesi di connettività* di $G$ sappiamo che $\forall v \in V \exists k \in \mathbb{N}$ con $k \leq diam(G)$,
+   tale che $v \in L_k$ $\square$.
+   
    *[da finire ...]*
 
 
