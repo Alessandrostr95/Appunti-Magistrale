@@ -123,5 +123,6 @@ h2:after {
 
 
 .figure {
-    width: 80%
+    width: 100%;
+    margin: auto;
 }

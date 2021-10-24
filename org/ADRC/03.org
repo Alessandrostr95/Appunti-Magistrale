@@ -14,6 +14,8 @@
 #+creator: Emacs 27.1 (Org mode 9.4.6)
 #+setupfile: ../../org-template/appunti.org
 
+-----
+
 * Single source broadcast problem
   Come introdotto nella [[./02.html][lezione 2]], in un sistema /distribuito/ non ha senso parlare di =input/output= di un algoritmo,
   besì di /configurazioni iniziali e finali ammissibili del sistema/, rispettivamente.
@@ -43,11 +45,15 @@
   2. verificare se *termina*: non è detto che se un protocollo completi il suo compito allora necessariamente termini la sua esecuzione
   3. calcolare la sua *message complexity*
 
-* Trivial Flooding protocol
+  -----
+  
+
+* Flooding protocol
   Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
   Intuitivamente questa idea porterà ad una configurazione finale, basandosi sul fatto che il grafo è connesso.
 
   #+caption: Idea protocollo
+  #+ATTR_HTML: :width 90% :align center
   [[file:../images/adrc-lesson03-img1.png]]
 
   Perciò, possiamo definire lo stato =INITIATOR= nel quale si trova l'unico nodo inziale col messaggio il quale si dovrà preccupare di
@@ -93,12 +99,76 @@
    del protocollo $y$ avrà inviato il messaggio al suo vicinato $N(y)$, compreso $x$.
    Sfruttando ancora l'ipotesi di *total reliability* sappiamo che il messaggio arriverà in un tempo finito e intatto a $x$ tramite $y$.\\
 
+   #+ATTR_HTML: :width 90% :align center
+   [[file:../images/adrc-lesson03-img2.png]]
+
+   
    Infine sfruttando l'*ipotesi di connettività* di $G$ sappiamo che $\forall v \in V \exists k \in \mathbb{N}$ con $k \leq diam(G)$,
    tale che $v \in L_k$ $\square$.
    
-   *[da finire ...]*
+
+** Miglioramento protocollo
+   Per come è stato descritto, il protocollo precedente porta a termine il suo /task/, però non termina mai.
+   Inoltre, quando un nodo instrada un messaggio ricevuto a tutto il suo vicinato, esso rispedice una copia /superflua/ anche al suo mittente (per via
+   dei bidirectional link).
+   Per ovviare a questo bastano le seguenti modifiche:
+   1. Se nodo ha ricevuto almeno una volta il messaggio passa in uno stato =DONE=, nel quale non ci sarà più bisogno che inoltri ulteriori messaggi (perchè è già stato fatto in precedenza)
+   2. Un nodo che riceve un messaggio non lo inoltra a chi glielo ha inviato. Sappiamo che un nodo può distinguere i nodi agli estremi dei suoi archi incidenti grazie all'assunzione di
+      bidirectional links, ovvero $\forall x \in V \left[\forall y \in N(x) \;\; \lambda_x(x,y) = \lambda_x(y,x) \right]$
+   
+   -----
+   #+begin_src python
+     # protocollo trivial ottimizzato
+     if self.state == "INITIATOR":
+	 spontaneously:
+	     send(self.message) to N(self)
+	     self.state = "DONE"
+     
+     elif self.state == "SLEEPING":
+	 receiving(m):
+	     send(m) to N(self) - { source }
+	     self.state = "DONE"
+     
+     elif self.state == "DONE":
+	 None
+   #+end_src
+   #+html: <p align="center"><span class="figure-number">Code 2:</span>Pseudocodice python-like protocollo ottimizzato</p> 
+   -----
 
 
+** Message Complexity
+   Come già accennato in precedenza, non ha senso parlare di /time complexity/ in un sistema che non è sincrono.
+   Perciò analizzeremo la complessità del protocollo in termini di numero di messaggi trasmessi entro il completamento del task.\\
+
+   Verranno proposte due analisi abbastanza semplici sul protocollo ottimizzato[fn:2], le quali porteranno ad un risultato
+   /asintoticamente/ uguale, ma con un livello di dettaglio differente.
+
+**** *Analisi 1*
+     Si osservi che per via del *ritardo* di trasmissione, su ogni arco possono essere trasmessi _al più_ due messaggi durante l'intero protocollo.
+     Sappiamo che un nodo non invierà mai un messaggio attraverso l'arco da cui l'ha ricevuto, però per via del ritardo di trasmissione
+     potrebbe capitare di inviare un messaggio su un arco nel quale sta già viaggiando un altro messagio in entrata.
+     Fatta questa premessa, nel caso peggiore verranno inviati due messaggi per ogni arco, perciò il protocollo avrà complessità al più $2m \in O(m)$.
+
+**** *Analisi 2*
+     Nel caso precedente si è calcolata la complessità in base gli archi.
+     Volendo è possibile calcolare la complessità in base ai nodi.
+     Definiamo con $msg(v)$ il numero complessivo di messaggi inviati dal nodo $v$, e con $msg(\texttt{FLOOD})$ il numero di messaggi trasmessi durante
+     il protocollo (ovvero la sua message complexity).\\
+
+
+     \begin{align*}
+       msg(\texttt{FLOOD})
+       &= \sum_{v \in V} msg(v)\\
+       &= msg(s) + \sum_{v \in V - \lbrace s \rbrace } msg(v)\\
+       &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - 1\\
+       &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - \sum_{v \in V - \lbrace s \rbrace } 1\\
+       &= \left( \sum_{v \in V} |N(v)| \right) - (n-1)\\
+       &= \left( \sum_{v \in V} deg(v) \right) - (n-1)\\
+       &= 2m - n + 1
+     \end{align*}
+
+     Come si può vedere, da questa analisi emerge che il protocollo risparmia un fattore $n-1$ di messaggi trasmessi.
 ----- 
  
 [fn:1] /restrizioni/
+[fn:2] in quanto è l'unico che termina

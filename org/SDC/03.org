@@ -31,6 +31,7 @@
   Una blockchain, come dice il nome stesso, è un database distribuito di tipo /append-only/[fn:2] formato da
   una /catena di blocchi/.
 
+  #+ATTR_HTML: :width 90% :align center
   [[file:../images/sdc-lesson03-img1.png]]
     
   Dato che nella rete bitcoin ogni nodo possiede una copia locale della blockchain, si necessita che tutti i nodi /acconsentano/ prima di
@@ -50,7 +51,8 @@
   un pagamento, possegga effettivamente una certa quantità di moneta.
   Per fare ciò si necessita di /risalire/ all'indietro lungo i blocchi finchè non si verificano tutte le transazioni.
   Perciò ogni blocco possiede un /riferimento/ al suo blocco precedente.
-  
+
+  #+ATTR_HTML: :width 90% :align center
   [[file:../images/sdc-lesson03-img2.png]]
 
   Per garantire l'/immutabilità/ dei blocchi già convalidati si potrebbe usare l'=hash=[fn:4] dei blocchi come riferimento
@@ -60,7 +62,8 @@
   perchè =hash(B)= è con altissima probabilità differente da =hash(B')=.
   Periò, o bisogna modificare =A= scrivendo =hash(B')= al posto di =hash(B)=, e di conseguenza creando la necessità di modificare
   tutti i successori di =A=, oppure più semplicemente la catena si spezza a =B=.
-  
+
+  #+ATTR_HTML: :width 90% :align center
   [[file:../images/sdc-lesson03-img3.png]]
 
   Dato che calcolare l'output di una funzione =hash= è relativamente veloce, calcolare solo =hash(B)= per riferirsi a =B=

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-23 sab 23:56 -->
+<!-- 2021-10-24 dom 12:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 03</title>
@@ -274,18 +274,21 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4fef608">1. Single source broadcast problem</a></li>
-<li><a href="#org707b3d8">2. Trivial Flooding protocol</a>
+<li><a href="#org6c79b4e">1. Single source broadcast problem</a></li>
+<li><a href="#orga54bdb4">2. Flooding protocol</a>
 <ul>
-<li><a href="#org50923ed">2.1. Correttezza</a></li>
+<li><a href="#orgb704305">2.1. Correttezza</a></li>
+<li><a href="#org022816b">2.2. Miglioramento protocollo</a></li>
+<li><a href="#org75a6a08">2.3. Message Complexity</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+<hr />
 
-<div id="outline-container-org4fef608" class="outline-2">
-<h2 id="org4fef608"><span class="section-number-2">1</span> Single source broadcast problem</h2>
+<div id="outline-container-org6c79b4e" class="outline-2">
+<h2 id="org6c79b4e"><span class="section-number-2">1</span> Single source broadcast problem</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Come introdotto nella <a href="./02.html">lezione 2</a>, in un sistema <i>distribuito</i> non ha senso parlare di <code>input/output</code> di un algoritmo,
@@ -330,11 +333,14 @@ Una volta progettato il protocollo, si richiede:
 <li>verificare se <b>termina</b>: non è detto che se un protocollo completi il suo compito allora necessariamente termini la sua esecuzione</li>
 <li>calcolare la sua <b>message complexity</b></li>
 </ol>
+
+<hr />
 </div>
 </div>
 
-<div id="outline-container-org707b3d8" class="outline-2">
-<h2 id="org707b3d8"><span class="section-number-2">2</span> Trivial Flooding protocol</h2>
+
+<div id="outline-container-orga54bdb4" class="outline-2">
+<h2 id="orga54bdb4"><span class="section-number-2">2</span> Flooding protocol</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
@@ -343,7 +349,7 @@ Intuitivamente questa idea porterà ad una configurazione finale, basandosi sul 
 
 
 <div class="figure">
-<p><img src="../images/adrc-lesson03-img1.png" alt="adrc-lesson03-img1.png" />
+<p><img src="../images/adrc-lesson03-img1.png" alt="adrc-lesson03-img1.png" width="90%" align="center" />
 </p>
 <p><span class="figure-number">Figura 1: </span>Idea protocollo</p>
 </div>
@@ -369,8 +375,8 @@ elif self.state == "SLEEPING":
 <hr />
 </div>
 
-<div id="outline-container-org50923ed" class="outline-3">
-<h3 id="org50923ed"><span class="section-number-3">2.1</span> Correttezza</h3>
+<div id="outline-container-orgb704305" class="outline-3">
+<h3 id="orgb704305"><span class="section-number-3">2.1</span> Correttezza</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 <b>THM</b> se eseguiamo il protocollo <i>trivial-flood</i> sotto le assunzioni <code>1,2,3,4</code>, esiste un tempo \(t \in \mathbb{R}^+\) tale che
@@ -407,18 +413,113 @@ del protocollo \(y\) avrà inviato il messaggio al suo vicinato \(N(y)\), compre
 Sfruttando ancora l'ipotesi di <b>total reliability</b> sappiamo che il messaggio arriverà in un tempo finito e intatto a \(x\) tramite \(y\).<br />
 </p>
 
+
+<div class="figure">
+<p><img src="../images/adrc-lesson03-img2.png" alt="adrc-lesson03-img2.png" width="90%" align="center" />
+</p>
+</div>
+
+
 <p>
 Infine sfruttando l'<b>ipotesi di connettività</b> di \(G\) sappiamo che \(\forall v \in V \exists k \in \mathbb{N}\) con \(k \leq diam(G)\),
 tale che \(v \in L_k\) \(\square\).
 </p>
+</div>
+</div>
+
+
+<div id="outline-container-org022816b" class="outline-3">
+<h3 id="org022816b"><span class="section-number-3">2.2</span> Miglioramento protocollo</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Per come è stato descritto, il protocollo precedente porta a termine il suo <i>task</i>, però non termina mai.
+Inoltre, quando un nodo instrada un messaggio ricevuto a tutto il suo vicinato, esso rispedice una copia <i>superflua</i> anche al suo mittente (per via
+dei bidirectional link).
+Per ovviare a questo bastano le seguenti modifiche:
+</p>
+<ol class="org-ol">
+<li>Se nodo ha ricevuto almeno una volta il messaggio passa in uno stato <code>DONE</code>, nel quale non ci sarà più bisogno che inoltri ulteriori messaggi (perchè è già stato fatto in precedenza)</li>
+<li>Un nodo che riceve un messaggio non lo inoltra a chi glielo ha inviato. Sappiamo che un nodo può distinguere i nodi agli estremi dei suoi archi incidenti grazie all'assunzione di
+bidirectional links, ovvero \(\forall x \in V \left[\forall y \in N(x) \;\; \lambda_x(x,y) = \lambda_x(y,x) \right]\)</li>
+</ol>
+
+<hr />
+<div class="org-src-container">
+<pre class="src src-python"># protocollo trivial ottimizzato
+if self.state == "INITIATOR":
+    spontaneously:
+	send(self.message) to N(self)
+	self.state = "DONE"
+
+elif self.state == "SLEEPING":
+    receiving(m):
+	send(m) to N(self) - { source }
+	self.state = "DONE"
+
+elif self.state == "DONE":
+    None
+</pre>
+</div>
+<p align="center"><span class="figure-number">Code 2:</span>Pseudocodice python-like protocollo ottimizzato</p>
+<hr />
+</div>
+</div>
+
+
+<div id="outline-container-org75a6a08" class="outline-3">
+<h3 id="org75a6a08"><span class="section-number-3">2.3</span> Message Complexity</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Come già accennato in precedenza, non ha senso parlare di <i>time complexity</i> in un sistema che non è sincrono.
+Perciò analizzeremo la complessità del protocollo in termini di numero di messaggi trasmessi entro il completamento del task.<br />
+</p>
 
 <p>
-<b>[da finire &#x2026;]</b>
+Verranno proposte due analisi abbastanza semplici sul protocollo ottimizzato<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, le quali porteranno ad un risultato
+<i>asintoticamente</i> uguale, ma con un livello di dettaglio differente.
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgbbf30ec"></a><b>Analisi 1</b><br />
+<div class="outline-text-5" id="text-2-3-0-1">
+<p>
+Si osservi che per via del <b>ritardo</b> di trasmissione, su ogni arco possono essere trasmessi <span class="underline">al più</span> due messaggi durante l'intero protocollo.
+Sappiamo che un nodo non invierà mai un messaggio attraverso l'arco da cui l'ha ricevuto, però per via del ritardo di trasmissione
+potrebbe capitare di inviare un messaggio su un arco nel quale sta già viaggiando un altro messagio in entrata.
+Fatta questa premessa, nel caso peggiore verranno inviati due messaggi per ogni arco, perciò il protocollo avrà complessità al più \(2m \in O(m)\).
+</p>
+</div>
+</li>
+
+<li><a id="org153be85"></a><b>Analisi 2</b><br />
+<div class="outline-text-5" id="text-2-3-0-2">
+<p>
+Nel caso precedente si è calcolata la complessità in base gli archi.
+Volendo è possibile calcolare la complessità in base ai nodi.
+Definiamo con \(msg(v)\) il numero complessivo di messaggi inviati dal nodo \(v\), e con \(msg(\texttt{FLOOD})\) il numero di messaggi trasmessi durante
+il protocollo (ovvero la sua message complexity).<br />
 </p>
 
 
+\begin{align*}
+  msg(\texttt{FLOOD})
+  &= \sum_{v \in V} msg(v)\\
+  &= msg(s) + \sum_{v \in V - \lbrace s \rbrace } msg(v)\\
+  &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - 1\\
+  &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - \sum_{v \in V - \lbrace s \rbrace } 1\\
+  &= \left( \sum_{v \in V} |N(v)| \right) - (n-1)\\
+  &= \left( \sum_{v \in V} deg(v) \right) - (n-1)\\
+  &= 2m - n + 1
+\end{align*}
+
+<p>
+Come si può vedere, da questa analisi emerge che il protocollo risparmia un fattore \(n-1\) di messaggi trasmessi.
+</p>
 <hr />
 </div>
+</li>
+</ol>
 </div>
 </div>
 <div id="footnotes">
@@ -429,6 +530,10 @@ tale che \(v \in L_k\) \(\square\).
 <i>restrizioni</i>
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+in quanto è l'unico che termina
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -436,7 +541,7 @@ tale che \(v \in L_k\) \(\square\).
 <p class="date">Data: 2021-10-21 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-23 sab 23:56</p>
+<p class="date">Created: 2021-10-24 dom 12:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
