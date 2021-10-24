@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-24 dom 11:10 -->
+<!-- 2021-10-24 dom 17:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 02-03</title>
@@ -290,7 +290,11 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#org207d201">3. Impredicibilità della popolarità</a></li>
+<li><a href="#org207d201">3. Impredicibilità della popolarità</a>
+<ul>
+<li><a href="#orga4354fe">3.1. La lunga coda</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -768,10 +772,50 @@ con grado \(k\) è proporzionale a \(k^{- \left(1 + \frac{1}{1-p} \right)}\).
 <h2 id="org207d201"><span class="section-number-2">3</span> Impredicibilità della popolarità</h2>
 <div class="outline-text-2" id="text-3">
 <p>
+Da come è stato definito il modello per <i>rich-get-richer</i> in precedenza, viene subito da pensare che la distribuzione dei gradi
+dipende <i>fortemente</i> dalla fase iniziale del processo di generazione.<br />
+</p>
+
+<p>
+C'è un esperimento di <a href="https://www.princeton.edu/~mjs3/salganik_dodds_watts06_full.pdf">Salganik-Dodds-Watts</a> del 2006 che mostra quanto è importante e instabile la fase iniziale.
+</p>
+<blockquote>
+<p>
+Venne creato un sito era possibile ascoltare e scaricare delle canzoni tra circa 50 proposte.
+C'erano inoltre 8 playlist, ognunga delle quali contente tutte le canzoni del sito.
+Per ogni playlist, veniva mostrato un <i>contatore dei download</i> delle canzoni internamente alla playlist:
+se la canzone <code>X</code> veniva scaricata dalla playlist <code>A</code>, quel download veniva contato e riportato solo per <code>A</code>, e non per un'altra playlist <code>B</code>.<br />
+Quando chiunque entrava nel sito, veniva riportato automaticamente a una playlist totalmente a caso.<br />
+</p>
+
+<p>
+Ovviamente, più una canzone aveva l'indice di download alto, più veniva ascoltata e scaricata, in quantola gente è influenzata dal parere della massa.
+Interessante invece osservare come si sono evoluti i contatori di download nel tempo.
+Dato che inizialmente erano tutti posti a 0, e dato che le persone venivano rendirizzate alle playlist <span class="underline">totalmente a caso</span>, si potrebbe pensare
+che col tempo più o meno tutte le playlist avessero una stessa classifica dei download.
+In realtà ogni palylist aveva un classifica totalmente differente.<br />
+</p>
+
+<p>
+Questo è dovuto al fatto che la popolarità di una canzone in una playlist piuttosto che in un altra dipendeva da come si evolvevano le fasi iniziali.
+</p>
+</blockquote>
+
+<p>
+Ciò che mostra questo esperimento è <b>il processo che conduce alla popolarità è fortemente sensibile alle condizioni iniziali</b>.
+Perciò si potrebbe inizialmente sfruttare il <b>feedback</b> per cercare di influenzare la popolarità di una entità della rete.
+</p>
+</div>
+
+<div id="outline-container-orga4354fe" class="outline-3">
+<h3 id="orga4354fe"><span class="section-number-3">3.1</span> La lunga coda</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
 [da finire &#x2026;]
 </p>
 
-<hr>
+<hr />
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -824,7 +868,7 @@ si ricordi che la derivata di una funzione del tipo \(y = \left[ h(x) \right]^n\
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-24 dom 11:10</p>
+<p class="date">Created: 2021-10-24 dom 17:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

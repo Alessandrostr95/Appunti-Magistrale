@@ -1,0 +1,27 @@
+#+title: AR - Lesson 04
+#+date: <2021-10-20 lun>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+
+* Grafi geometrici aleatori e reti wireless
+  I modelli fin'ora visti (Erdős–Rényi e rich-get-richer) sono tutti modelli tipo /virtuale/, ovvero
+  descrivono le /connessioni logiche/ tra i nodi, trascurando del tutto l'implementazione fisica della rete.
+  Spesso però si necessita di modellare reti che debbano essere poi /implementate fisicamente/.
+  Quando si affronta un problema reale bisogna sempre considerare due fattori:
+  1. la *fattibilità*
+  2. le *risorse necessarie*
+  Infatti, non basta sapere che è fisicamente possibile costruire una rete che è stata precedentemente modellizzata,
+  ma bisogna sempre tener conto del costo in termine di risorse.
+  Supponendo che non si disponga di risorse infite, quello che generalmente si desidera è sempre /minimizzare i costi/.\\
+  In ogni caso, quando bisogna implementare una rete fisica, bisogna sempre considerare la *struttura geometrica* che dovrà avere
+  e lo *spazio* in cui dovrà essere costruita.
+
+** Grafo Geometrico
+   Sia uno *spazio metrico* $(\mathbb{R}^d, \Vert \cdot \Vert ) di dimensione $d \geq 1$, è una costante $r > 0$ detto *raggio*.
+   Un /grafo geometrico/ $G$ è composto dai seguenti insiemi:
+   1. $V \subseteq \mathbb{R}^d$
+   2. $E := \lbrace (a,b) \in V^2 : \Vert a-b \Vert \leq r \rbrace$
+   La maggior parte delle volte ci si trova a considerare uno spazio bidimensionale $\mathbb{R}^2$, con /norma euclidea/
+   e raggio unitario $r = 1$.
+   In questo caso esiste un arco tra due nodi $a,b$ solo se $\sqrt{(x_1 - x_b)^2 + (y_1 - y_b)^2} \leq 1$.
+   Questo modello è anche noto come *unique disk graph*.

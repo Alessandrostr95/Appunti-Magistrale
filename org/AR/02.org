@@ -342,10 +342,34 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 
 
 * Impredicibilità della popolarità
+  Da come è stato definito il modello per /rich-get-richer/ in precedenza, viene subito da pensare che la distribuzione dei gradi
+  dipende /fortemente/ dalla fase iniziale del processo di generazione.\\
 
+  C'è un esperimento di [[https://www.princeton.edu/~mjs3/salganik_dodds_watts06_full.pdf][Salganik-Dodds-Watts]] del 2006 che mostra quanto è importante e instabile la fase iniziale.
+  #+begin_quote
+  Venne creato un sito era possibile ascoltare e scaricare delle canzoni tra circa 50 proposte.
+  C'erano inoltre 8 playlist, ognunga delle quali contente tutte le canzoni del sito.
+  Per ogni playlist, veniva mostrato un /contatore dei download/ delle canzoni internamente alla playlist:
+  se la canzone =X= veniva scaricata dalla playlist =A=, quel download veniva contato e riportato solo per =A=, e non per un'altra playlist =B=.\\
+  Quando chiunque entrava nel sito, veniva riportato automaticamente a una playlist totalmente a caso.\\
+
+  Ovviamente, più una canzone aveva l'indice di download alto, più veniva ascoltata e scaricata, in quantola gente è influenzata dal parere della massa.
+  Interessante invece osservare come si sono evoluti i contatori di download nel tempo.
+  Dato che inizialmente erano tutti posti a 0, e dato che le persone venivano rendirizzate alle playlist _totalmente a caso_, si potrebbe pensare
+  che col tempo più o meno tutte le playlist avessero una stessa classifica dei download.
+  In realtà ogni palylist aveva un classifica totalmente differente.\\
+
+  Questo è dovuto al fatto che la popolarità di una canzone in una playlist piuttosto che in un altra dipendeva da come si evolvevano le fasi iniziali.
+  #+end_quote
+
+  Ciò che mostra questo esperimento è *il processo che conduce alla popolarità è fortemente sensibile alle condizioni iniziali*.
+  Perciò si potrebbe inizialmente sfruttare il *feedback* per cercare di influenzare la popolarità di una entità della rete.
+  
+** La lunga coda
+  
 [da finire ...]
 
-#+html: <hr>
+----- 
   
 [fn:1] /i.i.d./ sta per /indipendenti e identicamente distribuite/.
 [fn:2] [Broder et al., 2000]
