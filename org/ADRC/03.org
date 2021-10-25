@@ -4,7 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: ADRC - Lesson 03
-#+date: <2021-10-21 lun>
+#+date: <2021-10-19 lun>
 #+author: Alessandro Straziota
 #+email: alessandrostr95@gmail.com
 #+teacher: Andrea Clementi

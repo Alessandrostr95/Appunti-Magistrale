@@ -1,0 +1,74 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 04
+#+date: <2021-10-21 lun>
+#+author: Alessandro Straziota
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+-----
+Ricoleggandoci al problema del broadcasting introdotto nella [[./03.html][lezione 3]], sappiamo che non ha senso calcolare
+la complessità temporale in un sistema non sincrono.
+Un'altro requisito necessario per poter calcolare la complessità temporale è la condizione di /bounded delay/.\\
+
+Supponendo che siamo in queste condizioni, e per comodità che i messagi vengano trasmessi con uno stesso ritardo di /una unità/,
+si potrebbe stimare un /upper-bound/ alla time complexity.
+Infatti, data una sorgente $s \in V$, una stima può essere
+\[
+time = \max_{x \in V}{ \lbrace d(s,x) \rbrace } \leq diam(G) \leq n-1
+\]
+
+
+* Esercizio
+  Sotto l'assunzione che il sistema sia sincorono, e che il delay dei messaggi sia di una unità, calcolare la
+  /complessità/ temporale del protocollo di /[[./03.html][flooding]]/ per /induzione/ sul tempo $t$.
+
+-----
+
+* Time and Events
+  Dato uno *stesso input* a un /algoritmo deterministico centralizzato/, esso non solo genererà uno *stesso output*,
+  ma la /sequenza di azioni/ che svolgerà per raggiungere tale output sarà sempre la stessa[fn:1], anche se viene rieseguito infinite volte.\\
+
+  La stessa cosa non si può sempre dire di un /algoritmo deterministico distribuito/.
+  Infatti nel del protocollo di /flooding/ visto nella [[./03.html][lezione 3]], dato che il /delay/ dei messaggi varia in maniera indeterminata,
+  avremo che la *traiettori* (o sequenza di azioni) verso l'unica configurazione finale varia da esecuzione ad esecuzione, anche a fronte
+  di una stessa configurazione iniziale.\\
+
+  Per rendere meglio l'idea facciamo un esempio.
+  Consideriamo il seguente grafo
+
+  #+ATTR_HTML: :width 200px
+  [[file:../images/adrc-lesson04-img1.png]]
+  
+  e consideriamo il nodo $x$ come nodo /sorgente/.\\
+
+  Eseguendo per la prima volta il protocollo di flooding potrebbe capitare che i ritardi di trasmissione sugli archi $(x,y)$ e $(x,z)$ siano molto simili.
+  Perciò una possibile sequenza di azioni potrebbe essere la seguente
+  #+ATTR_HTML: :width 80%
+  [[file:../images/adrc-lesson04-img2.png]]
+
+  Eseguendo il protocollo una seconda volta, potrebbe capitare che il ritardo di trasmissione sull'arco $(x,y)$ sia così tanto, che alla fine $y$ riceve
+  prima il messaggio tramite $z$ anzichè $x$.
+  #+ATTR_HTML: :width 80%
+  [[file:../images/adrc-lesson04-img3.png]]
+
+  Perciò, le due precedente esecuzioni possono essere rappresentati come dei *grafi di comunicazione*
+  #+ATTR_HTML: :width 200px
+  #+caption: Due possibili grafi di comunicazione
+  [[file:../images/adrc-lesson04-img4.png]]
+  
+  Dato che il grafo di comunicazione è sostanzialmente un /albero ricoprente/, possiamo avere quindi $O(n^n)$ possibili sequenze di trasmissioni
+  (o *traiettorie*) che portano alla configurazione finale.
+
+  *[da finire ...]*
+-----
+
+[fn:1] [[https://en.wikipedia.org/wiki/Turing_machine]]

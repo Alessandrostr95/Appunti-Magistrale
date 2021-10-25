@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-25 lun 22:58 -->
+<!-- 2021-10-26 mar 00:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 03</title>
+<title>ADRC - Lesson 04</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota Alessandro Straziota" />
 <style type="text/css">
@@ -269,257 +269,114 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 03</h1>
+<h1 class="title">ADRC - Lesson 04</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6c79b4e">1. Single source broadcast problem</a></li>
-<li><a href="#orga54bdb4">2. Flooding protocol</a>
-<ul>
-<li><a href="#orgb704305">2.1. Correttezza</a></li>
-<li><a href="#org022816b">2.2. Miglioramento protocollo</a></li>
-<li><a href="#org75a6a08">2.3. Message Complexity</a></li>
-</ul>
-</li>
+<li><a href="#org20fe5dd">1. Esercizio</a></li>
+<li><a href="#orgc13f8d4">2. Time and Events</a></li>
 </ul>
 </div>
 </div>
 <hr />
+<p>
+Ricoleggandoci al problema del broadcasting introdotto nella <a href="./03.html">lezione 3</a>, sappiamo che non ha senso calcolare
+la complessità temporale in un sistema non sincrono.
+Un'altro requisito necessario per poter calcolare la complessità temporale è la condizione di <i>bounded delay</i>.<br />
+</p>
 
-<div id="outline-container-org6c79b4e" class="outline-2">
-<h2 id="org6c79b4e"><span class="section-number-2">1</span> Single source broadcast problem</h2>
+<p>
+Supponendo che siamo in queste condizioni, e per comodità che i messagi vengano trasmessi con uno stesso ritardo di <i>una unità</i>,
+si potrebbe stimare un <i>upper-bound</i> alla time complexity.
+Infatti, data una sorgente \(s \in V\), una stima può essere
+\[
+time = \max_{x \in V}{ \lbrace d(s,x) \rbrace } \leq diam(G) \leq n-1
+\]
+</p>
+
+
+<div id="outline-container-org20fe5dd" class="outline-2">
+<h2 id="org20fe5dd"><span class="section-number-2">1</span> Esercizio</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Come introdotto nella <a href="./02.html">lezione 2</a>, in un sistema <i>distribuito</i> non ha senso parlare di <code>input/output</code> di un algoritmo,
-besì di <i>configurazioni iniziali e finali ammissibili del sistema</i>, rispettivamente.
-Inoltre per un protocollo distribuito si parla di <i>assunzioni</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> sotto le quali il protocollo deve lavorare.<br />
+Sotto l'assunzione che il sistema sia sincorono, e che il delay dei messaggi sia di una unità, calcolare la
+<i>complessità</i> temporale del protocollo di <i><a href="./03.html">flooding</a></i> per <i>induzione</i> sul tempo \(t\).
 </p>
-
-<p>
-Definiamo quindi il problema del <i>broadcasting</i> a singola sorgente come segue:<br />
-Dato grafo non diretto \(G=(V,E)\), un messaggio \(m \in \lbrace 0,1 \rbrace^\star\) e una funzione di stato \(state: V \rightarrow \lbrace \texttt{informed},\texttt{not_informed} \rbrace\),
-si vuole progettare un protocollo che propaghi il messaggio a tutti i nodi.
-</p>
-<ul class="org-ul">
-<li><b>configurazioni iniziale</b>
-\(\exists ! s \in V : state(s) = \texttt{informed}\)</li>
-<li><b>assunzioni</b>
-<ol class="org-ol">
-<li>unique initiator</li>
-<li>totale reliability</li>
-<li>bidirectionale links</li>
-<li>\(G\) is connected</li>
-</ol></li>
-<li><b>configurazioni finali</b>
-\(\forall v \in V \;\; state(v) = \texttt{informed}\)</li>
-</ul>
-
-<p>
-Necessario specificare che i nodi passano dallo stato <code>not_informed</code> ad <code>informed</code> nel momento in cui ricevono un messagio.<br />
-</p>
-
-<p>
-Si osservi che mentre possono esistere \(n\) configurazioni iniziali possibili, la configurazione finale è unica.
-Inoltre, è sottointeso che lo <i>unique initiator</i> corrisponda al primissino nodo informato.
-In realtà questo non è sempre vero, potrebbe capitare un problema in cui l'initiator non corrisponda col primo nodo informato.<br />
-</p>
-
-<p>
-Una volta progettato il protocollo, si richiede:
-</p>
-<ol class="org-ol">
-<li>un'analisi della <b>correttezza</b>, ovvero se il protocollo porta a termine il suo task</li>
-<li>verificare se <b>termina</b>: non è detto che se un protocollo completi il suo compito allora necessariamente termini la sua esecuzione</li>
-<li>calcolare la sua <b>message complexity</b></li>
-</ol>
 
 <hr />
 </div>
 </div>
 
-
-<div id="outline-container-orga54bdb4" class="outline-2">
-<h2 id="orga54bdb4"><span class="section-number-2">2</span> Flooding protocol</h2>
+<div id="outline-container-orgc13f8d4" class="outline-2">
+<h2 id="orgc13f8d4"><span class="section-number-2">2</span> Time and Events</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
-Intuitivamente questa idea porterà ad una configurazione finale, basandosi sul fatto che il grafo è connesso.
+Dato uno <b>stesso input</b> a un <i>algoritmo deterministico centralizzato</i>, esso non solo genererà uno <b>stesso output</b>,
+ma la <i>sequenza di azioni</i> che svolgerà per raggiungere tale output sarà sempre la stessa<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, anche se viene rieseguito infinite volte.<br />
+</p>
+
+<p>
+La stessa cosa non si può sempre dire di un <i>algoritmo deterministico distribuito</i>.
+Infatti nel del protocollo di <i>flooding</i> visto nella <a href="./03.html">lezione 3</a>, dato che il <i>delay</i> dei messaggi varia in maniera indeterminata,
+avremo che la <b>traiettori</b> (o sequenza di azioni) verso l'unica configurazione finale varia da esecuzione ad esecuzione, anche a fronte
+di una stessa configurazione iniziale.<br />
+</p>
+
+<p>
+Per rendere meglio l'idea facciamo un esempio.
+Consideriamo il seguente grafo
 </p>
 
 
 <div class="figure">
-<p><img src="../images/adrc-lesson03-img1.png" alt="adrc-lesson03-img1.png" width="90%" align="center" />
+<p><img src="../images/adrc-lesson04-img1.png" alt="adrc-lesson04-img1.png" width="200px" />
 </p>
-<p><span class="figure-number">Figura 1: </span>Idea protocollo</p>
 </div>
 
 <p>
-Perciò, possiamo definire lo stato <code>INITIATOR</code> nel quale si trova l'unico nodo inziale col messaggio il quale si dovrà preccupare di
-far iniziare il protocollo, e lo stato <code>SLEEPING</code> in cui i si trovano gli altri nodi in attessa di ricevere il messaggio.<br />
-Una possibile descrizione del protocollo potrebbe essere la seguente:
-</p>
-<hr />
-<div class="org-src-container">
-<pre class="src src-python"># protocollo trivial-flood
-if self.state == "INITIATOR":
-    spontaneously:
-	send(self.message) to N(self)
-
-elif self.state == "SLEEPING":
-    receiving(m):
-	send(m) to N(self)
-</pre>
-</div>
-<p align="center"><span class="figure-number">Code 1:</span>Pseudocodice python-like</p>
-<hr />
-</div>
-
-<div id="outline-container-orgb704305" class="outline-3">
-<h3 id="orgb704305"><span class="section-number-3">2.1</span> Correttezza</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-<b>THM</b> se eseguiamo il protocollo <i>trivial-flood</i> sotto le assunzioni <code>1,2,3,4</code>, esiste un tempo \(t \in \mathbb{R}^+\) tale che
-ogni nodo di \(G\) ha ricevuto il messaggio \(m\) <i>almeno</i> una volta, ovvero 
-\[ \forall v \in V \;\; state(v) = \texttt{informed} \]
+e consideriamo il nodo \(x\) come nodo <i>sorgente</i>.<br />
 </p>
 
 <p>
-<b>Proof</b>: sia \(L_d\) l'insieme di nodi distanti esattamente \(d\) dalla sorgente \(s\).
-Si vuole dimostrare per <i>induzione</i> su \(d\) che esiste un tempo \(t_d\) tale che tutti i nodi in \(L_d\) hanno ricevuto almeno una volta il messaggio,
-ovvero che lo stato dei nodi al tempo \(t_d\) sia \(state_{t_d}(v) = \texttt{informed}\), per ogni \(v \in V\).<br />
+Eseguendo per la prima volta il protocollo di flooding potrebbe capitare che i ritardi di trasmissione sugli archi \((x,y)\) e \((x,z)\) siano molto simili.
+Perciò una possibile sequenza di azioni potrebbe essere la seguente
 </p>
-
-<p>
-Per \(d = 0\) è banale in quanto \(L_0 := \lbrace s \rbrace\).
-Perciò come base prendiamo \(d = 1\).
-Per definizione avremo che \(L_1 \equiv N(s)\).
-Per come è descritto il protocollo, la srogente \(s\) a un certo punto invierà in maniera spontanea il messaggio a tutti in nodi in \(N(s)\), ergo in \(L_1\).
-Dato che stiamo sotto l'assunzione di <b>total reliability</b> siamo certi che non ci saranno <i>failures</i> durante al trasmissione, quindi per \(d=1\) certamente
-esisterà un istante \(t_1 \in \mathbb{R}^+\) entro il quale tutti i nodi in \(L_1\) verranno informati.<br />
-</p>
-
-<p>
-Supponiamo ora che l'ipotesi sia vera fino a un certo \(d-1\); si vuole dimostrare che sia vera anche per \(d\), ovvero che
-\[ \forall x \in L_d \implies \exists t_d \in \mathbb{R}^+ : state_{t_d}(x) = \texttt{informed} \]
-Consideriamo un qualsiasi nodo \(x \in L_d\), allora per definizione esisterà un nodo \(y \in L_{d-1}\) tale che \((y,x) \in E\) (sfruttando
-anche l'ipotesi di <b>bidirectional links</b>).<br />
-</p>
-
-<p>
-Se \(y \equiv s\) allora vuol dire che \(x \in L_1\), riconducendoci quindi al caso base.
-Se invece \(y \not\equiv s\), allora certamente \(y\) avrà ricevuto il messaggio mentre era nello stato <code>SLEEPING</code>, e per definizione
-del protocollo \(y\) avrà inviato il messaggio al suo vicinato \(N(y)\), compreso \(x\).
-Sfruttando ancora l'ipotesi di <b>total reliability</b> sappiamo che il messaggio arriverà in un tempo finito e intatto a \(x\) tramite \(y\).<br />
-</p>
-
 
 <div class="figure">
-<p><img src="../images/adrc-lesson03-img2.png" alt="adrc-lesson03-img2.png" width="90%" align="center" />
+<p><img src="../images/adrc-lesson04-img2.png" alt="adrc-lesson04-img2.png" width="80%" />
 </p>
 </div>
 
-
 <p>
-Infine sfruttando l'<b>ipotesi di connettività</b> di \(G\) sappiamo che \(\forall v \in V \exists k \in \mathbb{N}\) con \(k \leq diam(G)\),
-tale che \(v \in L_k\) \(\square\).
-</p>
-</div>
-</div>
-
-
-<div id="outline-container-org022816b" class="outline-3">
-<h3 id="org022816b"><span class="section-number-3">2.2</span> Miglioramento protocollo</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-Per come è stato descritto, il protocollo precedente porta a termine il suo <i>task</i>, però non termina mai.
-Inoltre, quando un nodo instrada un messaggio ricevuto a tutto il suo vicinato, esso rispedice una copia <i>superflua</i> anche al suo mittente (per via
-dei bidirectional link).
-Per ovviare a questo bastano le seguenti modifiche:
-</p>
-<ol class="org-ol">
-<li>Se nodo ha ricevuto almeno una volta il messaggio passa in uno stato <code>DONE</code>, nel quale non ci sarà più bisogno che inoltri ulteriori messaggi (perchè è già stato fatto in precedenza)</li>
-<li>Un nodo che riceve un messaggio non lo inoltra a chi glielo ha inviato. Sappiamo che un nodo può distinguere i nodi agli estremi dei suoi archi incidenti grazie all'assunzione di
-bidirectional links, ovvero \(\forall x \in V \left[\forall y \in N(x) \;\; \lambda_x(x,y) = \lambda_x(y,x) \right]\)</li>
-</ol>
-
-<hr />
-<div class="org-src-container">
-<pre class="src src-python"># protocollo trivial ottimizzato
-if self.state == "INITIATOR":
-    spontaneously:
-	send(self.message) to N(self)
-	self.state = "DONE"
-
-elif self.state == "SLEEPING":
-    receiving(m):
-	send(m) to N(self) - { source }
-	self.state = "DONE"
-
-elif self.state == "DONE":
-    None
-</pre>
-</div>
-<p align="center"><span class="figure-number">Code 2:</span>Pseudocodice python-like protocollo ottimizzato</p>
-<hr />
-</div>
-</div>
-
-
-<div id="outline-container-org75a6a08" class="outline-3">
-<h3 id="org75a6a08"><span class="section-number-3">2.3</span> Message Complexity</h3>
-<div class="outline-text-3" id="text-2-3">
-<p>
-Come già accennato in precedenza, non ha senso parlare di <i>time complexity</i> in un sistema che non è sincrono.
-Perciò analizzeremo la complessità del protocollo in termini di numero di messaggi trasmessi entro il completamento del task.<br />
+Eseguendo il protocollo una seconda volta, potrebbe capitare che il ritardo di trasmissione sull'arco \((x,y)\) sia così tanto, che alla fine \(y\) riceve
+prima il messaggio tramite \(z\) anzichè \(x\).
 </p>
 
-<p>
-Verranno proposte due analisi abbastanza semplici sul protocollo ottimizzato<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, le quali porteranno ad un risultato
-<i>asintoticamente</i> uguale, ma con un livello di dettaglio differente.
+<div class="figure">
+<p><img src="../images/adrc-lesson04-img3.png" alt="adrc-lesson04-img3.png" width="80%" />
 </p>
 </div>
 
-<ol class="org-ol">
-<li><a id="orgbbf30ec"></a><b>Analisi 1</b><br />
-<div class="outline-text-5" id="text-2-3-0-1">
 <p>
-Si osservi che per via del <b>ritardo</b> di trasmissione, su ogni arco possono essere trasmessi <span class="underline">al più</span> due messaggi durante l'intero protocollo.
-Sappiamo che un nodo non invierà mai un messaggio attraverso l'arco da cui l'ha ricevuto, però per via del ritardo di trasmissione
-potrebbe capitare di inviare un messaggio su un arco nel quale sta già viaggiando un altro messagio in entrata.
-Fatta questa premessa, nel caso peggiore verranno inviati due messaggi per ogni arco, perciò il protocollo avrà complessità al più \(2m \in O(m)\).
+Perciò, le due precedente esecuzioni possono essere rappresentati come dei <b>grafi di comunicazione</b>
 </p>
+
+<div class="figure">
+<p><img src="../images/adrc-lesson04-img4.png" alt="adrc-lesson04-img4.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Due possibili grafi di comunicazione</p>
 </div>
-</li>
 
-<li><a id="org153be85"></a><b>Analisi 2</b><br />
-<div class="outline-text-5" id="text-2-3-0-2">
 <p>
-Nel caso precedente si è calcolata la complessità in base gli archi.
-Volendo è possibile calcolare la complessità in base ai nodi.
-Definiamo con \(msg(v)\) il numero complessivo di messaggi inviati dal nodo \(v\), e con \(msg(\texttt{FLOOD})\) il numero di messaggi trasmessi durante
-il protocollo (ovvero la sua message complexity).<br />
+Dato che il grafo di comunicazione è sostanzialmente un <i>albero ricoprente</i>, possiamo avere quindi \(O(n^n)\) possibili sequenze di trasmissioni
+(o <b>traiettorie</b>) che portano alla configurazione finale.
 </p>
 
-
-\begin{align*}
-  msg(\texttt{FLOOD})
-  &= \sum_{v \in V} msg(v)\\
-  &= msg(s) + \sum_{v \in V - \lbrace s \rbrace } msg(v)\\
-  &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - 1\\
-  &= |N(s)| + \sum_{v \in V - \lbrace s \rbrace } |N(v)| - \sum_{v \in V - \lbrace s \rbrace } 1\\
-  &= \left( \sum_{v \in V} |N(v)| \right) - (n-1)\\
-  &= \left( \sum_{v \in V} deg(v) \right) - (n-1)\\
-  &= 2m - n + 1
-\end{align*}
-
 <p>
-Come si può vedere, da questa analisi emerge che il protocollo risparmia un fattore \(n-1\) di messaggi trasmessi.
+<b>[da finire &#x2026;]</b>
 </p>
 <hr />
-</div>
-</li>
-</ol>
 </div>
 </div>
 <div id="footnotes">
@@ -527,21 +384,17 @@ Come si può vedere, da questa analisi emerge che il protocollo risparmia un fat
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-<i>restrizioni</i>
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
-in quanto è l'unico che termina
+<a href="https://en.wikipedia.org/wiki/Turing_machine">https://en.wikipedia.org/wiki/Turing_machine</a>
 </p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-10-19 mar 00:00</p>
+<p class="date">Data: 2021-10-21 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-25 lun 22:58</p>
+<p class="date">Created: 2021-10-26 mar 00:25</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
