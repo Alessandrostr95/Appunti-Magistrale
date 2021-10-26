@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-10-26 mar 00:25 -->
+<!-- 2021-10-26 mar 21:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 04</title>
@@ -276,6 +276,7 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#org20fe5dd">1. Esercizio</a></li>
 <li><a href="#orgc13f8d4">2. Time and Events</a></li>
+<li><a href="#orge1f4652">3. Un lowerbound alla message complexity</a></li>
 </ul>
 </div>
 </div>
@@ -373,10 +374,87 @@ Dato che il grafo di comunicazione è sostanzialmente un <i>albero ricoprente</i
 (o <b>traiettorie</b>) che portano alla configurazione finale.
 </p>
 
-<p>
-<b>[da finire &#x2026;]</b>
-</p>
 <hr />
+</div>
+</div>
+
+<div id="outline-container-orge1f4652" class="outline-2">
+<h2 id="orge1f4652"><span class="section-number-2">3</span> Un lowerbound alla message complexity</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Nella <a href="./03.html">lezione 3</a> è stato dimostrato che la <i>message complexity</i> per l'algoritmo di flooding è \(O(|E|)\).
+Quello che ci si più chiedere è: si può fare di <i>meglio</i>?
+Si può progettare un protocollo con <i>message complexity</i> \(o(|E|)\)?
+La risposta è <b>no</b>, e verrà dimstrato in questa sezione, ma prima è necessario fare alcune osservazioni.<br />
+</p>
+
+<p>
+Definiamo con \(\sigma(x,t)\) lo <i>stato locale interno</i> di un nodo \(x\) al tempo \(t\).
+Per stato interno si intende qualsiasi informazione contenuta all'interno di \(x\), il contenuto della memoria,
+il contenuto dei registri, il registro di stato, ecc&#x2026;<br />
+</p>
+
+<p>
+<b>Fact 1</b> Se un nodo \(x\) si trova in due <i>ambienti</i> differenti \(E_1,E_2\), ma il suo stato interno è <i>identico</i>,
+allora \(x\) non sarà in grado di distinguere i due ambienti ed eseguirà la stessa azione.
+</p>
+
+<p>
+<b>Fact 2</b> Se due nodi distinti \(x,y\) a un certo punto raggiungono lo stesso stato \(\sigma(x,t) = \sigma(y,t)\),
+allora se sollecitati da uno stesso evento eseguiranno le stesse azioni.
+</p>
+
+<p>
+<b>THM</b>
+Sotto le <span class="underline">seguenti ipotesi</span>:
+</p>
+<ol class="org-ol">
+<li>Unique iterator</li>
+<li>Total reliability</li>
+<li>Bidirectional links</li>
+<li>Connectivity</li>
+</ol>
+<p>
+<b>ogni</b> protocollo deterministico di broadcasting richiede di scambiare <b>almeno</b> \(m = |E|\) messaggi.
+</p>
+
+<p>
+<b>Proof:</b> (<i>per assurdo</i>)
+supponiamo esista un protocollo \(P\) con message complexity di esattamente \(msg(P,G) = m-1 < m\).
+</p>
+
+<p>
+Perciò, deve esistere un arco \((x,y)\) attraverso il quale <b>non</b> viene trasmesso alcun messaggio.
+</p>
+
+<p>
+Certamente possiamo dire che ne \(x\) ne \(y\) sono <i>initiator</i>, in quanto se lo fossero certamente
+un messaggio sarebbe stato trasmesso sull'arco \((x,y)\) (per ipotesi di totla reliability).
+</p>
+
+<p>
+A questo punto rimuoviamo l'arco \((x,y)\), e aggiungiamo un nuovo nodo \(z\) insieme agli archi \((x,z),(y,z)\).
+Rieseguiamo il protocollo con gli <b>stessi ritardi di trasmissione</b> (necessario per il discorso affrontato nella precedente sezione).
+</p>
+
+<p>
+A livello di stato locale interno, ne a al nodo \(x\) ne al nodo \(y\) è cambiato nulla (<b>Fact 2</b>).
+Infatti sia \(x\) che \(y\) vedranno un arco uscente laddove prima c'era l'arco \((x,y)\).
+Però sappiamo che i nodi <b>non sanno</b> assolutamente distinguere i nodi agli estremi degli archi.
+Perciò, per quanto ne sa \(x\), dall'altra parte del nuovo arco ci sta ancora \(y\) anzichè \(z\) (e viceversa).<br />
+</p>
+
+<p>
+Però, sapendo che da quella porta né \(x\) né \(y\) trasmettono, allora certamente nessuno dei due trasmetterà
+sui relativi archi che lo collegano a \(z\).
+Infatti i due ambienti, dal punto di vista locale, sono <b>identici</b>, perciò compiranno le stesse azioni (<b>Fact 1</b>), ovvero non
+trasmettere nulla.<br />
+</p>
+
+<p>
+Dato che \(z\) è collegato solamente a \(x\) ed \(y\), esso certamente non può ricevere il messaggio da un altro nodo, perciò
+il nodo \(z\) non verrà mai informato, e quindi il protocollo <code>P</code> non è corretto (assurdo) \(\square\).
+</p>
 </div>
 </div>
 <div id="footnotes">
@@ -394,7 +472,7 @@ Dato che il grafo di comunicazione è sostanzialmente un <i>albero ricoprente</i
 <p class="date">Data: 2021-10-21 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-10-26 mar 00:25</p>
+<p class="date">Created: 2021-10-26 mar 21:20</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
