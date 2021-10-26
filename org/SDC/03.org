@@ -106,8 +106,19 @@
   In questa maniera, anche se si creano più diramazioni, vince quella più lunga, in quanto avendo più blocchi convalidati rispetto
   agli altri significa che dietro ci è stato un lavoro /maggiore/.
   Quindi vince sempre la catena nella quale c'è più *consenso* (in termini di potenza di calcolo investita).
-  
-  
+
+** Verifica dei blocchi - Merkle Tree
+   Per verificare che un blocco ricevuto sia consistente e non alterato, si ricorre ad una struttura data che consente di farlo in maniera efficiente: il *Merkle Tree*.
+   Anzichè calcolare tutti gli hash della blockchain, il Merkle Tree consente di calcolarne solamente un numero logaritmico.
+   Sostanzialmente, nei nodi foglia dell'albero sono presenti gli /hash/ dei blocchi della blockchain.
+   Nei nodi foglia invece è presente l'/hash/ dei nodi figli.
+   
+   #+ATTR_HTML: :width 90% :align center
+   #+caption: Esempio di Merkle Tree
+   [[file:../images/sdc-lesson03-img4.png]]
+
+-----    
+   
 [fn:1] per brevità ci riferiremo con le sigle =pk= (/public-key/) e =sk= (/secret-key/).
 [fn:2] ovvero in sola scrittura.
 [fn:3] fiducia.
