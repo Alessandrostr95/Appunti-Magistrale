@@ -1,0 +1,104 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 05
+#+date: <2021-10-26 lun>
+#+author: Alessandro Straziota
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+-----
+I protocolli di broadcasting visti nelle precedenti lezioni risultano parecchio dispendiosi nel caso in cui vengano eseguiti in una rete /molto densa/[fn:1].
+Nel caso limite in cui la rete sia una /clique/[fn:2], il protocollo di /flooding/ studiato ha una /message complexity/ di $\Theta(n^2)$.
+Viceversa però, nel caso in cui la rete sia un /anello/ o un /albero/, il protocollo è *ottimale*, ovvero verrà trasmesso un messaggio per ogni nodo, risultando
+in una message complexity di $\Theta(n)$.\\
+
+Una buona idea sarebbe quindi quella di /calcolare/ uno /[[https://it.wikipedia.org/wiki/Spanning_tree_(networking)][Spanning Tree]]/ della rete, e di eseguire il protocollo di flooding con uno scambio di messaggi ottimale.
+Precomputando lo spanning tree si potrebbe anche eseguire il protocollo tutte le volte che si desidera.
+Un problemma non banale che occorre però è il calcolo di uno spanning tree in maniera distribuita.
+Inoltre, pure assumendo di poter ottenere uno spanning tree con poche risorse, questa non è una struttura *stabile*.
+Infatti, in una rete reale capita molto spesso che delle connessioni si interrompano, e se si rimuove un arco da una
+rete con una struttura ad albero, essa verrà /disconnessa/[fn:3].
+In questo caso si dice la rete è *1-tollerant*.
+In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozione di $k$ archi, esso rimane connesso.
+
+-----
+* Labeled Hypercube
+  In questa sezione verrà studiato il problema del broadcasting su /ipercubi/ e verrà mostrato come l'aggiunta della conoscenza della rete
+  da parte dei nodi, combintata alla simmetria della rete stessa, può portare alla creazione protocolli asintoticamente migliori del /Flooding/.\\
+
+  Generalmente in un contesto reale si vuole costruire reti che abbiano le seguenti proprietà:
+  1. un *diametro* piccolo (\(O(1)\) o \(\texttt{poly-log}\)), in modo tale da ridurre i tempi di comunicazione tra i nodi.
+  2. il grafo deve essere *sparso*, risparmiando in termini di risorse per la creazione di link.
+  Si osservi che riducendo il grado massimo di un grafo, come conseguenza si otterrà la sua sparsificazione[fn:4].
+  Un'altro vantaggio di un grafo sparso è la sua *scalabilità*, ovvero la capacità di non comportare eccessivi costi nel caso di aggiunta di nuovo nodo.
+  Per esempio, una /clique/ non è molto scalabile, in quanto ogni volta che viene aggiunto un nuovo nodo bisogna creare \(n - 1\) nuovi links.
+  Invece l'aggiunta di un nodo su un grafo a forma di /lista/ comporta l'aggiunta di un solo arco.\\
+
+  Non è tutto oro ciò che luccica: anche se un grafo a /lista/ è estremamente scalabile e sparso, esso comporta alcuni cruciali svantaggi.
+  Il primo è che ha come diametro il valore massimo che si può presentare (\(n - 1\)).
+  Il secondo è la sua poca resistenza, infatti se si rompe anche solo un link il grafo si disconnette.
+  Contrariamente, una /clique/ ha diametro minimo (ovvero 1) risultando in tempi di comunicazione ottimali.
+  In oltre prima di "rompersi" bisgona rimuovere almeno \(n - 1\) archi.\\
+
+  Una struttura più equilibrata rispetto alle precedenti è la struttura a *griglia bidimensionale*.
+  In griglia di $n$ nodi composta da $\sqrt{n}$ righe e colonne, il grado massimo è 4, mentre il diametro è \(2 \sqrt{n}\).
+  Inoltre è abbastanza scalabile, infatti si possono collegare tra di loro più griglie semplicemento affiancandole e aggiungendo $\sqrt{n}$ archi.
+  Anche se $O(\sqrt{n})$ è un buon miglioramento rispetto a $n$, si può ottenere di meglio.\\
+
+  La struttura che offre un buon compromesso in termini di grado massimo, densità, resistenza, diamtero e scalabilità è l'[[https://en.wikipedia.org/wiki/Hypercube][ipercubo]].
+  È già noto che in un ipercubo \(d\)-dimensionale il numero di nodi è esattamente \(n = 2^d\), e di conseguenza \(d = \log_2{n}\).
+  *[... da sistemare]*
+  Inoltre ogni nodo ha grado esattamente \(d\), quindi il numero complessivo di archi è \(m = \frac{nd}{2} = \frac{n\log_2{n}}{2}\).
+  
+  #+ATTR_HTML: :align center
+  | Grafo    | Diametro             | Grado               |
+  |----------+----------------------+---------------------|
+  | Clique   | \(\Theta(1)\)        | \(\Theta(n)\)       |
+  | Lista    | \(\Theta(n)\)        | \(\Theta(1)\)       |
+  | Griglia  | \(\Theta(\sqrt{n})\) | \(\Theta(1)\)       |
+  | Ipercubo | \(\Theta(\log{n})\)  | \(\Theta(\log{n})\) |
+  |----------+----------------------+---------------------|
+  
+  Consideriamo il problema del broadcasting su un ipercubo
+  Oltre alle solite restrizioni già viste (/unique initiator/, /total reliability/, /bidirectional links/ e /connectivity/), in questa variante
+  si assume che ogni nodo _sa_ di essere in un *labeled hypercube* \(d\)-dimensionale.\\
+
+  Questa particlare rete ha una struttura a ipercubo di dimensione $d$, i cui /link/ e /nodi/ sono etichettati come segue:
+  1. ogni nodo è _univocamente_ eithcettato con una *stringa* in \(\lbrace 0, 1 \rbrace^d\).
+     Inoltre ogni nodo ha come vicino i nodi le quali etichette differiscono di *un solo* bit.
+  2. Ogni arco è etichettato con un numero nell'intervallo \(\left[ d \right]\), in modo che tale etichetta rappresenta l'indice del
+     bit per il quale i due nodi estremi differiscono (partendo a contare per esempio dal bit meno significativo).
+     
+  #+caption: \(d = 1\)
+  #+ATTR_HTML: :width 200px
+  [[file:../images/adrc-lesson05-img2.png]]
+
+  #+caption: \(d = 2\)
+  #+ATTR_HTML: :width 200px
+  [[file:../images/adrc-lesson05-img3.png]]
+
+  #+caption: \(d = 3\)
+  #+ATTR_HTML: :width 200px
+  [[file:../images/adrc-lesson05-img4.png]]
+  
+  #+caption: Generazione Ipercubo
+  #+ATTR_HTML: :width 80%
+  [[file:../images/adrc-lesson05-img1.gif]]
+
+  In maniera un po' più formale possiamo definire l'insieme dei nodi come \(V \equiv \lbrace \overline{x} \mid \overline{x} \in \lbrace 0,1 \rbrace^d \rbrace\).
+  Applicando semplicemente il protocollo =Flood= su questa rete la message complexity sarà \(O(n\log{n})\).\\
+
+  *[da finire ...]*
+  
+[fn:1] con molti archi.
+[fn:2] o grafo completo.
+[fn:3] ovvero ci sarà /almeno/ una coppia di nodi che non saranno reciprocamente raggiungibili.
+[fn:4] non è vero il contrario: se consideriamo un grafo a /stella/, il suo grado massimo è appunto massimo (\(n-1\)), però rimane comunque un grafo sparso.

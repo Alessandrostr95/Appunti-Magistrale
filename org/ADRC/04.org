@@ -88,7 +88,7 @@ time = \max_{x \in V}{ \lbrace d(s,x) \rbrace } \leq diam(G) \leq n-1
 
   *THM*
   Sotto le _seguenti ipotesi_:
-  1. Unique iterator
+  1. Unique initiator
   2. Total reliability
   3. Bidirectional links
   4. Connectivity

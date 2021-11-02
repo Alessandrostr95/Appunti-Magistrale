@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-02 mar 21:36 -->
+<!-- 2021-11-03 mer 00:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 04</title>
+<title>ADRC - Lesson 05</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota Alessandro Straziota" />
 <style type="text/css">
@@ -269,191 +269,174 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 04</h1>
+<h1 class="title">ADRC - Lesson 05</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org20fe5dd">1. Esercizio</a></li>
-<li><a href="#orgc13f8d4">2. Time and Events</a></li>
-<li><a href="#orge1f4652">3. Un lowerbound alla message complexity</a></li>
+<li><a href="#orgb65a5bd">1. Labeled Hypercube</a></li>
 </ul>
 </div>
 </div>
 <hr />
 <p>
-Ricoleggandoci al problema del broadcasting introdotto nella <a href="./03.html">lezione 3</a>, sappiamo che non ha senso calcolare
-la complessità temporale in un sistema non sincrono.
-Un'altro requisito necessario per poter calcolare la complessità temporale è la condizione di <i>bounded delay</i>.<br />
+I protocolli di broadcasting visti nelle precedenti lezioni risultano parecchio dispendiosi nel caso in cui vengano eseguiti in una rete <i>molto densa</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+Nel caso limite in cui la rete sia una <i>clique</i><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, il protocollo di <i>flooding</i> studiato ha una <i>message complexity</i> di \(\Theta(n^2)\).
+Viceversa però, nel caso in cui la rete sia un <i>anello</i> o un <i>albero</i>, il protocollo è <b>ottimale</b>, ovvero verrà trasmesso un messaggio per ogni nodo, risultando
+in una message complexity di \(\Theta(n)\).<br />
 </p>
 
 <p>
-Supponendo che siamo in queste condizioni, e per comodità che i messagi vengano trasmessi con uno stesso ritardo di <i>una unità</i>,
-si potrebbe stimare un <i>upper-bound</i> alla time complexity.
-Infatti, data una sorgente \(s \in V\), una stima può essere
-\[
-time = \max_{x \in V}{ \lbrace d(s,x) \rbrace } \leq diam(G) \leq n-1
-\]
+Una buona idea sarebbe quindi quella di <i>calcolare</i> uno <i><a href="https://it.wikipedia.org/wiki/Spanning_tree_(networking)">Spanning Tree</a></i> della rete, e di eseguire il protocollo di flooding con uno scambio di messaggi ottimale.
+Precomputando lo spanning tree si potrebbe anche eseguire il protocollo tutte le volte che si desidera.
+Un problemma non banale che occorre però è il calcolo di uno spanning tree in maniera distribuita.
+Inoltre, pure assumendo di poter ottenere uno spanning tree con poche risorse, questa non è una struttura <b>stabile</b>.
+Infatti, in una rete reale capita molto spesso che delle connessioni si interrompano, e se si rimuove un arco da una
+rete con una struttura ad albero, essa verrà <i>disconnessa</i><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>.
+In questo caso si dice la rete è <b>1-tollerant</b>.
+In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozione di \(k\) archi, esso rimane connesso.
 </p>
 
-
-<div id="outline-container-org20fe5dd" class="outline-2">
-<h2 id="org20fe5dd"><span class="section-number-2">1</span> Esercizio</h2>
+<hr />
+<div id="outline-container-orgb65a5bd" class="outline-2">
+<h2 id="orgb65a5bd"><span class="section-number-2">1</span> Labeled Hypercube</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Sotto l'assunzione che il sistema sia sincorono, e che il delay dei messaggi sia di una unità, calcolare la
-<i>complessità</i> temporale del protocollo di <i><a href="./03.html">flooding</a></i> per <i>induzione</i> sul tempo \(t\).
-</p>
-
-<hr />
-</div>
-</div>
-
-<div id="outline-container-orgc13f8d4" class="outline-2">
-<h2 id="orgc13f8d4"><span class="section-number-2">2</span> Time and Events</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-Dato uno <b>stesso input</b> a un <i>algoritmo deterministico centralizzato</i>, esso non solo genererà uno <b>stesso output</b>,
-ma la <i>sequenza di azioni</i> che svolgerà per raggiungere tale output sarà sempre la stessa<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, anche se viene rieseguito infinite volte.<br />
+In questa sezione verrà studiato il problema del broadcasting su <i>ipercubi</i> e verrà mostrato come l'aggiunta della conoscenza della rete
+da parte dei nodi, combintata alla simmetria della rete stessa, può portare alla creazione protocolli asintoticamente migliori del <i>Flooding</i>.<br />
 </p>
 
 <p>
-La stessa cosa non si può sempre dire di un <i>algoritmo deterministico distribuito</i>.
-Infatti nel del protocollo di <i>flooding</i> visto nella <a href="./03.html">lezione 3</a>, dato che il <i>delay</i> dei messaggi varia in maniera indeterminata,
-avremo che la <b>traiettori</b> (o sequenza di azioni) verso l'unica configurazione finale varia da esecuzione ad esecuzione, anche a fronte
-di una stessa configurazione iniziale.<br />
-</p>
-
-<p>
-Per rendere meglio l'idea facciamo un esempio.
-Consideriamo il seguente grafo
-</p>
-
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img1.png" alt="adrc-lesson04-img1.png" width="200px" />
-</p>
-</div>
-
-<p>
-e consideriamo il nodo \(x\) come nodo <i>sorgente</i>.<br />
-</p>
-
-<p>
-Eseguendo per la prima volta il protocollo di flooding potrebbe capitare che i ritardi di trasmissione sugli archi \((x,y)\) e \((x,z)\) siano molto simili.
-Perciò una possibile sequenza di azioni potrebbe essere la seguente
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img2.png" alt="adrc-lesson04-img2.png" width="80%" />
-</p>
-</div>
-
-<p>
-Eseguendo il protocollo una seconda volta, potrebbe capitare che il ritardo di trasmissione sull'arco \((x,y)\) sia così tanto, che alla fine \(y\) riceve
-prima il messaggio tramite \(z\) anzichè \(x\).
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img3.png" alt="adrc-lesson04-img3.png" width="80%" />
-</p>
-</div>
-
-<p>
-Perciò, le due precedente esecuzioni possono essere rappresentati come dei <b>grafi di comunicazione</b>
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img4.png" alt="adrc-lesson04-img4.png" width="200px" />
-</p>
-<p><span class="figure-number">Figura 4: </span>Due possibili grafi di comunicazione</p>
-</div>
-
-<p>
-Dato che il grafo di comunicazione è sostanzialmente un <i>albero ricoprente</i>, possiamo avere quindi \(O(n^n)\) possibili sequenze di trasmissioni
-(o <b>traiettorie</b>) che portano alla configurazione finale.
-</p>
-
-<hr />
-</div>
-</div>
-
-<div id="outline-container-orge1f4652" class="outline-2">
-<h2 id="orge1f4652"><span class="section-number-2">3</span> Un lowerbound alla message complexity</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-Nella <a href="./03.html">lezione 3</a> è stato dimostrato che la <i>message complexity</i> per l'algoritmo di flooding è \(O(|E|)\).
-Quello che ci si più chiedere è: si può fare di <i>meglio</i>?
-Si può progettare un protocollo con <i>message complexity</i> \(o(|E|)\)?
-La risposta è <b>no</b>, e verrà dimstrato in questa sezione, ma prima è necessario fare alcune osservazioni.<br />
-</p>
-
-<p>
-Definiamo con \(\sigma(x,t)\) lo <i>stato locale interno</i> di un nodo \(x\) al tempo \(t\).
-Per stato interno si intende qualsiasi informazione contenuta all'interno di \(x\), il contenuto della memoria,
-il contenuto dei registri, il registro di stato, ecc&#x2026;<br />
-</p>
-
-<p>
-<b>Fact 1</b> Se un nodo \(x\) si trova in due <i>ambienti</i> differenti \(E_1,E_2\), ma il suo stato interno è <i>identico</i>,
-allora \(x\) non sarà in grado di distinguere i due ambienti ed eseguirà la stessa azione.
-</p>
-
-<p>
-<b>Fact 2</b> Se due nodi distinti \(x,y\) a un certo punto raggiungono lo stesso stato \(\sigma(x,t) = \sigma(y,t)\),
-allora se sollecitati da uno stesso evento eseguiranno le stesse azioni.
-</p>
-
-<p>
-<b>THM</b>
-Sotto le <span class="underline">seguenti ipotesi</span>:
+Generalmente in un contesto reale si vuole costruire reti che abbiano le seguenti proprietà:
 </p>
 <ol class="org-ol">
-<li>Unique initiator</li>
-<li>Total reliability</li>
-<li>Bidirectional links</li>
-<li>Connectivity</li>
+<li>un <b>diametro</b> piccolo (\(O(1)\) o \(\texttt{poly-log}\)), in modo tale da ridurre i tempi di comunicazione tra i nodi.</li>
+<li>il grafo deve essere <b>sparso</b>, risparmiando in termini di risorse per la creazione di link.</li>
 </ol>
 <p>
-<b>ogni</b> protocollo deterministico di broadcasting richiede di scambiare <b>almeno</b> \(m = |E|\) messaggi.
+Si osservi che riducendo il grado massimo di un grafo, come conseguenza si otterrà la sua sparsificazione<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>.
+Un'altro vantaggio di un grafo sparso è la sua <b>scalabilità</b>, ovvero la capacità di non comportare eccessivi costi nel caso di aggiunta di nuovo nodo.
+Per esempio, una <i>clique</i> non è molto scalabile, in quanto ogni volta che viene aggiunto un nuovo nodo bisogna creare \(n - 1\) nuovi links.
+Invece l'aggiunta di un nodo su un grafo a forma di <i>lista</i> comporta l'aggiunta di un solo arco.<br />
 </p>
 
 <p>
-<b>Proof:</b> (<i>per assurdo</i>)
-supponiamo esista un protocollo \(P\) con message complexity di esattamente \(msg(P,G) = m-1 < m\).
+Non è tutto oro ciò che luccica: anche se un grafo a <i>lista</i> è estremamente scalabile e sparso, esso comporta alcuni cruciali svantaggi.
+Il primo è che ha come diametro il valore massimo che si può presentare (\(n - 1\)).
+Il secondo è la sua poca resistenza, infatti se si rompe anche solo un link il grafo si disconnette.
+Contrariamente, una <i>clique</i> ha diametro minimo (ovvero 1) risultando in tempi di comunicazione ottimali.
+In oltre prima di "rompersi" bisgona rimuovere almeno \(n - 1\) archi.<br />
 </p>
 
 <p>
-Perciò, deve esistere un arco \((x,y)\) attraverso il quale <b>non</b> viene trasmesso alcun messaggio.
+Una struttura più equilibrata rispetto alle precedenti è la struttura a <b>griglia bidimensionale</b>.
+In griglia di \(n\) nodi composta da \(\sqrt{n}\) righe e colonne, il grado massimo è 4, mentre il diametro è \(2 \sqrt{n}\).
+Inoltre è abbastanza scalabile, infatti si possono collegare tra di loro più griglie semplicemento affiancandole e aggiungendo \(\sqrt{n}\) archi.
+Anche se \(O(\sqrt{n})\) è un buon miglioramento rispetto a \(n\), si può ottenere di meglio.<br />
 </p>
 
 <p>
-Certamente possiamo dire che ne \(x\) ne \(y\) sono <i>initiator</i>, in quanto se lo fossero certamente
-un messaggio sarebbe stato trasmesso sull'arco \((x,y)\) (per ipotesi di totla reliability).
+La struttura che offre un buon compromesso in termini di grado massimo, densità, resistenza, diamtero e scalabilità è l'<a href="https://en.wikipedia.org/wiki/Hypercube">ipercubo</a>.
+È già noto che in un ipercubo \(d\)-dimensionale il numero di nodi è esattamente \(n = 2^d\), e di conseguenza \(d = \log_2{n}\).
+<b>[&#x2026; da sistemare]</b>
+Inoltre ogni nodo ha grado esattamente \(d\), quindi il numero complessivo di archi è \(m = \frac{nd}{2} = \frac{n\log_2{n}}{2}\).
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Grafo</th>
+<th scope="col" class="org-left">Diametro</th>
+<th scope="col" class="org-left">Grado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Clique</td>
+<td class="org-left">\(\Theta(1)\)</td>
+<td class="org-left">\(\Theta(n)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Lista</td>
+<td class="org-left">\(\Theta(n)\)</td>
+<td class="org-left">\(\Theta(1)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Griglia</td>
+<td class="org-left">\(\Theta(\sqrt{n})\)</td>
+<td class="org-left">\(\Theta(1)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Ipercubo</td>
+<td class="org-left">\(\Theta(\log{n})\)</td>
+<td class="org-left">\(\Theta(\log{n})\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Consideriamo il problema del broadcasting su un ipercubo
+Oltre alle solite restrizioni già viste (<i>unique initiator</i>, <i>total reliability</i>, <i>bidirectional links</i> e <i>connectivity</i>), in questa variante
+si assume che ogni nodo <span class="underline">sa</span> di essere in un <b>labeled hypercube</b> \(d\)-dimensionale.<br />
 </p>
 
 <p>
-A questo punto rimuoviamo l'arco \((x,y)\), e aggiungiamo un nuovo nodo \(z\) insieme agli archi \((x,z),(y,z)\).
-Rieseguiamo il protocollo con gli <b>stessi ritardi di trasmissione</b> (necessario per il discorso affrontato nella precedente sezione).
+Questa particlare rete ha una struttura a ipercubo di dimensione \(d\), i cui <i>link</i> e <i>nodi</i> sono etichettati come segue:
+</p>
+<ol class="org-ol">
+<li>ogni nodo è <span class="underline">univocamente</span> eithcettato con una <b>stringa</b> in \(\lbrace 0, 1 \rbrace^d\).
+Inoltre ogni nodo ha come vicino i nodi le quali etichette differiscono di <b>un solo</b> bit.</li>
+<li>Ogni arco è etichettato con un numero nell'intervallo \(\left[ d \right]\), in modo che tale etichetta rappresenta l'indice del
+bit per il quale i due nodi estremi differiscono (partendo a contare per esempio dal bit meno significativo).</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img2.png" alt="adrc-lesson05-img2.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 1: </span>\(d = 1\)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img3.png" alt="adrc-lesson05-img3.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 2: </span>\(d = 2\)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img4.png" alt="adrc-lesson05-img4.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 3: </span>\(d = 3\)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img1.gif" alt="adrc-lesson05-img1.gif" width="80%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Generazione Ipercubo</p>
+</div>
+
+<p>
+In maniera un po' più formale possiamo definire l'insieme dei nodi come \(V \equiv \lbrace \overline{x} \mid \overline{x} \in \lbrace 0,1 \rbrace^d \rbrace\).
+Applicando semplicemente il protocollo <code>Flood</code> su questa rete la message complexity sarà \(O(n\log{n})\).<br />
 </p>
 
 <p>
-A livello di stato locale interno, ne a al nodo \(x\) ne al nodo \(y\) è cambiato nulla (<b>Fact 2</b>).
-Infatti sia \(x\) che \(y\) vedranno un arco uscente laddove prima c'era l'arco \((x,y)\).
-Però sappiamo che i nodi <b>non sanno</b> assolutamente distinguere i nodi agli estremi degli archi.
-Perciò, per quanto ne sa \(x\), dall'altra parte del nuovo arco ci sta ancora \(y\) anzichè \(z\) (e viceversa).<br />
-</p>
-
-<p>
-Però, sapendo che da quella porta né \(x\) né \(y\) trasmettono, allora certamente nessuno dei due trasmetterà
-sui relativi archi che lo collegano a \(z\).
-Infatti i due ambienti, dal punto di vista locale, sono <b>identici</b>, perciò compiranno le stesse azioni (<b>Fact 1</b>), ovvero non
-trasmettere nulla.<br />
-</p>
-
-<p>
-Dato che \(z\) è collegato solamente a \(x\) ed \(y\), esso certamente non può ricevere il messaggio da un altro nodo, perciò
-il nodo \(z\) non verrà mai informato, e quindi il protocollo <code>P</code> non è corretto (assurdo) \(\square\).
+<b>[da finire &#x2026;]</b>
 </p>
 </div>
 </div>
@@ -462,17 +445,29 @@ il nodo \(z\) non verrà mai informato, e quindi il protocollo <code>P</code> no
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-<a href="https://en.wikipedia.org/wiki/Turing_machine">https://en.wikipedia.org/wiki/Turing_machine</a>
+con molti archi.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+o grafo completo.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+ovvero ci sarà <i>almeno</i> una coppia di nodi che non saranno reciprocamente raggiungibili.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+non è vero il contrario: se consideriamo un grafo a <i>stella</i>, il suo grado massimo è appunto massimo (\(n-1\)), però rimane comunque un grafo sparso.
 </p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-10-21 gio 00:00</p>
+<p class="date">Data: 2021-10-26 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-02 mar 21:36</p>
+<p class="date">Created: 2021-11-03 mer 00:02</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
