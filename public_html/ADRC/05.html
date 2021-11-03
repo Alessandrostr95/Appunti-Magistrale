@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-03 mer 17:55 -->
+<!-- 2021-11-03 mer 20:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 05</title>
@@ -274,9 +274,13 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgeb2b398">1. Labeled Hypercube</a>
+<li><a href="#orgb65a5bd">1. Labeled Hypercube</a>
 <ul>
-<li><a href="#org41cd469">1.1. Hyperflood Protocoll</a></li>
+<li><a href="#org0dce4b2">1.1. Hyperflood Protocoll</a>
+<ul>
+<li><a href="#org2555b9a">1.1.1. Correttezza</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -302,8 +306,8 @@ In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozi
 </p>
 
 <hr />
-<div id="outline-container-orgeb2b398" class="outline-2">
-<h2 id="orgeb2b398"><span class="section-number-2">1</span> Labeled Hypercube</h2>
+<div id="outline-container-orgb65a5bd" class="outline-2">
+<h2 id="orgb65a5bd"><span class="section-number-2">1</span> Labeled Hypercube</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 In questa sezione verrà studiato il problema del broadcasting su <i>ipercubi</i> e verrà mostrato come l'aggiunta della conoscenza della rete
@@ -516,8 +520,8 @@ Di seguito un confornto tra le figure precedentemente descritte.
 </div>
 
 
-<div id="outline-container-org41cd469" class="outline-3">
-<h3 id="org41cd469"><span class="section-number-3">1.1</span> Hyperflood Protocoll</h3>
+<div id="outline-container-org0dce4b2" class="outline-3">
+<h3 id="org0dce4b2"><span class="section-number-3">1.1</span> Hyperflood Protocoll</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Il protocollo <code>Hyperflood</code> è molto semplice, e sfrutta fortemente il fatto che i nodi posseggono delle conoscenze globali
@@ -544,6 +548,40 @@ else:
 	 for i in range(1,l):
 	     send(message) to self.neighbors[i]
 </pre>
+</div>
+
+<p>
+Questo protocollo può essere osservato in maniera <i>ricorsiva</i>.
+Ovvero quando un nodo riceve il messaggio dall'arco \(\ell\) diventa l'<code>INITIATOR</code> del sotto-ipercubo di dimensione \(\ell' = \ell - 1\).
+</p>
+</div>
+
+<div id="outline-container-org2555b9a" class="outline-4">
+<h4 id="org2555b9a"><span class="section-number-4">1.1.1</span> Correttezza</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Ciò che si vuole dimostrare è che ogni nodo dell'ipercubo viene informato.
+Per prima cosa però è necessario enunciare è dimostrare il seguente lemma:
+</p>
+
+<p>
+<b>Lemma 1</b> Per ogni coppia di nodi \(\overline{x},\overline{y}\) esiste sempre un cammino con <b>etichette decrescenti</b> da \(\overline{x}\) a \(\overline{y}\).
+Nel protocollo <code>Hyperflood</code> il messaggio verrà inoltrato esattamente attraverso quel cammino.
+</p>
+
+<p>
+<b>Proof:</b> consideriamo due nodi a caso \(\overline{x} = 100010100 \) e \(\overline{y} = 110001000 \).
+Consideriamo la procedura per costruire un cammino usata nella dimostrazione del <b>Fact 1</b>, e consideriamo un ordinamento degli indici inverso (in senso decrescente
+a partire da sinistra, per intenderci).<br />
+Dato che i due nodi differiscono per i soli simboli in posizione \(8,5,4,3\), un cammino che li collega è composto dagli archi con etichette \(8,5,4,3\), ovvero
+da archi con etichette decrescenti \(\square\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img5.gif" alt="adrc-lesson05-img5.gif" width="100%" />
+</p>
+</div>
 </div>
 </div>
 </div>
@@ -575,7 +613,7 @@ non è vero il contrario: se consideriamo un grafo a <i>stella</i>, il suo grado
 <p class="date">Data: 2021-10-26 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-03 mer 17:55</p>
+<p class="date">Created: 2021-11-03 mer 20:15</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

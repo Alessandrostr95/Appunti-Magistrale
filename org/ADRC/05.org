@@ -167,6 +167,26 @@ In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozi
 		  send(message) to self.neighbors[i]
    #+end_src
 
+   Questo protocollo può essere osservato in maniera /ricorsiva/.
+   Ovvero quando un nodo riceve il messaggio dall'arco $\ell$ diventa l'=INITIATOR= del sotto-ipercubo di dimensione $\ell' = \ell - 1$.
+   
+*** Correttezza
+    Ciò che si vuole dimostrare è che ogni nodo dell'ipercubo viene informato.
+    Per prima cosa però è necessario enunciare è dimostrare il seguente lemma:
+
+    *Lemma 1* Per ogni coppia di nodi \(\overline{x},\overline{y}\) esiste sempre un cammino con *etichette decrescenti* da $\overline{x}$ a $\overline{y}$.
+    Nel protocollo =Hyperflood= il messaggio verrà inoltrato esattamente attraverso quel cammino.
+
+    *Proof:* consideriamo due nodi a caso \(\overline{x} = 100010100 \) e \(\overline{y} = 110001000 \).
+    Consideriamo la procedura per costruire un cammino usata nella dimostrazione del *Fact 1*, e consideriamo un ordinamento degli indici inverso (in senso decrescente
+    a partire da sinistra, per intenderci).\\
+    Dato che i due nodi differiscono per i soli simboli in posizione $8,5,4,3$, un cammino che li collega è composto dagli archi con etichette $8,5,4,3$, ovvero
+    da archi con etichette decrescenti \(\square\).
+
+    #+ATTR_HTML: :width 100%
+    [[file:../images/adrc-lesson05-img5.gif]]
+
+    
 [fn:1] con molti archi.
 [fn:2] o grafo completo.
 [fn:3] ovvero ci sarà /almeno/ una coppia di nodi che non saranno reciprocamente raggiungibili.
