@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-03 mer 00:02 -->
+<!-- 2021-11-03 mer 17:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 05</title>
@@ -274,7 +274,11 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb65a5bd">1. Labeled Hypercube</a></li>
+<li><a href="#orgeb2b398">1. Labeled Hypercube</a>
+<ul>
+<li><a href="#org41cd469">1.1. Hyperflood Protocoll</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -298,8 +302,8 @@ In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozi
 </p>
 
 <hr />
-<div id="outline-container-orgb65a5bd" class="outline-2">
-<h2 id="orgb65a5bd"><span class="section-number-2">1</span> Labeled Hypercube</h2>
+<div id="outline-container-orgeb2b398" class="outline-2">
+<h2 id="orgeb2b398"><span class="section-number-2">1</span> Labeled Hypercube</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 In questa sezione verrà studiato il problema del broadcasting su <i>ipercubi</i> e verrà mostrato come l'aggiunta della conoscenza della rete
@@ -338,8 +342,132 @@ Anche se \(O(\sqrt{n})\) è un buon miglioramento rispetto a \(n\), si può otte
 <p>
 La struttura che offre un buon compromesso in termini di grado massimo, densità, resistenza, diamtero e scalabilità è l'<a href="https://en.wikipedia.org/wiki/Hypercube">ipercubo</a>.
 È già noto che in un ipercubo \(d\)-dimensionale il numero di nodi è esattamente \(n = 2^d\), e di conseguenza \(d = \log_2{n}\).
-<b>[&#x2026; da sistemare]</b>
 Inoltre ogni nodo ha grado esattamente \(d\), quindi il numero complessivo di archi è \(m = \frac{nd}{2} = \frac{n\log_2{n}}{2}\).
+</p>
+
+<p>
+Consideriamo il problema del broadcasting su un ipercubo:
+oltre alle solite restrizioni già viste (<i>unique initiator</i>, <i>total reliability</i>, <i>bidirectional links</i> e <i>connectivity</i>), in questa variante
+si assume che ogni nodo <span class="underline">sa</span> di essere in un <b>labeled hypercube</b> \(d\)-dimensionale.<br />
+</p>
+
+<p>
+In questa particlare rete i <i>link</i> e i <i>nodi</i> sono etichettati come segue:
+</p>
+<ol class="org-ol">
+<li>ogni nodo è <span class="underline">univocamente</span> eithcettato con una <b>stringa</b> in \(\lbrace 0, 1 \rbrace^d\).
+Inoltre ogni nodo ha come vicino i nodi le quali etichette differiscono di <b>un solo</b> bit.</li>
+<li>Ogni arco è etichettato con un numero nell'intervallo \(\left[ d \right]\), in modo che tale etichetta rappresenta l'indice del
+bit per il quale i due nodi estremi differiscono (partendo a contare per esempio dal bit meno significativo).</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img2.png" alt="adrc-lesson05-img2.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 1: </span>\(d = 1\)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img3.png" alt="adrc-lesson05-img3.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 2: </span>\(d = 2\)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img4.png" alt="adrc-lesson05-img4.png" width="200px" />
+</p>
+<p><span class="figure-number">Figura 3: </span>\(d = 3\)</p>
+</div>
+
+<p>
+Si osservi che applicando semplicemente il protocollo <code>Flood</code> su questa rete la message complexity sarà \(O(n\log{n})\).<br />
+</p>
+
+<p>
+Di seguito alcune definizioni utili
+</p>
+
+<p>
+<b>DEF:</b> (<i>distanza di Hamming</i>) date due stringhe \(\overline{x},\overline{y} \in \lbrace 0,1 \rbrace^d\),
+esse si dicono a distanza di <i>Hamming</i> \(d_{Ham}(\overline{x},\overline{y}) = k\) se le due stringhe 
+differiscono esattamente di \(k\) simboli.
+</p>
+
+<p>
+<b>DEF:</b>  (<i>Labeled Hypercube</i>) un ipercubo etichettato \(d\)-dimensionale \(H_d = (V, E)\) è un grafo il cui
+insieme dei nodi è l'insieme \(V \equiv \lbrace \overline{x} \mid \overline{x} \in \lbrace 0,1 \rbrace^d \rbrace\),
+mentre l'insieme degli archi è \(E \equiv \lbrace (\overline{x},\overline{y}) \in V^2 \mid d_{Ham}(\overline{x},\overline{y}) = 1 \rbrace\).
+</p>
+
+<p>
+<b>Fact 1:</b> un ipercubo etichettato \(d\)-dimensionale \(H_d\) ha diametro esattamente \(d = \log_2{n}\).<br />
+<b>Proof:</b> per dimostrare il fatto 1 è necessario dimostrare che per ogni coppia di nodi \(\overline{x},\overline{y} \in V\)
+esiste un percorso \(P = \overline{x} \rightsquigarrow \overline{y}\) tale che la sua lunghezza \(|P|\) è minore uguale
+di \(d\).<br />
+</p>
+
+<p>
+Consideriamo quindi due differenti nodi \(\overline{x} = \langle x_1, x_2, ..., x_j, ..., x_d \rangle\) e
+\(\overline{y} = \langle y_1, y_2, ..., y_j, ..., y_d \rangle\).
+</p>
+
+<p>
+Scorrendo in parallelo i caratteri delle due stringhe, prima o poi si arriverà a un indice \(j_1\) tale che
+\(x_{j_1} \neq y_{j_1}\) (perchè abbiamo assunto che \(\overline{x}\) e \(\overline{y}\) sono differenti).<br />
+</p>
+
+<p>
+A questo punto, per costruzione dell'ipercubo etichettato, esisterà un suo vicino \(\overline{x}'\)
+tale che  \(x'_{j_1} = y_{j_1}\).
+Tale vicino sicurmanete esiste, dato che \(\overline{x}\) e \(\overline{x}'\) sono a <i>distanza di Hamming</i> 1.
+Consideriamo quindi l'arco \((\overline{x}, \overline{x}')\) come primo arco del cammino \(P\).<br />
+</p>
+
+<p>
+A questo punto, \(\forall i \leq j_1\) avremo che \(x'_i = y_i\), quindi partendo dall'indice \(j_1 + 1\) continuiamo
+a scorrere in parallelo le due stringhe \(\overline{x}'\) e \(\overline{y}\).
+Se arrivati all'indice \(d\) non si sono incontrati caratteri differenti, allora \(\overline{x}' = \overline{y}\), e quindi
+il cammino è concluso.
+Se invece \(\overline{x}' \neq \overline{y}\) certamente esisterà un indice \(j_1 < j_2 \leq d\) tale che \(x'_{j_2} \neq y_{j_2}\).<br />
+</p>
+
+<p>
+Come prima, esisterà per forza un nodo \(\overline{x}''\) vicino di \(\overline{x}'\) tale che \(x''_{j_2} = y_{j_2}\).
+Appendiamo quindi l'arco \((\overline{x}', \overline{x}'')\) al cammino.<br />
+</p>
+
+<p>
+Proseguendo in questa maniera, prima o poi si arriverà ad un nodo \(\overline{x}^{\star} = \overline{y}\).
+Nel cammino vengono considerati nodi a distanza di Hamming 1 l'uno dall'altro, e ad ogni arco preso ci si
+"avvicina" di 1 alla destinazione.
+Dato che al più \(\overline{x}\) è distnte \(d\) da \(\overline{y}\), allora il cammino costruito con il precedente metodo
+può essere lungo al più \(d\) \(\square\).<br />
+</p>
+
+
+<p>
+Un'altra caratteristica importante dell'ipercubo è la sua scalabilità.
+Infatti si può estendere un ipercubo di dimensione \(d\) con un altro ipercubo di dimensione \(d\), semplicemente
+aggiungendo un arco tra i nodi analoghi dei due ipercubi.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img1.gif" alt="adrc-lesson05-img1.gif" width="80%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Generazione Ipercubo</p>
+</div>
+
+<p>
+Inoltre l'ipercubo è una struttura abbastanza stabile, in quanto per essere disconnessa è necessario rimuovere
+almeno \(d\) archi.<br />
+</p>
+
+<p>
+Di seguito un confornto tra le figure precedentemente descritte.
 </p>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
@@ -385,59 +513,39 @@ Inoltre ogni nodo ha grado esattamente \(d\), quindi il numero complessivo di ar
 </tr>
 </tbody>
 </table>
-
-<p>
-Consideriamo il problema del broadcasting su un ipercubo
-Oltre alle solite restrizioni già viste (<i>unique initiator</i>, <i>total reliability</i>, <i>bidirectional links</i> e <i>connectivity</i>), in questa variante
-si assume che ogni nodo <span class="underline">sa</span> di essere in un <b>labeled hypercube</b> \(d\)-dimensionale.<br />
-</p>
-
-<p>
-Questa particlare rete ha una struttura a ipercubo di dimensione \(d\), i cui <i>link</i> e <i>nodi</i> sono etichettati come segue:
-</p>
-<ol class="org-ol">
-<li>ogni nodo è <span class="underline">univocamente</span> eithcettato con una <b>stringa</b> in \(\lbrace 0, 1 \rbrace^d\).
-Inoltre ogni nodo ha come vicino i nodi le quali etichette differiscono di <b>un solo</b> bit.</li>
-<li>Ogni arco è etichettato con un numero nell'intervallo \(\left[ d \right]\), in modo che tale etichetta rappresenta l'indice del
-bit per il quale i due nodi estremi differiscono (partendo a contare per esempio dal bit meno significativo).</li>
-</ol>
-
-
-<div class="figure">
-<p><img src="../images/adrc-lesson05-img2.png" alt="adrc-lesson05-img2.png" width="200px" />
-</p>
-<p><span class="figure-number">Figura 1: </span>\(d = 1\)</p>
 </div>
 
 
-<div class="figure">
-<p><img src="../images/adrc-lesson05-img3.png" alt="adrc-lesson05-img3.png" width="200px" />
-</p>
-<p><span class="figure-number">Figura 2: </span>\(d = 2\)</p>
-</div>
-
-
-<div class="figure">
-<p><img src="../images/adrc-lesson05-img4.png" alt="adrc-lesson05-img4.png" width="200px" />
-</p>
-<p><span class="figure-number">Figura 3: </span>\(d = 3\)</p>
-</div>
-
-
-<div class="figure">
-<p><img src="../images/adrc-lesson05-img1.gif" alt="adrc-lesson05-img1.gif" width="80%" />
-</p>
-<p><span class="figure-number">Figura 4: </span>Generazione Ipercubo</p>
-</div>
-
+<div id="outline-container-org41cd469" class="outline-3">
+<h3 id="org41cd469"><span class="section-number-3">1.1</span> Hyperflood Protocoll</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-In maniera un po' più formale possiamo definire l'insieme dei nodi come \(V \equiv \lbrace \overline{x} \mid \overline{x} \in \lbrace 0,1 \rbrace^d \rbrace\).
-Applicando semplicemente il protocollo <code>Flood</code> su questa rete la message complexity sarà \(O(n\log{n})\).<br />
+Il protocollo <code>Hyperflood</code> è molto semplice, e sfrutta fortemente il fatto che i nodi posseggono delle conoscenze globali
+della struttura della rete.
 </p>
 
 <p>
-<b>[da finire &#x2026;]</b>
+In maniera informale il protocollo funziona nella seguente maniera:
 </p>
+<ul class="org-ul">
+<li>l'unico nodo <code>INITIATOR</code> invia il messaggio a tutti i suoi nodi vicini.</li>
+<li>se un qualsiasi nodo riceve il messaggio da un arco etichettato con il numero \(\ell\), allora inoltrerà
+il messaggio a tutti i suoi vicini connessi dagli archi con indice \(\ell' < \ell\).</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python">if self.status == "INITIATOR":
+    spontaneously:
+	send(self.message) to self.neighbors
+
+else:
+    recieving(message):
+	 l = message.fromEdge
+	 for i in range(1,l):
+	     send(message) to self.neighbors[i]
+</pre>
+</div>
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -467,7 +575,7 @@ non è vero il contrario: se consideriamo un grafo a <i>stella</i>, il suo grado
 <p class="date">Data: 2021-10-26 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-03 mer 00:02</p>
+<p class="date">Created: 2021-11-03 mer 17:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
