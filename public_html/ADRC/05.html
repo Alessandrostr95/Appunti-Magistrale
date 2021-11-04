@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-03 mer 20:15 -->
+<!-- 2021-11-04 gio 19:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 05</title>
@@ -279,6 +279,8 @@ for the JavaScript code in this tag.
 <li><a href="#org0dce4b2">1.1. Hyperflood Protocoll</a>
 <ul>
 <li><a href="#org2555b9a">1.1.1. Correttezza</a></li>
+<li><a href="#orgd7cd34a">1.1.2. Message Complexity</a></li>
+<li><a href="#org6d3392c">1.1.3. Time complexity</a></li>
 </ul>
 </li>
 </ul>
@@ -584,6 +586,102 @@ da archi con etichette decrescenti \(\square\).
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-orgd7cd34a" class="outline-4">
+<h4 id="orgd7cd34a"><span class="section-number-4">1.1.2</span> Message Complexity</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+La message complexity del protocollo <code>Hyperflood</code> è ottima, ovvero vengono trasmessi esattamente \(n-1\) messaggi, uno per ogni nodo (sorgente esclusa).
+Per dimostrarlo è necessario dimostrare che il grafo delle comunicazioni del protocollo è un <b>albero</b>, e che quindi ogni nodo non può ricevere più di una
+volta lo stesso messaggio.<br />
+</p>
+
+<p>
+Supponiamo per <i>assurdo</i> che esiste un nodo \(\overline{y}\) che riceve due copie del messaggio.
+Se così fosse nel grafo delle comunicazioni esisterebbero due cammini <i>disgiunti</i> che da un nodo \(\overline{x}\) portano ad \(\overline{y}\).
+Notare che \(\overline{x}\) potrebbe anche essere la sorgente \(\overline{s}\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img6.png" alt="adrc-lesson05-img6.png" style="max-width: 200px" />
+</p>
+</div>
+
+
+<p>
+Certamente, per costruzione dell'ipercubo etichettato, i due cammini iniziano per degli archi etichettati con \(\ell_1, \ell_2\) <span class="underline">differenti</span>.
+Senza perdita di generalità, assumiamo che quello di sinistra inizi con l'arco \(\ell_1\), quello destro con \(\ell_2\) e che \(\ell_1 < \ell_2\).
+Sia \(\overline{x}'\) il nodo raggiunto da \(\ell_1\) e \(\overline{x}''\) quello raggiunto da \(\ell_2\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img7.png" alt="adrc-lesson05-img7.png" style="max-width: 200px" />
+</p>
+</div>
+
+
+<p>
+Per costruzione, avremo che:
+</p>
+<ul class="org-ul">
+<li>\(\overline{x}\) differisce da \(\overline{y}\) almeno per i bits in posizione \(\ell_1\) ed \(\ell_2\)</li>
+<li>\(x'_{\ell_1} = y_{\ell_1}\) e \(x'_{\ell_2} \neq y_{\ell_2}\)</li>
+<li>\(x''_{\ell_2} = y_{\ell_2}\) e \(x''_{\ell_1} = y_{\ell_1}\)</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson05-img8.png" alt="adrc-lesson05-img8.png" style="max-width: 200px" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Esempio di una possibile situazione</p>
+</div>
+
+<p>
+Importante osservare anche che entrambi i cammini, quello di sinistra e quello di destra, procedono per <b>etichette decrescenti</b>.
+Ciò significa che dal cammino di sinistra verranno toccati solo nodi che differiscono da \(\overline{x}'\) per i bits con indice \(\ell_i < \ell_1\).
+Questo implica che il cammino di sinistra porterà al nodo \(\overline{y}\) senza mai cambiare il bit in posizione \(\ell_2\), e questo è assurdo \(\square\).<br />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org6d3392c" class="outline-4">
+<h4 id="org6d3392c"><span class="section-number-4">1.1.3</span> Time complexity</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Come già discusso nelle altre lezioni, ha senso parlare di time complexity solamente sotto le assunzioni di sincornismo della rete e di limitatezza nel
+ritardo di trasmissione dei messaggi.
+Analizziamo quindi la complessità temporale in un sistema sincrono nel quale il tempo di trasmissione vale una unità temporale.
+In tale sistema con tali assunzioni la time complexity ottima, ovvero \(O(\log{n})\).<br />
+</p>
+
+<p>
+La precedente affermazione si può dimostrare per induzione sulla <i>distanza di Hamming</i> dei nodi dalla sorgente.
+Più in particolare si vuole dimostrare che per ogni \(j \leq d\) (dove \(d\) è la dimensione dell'ipercubo) e per ogni nodo \(x\) a distanza di Hamming
+\(j\) dalla sorgente, il nodo \(x\) sarà informato al tempo \(j\).
+\[
+    \forall j \in \left[ d \right], \forall x \in \lbrace 0,1 \rbrace^d : d_{Ham}(s,x) = j
+    \implies x \mbox{ sarà informato al tempo } j
+    \]
+</p>
+
+<p>
+Per \(j = 1\) questo è vero perché per definizione del protocollo la sorgente \(s\) manderà il messaggio a tutti i suoi vicini, i quali formano l'insieme
+di tutti i nodi a distanza di Hamming 1 da \(s\).<br />
+</p>
+
+<p>
+Per ipotesi induttiva supponiamo questo sia vero per \(j-1\), ovvero che tutti i nodi in \(L_{j-1}\) sono stati informati al tempo \(t=j-1\).
+Sappiamo che per ogni nodo \(x \in L_j\) esiste sempre un cammino con tutte etichette decrescenti dalla sorgente \(s\) ad \(x\).
+Dato che però le etichette sono decrescenti, allora certamente \(x\) è raggiunto da un nodo \(y\) nell'insieme \(L_{j-1}\).
+Per ipotesi \(y\) è stato informato al momento \(j-1\) e inoltre il messaggio impiega un solo istante per percorrere l'arco \((y,x)\), perciò
+\(x\) sarà informato al tempo \(t = (j-1) + 1 = j\) \(\square\).
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -613,7 +711,7 @@ non è vero il contrario: se consideriamo un grafo a <i>stella</i>, il suo grado
 <p class="date">Data: 2021-10-26 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-03 mer 20:15</p>
+<p class="date">Created: 2021-11-04 gio 19:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

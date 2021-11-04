@@ -186,6 +186,65 @@ In generale, un grafo si dice \(k\)-tollerant quando anche a fronte della rimozi
     #+ATTR_HTML: :width 100%
     [[file:../images/adrc-lesson05-img5.gif]]
 
+
+*** Message Complexity
+    La message complexity del protocollo =Hyperflood= è ottima, ovvero vengono trasmessi esattamente $n-1$ messaggi, uno per ogni nodo (sorgente esclusa).
+    Per dimostrarlo è necessario dimostrare che il grafo delle comunicazioni del protocollo è un *albero*, e che quindi ogni nodo non può ricevere più di una
+    volta lo stesso messaggio.\\
+
+    Supponiamo per /assurdo/ che esiste un nodo $\overline{y}$ che riceve due copie del messaggio.
+    Se così fosse nel grafo delle comunicazioni esisterebbero due cammini /disgiunti/ che da un nodo $\overline{x}$ portano ad $\overline{y}$.
+    Notare che $\overline{x}$ potrebbe anche essere la sorgente $\overline{s}$.
+    
+    #+ATTR_HTML: :style max-width: 200px
+    [[file:../images/adrc-lesson05-img6.png]]
+
+
+    Certamente, per costruzione dell'ipercubo etichettato, i due cammini iniziano per degli archi etichettati con $\ell_1, \ell_2$ _differenti_.
+    Senza perdita di generalità, assumiamo che quello di sinistra inizi con l'arco $\ell_1$, quello destro con $\ell_2$ e che $\ell_1 < \ell_2$.
+    Sia $\overline{x}'$ il nodo raggiunto da $\ell_1$ e $\overline{x}''$ quello raggiunto da $\ell_2$.
+
+    #+ATTR_HTML: :style max-width: 200px
+    [[file:../images/adrc-lesson05-img7.png]]
+
+
+    Per costruzione, avremo che:
+    - $\overline{x}$ differisce da $\overline{y}$ almeno per i bits in posizione $\ell_1$ ed $\ell_2$
+    - $x'_{\ell_1} = y_{\ell_1}$ e $x'_{\ell_2} \neq y_{\ell_2}$ 
+    - $x''_{\ell_2} = y_{\ell_2}$ e $x''_{\ell_1} = y_{\ell_1}$
+
+    #+ATTR_HTML: :style max-width: 200px
+    #+caption: Esempio di una possibile situazione
+    [[file:../images/adrc-lesson05-img8.png]]
+
+    Importante osservare anche che entrambi i cammini, quello di sinistra e quello di destra, procedono per *etichette decrescenti*.
+    Ciò significa che dal cammino di sinistra verranno toccati solo nodi che differiscono da $\overline{x}'$ per i bits con indice $\ell_i < \ell_1$.
+    Questo implica che il cammino di sinistra porterà al nodo $\overline{y}$ senza mai cambiare il bit in posizione $\ell_2$, e questo è assurdo $\square$.\\
+
+
+*** Time complexity
+    Come già discusso nelle altre lezioni, ha senso parlare di time complexity solamente sotto le assunzioni di sincornismo della rete e di limitatezza nel
+    ritardo di trasmissione dei messaggi.
+    Analizziamo quindi la complessità temporale in un sistema sincrono nel quale il tempo di trasmissione vale una unità temporale.
+    In tale sistema con tali assunzioni la time complexity ottima, ovvero $O(\log{n})$.\\
+
+    La precedente affermazione si può dimostrare per induzione sulla /distanza di Hamming/ dei nodi dalla sorgente.
+    Più in particolare si vuole dimostrare che per ogni $j \leq d$ (dove $d$ è la dimensione dell'ipercubo) e per ogni nodo $x$ a distanza di Hamming
+    $j$ dalla sorgente, il nodo $x$ sarà informato al tempo $j$.
+    \[
+    \forall j \in \left[ d \right], \forall x \in \lbrace 0,1 \rbrace^d : d_{Ham}(s,x) = j
+    \implies x \mbox{ sarà informato al tempo } j
+    \]
+
+    Per $j = 1$ questo è vero perché per definizione del protocollo la sorgente $s$ manderà il messaggio a tutti i suoi vicini, i quali formano l'insieme
+    di tutti i nodi a distanza di Hamming 1 da $s$.\\
+
+    Per ipotesi induttiva supponiamo questo sia vero per $j-1$, ovvero che tutti i nodi in $L_{j-1}$ sono stati informati al tempo $t=j-1$.
+    Sappiamo che per ogni nodo $x \in L_j$ esiste sempre un cammino con tutte etichette decrescenti dalla sorgente $s$ ad $x$.
+    Dato che però le etichette sono decrescenti, allora certamente $x$ è raggiunto da un nodo $y$ nell'insieme $L_{j-1}$.
+    Per ipotesi $y$ è stato informato al momento $j-1$ e inoltre il messaggio impiega un solo istante per percorrere l'arco $(y,x)$, perciò
+    $x$ sarà informato al tempo $t = (j-1) + 1 = j$ $\square$.
+    
     
 [fn:1] con molti archi.
 [fn:2] o grafo completo.
