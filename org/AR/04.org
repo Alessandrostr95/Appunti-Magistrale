@@ -17,7 +17,7 @@
   e lo *spazio* in cui dovrà essere costruita.
 
 ** Grafo Geometrico
-   Siano uno *spazio metrico* $(\mathbb{R}^d, \Vert \cdot \Vert ) di dimensione $d \geq 1$, e una costante $r > 0$ detto *raggio*.
+   Siano uno *spazio metrico* $(\mathbb{R}^d, \Vert \cdot \Vert )$ di dimensione $d \geq 1$, e una costante $r > 0$ detto *raggio*.
    Un /grafo geometrico/ $G$ è composto dai seguenti insiemi:
    1. $V \subseteq \mathbb{R}^d$
    2. $E := \lbrace (a,b) \in V^2 : \Vert a-b \Vert \leq r \rbrace$
