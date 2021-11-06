@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-06 sab 12:35 -->
+<!-- 2021-11-06 sab 21:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 04</title>
@@ -646,7 +646,113 @@ Per iniziare definiamo le seguenti famiglie di eventi:
 <li>\(\mathcal{E}_{i_1,i_2,...,i_h}\) = i nodi \(i_1,i_2,...,i_h \in \left[ n \right]\) sono <b>tutti</b> isolati in \(G\).</li>
 <li>\(\mathcal{E}_{i!}\) = \(i \in \left[ n \right]\) è l'<b>unico</b> nodo isolato in \(G\).</li>
 </ul>
+
+<p>
+Facciamo le seguenti osservazioni:
+</p>
+<ul class="org-ul">
+<li><b>OSS. 1:</b> se \(G\) contiene almeno un nodo isolato allora certamente \(G\) è disconnesso. In termini logici possiamo scrivere come
+\(\mathcal{E}_{\geq 1} \implies G \mbox{ disconnesso}\). In termini insiemistici invece l'implicazione si può tradurre come
+operatore di <i>sottoinsieme</i>, ovvero \(\mathcal{E}_{\geq 1} \subseteq G \mbox{ disconnesso}\).
+Perciò avremo che \(\mathcal{P}\Big(G \mbox{ disconnesso}\Big) \geq \mathcal{P}(\mathcal{E}_{\geq 1})\).</li>
+<li><b>OSS. 2:</b> se il nodo 1 è l'unico isolato, oppure se il nodo 2 è l'unico isolato, oppure &#x2026;, oppure il nodo \(n\) è l'unico isolato
+allora certamente deve essere vero che \(G\) ha <i>almeno</i> un nodo isolato.
+Perciò come per la precedente osservazione avremo che
+\[
+      \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \subseteq \mathcal{E}_{\geq 1}
+      \]
+e quindi in termini probabilistici
+\[
+      \mathcal{P}\left( \mathcal{E}_{\geq 1} \right) \geq \mathcal{P}\left( \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \right)
+      \]</li>
+<li><b>OSS. 3:</b> dato che \(\mathcal{E}_{1!}, \mathcal{E}_{2!}, ..., \mathcal{E}_{n!}\) sono tutti eventi <b>disgiunti</b> (ovvero ne può capitare solo uno tra tutti)
+allora avremo che
+\[
+      \mathcal{P}\left( \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \right) =
+      \sum_{i \in \left[ n \right]} \mathcal{P}\left( \mathcal{E}_{i!} \right)
+      \]</li>
+</ul>
+
+<p>
+Dalle osservazioni 1-2-3 possiamo dare una prima delimitazione inferiore alla probabilità che \(G\) non sia connesso
+\[
+    \mathcal{P}\Big(G \mbox{ disconnesso}\Big) \geq \sum_{i \in \left[ n \right]} \mathcal{P}\left( \mathcal{E}_{i!} \right)
+    \]
+</p>
+
+<p>
+A questo punto non resta che calcolare \(\mathcal{P}\left( \mathcal{E}_{i!} \right)\).
+In realtà non è propriamente semplice calcolare questa probabilità in menira diretta, perciò anche in questo caso cercheremo di <i>minorarla</i><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>.
+Notiamo che \(i\) è l'<b>unico</b> nodo isolato in \(G\) se e solo se si verificano i seguenti eventi:
+</p>
+<ol class="org-ol">
+<li>\(i\) è un nodo isolato in \(G\)</li>
+<li>comunque scegliamo un altro nodo \(j\), avremo che \(i\) e \(j\) <i>non</i> sono enrambi isolati in \(G\), ovvero
+\[
+       \mathcal{E}_{i!} \equiv
+       \mathcal{E}_{i} \bigcap_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \overline{\mathcal{E}_{i,j}} \equiv
+       \mathcal{E}_{i} \setminus \left( \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)
+       \]
+dove l'ultima uguaglianza è data dalla <i>legge di De Morgan</i><sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup>.</li>
+</ol>
+<p>
+Da cui otteniamo la seguente minorazione
+</p>
+\begin{align*}
+  \mathcal{P}\left( \mathcal{E}_{i!} \right)
+  &= \mathcal{P}\left( \mathcal{E}_{i} \setminus \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)\\
+  &\geq \mathcal{P}\left( \mathcal{E}_{i} \right) - \mathcal{P}\left( \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)\\
+  &\geq \mathcal{P}\left( \mathcal{E}_{i} \right) - \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)
+\end{align*}
+
+<p>
+Per calcolare quest'ultima probabilità dobbiamo ancora una volta ricavare delle limitazioni.
+Più precisamente, se si vuole minorare, dobbiamo:
+</p>
+<ol class="org-ol">
+<li>trovare una <b>minorazione</b> per \(\mathcal{P}\left( \mathcal{E}_{i} \right)\)</li>
+<li>trovare una <b>maggiorazione</b> per \(\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)\)</li>
+</ol>
 </div>
+
+<ol class="org-ol">
+<li><a id="org5c936f4"></a><b>Minorazione per</b> \(\mathcal{P}\left( \mathcal{E}_{i} \right)\)<br />
+<div class="outline-text-5" id="text-1-4-2-1">
+<p>
+Sia \(t_i\) il <i>punto</i> di \(Q\) in cui si trova il nodo \(i\), e sia \(C_r(t_i)\) la circonferenza di raggio \(r\) centrata in \(t_i\).
+L'evento \(\mathcal{E}_i\) si verifica solo se per ogni nodo \(j \neq i\) è vero che \(j \not\in C_r(t_i)\).<br />
+Quindi fissati \(j\) e \(t_i\) avremo che
+\[
+     \mathcal{P}\left( j \not\in C_r(t_i) \right) = \frac{|Q - C_r(t_i)|}{|Q|} \geq \frac{|Q| - |C_r(t_i)|}{|Q|} = 1 - \pi r^2
+     \]
+Il <i>maggiore o uguale</i> è dato perché la circonferenza \(C_r(t_i)\) potrebbe essere posizionata ai bordi, e quindi non rientrare in \(Q\).<br />
+</p>
+
+<p>
+Perciò, <b>fissato</b> un \(t_i\) avremo che
+\[
+     \mathcal{P}\left(j \not\in C_r(t_i) \; \forall j \neq i \right) \geq \left( 1 - \pi r^2 \right)^{n-1}
+     \]
+La precedente probabilità è relativa a un dato \(t_i\) fissato.
+Ciò che serve a noi però è dare una stima per un qualsiasi \(i\).
+Però, visto che \(t_i\) è scelto uniformemente a caso in un intervallo <b>continuo</b>, allora la funzione di densità della scelta u.a.r. in \(Q\) sarà \(f(t) = \frac{1}{|Q|} = 1\).
+Perciò la delimitazione inferiore che cerchiamo è
+</p>
+\begin{align*}
+\mathcal{P}(\mathcal{E}_i)
+&\geq \int_{t_i \in Q} f(t_i) \left( 1 - \pi r^2 \right)^{n-1} \,dt_i\\
+&= \left( 1 - \pi r^2 \right)^{n-1} \int_{t_i \in Q} \,dt_i\\
+&= \left( 1 - \pi r^2 \right)^{n-1} \cdot |Q|\\
+&= \left( 1 - \pi r^2 \right)^{n-1}
+\end{align*}
+</div>
+</li>
+
+<li><a id="orgfdc4776"></a><b>Maggiorazione per</b> \(\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)\)<br />
+<div class="outline-text-5" id="text-1-4-2-2">
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -667,7 +773,15 @@ ovvero che per ogni coppia di nodi \(x,y\) esista un cammino diretto da \(x\) ad
 </p></div></div>
 
 <div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
-con probabilità <span class="underline">almeno</span> \(1 - \left(\frac{1}{n}\right)^{\Omega(1)}\)
+con probabilità <span class="underline">almeno</span> \(1 - \left(\frac{1}{n}\right)^{\Omega(1)}\).
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+trovare un'ulteriore delimitazione inferiore.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6">6</a></sup> <div class="footpara"><p class="footpara">
+\(\overline{A} \cap \overline{B} \equiv \overline{A \cup B}\)
 </p></div></div>
 
 
@@ -677,7 +791,7 @@ con probabilità <span class="underline">almeno</span> \(1 - \left(\frac{1}{n}\r
 <p class="date">Data: 2021-10-20 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-06 sab 12:35</p>
+<p class="date">Created: 2021-11-06 sab 21:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

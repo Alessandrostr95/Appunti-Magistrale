@@ -239,10 +239,87 @@
     - $\mathcal{E}_{i_1,i_2,...,i_h}$ = i nodi \(i_1,i_2,...,i_h \in \left[ n \right]\) sono *tutti* isolati in $G$.
     - $\mathcal{E}_{i!}$ = \(i \in \left[ n \right]\) è l'*unico* nodo isolato in $G$.
     
+    Facciamo le seguenti osservazioni:
+    - *OSS. 1:* se $G$ contiene almeno un nodo isolato allora certamente $G$ è disconnesso. In termini logici possiamo scrivere come
+      \(\mathcal{E}_{\geq 1} \implies G \mbox{ disconnesso}\). In termini insiemistici invece l'implicazione si può tradurre come
+      operatore di /sottoinsieme/, ovvero \(\mathcal{E}_{\geq 1} \subseteq G \mbox{ disconnesso}\).
+      Perciò avremo che \(\mathcal{P}\Big(G \mbox{ disconnesso}\Big) \geq \mathcal{P}(\mathcal{E}_{\geq 1})\).
+    - *OSS. 2:* se il nodo 1 è l'unico isolato, oppure se il nodo 2 è l'unico isolato, oppure ..., oppure il nodo $n$ è l'unico isolato
+      allora certamente deve essere vero che $G$ ha /almeno/ un nodo isolato.
+      Perciò come per la precedente osservazione avremo che
+      \[
+      \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \subseteq \mathcal{E}_{\geq 1}
+      \]
+      e quindi in termini probabilistici
+      \[
+      \mathcal{P}\left( \mathcal{E}_{\geq 1} \right) \geq \mathcal{P}\left( \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \right)
+      \]
+    - *OSS. 3:* dato che \(\mathcal{E}_{1!}, \mathcal{E}_{2!}, ..., \mathcal{E}_{n!}\) sono tutti eventi *disgiunti* (ovvero ne può capitare solo uno tra tutti)
+      allora avremo che
+      \[
+      \mathcal{P}\left( \bigcup_{i \in \left[ n \right]} \mathcal{E}_{i!} \right) =
+      \sum_{i \in \left[ n \right]} \mathcal{P}\left( \mathcal{E}_{i!} \right)
+      \]
 
+    Dalle osservazioni 1-2-3 possiamo dare una prima delimitazione inferiore alla probabilità che $G$ non sia connesso
+    \[
+    \mathcal{P}\Big(G \mbox{ disconnesso}\Big) \geq \sum_{i \in \left[ n \right]} \mathcal{P}\left( \mathcal{E}_{i!} \right)
+    \]
 
-    
+    A questo punto non resta che calcolare \(\mathcal{P}\left( \mathcal{E}_{i!} \right)\).
+    In realtà non è propriamente semplice calcolare questa probabilità in menira diretta, perciò anche in questo caso cercheremo di /minorarla/[fn:5].
+    Notiamo che $i$ è l'*unico* nodo isolato in $G$ se e solo se si verificano i seguenti eventi:
+    1. $i$ è un nodo isolato in $G$
+    2. comunque scegliamo un altro nodo $j$, avremo che $i$ e $j$ /non/ sono enrambi isolati in $G$, ovvero
+       \[
+       \mathcal{E}_{i!} \equiv
+       \mathcal{E}_{i} \bigcap_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \overline{\mathcal{E}_{i,j}} \equiv
+       \mathcal{E}_{i} \setminus \left( \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)
+       \]
+       dove l'ultima uguaglianza è data dalla /legge di De Morgan/[fn:6].
+    Da cui otteniamo la seguente minorazione
+    \begin{align*}
+      \mathcal{P}\left( \mathcal{E}_{i!} \right)
+      &= \mathcal{P}\left( \mathcal{E}_{i} \setminus \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)\\
+      &\geq \mathcal{P}\left( \mathcal{E}_{i} \right) - \mathcal{P}\left( \bigcup_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{E}_{i,j} \right)\\
+      &\geq \mathcal{P}\left( \mathcal{E}_{i} \right) - \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)
+    \end{align*}
+
+    Per calcolare quest'ultima probabilità dobbiamo ancora una volta ricavare delle limitazioni.
+    Più precisamente, se si vuole minorare, dobbiamo:
+    1. trovare una *minorazione* per $\mathcal{P}\left( \mathcal{E}_{i} \right)$
+    2. trovare una *maggiorazione* per $\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)$
+
+**** *Minorazione per* $\mathcal{P}\left( \mathcal{E}_{i} \right)$
+     Sia $t_i$ il /punto/ di $Q$ in cui si trova il nodo $i$, e sia $C_r(t_i)$ la circonferenza di raggio $r$ centrata in $t_i$.
+     L'evento $\mathcal{E}_i$ si verifica solo se per ogni nodo $j \neq i$ è vero che $j \not\in C_r(t_i)$.\\
+     Quindi fissati $j$ e $t_i$ avremo che
+     \[
+     \mathcal{P}\left( j \not\in C_r(t_i) \right) = \frac{|Q - C_r(t_i)|}{|Q|} \geq \frac{|Q| - |C_r(t_i)|}{|Q|} = 1 - \pi r^2
+     \]
+     Il /maggiore o uguale/ è dato perché la circonferenza $C_r(t_i)$ potrebbe essere posizionata ai bordi, e quindi non rientrare in $Q$.\\
+
+     Perciò, *fissato* un $t_i$ avremo che
+     \[
+     \mathcal{P}\left(j \not\in C_r(t_i) \; \forall j \neq i \right) \geq \left( 1 - \pi r^2 \right)^{n-1}
+     \]
+     La precedente probabilità è relativa a un dato $t_i$ fissato.
+     Ciò che serve a noi però è dare una stima per un qualsiasi $i$.
+     Però, visto che $t_i$ è scelto uniformemente a caso in un intervallo *continuo*, allora la funzione di densità della scelta u.a.r. in $Q$ sarà \(f(t) = \frac{1}{|Q|} = 1\).
+     Perciò la delimitazione inferiore che cerchiamo è
+     \begin{align*}
+     \mathcal{P}(\mathcal{E}_i)
+     &\geq \int_{t_i \in Q} f(t_i) \left( 1 - \pi r^2 \right)^{n-1} \,dt_i\\
+     &= \left( 1 - \pi r^2 \right)^{n-1} \int_{t_i \in Q} \,dt_i\\
+     &= \left( 1 - \pi r^2 \right)^{n-1} \cdot |Q|\\
+     &= \left( 1 - \pi r^2 \right)^{n-1}
+     \end{align*}
+
+**** *Maggiorazione per* $\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)$
+     
 [fn:1] ovvero una /clique/ di $n$ nodi.
 [fn:2] perché $G(n, r(n))$ è un evento aleatorio, e quindi si possono solo fare previsioni probabilistiche.
 [fn:3] ovvero che per ogni coppia di nodi $x,y$ esista un cammino diretto da $x$ ad $y$ e un cammino diretto da $y$ ad $x$.
-[fn:4] con probabilità _almeno_ \(1 - \left(\frac{1}{n}\right)^{\Omega(1)}\)
+[fn:4] con probabilità _almeno_ \(1 - \left(\frac{1}{n}\right)^{\Omega(1)}\).
+[fn:5] trovare un'ulteriore delimitazione inferiore.
+[fn:6] \(\overline{A} \cap \overline{B} \equiv \overline{A \cup B}\)
