@@ -223,6 +223,24 @@
     $\square$.
     
 *** Teorema 2 - delimitazione inferiore
+    *Enunciato:* per ogni costante $c>0$,
+    \[
+    r(n) \leq \sqrt{ \frac{\ln{(n)} + c}{n \pi} }
+    \implies
+    \lim_{n \rightarrow \infty} \mathcal{P}\Big( G(n,r(n)) \mbox{ è connesso} \Big) > 0
+    \]
+
+    Per brevità, d'ora in poi si farà riferimento a $G(n,r(n))$ con $G$, e a $r(n)$ con $r$.\\
+
+    *Proof:*
+    Si vuole dare una delimitazione inferiore alla probabilità che $G(n,r(n))$ *non* sia connesso.
+    Per iniziare definiamo le seguenti famiglie di eventi:
+    - $\mathcal{E}_{\geq 1}$ = $G$ contiene *almeno* un nodo isolato.
+    - $\mathcal{E}_{i_1,i_2,...,i_h}$ = i nodi \(i_1,i_2,...,i_h \in \left[ n \right]\) sono *tutti* isolati in $G$.
+    - $\mathcal{E}_{i!}$ = \(i \in \left[ n \right]\) è l'*unico* nodo isolato in $G$.
+    
+
+
     
 [fn:1] ovvero una /clique/ di $n$ nodi.
 [fn:2] perché $G(n, r(n))$ è un evento aleatorio, e quindi si possono solo fare previsioni probabilistiche.
