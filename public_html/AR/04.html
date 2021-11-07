@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-06 sab 21:54 -->
+<!-- 2021-11-07 dom 17:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 04</title>
@@ -750,6 +750,114 @@ Perciò la delimitazione inferiore che cerchiamo è
 
 <li><a id="orgfdc4776"></a><b>Maggiorazione per</b> \(\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)\)<br />
 <div class="outline-text-5" id="text-1-4-2-2">
+<p>
+Banalmente per maggiorare \(\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)\)
+conviene maggiorare i singoli \(\mathcal{P}\left( \mathcal{E}_{i,j} \right)\).
+Osserviamo quindi che l'evento \(\mathcal{E}_{i,j}\) occore se e solo se <b>fissato</b> un \(t_i\) occorono le seguenti eventi:
+</p>
+<ol class="org-ol">
+<li>\(j \not\in C_r(t_i)\)</li>
+<li>\(h \not\in C_r(t_i) \cup C_r(t_j)\) \(\forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace\)</li>
+</ol>
+<p>
+Per calcolare \(\mathcal{P}\left( \mathcal{E}_{i,j} \right)\) consideriamo la seguente immagine
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img5.png" alt="ar-lesson04-img5.png" style="width:100%;max-width:400px" />
+</p>
+</div>
+
+<p>
+Certamente finché \(j\) si trova al di fuori del cerchio <i>rosso</i> (\(C_r(t_i)\)) allora \(i,j\) non saranno direttamente connessi.
+A questo punto possono accadere due situazioni:
+</p>
+<ol class="org-ol">
+<li><p>
+\(j\) si trova fuori dal cerchio \(C_{2r}(t_i)\), e quindi l'area di \(C_r(t_i) \cup C_r(t_j)\) sarà esattamente la somma delle due aree, ovvero
+\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)|\]
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img6.png" alt="ar-lesson04-img6.png" style="width:100%;max-width:400px" />
+</p>
+</div></li>
+<li><p>
+\(j\) si trova nell'anello <i>blu</i>, ovvero in \(C_{2r}(t_i) \setminus C_r(t_i)\), e quindi l'area di \(C_r(t_i) \cup C_r(t_j)\) è <b>minore o uguale</b> della
+somma delle aree \(|C_r(t_i)|\) e \(|C_r(t_j)|\), ovvero
+\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| \leq |C_r(t_i)| + |C_r(t_j)| \]
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img7.png" alt="ar-lesson04-img7.png" style="width:100%;max-width:400px" />
+</p>
+</div></li>
+</ol>
+<p>
+Certamente si sta semplificando il tutto non considerando i casi in cui le circonferenze escano dai bori, però la limitazione non cambia.
+</p>
+
+<p>
+A questo punto possiamo riscrivere l'evento \(\mathcal{E}_{i,j}\) come l'unione di due eventi <i>mutuamente esclusivi</i><sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup>:
+</p>
+<ul class="org-ul">
+<li>\(\mathcal{E}^1_{i,j} \equiv t_j \not\in C_{2r}(t_i) \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big]\)</li>
+<li>\(\mathcal{E}^2_{i,j} \equiv t_j \in C_{2r}(t_i) \setminus C_r(t_i)  \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big]\)</li>
+</ul>
+
+<p>
+Dato che i due eventi sono disgiunti possiamo dire che
+\[
+     \mathcal{P}(\mathcal{E}_{i,j}) = \mathcal{P}(\mathcal{E}^1_{i,j} \cup \mathcal{E}^2_{i,j}) = \mathcal{P}(\mathcal{E}^1_{i,j}) + \mathcal{P}(\mathcal{E}^2_{i,j})
+     \]
+</p>
+
+<p>
+Calcoliamo quindi le due probabilità.
+Per quanto riguarda \(\mathcal{P}(\mathcal{E}^1_{i,j})\) è abbastanza semplice, in quanto la probabilità che un singono \(h\) <b>non</b> appartenga all'area
+\(C_r(t_i) \cup C_r(t_j)\) è pari all'area di \(Q\) meno l'area dei due cerchi \(C_r(t_i)\) e \(C_r(t_j)\).
+\[
+     \mathcal{P}(\mathcal{E}^1_{i,j}) = |Q| - |C_r(t_i) \cup C_r(t_j)| =  |Q| - |C_r(t_i)| - |C_r(t_j)| = 1 - 2\pi r^2
+     \]
+Perciò, dato che ogni nodo viene collocato in \(Q\) in maniera del tutto <b>indipendente</b> dagli altri nodi, possiamo affermare che fissati \(t_i\) e \(t_j\)
+\[
+     \mathcal{P}\left(\bigcap_{h \neq i,j} h \not\in C_r(t_i) \cup  C_r(t_i) \right)
+     = \prod_{h \neq i,j} \mathcal{P}\left(h \not\in C_r(t_i) \cup  C_r(t_i) \right)
+     = \left( 1 - 2\pi r^2 \right)^{n-2}
+     \]
+Fissando un \(t_i\), avremo che al variare di \(t_j\) al di fuori della circonferenza <i>blu</i> \(C_{2r}(t_i)\), la probabilità che tutti gli altri nodi \(h \neq i, j\)
+"cadano" al di fuori delle rispettive circonferenze sarà pari a
+\[\int_{t_j \in Q \setminus C_{2r}(t_i)} f(t_j)\left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j\]
+</p>
+
+<p>
+Infine, calcolando tale probabilità al variare anche di \(t_i\), risulterà che
+</p>
+\begin{align*}
+  \mathcal{P}(\mathcal{E}^1_{i,j})
+  &= \mathcal{P}\left( t_j \not\in C_{2r}(t_i) \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big] \right)\\
+  &= \int_{t_i \in Q} f(t_i) \int_{t_j \in Q \setminus C_{2r}(t_i)} f(t_j)\left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j \,dt_i\\
+  &= \int_{t_i \in Q} \int_{t_j \in Q \setminus C_{2r}(t_i)} \left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j \,dt_i\\
+  &= \int_{t_i \in Q} \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2} \,dt_i\\
+  &= \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2}
+\end{align*}
+<p>
+Dove \(f(t) = \frac{1}{|Q|} = 1\) ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in \(Q\).<br />
+</p>
+
+
+<p>
+Più articolato è il calcolo di \(\mathcal{P}(\mathcal{E}^1_{i,j})\), dato che
+\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| = 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\]
+in quanto si necessita quindi di calcolare \(|C_r(t_i) \cap C_r(t_j)|\).
+Dato che non si può determinare a pripriori \(|C_r(t_i) \cap C_r(t_j)|\) in qunato un evento casuale, sa stiemarà il valore <i>minimo</i> che
+\(|C_r(t_i) \cap C_r(t_j)|\) può assumere.<br />
+</p>
+
+<p>
+<b>[da finire &#x2026;]</b>
+</p>
 </div>
 </li>
 </ol>
@@ -784,6 +892,10 @@ trovare un'ulteriore delimitazione inferiore.
 \(\overline{A} \cap \overline{B} \equiv \overline{A \cup B}\)
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7">7</a></sup> <div class="footpara"><p class="footpara">
+ovvero <i>disgiunti</i>.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -791,7 +903,7 @@ trovare un'ulteriore delimitazione inferiore.
 <p class="date">Data: 2021-10-20 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-06 sab 21:54</p>
+<p class="date">Created: 2021-11-07 dom 17:24</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

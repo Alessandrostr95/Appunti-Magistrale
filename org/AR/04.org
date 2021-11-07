@@ -316,6 +316,74 @@
      \end{align*}
 
 **** *Maggiorazione per* $\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)$
+     Banalmente per maggiorare $\sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace} \mathcal{P}\left( \mathcal{E}_{i,j} \right)$
+     conviene maggiorare i singoli $\mathcal{P}\left( \mathcal{E}_{i,j} \right)$.
+     Osserviamo quindi che l'evento $\mathcal{E}_{i,j}$ occore se e solo se *fissato* un $t_i$ occorono le seguenti eventi:
+     1. $j \not\in C_r(t_i)$
+     2. $h \not\in C_r(t_i) \cup C_r(t_j)$ $\forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace$
+     Per calcolare $\mathcal{P}\left( \mathcal{E}_{i,j} \right)$ consideriamo la seguente immagine
+
+     #+ATTR_HTML: :style width:100%;max-width:400px
+     [[file:../images/ar-lesson04-img5.png]]
+
+     Certamente finché $j$ si trova al di fuori del cerchio /rosso/ ($C_r(t_i)$) allora $i,j$ non saranno direttamente connessi.
+     A questo punto possono accadere due situazioni:
+     1. $j$ si trova fuori dal cerchio $C_{2r}(t_i)$, e quindi l'area di $C_r(t_i) \cup C_r(t_j)$ sarà esattamente la somma delle due aree, ovvero
+	\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)|\]
+	#+ATTR_HTML: :style width:100%;max-width:400px
+	[[file:../images/ar-lesson04-img6.png]]
+     2. $j$ si trova nell'anello /blu/, ovvero in $C_{2r}(t_i) \setminus C_r(t_i)$, e quindi l'area di $C_r(t_i) \cup C_r(t_j)$ è *minore o uguale* della
+	somma delle aree $|C_r(t_i)|$ e $|C_r(t_j)|$, ovvero
+	\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| \leq |C_r(t_i)| + |C_r(t_j)| \]
+	#+ATTR_HTML: :style width:100%;max-width:400px
+	[[file:../images/ar-lesson04-img7.png]]
+     Certamente si sta semplificando il tutto non considerando i casi in cui le circonferenze escano dai bori, però la limitazione non cambia.
+
+     A questo punto possiamo riscrivere l'evento $\mathcal{E}_{i,j}$ come l'unione di due eventi /mutuamente esclusivi/[fn:7]:
+     - \(\mathcal{E}^1_{i,j} \equiv t_j \not\in C_{2r}(t_i) \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big]\)
+     - \(\mathcal{E}^2_{i,j} \equiv t_j \in C_{2r}(t_i) \setminus C_r(t_i)  \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big]\)
+
+     Dato che i due eventi sono disgiunti possiamo dire che
+     \[
+     \mathcal{P}(\mathcal{E}_{i,j}) = \mathcal{P}(\mathcal{E}^1_{i,j} \cup \mathcal{E}^2_{i,j}) = \mathcal{P}(\mathcal{E}^1_{i,j}) + \mathcal{P}(\mathcal{E}^2_{i,j})
+     \]
+
+     Calcoliamo quindi le due probabilità.
+     Per quanto riguarda $\mathcal{P}(\mathcal{E}^1_{i,j})$ è abbastanza semplice, in quanto la probabilità che un singono $h$ *non* appartenga all'area
+     $C_r(t_i) \cup C_r(t_j)$ è pari all'area di $Q$ meno l'area dei due cerchi $C_r(t_i)$ e $C_r(t_j)$.
+     \[
+     \mathcal{P}(\mathcal{E}^1_{i,j}) = |Q| - |C_r(t_i) \cup C_r(t_j)| =  |Q| - |C_r(t_i)| - |C_r(t_j)| = 1 - 2\pi r^2
+     \]
+     Perciò, dato che ogni nodo viene collocato in $Q$ in maniera del tutto *indipendente* dagli altri nodi, possiamo affermare che fissati $t_i$ e $t_j$
+     \[
+     \mathcal{P}\left(\bigcap_{h \neq i,j} h \not\in C_r(t_i) \cup  C_r(t_i) \right)
+     = \prod_{h \neq i,j} \mathcal{P}\left(h \not\in C_r(t_i) \cup  C_r(t_i) \right)
+     = \left( 1 - 2\pi r^2 \right)^{n-2}
+     \]
+     Fissando un $t_i$, avremo che al variare di $t_j$ al di fuori della circonferenza /blu/ $C_{2r}(t_i)$, la probabilità che tutti gli altri nodi $h \neq i, j$
+     "cadano" al di fuori delle rispettive circonferenze sarà pari a
+     \[\int_{t_j \in Q \setminus C_{2r}(t_i)} f(t_j)\left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j\]
+
+     Infine, calcolando tale probabilità al variare anche di $t_i$, risulterà che
+     \begin{align*}
+       \mathcal{P}(\mathcal{E}^1_{i,j})
+       &= \mathcal{P}\left( t_j \not\in C_{2r}(t_i) \land \forall h \in \left[ n \right] \setminus \lbrace i,j \rbrace \Big[ h \not\in C_r(t_i) \cup C_r(t_j) \Big] \right)\\
+       &= \int_{t_i \in Q} f(t_i) \int_{t_j \in Q \setminus C_{2r}(t_i)} f(t_j)\left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j \,dt_i\\
+       &= \int_{t_i \in Q} \int_{t_j \in Q \setminus C_{2r}(t_i)} \left( 1 - 2\pi r^2 \right)^{n-2} \,dt_j \,dt_i\\
+       &= \int_{t_i \in Q} \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2} \,dt_i\\
+       &= \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2}
+     \end{align*}
+     Dove $f(t) = \frac{1}{|Q|} = 1$ ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in $Q$.\\
+
+     
+     Più articolato è il calcolo di $\mathcal{P}(\mathcal{E}^1_{i,j})$, dato che
+     \[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| = 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\]
+     in quanto si necessita quindi di calcolare $|C_r(t_i) \cap C_r(t_j)|$.
+     Dato che non si può determinare a pripriori $|C_r(t_i) \cap C_r(t_j)|$ in qunato un evento casuale, sa stiemarà il valore /minimo/ che
+     $|C_r(t_i) \cap C_r(t_j)|$ può assumere.\\
+
+     *[da finire ...]*
+
      
 [fn:1] ovvero una /clique/ di $n$ nodi.
 [fn:2] perché $G(n, r(n))$ è un evento aleatorio, e quindi si possono solo fare previsioni probabilistiche.
@@ -323,3 +391,4 @@
 [fn:4] con probabilità _almeno_ \(1 - \left(\frac{1}{n}\right)^{\Omega(1)}\).
 [fn:5] trovare un'ulteriore delimitazione inferiore.
 [fn:6] \(\overline{A} \cap \overline{B} \equiv \overline{A \cup B}\)
+[fn:7] ovvero /disgiunti/.
