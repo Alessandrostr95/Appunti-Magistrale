@@ -430,7 +430,7 @@
      \end{align*}
      Perciò l'area del triangolo giallo sarà
      \[
-     2\overline{CB} \times \frac{r}{2} \times \frac{1}{2} = \frac{\sqrt{5}}{4}r^2
+     2\overline{CB} \times \frac{r}{2} \times \frac{1}{2} = \frac{\sqrt{3}}{4}r^2
      \]
 
      In conclusione l'area dell'intersezione $C_r(t_i) \cap C_r(t_j)$ sarà pari a
