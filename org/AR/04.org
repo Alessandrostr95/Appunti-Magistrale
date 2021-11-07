@@ -349,7 +349,7 @@
      \]
 
      Calcoliamo quindi le due probabilità.
-     Per quanto riguarda $\mathcal{P}(\mathcal{E}^1_{i,j})$ è abbastanza semplice, in quanto la probabilità che un singono $h$ *non* appartenga all'area
+     Per quanto riguarda $\mathcal{P}(\mathcal{E}^1_{i,j})$ è abbastanza semplice, in quanto la probabilità che un singolo $h$ *non* appartenga all'area
      $C_r(t_i) \cup C_r(t_j)$ è pari all'area di $Q$ meno l'area dei due cerchi $C_r(t_i)$ e $C_r(t_j)$.
      \[
      \mathcal{P}(\mathcal{E}^1_{i,j}) = |Q| - |C_r(t_i) \cup C_r(t_j)| =  |Q| - |C_r(t_i)| - |C_r(t_j)| = 1 - 2\pi r^2
@@ -373,17 +373,87 @@
        &= \int_{t_i \in Q} \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2} \,dt_i\\
        &= \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2}
      \end{align*}
-     Dove $f(t) = \frac{1}{|Q|} = 1$ ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in $Q$.\\
+     Dove $f(t_i) = \frac{1}{|Q|} = 1$ ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in $Q$.
+     Invece la quantità $\left( 1 - 4\pi r^2 \right)$ è il risultato dell'integrale $\int_{t_j \in Q \setminus C_{2r}(t_i)} \,dt_{j}$,
+     ovvero l'area di $Q$ meno l'area del cerchio $C_{2r}(t_i)$.\\
 
      
-     Più articolato è il calcolo di $\mathcal{P}(\mathcal{E}^1_{i,j})$, dato che
-     \[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| = 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\]
-     in quanto si necessita quindi di calcolare $|C_r(t_i) \cap C_r(t_j)|$.
-     Dato che non si può determinare a pripriori $|C_r(t_i) \cap C_r(t_j)|$ in qunato un evento casuale, sa stiemarà il valore /minimo/ che
-     $|C_r(t_i) \cap C_r(t_j)|$ può assumere.\\
+     Più articolato è invece il calcolo di $\mathcal{P}(\mathcal{E}^2_{i,j})$.
+     Osserviamo che, fissato un $t_i$, la probobailità che un nodo $h \neq i,j$ finisca /fuori/ dall'area $|C_r(t_i) \cup C_r(t_j)|$ dipende
+     da come è posizionato $t_j$ nell'anello /blu/ $C_{2r}(t_i) \setminus C_r(t_i)$.
+     #+ATTR_HTML: :style width:100%;max-width:400px
+     [[file:../images/ar-lesson04-img7.png]]
 
-     *[da finire ...]*
+     Più precisamente, la probabilità che $h$ non finisca in $C_r(t_i) \cup C_r(t_j)$ è pari ad $1 - |C_r(t_i) \cup C_r(t_j)|$.
+     A questo l'area di $|C_r(t_i) \cup C_r(t_j)|$ sarà
+     \begin{align*}
+       |C_r(t_i) \cup C_r(t_j)|
+       &= |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)|\\
+       &= 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|
+     \end{align*}
+     Notare che ai fini della dimostrazione vogliamo che quest'ultima quantità sia /minima/, e questo accade quando l'area dell'intersezione
+     $|C_r(t_i) \cap C_r(t_j)|$ è /massima/.
+     Geometricamente si può intuire che questo accade quando $t_j$ risiede esattamente sul perimetro del cerchio $C_r(t_i)$.
+     
+     #+ATTR_HTML: :style width:100%;max-width:400px
+     [[file:../images/ar-lesson04-img8.png]]
+     
+     Per calcolare tale area consideriamo la seguente immagine
+     #+ATTR_HTML: :style width:100%;max-width:400px
+     #+caption: Intersezione tra $C_r(t_i)$ e $C_r(t_j)$.
+     [[file:../images/ar-lesson04-img9.png]]
 
+     Per calcolare l'intersezione tra $C_r(t_i)$ e $C_r(t_j)$ basta calcolare l'area /verde/ in figura e moltiplicarla per 2.
+     Notare che i triangoli \(\overset{\triangle}{t_i B t_j}\) e \(\overset{\triangle}{t_i A t_j}\) sono triangoli *equilateri* di lato $r$,
+     e di conseguenza con angoli di 60°.
+     Perciò l'agolo di \(\widehat{A t_j B}\) sarà \(\theta = 120° = \frac{2\pi}{3}\).
+     La lunghezza dell'arco $AB$ è invece pari a $L = \theta r = \frac{2\pi}{3} r$.
+     #+ATTR_HTML: :style width:100%;max-width:400px
+     #+caption: Formula lunghezza di un arco di circonferenza
+     [[file:../images/ar-lesson04-img10.png]]
+
+     Invece, l'area dello spicchio formato dall'area /verde/ e dall'area /gialla/ può essere calcolato con la formula $\frac{L \times r}{2}$.
+     #+ATTR_HTML: :style width:100%;max-width:250px
+     #+caption: In viola l'area $L \times r$.
+     [[file:../images/ar-lesson04-img11.png]]
+
+     In fine bisogna sottrarre l'area del triangolo /giallo/.
+     Per fare ciò bisogna calolcare la lungezza del segmento $\overline{CB}$, e questo si può fare semplicemente col /teorema di Pitagora/
+     \begin{align*}
+     \overline{CB}
+     &= \sqrt{ \overline{t_i C}^2 + \overline{t_i B}^2 }\\
+     &= \sqrt{ \left(\frac{r}{2}\right)^2 + r^2 }\\
+     &= \sqrt{ r^2 \left(\frac{1}{4} + 1\right) }\\
+     &= \sqrt{ r^2 \left(\frac{1}{4} + 1\right) }\\
+     &= \sqrt{ \frac{5}{4}r^2}\\
+     &= \frac{\sqrt{5}}{2}r 
+     \end{align*}
+     Perciò l'area del triangolo giallo sarà
+     \[
+     2\overline{CB} \times \frac{r}{2} \times \frac{1}{2} = \frac{\sqrt{5}}{4}r^2
+     \]
+
+     In conclusione l'area dell'intersezione $C_r(t_i) \cap C_r(t_j)$ sarà pari a
+     \begin{align*}
+       |C_r(t_i) \cap C_r(t_j)|
+       &= 2 \times \left( \frac{L \times r}{2} - \frac{\sqrt{5}}{4}r^2 \right)\\
+       &= 2 \times \left( \frac{\frac{2\pi}{3} r \times r}{2} - \frac{\sqrt{5}}{4}r^2 \right)\\
+       &= \frac{2\pi}{3}r^2 - \frac{\sqrt{5}}{2}r^2\\
+       &= 2r^2 \left( \frac{\pi}{3} - \frac{\sqrt{5}}{4} \right)
+     \end{align*}
+
+
+     Ritornando quindi alla formula da massimizzare
+     \begin{align*}
+       |C_r(t_i) \cup C_r(t_j)|
+       &= 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\\
+       &\geq 2\pi r^2 - 2r^2 \left( \frac{\pi}{3} - \frac{\sqrt{5}}{4} \right)\\
+       &= 2\pi r^2 - \frac{2}{3}\pi r^2 + \frac{\sqrt{5}}{2}r^2\\
+       &= \frac{4}{3}\pi r^2 + \frac{\pi}{\pi} \cdot \frac{\sqrt{5}}{2}r^2\\
+       &= \pi r^2 \left(\frac{4}{3} +  \frac{\sqrt{5}}{2 \pi}\right)
+     \end{align*}
+
+     *[da controllare...]*
      
 [fn:1] ovvero una /clique/ di $n$ nodi.
 [fn:2] perché $G(n, r(n))$ è un evento aleatorio, e quindi si possono solo fare previsioni probabilistiche.

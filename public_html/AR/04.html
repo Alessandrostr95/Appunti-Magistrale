@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-07 dom 17:24 -->
+<!-- 2021-11-07 dom 21:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 04</title>
@@ -815,7 +815,7 @@ Dato che i due eventi sono disgiunti possiamo dire che
 
 <p>
 Calcoliamo quindi le due probabilità.
-Per quanto riguarda \(\mathcal{P}(\mathcal{E}^1_{i,j})\) è abbastanza semplice, in quanto la probabilità che un singono \(h\) <b>non</b> appartenga all'area
+Per quanto riguarda \(\mathcal{P}(\mathcal{E}^1_{i,j})\) è abbastanza semplice, in quanto la probabilità che un singolo \(h\) <b>non</b> appartenga all'area
 \(C_r(t_i) \cup C_r(t_j)\) è pari all'area di \(Q\) meno l'area dei due cerchi \(C_r(t_i)\) e \(C_r(t_j)\).
 \[
      \mathcal{P}(\mathcal{E}^1_{i,j}) = |Q| - |C_r(t_i) \cup C_r(t_j)| =  |Q| - |C_r(t_i)| - |C_r(t_j)| = 1 - 2\pi r^2
@@ -843,20 +843,124 @@ Infine, calcolando tale probabilità al variare anche di \(t_i\), risulterà che
   &= \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2}
 \end{align*}
 <p>
-Dove \(f(t) = \frac{1}{|Q|} = 1\) ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in \(Q\).<br />
+Dove \(f(t_i) = \frac{1}{|Q|} = 1\) ricordiamo essere la funzione di densità riguardo la scelta di un punto uniformemente a caso in \(Q\).
+Invece la quantità \(\left( 1 - 4\pi r^2 \right)\) è il risultato dell'integrale \(\int_{t_j \in Q \setminus C_{2r}(t_i)} \,dt_{j}\),
+ovvero l'area di \(Q\) meno l'area del cerchio \(C_{2r}(t_i)\).<br />
 </p>
 
 
 <p>
-Più articolato è il calcolo di \(\mathcal{P}(\mathcal{E}^1_{i,j})\), dato che
-\[|C_r(t_i) \cup C_r(t_j)| = |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)| = 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\]
-in quanto si necessita quindi di calcolare \(|C_r(t_i) \cap C_r(t_j)|\).
-Dato che non si può determinare a pripriori \(|C_r(t_i) \cap C_r(t_j)|\) in qunato un evento casuale, sa stiemarà il valore <i>minimo</i> che
-\(|C_r(t_i) \cap C_r(t_j)|\) può assumere.<br />
+Più articolato è invece il calcolo di \(\mathcal{P}(\mathcal{E}^2_{i,j})\).
+Osserviamo che, fissato un \(t_i\), la probobailità che un nodo \(h \neq i,j\) finisca <i>fuori</i> dall'area \(|C_r(t_i) \cup C_r(t_j)|\) dipende
+da come è posizionato \(t_j\) nell'anello <i>blu</i> \(C_{2r}(t_i) \setminus C_r(t_i)\).
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img7.png" alt="ar-lesson04-img7.png" style="width:100%;max-width:400px" />
+</p>
+</div>
+
+<p>
+Più precisamente, la probabilità che \(h\) non finisca in \(C_r(t_i) \cup C_r(t_j)\) è pari ad \(1 - |C_r(t_i) \cup C_r(t_j)|\).
+A questo l'area di \(|C_r(t_i) \cup C_r(t_j)|\) sarà
+</p>
+\begin{align*}
+  |C_r(t_i) \cup C_r(t_j)|
+  &= |C_r(t_i)| + |C_r(t_j)| - |C_r(t_i) \cap C_r(t_j)|\\
+  &= 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|
+\end{align*}
+<p>
+Notare che ai fini della dimostrazione vogliamo che quest'ultima quantità sia <i>minima</i>, e questo accade quando l'area dell'intersezione
+\(|C_r(t_i) \cap C_r(t_j)|\) è <i>massima</i>.
+Geometricamente si può intuire che questo accade quando \(t_j\) risiede esattamente sul perimetro del cerchio \(C_r(t_i)\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img8.png" alt="ar-lesson04-img8.png" style="width:100%;max-width:400px" />
+</p>
+</div>
+
+<p>
+Per calcolare tale area consideriamo la seguente immagine
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img9.png" alt="ar-lesson04-img9.png" style="width:100%;max-width:400px" />
+</p>
+<p><span class="figure-number">Figura 10: </span>Intersezione tra \(C_r(t_i)\) e \(C_r(t_j)\).</p>
+</div>
+
+<p>
+Per calcolare l'intersezione tra \(C_r(t_i)\) e \(C_r(t_j)\) basta calcolare l'area <i>verde</i> in figura e moltiplicarla per 2.
+Notare che i triangoli \(\overset{\triangle}{t_i B t_j}\) e \(\overset{\triangle}{t_i A t_j}\) sono triangoli <b>equilateri</b> di lato \(r\),
+e di conseguenza con angoli di 60°.
+Perciò l'agolo di \(\widehat{A t_j B}\) sarà \(\theta = 120° = \frac{2\pi}{3}\).
+La lunghezza dell'arco \(AB\) è invece pari a \(L = \theta r = \frac{2\pi}{3} r\).
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img10.png" alt="ar-lesson04-img10.png" style="width:100%;max-width:400px" />
+</p>
+<p><span class="figure-number">Figura 11: </span>Formula lunghezza di un arco di circonferenza</p>
+</div>
+
+<p>
+Invece, l'area dello spicchio formato dall'area <i>verde</i> e dall'area <i>gialla</i> può essere calcolato con la formula \(\frac{L \times r}{2}\).
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson04-img11.png" alt="ar-lesson04-img11.png" style="width:100%;max-width:250px" />
+</p>
+<p><span class="figure-number">Figura 12: </span>In viola l'area \(L \times r\).</p>
+</div>
+
+<p>
+In fine bisogna sottrarre l'area del triangolo <i>giallo</i>.
+Per fare ciò bisogna calolcare la lungezza del segmento \(\overline{CB}\), e questo si può fare semplicemente col <i>teorema di Pitagora</i>
+</p>
+\begin{align*}
+\overline{CB}
+&= \sqrt{ \overline{t_i C}^2 + \overline{t_i B}^2 }\\
+&= \sqrt{ \left(\frac{r}{2}\right)^2 + r^2 }\\
+&= \sqrt{ r^2 \left(\frac{1}{4} + 1\right) }\\
+&= \sqrt{ r^2 \left(\frac{1}{4} + 1\right) }\\
+&= \sqrt{ \frac{5}{4}r^2}\\
+&= \frac{\sqrt{5}}{2}r 
+\end{align*}
+<p>
+Perciò l'area del triangolo giallo sarà
+\[
+     2\overline{CB} \times \frac{r}{2} \times \frac{1}{2} = \frac{\sqrt{5}}{4}r^2
+     \]
 </p>
 
 <p>
-<b>[da finire &#x2026;]</b>
+In conclusione l'area dell'intersezione \(C_r(t_i) \cap C_r(t_j)\) sarà pari a
+</p>
+\begin{align*}
+  |C_r(t_i) \cap C_r(t_j)|
+  &= 2 \times \left( \frac{L \times r}{2} - \frac{\sqrt{5}}{4}r^2 \right)\\
+  &= 2 \times \left( \frac{\frac{2\pi}{3} r \times r}{2} - \frac{\sqrt{5}}{4}r^2 \right)\\
+  &= \frac{2\pi}{3}r^2 - \frac{\sqrt{5}}{2}r^2\\
+  &= 2r^2 \left( \frac{\pi}{3} - \frac{\sqrt{5}}{4} \right)
+\end{align*}
+
+
+<p>
+Ritornando quindi alla formula da massimizzare
+</p>
+\begin{align*}
+  |C_r(t_i) \cup C_r(t_j)|
+  &= 2\pi r^2 - |C_r(t_i) \cap C_r(t_j)|\\
+  &\geq 2\pi r^2 - 2r^2 \left( \frac{\pi}{3} - \frac{\sqrt{5}}{4} \right)\\
+  &= 2\pi r^2 - \frac{2}{3}\pi r^2 + \frac{\sqrt{5}}{2}r^2\\
+  &= \frac{4}{3}\pi r^2 + \frac{\pi}{\pi} \cdot \frac{\sqrt{5}}{2}r^2\\
+  &= \pi r^2 \left(\frac{4}{3} +  \frac{\sqrt{5}}{2 \pi}\right)
+\end{align*}
+
+<p>
+<b>[da controllare&#x2026;]</b>
 </p>
 </div>
 </li>
@@ -903,7 +1007,7 @@ ovvero <i>disgiunti</i>.
 <p class="date">Data: 2021-10-20 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-07 dom 17:24</p>
+<p class="date">Created: 2021-11-07 dom 21:38</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
