@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-07 dom 21:54 -->
+<!-- 2021-11-08 lun 23:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 04</title>
@@ -564,7 +564,7 @@ Prima di procedere (e concludere) con la dimostrazione della delimitazione super
 <blockquote>
 <p>
 <b>Lemma:</b> \(\forall x \in \mathbb{R}\) vale la disuguaglianza \(1 - x \leq e^{-x}\).
-Inoltre se \(x \neq 0\) allora la disuguaglianza è stretta, ovvero \(1 - x e^{-x}\).<br />
+Inoltre se \(x \neq 0\) allora la disuguaglianza è stretta, ovvero \(1 - x < e^{-x}\).<br />
 </p>
 
 <p>
@@ -628,7 +628,7 @@ e che quindi con alta probabilità non ci sono celle vuote
 \[
     r(n) \leq \sqrt{ \frac{\ln{(n)} + c}{n \pi} }
     \implies
-    \lim_{n \rightarrow \infty} \mathcal{P}\Big( G(n,r(n)) \mbox{ è connesso} \Big) > 0
+    \lim_{n \rightarrow \infty} \mathcal{P}\Big( G(n,r(n)) \mbox{ non è connesso} \Big) > 0
     \]
 </p>
 
@@ -963,12 +963,209 @@ Ritornando quindi alla formula da massimizzare
 <p>
 In conclusione, fissati \(t_i\) e \(t_j\) come descritto dall'evento \(\mathcal{E}^2_{i,j}\), la probabilità che
 un nodo \(h\) finisca al di fuori di \(C_r(t_i) \cup C_r(t_j)\) sarà \(< 1 - \frac{8}{5}\pi r^2\).
-Se estendiamo questa probabilità a tutti i nodi \(h \neq i,j\) essa sarà \(< \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}\).
+Se estendiamo questa probabilità a tutti i nodi \(h \neq i,j\) essa sarà \(< \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}\).<br />
 </p>
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Generalizzando, fissato un \(t_i\), la probabilità che scegliendo un \(t_j \in C_{2r}(t_i) \setminus C_r(t_i)\) tutti i restanti nodi non
+"finiscano" in \(C_r(t_i) \cup C_r(t_j)\) sarà <b>minore</b> di
+\[
+     \int_{t_j \in C_{2r}(t_i) \setminus C_r(t_i)} f(t_j) \left(1 - \frac{8}{5}\pi r^2\right)^{n-2} \,dt_j
+     \]
 </p>
+
+<p>
+Infine generalizzando anche per \(t_i\) avremo che
+</p>
+\begin{align*}
+  \mathcal{P}(\mathcal{E}^2_{i,j})
+  &< \int_{t_i \in Q} f(t_i)  \int_{t_j \in C_{2r}(t_i) \setminus C_r(t_i)} f(t_j) \left(1 - \frac{8}{5}\pi r^2\right)^{n-2} \,dt_j \,dt_i\\
+  &= \int_{t_i \in Q} \int_{t_j \in C_{2r}(t_i) \setminus C_r(t_i)}\left(1 - \frac{8}{5}\pi r^2\right)^{n-2} \,dt_j \,dt_i\\
+  &= \int_{t_i \in Q} |C_{2r}(t_i) \setminus C_r(t_i)| \left(1 - \frac{8}{5}\pi r^2\right)^{n-2} \,dt_i\\
+  &\overset{?}{=} \int_{t_i \in Q} \left( 4\pi r^2 - \pi r^2  \right) \left(1 - \frac{8}{5}\pi r^2\right)^{n-2} \,dt_i\\
+  &= |Q| \cdot 3\pi r^2 \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}
+  = 3\pi r^2 \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}
+\end{align*}
+
+<p>
+Finalmente, trovate delle maggiorazioni alle probabilità di \(\mathcal{E}^1_{i,j}\) e \(\mathcal{E}^2_{i,j}\) possiamo maggiorare anche la
+probabilità di \(\mathcal{E}_{i,j}\)
+</p>
+\begin{align*}
+  \mathcal{P}(\mathcal{E}_{i,j})
+  &= \mathcal{P}(\mathcal{E}^1_{i,j}) + \mathcal{P}(\mathcal{E}^2_{i,j})\\
+  &< \left( 1 - 4\pi r^2 \right) \left( 1 - 2\pi r^2 \right)^{n-2} + 3\pi r^2 \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}\\
+  &< \left( 1 - 2\pi r^2 \right)^{n-2} + 3\pi r^2 \left(1 - \frac{8}{5}\pi r^2\right)^{n-2}
+\end{align*}
+
+<p>
+Sostituendo \(r\) con \(\sqrt{ \frac{\ln{(n)} + c}{n\pi} }\) otterremo
+</p>
+\begin{align*}
+  \mathcal{P}(\mathcal{E}_{i,j})
+  &< \left( 1 - 2\frac{\ln{(n)} + c}{n} \right)^{n-2} + 3\frac{\ln{(n)} + c}{n} \left(1 - \frac{8}{5}\frac{\ln{(n)} + c}{n} \right)^{n-2}\\
+  \textbf{(1)} &< e^{- 2\frac{\ln{(n)} + c}{n} (n-2)} + 3\frac{\ln{(n)} + c}{n} \cdot e^{- \frac{8}{5}\frac{\ln{(n)} + c}{n} (n-2)}\\
+  \textbf{(2)} &= e^{- 2\frac{\ln{(n)} + c}{n} (n-2)} + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot n^{ -\frac{2}{5} } \cdot e^{- \frac{8}{5}\frac{\ln{(n)} + c}{n} (n-2)}\\
+  &= e^{- 2\frac{n-2}{n}\ln{(n)} } \cdot e^{- 2c\frac{n-2}{n} } + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot n^{ -\frac{2}{5} } \cdot e^{- \frac{8}{5}\frac{n-2}{n}\ln{(n)} } \cdot e^{- \frac{8}{5}c\frac{n-2}{n} }\\
+  &= e^{- 2\frac{n-2}{n}\ln{(n)} } \cdot e^{- 2c\frac{n-2}{n} } + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot e^{ -\frac{2}{5}\ln{(n)} } \cdot e^{- \frac{8}{5}\frac{n-2}{n}\ln{(n)} } \cdot e^{- \frac{8}{5}c\frac{n-2}{n} }\\
+  \textbf{(3)} &< e^{- 2\frac{n-2}{n}\ln{(n)} } \cdot e^{- 2c\frac{n-2}{n} } + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot e^{ -\frac{2}{5}\frac{n-2}{n}\ln{(n)} } \cdot e^{- \frac{8}{5}\frac{n-2}{n}\ln{(n)} } \cdot e^{- \frac{8}{5}c\frac{n-2}{n} }\\
+  &= n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot e^{ -\frac{10}{5}\frac{n-2}{n}\ln{(n)} } \cdot e^{- \frac{8}{5}c\frac{n-2}{n} }\\
+  &= n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} }\cdot n^{ -2\frac{n-2}{n} } \cdot e^{- \frac{8}{5}c\frac{n-2}{n} }\\
+  &= n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } \cdot \left[ 1 + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } \right]
+\end{align*}
+<p>
+dove:
+</p>
+<ul class="org-ul">
+<li><b>(1)</b> perché \(1-x < e^{-x}\) per ogni \(x \neq 0\).</li>
+<li><b>(2)</b> perché \(\frac{1}{n} = \frac{1}{n^{3/5 + 2/5}} = \frac{1}{n^{3/5} \cdot n^{2/5}} = \frac{1}{n^{3/5}} \cdot n^{-2/5}\).</li>
+<li><b>(3)</b> perché viene moltiplicato \(e^{-\frac{2}{5}\ln{(n)}}\) per \(e^{\frac{n-2}{n}}\).</li>
+</ul>
+<hr />
+
+<p>
+Riassumendo abbiamo visto che
+</p>
+\begin{align*}
+  \mathcal{P}( G \mbox{ disconnesso} ) &\geq \sum_{i \in \left[ n \right]}  \mathcal{P}( \mathcal{E}_{i!} )\\
+  &= \sum_{i \in \left[ n \right]} \left[ \mathcal{P}( \mathcal{E}_{i} ) - \sum_{j \in \left[ n \right] - \lbrace i \rbrace } \mathcal{P}( \mathcal{E}_{i,j} ) \right]
+\end{align*}
+<p>
+con
+</p>
+<ul class="org-ul">
+<li>\(\mathcal{P}(\mathcal{E}_{i}) \geq \left(1 - \pi r^2 \right)^{n-1}\)</li>
+<li>\(\mathcal{P}(\mathcal{E}_{ij}) < n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } \cdot \left[ 1 + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } \right]\)</li>
+</ul>
+<p>
+perciò avremo che il limite inferiore alla probabilità che \(G\) sia <b>non connesso</b> è
+\[
+    \mathcal{P}(G \mbox{ disconnesso}) >
+    n\left(1 - \pi r^2 \right)^{n-1} -
+    n(n-1)n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } \cdot \left[ 1 + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } \right]
+    \]
+</p>
+
+<p>
+A questo punto è utile vedere che per \(n \rightarrow \infty\)
+\[
+    \lim_{n \rightarrow \infty} n(n-1)n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } \cdot \left[ 1 + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } \right] = e^{-2c}
+    \]
+perché
+</p>
+<ul class="org-ul">
+<li>\(\lim_{n \rightarrow \infty} n(n-1)n^{- 2\frac{n-2}{n} } = 1\)</li>
+<li>\(\lim_{n \rightarrow \infty} e^{- 2c\frac{n-2}{n} } = e^{-2c}\)</li>
+<li>\(\lim_{n \rightarrow \infty} 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } = 0\)</li>
+</ul>
+
+<p>
+Dato che questo limite approccia \(e^{-2c}\) dall'<i>alto</i>, vul dire che per ogni \(\varepsilon > 0\) esisterà un \(n_{\varepsilon} > 0\) tale che per
+\(n \geq n_{\varepsilon}\) è vero che
+\[
+    n(n-1)n^{- 2\frac{n-2}{n} } \cdot e^{- 2c\frac{n-2}{n} } \cdot \left[ 1 + 3\frac{\ln{(n)} + c}{ n^{\frac{3}{5}} } \cdot e^{ \frac{2}{5}c\frac{n-2}{n} } \right] < ( 1 + \varepsilon )e^{-2c}
+    \]
+</p>
+
+<p>
+Perciò
+\[
+    \mathcal{P}(G \mbox{ disconnesso}) > n\left(1 - \pi r^2 \right)^{n-1} - ( 1 + \varepsilon )e^{-2c}
+    \]
+</p>
+
+<p>
+Per dimostrare che \(\lim_{n \rightarrow \infty} \mathcal{P}(G \mbox{ disconnesso}) > 0\) basta dimostrare che da un certo \(n\) in poi \(n\left(1 - \pi r^2 \right)^{n-1} - ( 1 + \varepsilon )e^{-2c} > 0\).
+La precedente affermazione equivale a dimostrare che da un certo \(n\) in poi \(n\left(1 - \pi r^2 \right)^{n-1} > ( 1 + \varepsilon )e^{-2c}\).
+Iniziamo col calcolare il <i>logaritmo naturale</i> di entrambi i membri.
+Partendo dal primo (a sinistra)
+</p>
+\begin{align*}
+    \ln{ \left( n\left(1 - \pi r^2 \right)^{n-1} \right) }
+    &= \ln{ (n) } + \ln{ \left(\left(1 - \pi r^2 \right)^{n-1} \right) }\\
+    &= \ln{ (n) } + (n-1)\ln{ \left(\left(1 - \pi r^2 \right) \right) }\\
+    \textbf{(1)} &= \ln{ (n) } - (n-1)\sum_{k=1}^{\infty} \frac{\left(\pi r^2\right)^k}{k}
+\end{align*}
+<p>
+dove <b>(1)</b> perché per \(x < 1\) vale che \(\ln{(1-x)} = - \sum_{k=1}^{\infty} \frac{x^k}{k}\)<br />
+</p>
+
+<p>
+Poniamo dunque \(r = \sqrt{ \frac{\ln{(n)} + c}{n\pi} }\) e \(\delta(n)\) la serie precedente che parte da 3 e va \(\infty\).
+Otterremo che
+</p>
+\begin{align*}
+  \ln{ \left( n\left(1 - \pi r^2 \right)^{n-1} \right) }
+  &= \ln{ (n) } - (n-1)\sum_{k=1}^{\infty} \frac{\left(\ln{(n)} + c\right)^k}{kn^k}\\
+  &= \ln{ (n) } - (n-1)\sum_{k=1}^{2} \frac{\left(\ln{(n)} + c\right)^k}{kn^k} + \delta(n)\\
+  &= \ln{ (n) } - (n-1) \left[ \frac{\ln{(n)} + c}{n} + \frac{\left(\ln{(n)} + c\right)^2}{2n^2} + \delta(n) \right]
+\end{align*}
+<p>
+Non resta che stimare \(\delta(n)\).
+</p>
+\begin{align*}
+  \delta(n)
+  &= \sum_{k=3}^{\infty} \frac{\left(\ln{(n)} + c\right)^k}{kn^k}\\
+  &\leq \sum_{k=3}^{\infty} \frac{\left(\ln{(n)} + c\right)^k}{3n^k} = \frac{1}{3} \sum_{k=3}^{\infty} \left( \frac{\ln{(n)} + c}{n} \right)^k \\
+  &\leq \frac{1}{3} \int_{2}^{\infty} \left( \frac{\ln{(n)} + c}{n} \right)^x \,dx\\
+  &= \lim_{h \rightarrow \infty} \frac{1}{3} \int_{2}^{h} \left( \frac{\ln{(n)} + c}{n} \right)^x \,dx\\
+  &= \lim_{h \rightarrow \infty} \frac{1}{3} \int_{2}^{h} e^{x\left( \frac{\ln{(n)} + c}{n} \right)} \,dx\\
+  &= \lim_{h \rightarrow \infty} \left[ \frac{1}{3} \frac{1}{ \ln{ \left( \frac{\ln{(n)} + c}{n} \right) } } e^{x\left( \frac{\ln{(n)} + c}{n} \right)} \right]_2^h\\
+  &= \lim_{h \rightarrow \infty} \left[ \frac{1}{3} \frac{1}{ \ln{ \left( \frac{\ln{(n)} + c}{n} \right) } } \left( \frac{\ln{(n)} + c}{n} \right)^x \right]_2^h\\
+  \textbf{(a)} &= - \frac{1}{3} \frac{1}{ \ln{ \left( \frac{\ln{(n)} + c}{n} \right) } } \left( \frac{\ln{(n)} + c}{n} \right)^2\\
+  \textbf{(b)} &= \frac{1}{3} \frac{1}{ \ln{ \left( \frac{n}{\ln{(n)} + c} \right) } } \left( \frac{\ln{(n)} + c}{n} \right)^2
+\end{align*}
+<p>
+dove <b>(a)</b> perché \(\lim_{h \rightarrow \infty} \left( \frac{\ln{(n)} + c}{n} \right)^h = 0\) perché \(\frac{\ln{(n)} + c}{n} < 1\) per \(n\) abbastanza grande,
+mentre <b>(b)</b> perché viene spostato il simbolo negativo su \(\ln{ \left( \frac{\ln{(n)} + c}{n} \right) }\) trasformandolo in \(\ln{ \left( \frac{n}{\ln{(n)} + c} \right) }\).
+Infine poiché \(\ln{ \left( \frac{n}{\ln{(n)} + c} \right) } < 1\) per \(n\) sufficentemente grande, avremo che
+\[
+    \delta(n) < \frac{1}{3} \frac{ \left( \ln{(n)} + c \right)^2 }{n^2}
+    \]
+</p>
+
+<p>
+Unendo i pezzi abbiamo che per valori di \(n\) abbastanza grandi
+</p>
+\begin{align*}
+  \ln{ \left( n\left(1 - \pi r^2 \right)^{n-1} \right) }
+  &= \ln{ (n) } - (n-1) \left[ \frac{\ln{(n)} + c}{n} + \frac{\left(\ln{(n)} + c\right)^2}{2n^2} + \delta(n) \right]\\
+  &> \ln{ (n) } - (n-1) \left[ \frac{\ln{(n)} + c}{n} + \frac{\left(\ln{(n)} + c\right)^2}{2n^2} +  \frac{1}{3} \frac{ \left( \ln{(n)} + c \right)^2 }{n^2} \right]\\
+  &= \ln{ (n) } - (n-1) \left[ \frac{\ln{(n)} + c}{n} + \frac{5}{6} \frac{ \left( \ln{(n)} + c \right)^2 }{n^2} \right]\\
+  &= \ln{ (n) } - \frac{(n-1)}{n}\left( \ln{(n)} + c \right) - \frac{5}{6} \frac{(n-1)\left( \ln{(n)} + c \right)^2 }{n^2}\\
+  \textbf{(c)} &> \ln{ (n) } - \left( \ln{(n)} + c \right) - \frac{5}{6} \frac{(n-1)\left( \ln{(n)} + c \right)^2 }{n^2}\\
+  &= - c - \frac{5}{6} \frac{(n-1)\left( \ln{(n)} + c \right)^2 }{n^2}
+\end{align*}
+<p>
+dove <b>(c)</b> perché \(\frac{(n-1)}{n} < 1\).<br />
+</p>
+
+<p>
+Per \(n \rightarrow \infty\) si ha che \(\frac{5}{6} \frac{(n-1)\left( \ln{(n)} + c \right)^2 }{n^2} \approx 0\), allora per ogni \(\omega > 0\) esiste sempre
+un \(n_{\omega} \geq n_{\varepsilon}\)  tale che per \(n \geq n_{\omega}\) vale la seguente disuguaglianza
+\[
+    \frac{5}{6} \frac{(n-1)\left( \ln{(n)} + c \right)^2 }{n^2} < \omega
+    \]
+e ciò implica che per \(n\) abbastanza grande \(\ln{ \left( n\left(1 - \pi r^2 \right)^{n-1} \right) } > - c - \omega\),
+e dunque (elevando a potenza) \(n\left(1 - \pi r^2 \right)^{n-1} > e^{- c - \omega} \).<br />
+</p>
+
+<p>
+Ponendo \(\omega = c - \ln{( 1 + \varepsilon )}\) verrà verificata la disuguaglianza voluta
+\[
+    n\left(1 - \pi r^2 \right)^{n-1} > e^{- c - c + \ln{( 1 + \varepsilon )}} = e^{-2c}e^{\ln{( 1 + \varepsilon )}} = ( 1 + \varepsilon )e^{-2c} 
+    \]
+</p>
+
+<p>
+dimostrando così la tesi del teorema
+\[
+    \mathcal{P}(G \mbox{ disconnesso}) > n\left(1 - \pi r^2 \right)^{n-1} - ( 1 + \varepsilon )e^{-2c} > ( 1 + \varepsilon )e^{-2c} - ( 1 + \varepsilon )e^{-2c} = 0
+    \]
+\(\square\).
+</p>
+
+<hr />
 </div>
 </li>
 </ol>
@@ -1014,7 +1211,7 @@ ovvero <i>disgiunti</i>.
 <p class="date">Data: 2021-10-20 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-07 dom 21:54</p>
+<p class="date">Created: 2021-11-08 lun 23:30</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
