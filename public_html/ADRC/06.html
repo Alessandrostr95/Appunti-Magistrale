@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-09 mar 12:40 -->
+<!-- 2021-11-09 mar 12:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 04</title>
+<title>ADRC - Lesson 06</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,192 +269,187 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 04</h1>
+<h1 class="title">ADRC - Lesson 06</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org20fe5dd">1. Esercizio</a></li>
-<li><a href="#orgc13f8d4">2. Time and Events</a></li>
-<li><a href="#orge1f4652">3. Un lowerbound alla message complexity</a></li>
+<li><a href="#org76de382">1. Wake-up problem</a>
+<ul>
+<li><a href="#orgcd7e888">1.1. <code>WFLOOD</code> protocol</a>
+<ul>
+<li><a href="#org607aeae">1.1.1. Correttezza</a></li>
+<li><a href="#org63d3a15">1.1.2. Message Complexity</a></li>
+<li><a href="#orge28a305">1.1.3. Esercizio - WFLOOD on trees</a></li>
+</ul>
+</li>
+<li><a href="#org4bfa39a">1.2. Un Lower-bound al <i>wake-up problem</i></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
-<hr />
-<p>
-Ricoleggandoci al problema del broadcasting introdotto nella <a href="./03.html">lezione 3</a>, sappiamo che non ha senso calcolare
-la complessità temporale in un sistema non sincrono.
-Un'altro requisito necessario per poter calcolare la complessità temporale è la condizione di <i>bounded delay</i>.<br />
-</p>
 
-<p>
-Supponendo che siamo in queste condizioni, e per comodità che i messagi vengano trasmessi con uno stesso ritardo di <i>una unità</i>,
-si potrebbe stimare un <i>upper-bound</i> alla time complexity.
-Infatti, data una sorgente \(s \in V\), una stima può essere
-\[
-time = \max_{x \in V}{ \lbrace d(s,x) \rbrace } \leq diam(G) \leq n-1
-\]
-</p>
-
-
-<div id="outline-container-org20fe5dd" class="outline-2">
-<h2 id="org20fe5dd"><span class="section-number-2">1</span> Esercizio</h2>
+<div id="outline-container-org76de382" class="outline-2">
+<h2 id="org76de382"><span class="section-number-2">1</span> Wake-up problem</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Sotto l'assunzione che il sistema sia sincorono, e che il delay dei messaggi sia di una unità, calcolare la
-<i>complessità</i> temporale del protocollo di <i><a href="./03.html">flooding</a></i> per <i>induzione</i> sul tempo \(t\).
+Un altro problema ben noto negli ambienti distribuiti è il cosidetto <b>Wake-up problem</b>, o in italiano il problema della sveglia.
+Informalmente in questo problema abbiamo un insieme di nodi iniziali che si "<i>svegliano</i>", e che devono avvartire (tramite scambio di messaggi)
+l'intera rete in modo tale da <i>attivare</i> (o <i>svegliare</i>) tutti gli altri nodi.
+Se si pensa bene, il <i>Wake-up problem</i> è una <b>generalizzazione</b> del problema del <i>broadcasting</i>, in cui non c'è un solo nodo <code>initiator</code>, bensì
+un sottoinsieme di nodi.
+Più precisamente il problema del <i>broadcasting</i> è un <b>caso particolare</b> del problema della sveglia in cui il sottoinsieme di nodi svegli
+iniziali è composto da un solo nodo.<br />
+</p>
+
+<p>
+Una definizione formale del problema è la seguente:
+</p>
+<ul class="org-ul">
+<li><b>Configurazioni iniziali:</b> un sottoinsieme \(W \subseteq V\) di <code>initiator</code> nello stato <code>AWAKE</code>, e l'insieme <i>complementare</i> \(\overline{W} \equiv V \setminus W\)
+di nodi nello stato <code>ASLEEP</code>.</li>
+<li><b>Configurazione finale:</b> il <i>task</i> risulta completato nel momento in cui tutti i nodi sono nello stato <code>AWAKE</code>, ovvero \(W \equiv V \land \overline{W} \equiv \emptyset\).</li>
+<li><b>Restrizioni:</b>
+<ul class="org-ul">
+<li><b>Bidirectional links</b> se esiste l'arco \((x,y)\) esiste anche l'arco \((y,x)\), e inoltre i nodi sanno <i>distinguere</i> i vicini in maniera locale, ovvero \(\lambda_x(x,y) = \lambda_x(y,x)\).</li>
+<li><b>Connectivity</b> la rete è <i>connessa</i>.</li>
+<li><b>Total reliability</b> non ci sono mai errori durante la trasmissione dei messaggi.</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgcd7e888" class="outline-3">
+<h3 id="orgcd7e888"><span class="section-number-3">1.1</span> <code>WFLOOD</code> protocol</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Come detto in precedenza, il problema della sveglia è una <i>generalizzazione</i> del problema del <i>broadcast</i>, perciò applicando le dovute modifiche al
+protocollo <a href="./03.html#org9159fdc">flood</a> possiamo definire il protocollo <code>WFLOOD</code> per il problema
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-python">if self.state == "AWAKE":
+    if self.is_initiator:
+	send("wake-up!") to self.neighbors()
+    else:
+	recieving(msg):
+	    None
+
+if self.state == "ASLEEP":
+    recieving(msg):
+	send("wake-up!") to self.neighbors() - msg.sender
+	self.state = "AWAKE"
+</pre>
+</div>
+<p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo WFlood</p>
+
+<p>
+Come di consueto, analizziamo la <i>correttezza</i> e la <i>complessità</i> del protocollo.
+</p>
+</div>
+
+<div id="outline-container-org607aeae" class="outline-4">
+<h4 id="org607aeae"><span class="section-number-4">1.1.1</span> Correttezza</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Si vuole dimostrare che esiste un tempo \(t \in \mathcal{R}^+\) tale che \(state_t(x) = \texttt{AWAKE}\) per ogni \(x \in V\),
+ovvero che al tempo \(t\) avremo che \(W \equiv V\).
+Consideriamo solo il caso in \(W\) è un sottoinsieme <i>proprio</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> di \(V\), perché se tutti i nodi sono <code>initiator</code> allora il tempo \(t\)
+esiste ed è pari a 0.<br />
+</p>
+
+<p>
+Quindi sia \(W \subset V\), definiamo la distanza di un nodo dall'insieme \(W\) come
+\[
+    d(x,W) = \min{\lbrace d(x,y) : y \in W \rbrace}
+    \]
+Osserviamo che se \(x \in W\) allora \(d(x,W) = d(x,x) = 0\).
+Per definizione del protocollo sappiamo che a un certo punto tutti i nodi in \(W\) che sono nello stato <code>AWAKE</code> avranno inviato il messaggio
+a tutti i loro vicini, e data l'assuzione di <i>total reliability</i> sappiamo che esiste un tempo \(t_1\) entro il quale tutti i nodi
+a distanza 1 da \(W\) saranno informati (e di conseguenza <i>svegliati</i>).
+Per comodità definiamo l'insieme
+\[
+    L_1 = \lbrace x \in V | d(x,W) = 1 \rbrace
+    \]
+Per <i>ipotesi induttiva</i> supponiamo che per ogni \(d>1\) sia vero che esiste un tempo \(t_d\) tale che tutti i nodi in \(L_d\) siano nello stato <code>AWAKE</code>.<br />
+</p>
+
+<p>
+Si vuole dimostrare che questo è vero anche per il tempo \(d+1\).
+Consideriamo un nodo generico \(x \in L_{d+1}\): certamente deve esistere almeno un arco \((y,x)\) tale che \(y \in L_d\).
+Se così non fosse, allora ogni cammino minimo da \(W\) arriverebbe in \(x\) tramite un arco \((z,x)\)<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> tale che \(z \in L_k\) con \(k \neq d\),
+e ciò implica che \(x\) è a distanza \(k+1 \neq d+1\), ovvero \(x \not\in L_{d+1}\).<br />
+</p>
+
+<p>
+Dato che \(y\) è stato informato entro il tempo \(t_d\), e data la definizione del processo, \(y\) invierà il messaggio di <code>"wake-up"</code> ad \(x\).
+Infine, grazie alla <i>total reliability</i>, siamo certi che tale messaggio arriverà a destinazione, svegliano \(x\).
+Quindi esiste un tempo \(t_{d+1}\) tale che ogni \(x \in L_{d+1}\) verrà svegliato entro il tempo \(t_{d+1}\) \(\square\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org63d3a15" class="outline-4">
+<h4 id="org63d3a15"><span class="section-number-4">1.1.2</span> Message Complexity</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Ovviamente il caso peggiore è quando \(W \equiv V\).
+Dato che ogni nodo <b>non sa</b> lo stato degli altri, avremo che tutti i nodi manderanno il messagio di <code>"wake-up"</code> a <b>tutti</b> i vicini,
+ovvero a tutti i propri archi incidenti, perciò la message complexity in questo caso sarà \(2|E| = 2m\).
+Viceversa, il caso mgliore è quando \(|W| = 1\), dove il protocollo si riduce all'esecuzione del protocollo di flooding a singola sorgente, con
+message complexity di \(2m - n + 1\)
+\[
+    MSG(\texttt{FLOOD}) = 2m -n +1 \leq MSG(\texttt{WFLOOD}) \leq 2m 
+    \]
+</p>
+
+<p>
+Andando a fare un'analisi più fine, consideriamo il caso genereico in cui \(|W| = k\).
+Sicuramente \(k\) nodi invieranno i messaggi a <b>tutti</b> i loro vicini, mentre \(n-k\) invieranno i messaggi a tutti i vicini eccetto al nodo dal quale
+sono stati svegliati.
+</p>
+\begin{align*}
+  MSG(\texttt{WFLOOD})
+  &= \sum_{w \in W} \delta(w) + \sum_{v \in V \setminus W} (\delta(v) - 1)\\
+  &= \sum_{w \in W} \delta(w) + \sum_{v \in V \setminus W} \delta(v) - \sum_{v \in V \setminus W} 1\\
+  &= \sum_{v \in V} \delta(v) - \sum_{v \in V \setminus W} 1\\
+  &= 2m - (n-k) = 2m - n + k
+\end{align*}
+<p>
+dove \(\delta(v)\) è il grado (uscente) del nodo \(v\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge28a305" class="outline-4">
+<h4 id="orge28a305"><span class="section-number-4">1.1.3</span> Esercizio - WFLOOD on trees</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Dimostrare che la message complexity del protocollo <code>WFLOOD</code> per il problema della sveglia su un <i>albero</i> è pari a \(n + k - 2\), dove \(k = |W|\).<br />
+</p>
+
+<p>
+Rifacendoci alla formula calcolata nella precedente sezione, basta porre \(m = n-1\), ottenendo
+\[
+      MSG(\texttt{WFLOOD}/\texttt{Tree}) = 2m - n + k = 2(n-1) - n + k = n + k - 2
+    \]
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4bfa39a" class="outline-3">
+<h3 id="org4bfa39a"><span class="section-number-3">1.2</span> Un Lower-bound al <i>wake-up problem</i></h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>THM</b> se stiamo sotto le ulteriori assunzioni che \(G\) sia una <b>clique</b> \(K_n\), e che ogni nodo è <b>univocamente identificabile</b> dagli altri nodi da un identificatore
+globale che chiunque conosce, allora una delimitazione inferiore alla message complexity al problema della sveglia è \(\Omega(n\log{n})\).
 </p>
 
 <hr />
 </div>
-</div>
-
-<div id="outline-container-orgc13f8d4" class="outline-2">
-<h2 id="orgc13f8d4"><span class="section-number-2">2</span> Time and Events</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-Dato uno <b>stesso input</b> a un <i>algoritmo deterministico centralizzato</i>, esso non solo genererà uno <b>stesso output</b>,
-ma la <i>sequenza di azioni</i> che svolgerà per raggiungere tale output sarà sempre la stessa<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, anche se viene rieseguito infinite volte.<br />
-</p>
-
-<p>
-La stessa cosa non si può sempre dire di un <i>algoritmo deterministico distribuito</i>.
-Infatti nel del protocollo di <i>flooding</i> visto nella <a href="./03.html">lezione 3</a>, dato che il <i>delay</i> dei messaggi varia in maniera indeterminata,
-avremo che la <b>traiettori</b> (o sequenza di azioni) verso l'unica configurazione finale varia da esecuzione ad esecuzione, anche a fronte
-di una stessa configurazione iniziale.<br />
-</p>
-
-<p>
-Per rendere meglio l'idea facciamo un esempio.
-Consideriamo il seguente grafo
-</p>
-
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img1.png" alt="adrc-lesson04-img1.png" width="200px" />
-</p>
-</div>
-
-<p>
-e consideriamo il nodo \(x\) come nodo <i>sorgente</i>.<br />
-</p>
-
-<p>
-Eseguendo per la prima volta il protocollo di flooding potrebbe capitare che i ritardi di trasmissione sugli archi \((x,y)\) e \((x,z)\) siano molto simili.
-Perciò una possibile sequenza di azioni potrebbe essere la seguente
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img2.png" alt="adrc-lesson04-img2.png" width="80%" />
-</p>
-</div>
-
-<p>
-Eseguendo il protocollo una seconda volta, potrebbe capitare che il ritardo di trasmissione sull'arco \((x,y)\) sia così tanto, che alla fine \(y\) riceve
-prima il messaggio tramite \(z\) anzichè \(x\).
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img3.png" alt="adrc-lesson04-img3.png" width="80%" />
-</p>
-</div>
-
-<p>
-Perciò, le due precedente esecuzioni possono essere rappresentati come dei <b>grafi di comunicazione</b>
-</p>
-
-<div class="figure">
-<p><img src="../images/adrc-lesson04-img4.png" alt="adrc-lesson04-img4.png" width="200px" />
-</p>
-<p><span class="figure-number">Figura 4: </span>Due possibili grafi di comunicazione</p>
-</div>
-
-<p>
-Dato che il grafo di comunicazione è sostanzialmente un <i>albero ricoprente</i>, possiamo avere quindi \(O(n^n)\) possibili sequenze di trasmissioni
-(o <b>traiettorie</b>) che portano alla configurazione finale.
-</p>
-
-<hr />
-</div>
-</div>
-
-<div id="outline-container-orge1f4652" class="outline-2">
-<h2 id="orge1f4652"><span class="section-number-2">3</span> Un lowerbound alla message complexity</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-Nella <a href="./03.html">lezione 3</a> è stato dimostrato che la <i>message complexity</i> per l'algoritmo di flooding è \(O(|E|)\).
-Quello che ci si più chiedere è: si può fare di <i>meglio</i>?
-Si può progettare un protocollo con <i>message complexity</i> \(o(|E|)\)?
-La risposta è <b>no</b>, e verrà dimstrato in questa sezione, ma prima è necessario fare alcune osservazioni.<br />
-</p>
-
-<p>
-Definiamo con \(\sigma(x,t)\) lo <i>stato locale interno</i> di un nodo \(x\) al tempo \(t\).
-Per stato interno si intende qualsiasi informazione contenuta all'interno di \(x\), il contenuto della memoria,
-il contenuto dei registri, il registro di stato, ecc&#x2026;<br />
-</p>
-
-<p>
-<b>Fact 1</b> Se un nodo \(x\) si trova in due <i>ambienti</i> differenti \(E_1,E_2\), ma il suo stato interno è <i>identico</i>,
-allora \(x\) non sarà in grado di distinguere i due ambienti ed eseguirà la stessa azione.
-</p>
-
-<p>
-<b>Fact 2</b> Se due nodi distinti \(x,y\) a un certo punto raggiungono lo stesso stato \(\sigma(x,t) = \sigma(y,t)\),
-allora se sollecitati da uno stesso evento eseguiranno le stesse azioni.
-</p>
-
-<p>
-<b>THM</b>
-Sotto le <span class="underline">seguenti ipotesi</span>:
-</p>
-<ol class="org-ol">
-<li>Unique initiator</li>
-<li>Total reliability</li>
-<li>Bidirectional links</li>
-<li>Connectivity</li>
-</ol>
-<p>
-<b>ogni</b> protocollo deterministico di broadcasting richiede di scambiare <b>almeno</b> \(m = |E|\) messaggi.
-</p>
-
-<p>
-<b>Proof:</b> (<i>per assurdo</i>)
-supponiamo esista un protocollo \(P\) con message complexity di esattamente \(msg(P,G) = m-1 < m\).
-</p>
-
-<p>
-Perciò, deve esistere un arco \((x,y)\) attraverso il quale <b>non</b> viene trasmesso alcun messaggio.
-</p>
-
-<p>
-Certamente possiamo dire che ne \(x\) ne \(y\) sono <i>initiator</i>, in quanto se lo fossero certamente
-un messaggio sarebbe stato trasmesso sull'arco \((x,y)\) (per ipotesi di totla reliability).
-</p>
-
-<p>
-A questo punto rimuoviamo l'arco \((x,y)\), e aggiungiamo un nuovo nodo \(z\) insieme agli archi \((x,z),(y,z)\).
-Rieseguiamo il protocollo con gli <b>stessi ritardi di trasmissione</b> (necessario per il discorso affrontato nella precedente sezione).
-</p>
-
-<p>
-A livello di stato locale interno, ne a al nodo \(x\) ne al nodo \(y\) è cambiato nulla (<b>Fact 2</b>).
-Infatti sia \(x\) che \(y\) vedranno un arco uscente laddove prima c'era l'arco \((x,y)\).
-Però sappiamo che i nodi <b>non sanno</b> assolutamente distinguere i nodi agli estremi degli archi.
-Perciò, per quanto ne sa \(x\), dall'altra parte del nuovo arco ci sta ancora \(y\) anzichè \(z\) (e viceversa).<br />
-</p>
-
-<p>
-Però, sapendo che da quella porta né \(x\) né \(y\) trasmettono, allora certamente nessuno dei due trasmetterà
-sui relativi archi che lo collegano a \(z\).
-Infatti i due ambienti, dal punto di vista locale, sono <b>identici</b>, perciò compiranno le stesse azioni (<b>Fact 1</b>), ovvero non
-trasmettere nulla.<br />
-</p>
-
-<p>
-Dato che \(z\) è collegato solamente a \(x\) ed \(y\), esso certamente non può ricevere il messaggio da un altro nodo, perciò
-il nodo \(z\) non verrà mai informato, e quindi il protocollo <code>P</code> non è corretto (assurdo) \(\square\).
-</p>
 </div>
 </div>
 <div id="footnotes">
@@ -462,17 +457,21 @@ il nodo \(z\) non verrà mai informato, e quindi il protocollo <code>P</code> no
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-<a href="https://en.wikipedia.org/wiki/Turing_machine">https://en.wikipedia.org/wiki/Turing_machine</a>
+\(W \subset V\)
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+per <i>ipotesi di connettività</i> \(x\) è sempre raggiungibile dai nodi di \(W\)
 </p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-10-21 gio 00:00</p>
+<p class="date">Data: 2021-10-28 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-09 mar 12:40</p>
+<p class="date">Created: 2021-11-09 mar 12:39</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

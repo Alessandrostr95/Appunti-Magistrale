@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-03 mer 12:43 -->
+<!-- 2021-11-09 mar 12:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 02</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Alessandro Straziota Alessandro Straziota" />
+<meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -274,34 +274,34 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org42546a2">1. Ambiente distribuito</a>
+<li><a href="#org3c5a8c8">1. Ambiente distribuito</a>
 <ul>
-<li><a href="#org4556bdd">1.1. Entità</a>
+<li><a href="#org15939ca">1.1. Entità</a>
 <ul>
-<li><a href="#org897dfdb">1.1.1. Stato di una entità</a></li>
+<li><a href="#org6c64a34">1.1.1. Stato di una entità</a></li>
 </ul>
 </li>
-<li><a href="#org35cad0a">1.2. Eventi</a></li>
-<li><a href="#org0ff65ca">1.3. Azioni</a></li>
-<li><a href="#org3840d35">1.4. Comportamento delle entità</a></li>
-<li><a href="#orgd3ec3ee">1.5. Comportamento del sistema - protocollo</a></li>
-<li><a href="#orgbf42a17">1.6. Comunicazione</a></li>
-<li><a href="#org79b0dd0">1.7. Assiomi della comunicazione</a>
+<li><a href="#org960b729">1.2. Eventi</a></li>
+<li><a href="#org1bf5a7f">1.3. Azioni</a></li>
+<li><a href="#org727063f">1.4. Comportamento delle entità</a></li>
+<li><a href="#org90b8f9e">1.5. Comportamento del sistema - protocollo</a></li>
+<li><a href="#org4862f9a">1.6. Comunicazione</a></li>
+<li><a href="#org7879fb3">1.7. Assiomi della comunicazione</a>
 <ul>
-<li><a href="#orga2d342b">1.7.1. Finite Transmission Delays</a></li>
-<li><a href="#org6d09571">1.7.2. Local orientation</a></li>
+<li><a href="#org6aef910">1.7.1. Finite Transmission Delays</a></li>
+<li><a href="#org29bb590">1.7.2. Local orientation</a></li>
 </ul>
 </li>
-<li><a href="#orgdc511de">1.8. Restrizioni del modello</a>
+<li><a href="#org3477de3">1.8. Restrizioni del modello</a>
 <ul>
-<li><a href="#org090647e">1.8.1. Communication Restrictions</a></li>
-<li><a href="#org861f5a2">1.8.2. Reliability Restrictions</a></li>
-<li><a href="#org1f58c36">1.8.3. Topological restriction</a></li>
-<li><a href="#orgcbe70bc">1.8.4. Knowledge Restrictions</a></li>
-<li><a href="#org509e392">1.8.5. Time restriction</a></li>
+<li><a href="#org78dc00f">1.8.1. Communication Restrictions</a></li>
+<li><a href="#org1aeafe2">1.8.2. Reliability Restrictions</a></li>
+<li><a href="#orgda917cb">1.8.3. Topological restriction</a></li>
+<li><a href="#org8a54cff">1.8.4. Knowledge Restrictions</a></li>
+<li><a href="#org2a65747">1.8.5. Time restriction</a></li>
 </ul>
 </li>
-<li><a href="#orgd782e5b">1.9. Misure di complessità</a></li>
+<li><a href="#orga347b68">1.9. Misure di complessità</a></li>
 </ul>
 </li>
 </ul>
@@ -313,8 +313,8 @@ in quanto la prima consisteva solamente in alcuni esempi che introducevano agli 
 Probabilmente in futuro verrà fatta la pagina con gli esempi della prima lezione.
 </p>
 
-<div id="outline-container-org42546a2" class="outline-2">
-<h2 id="org42546a2"><span class="section-number-2">1</span> Ambiente distribuito</h2>
+<div id="outline-container-org3c5a8c8" class="outline-2">
+<h2 id="org3c5a8c8"><span class="section-number-2">1</span> Ambiente distribuito</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Prima di procedere allo studio di algoritmi distribuiti è necessario definire in maniera rigorosa (e non ambigua)
@@ -334,8 +334,8 @@ Ovviamente, tale definizione di ambiente distribuito sarà modellata rigorosamen
 </p>
 </div>
 
-<div id="outline-container-org4556bdd" class="outline-3">
-<h3 id="org4556bdd"><span class="section-number-3">1.1</span> Entità</h3>
+<div id="outline-container-org15939ca" class="outline-3">
+<h3 id="org15939ca"><span class="section-number-3">1.1</span> Entità</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Come già detto, ogni <b>entità</b> (o <b>nodo</b>) della rete ha delle capacità computazionali, le quali sono definite come
@@ -349,8 +349,8 @@ un insieme di <b>operazioni possibili</b>, quali:
 </ul>
 </div>
 
-<div id="outline-container-org897dfdb" class="outline-4">
-<h4 id="org897dfdb"><span class="section-number-4">1.1.1</span> Stato di una entità</h4>
+<div id="outline-container-org6c64a34" class="outline-4">
+<h4 id="org6c64a34"><span class="section-number-4">1.1.1</span> Stato di una entità</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 Come detto, una entità può avere uno <b>stato</b> interno, il quale rappresenta un'informazione necessaria per il corretto funzionamento 
@@ -363,8 +363,8 @@ e in ogni istante una un entità è in uno dei suoi possibili stati (il quale do
 </div>
 
 
-<div id="outline-container-org35cad0a" class="outline-3">
-<h3 id="org35cad0a"><span class="section-number-3">1.2</span> Eventi</h3>
+<div id="outline-container-org960b729" class="outline-3">
+<h3 id="org960b729"><span class="section-number-3">1.2</span> Eventi</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Il <i>comportamento</i> di ogni entità é <b>reattivo</b>, ovvero scaneta in seguito all'avvenire di <b>eventi</b>
@@ -385,8 +385,8 @@ nnnnn
 </div>
 </div>
 
-<div id="outline-container-org0ff65ca" class="outline-3">
-<h3 id="org0ff65ca"><span class="section-number-3">1.3</span> Azioni</h3>
+<div id="outline-container-org1bf5a7f" class="outline-3">
+<h3 id="org1bf5a7f"><span class="section-number-3">1.3</span> Azioni</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 Come accennato, un'entità reagisce in seguito a un evento.
@@ -410,8 +410,8 @@ Inoltre è importante specificare che nel nostro modello le azioni <b>terminano 
 </div>
 
 
-<div id="outline-container-org3840d35" class="outline-3">
-<h3 id="org3840d35"><span class="section-number-3">1.4</span> Comportamento delle entità</h3>
+<div id="outline-container-org727063f" class="outline-3">
+<h3 id="org727063f"><span class="section-number-3">1.4</span> Comportamento delle entità</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Come detto in precedenza, per ogni coppia di stato ed evento corrisponde un'azione.
@@ -435,8 +435,8 @@ tale che è <b>deterministica</b> e <b>completa</b>
 </div>
 
 
-<div id="outline-container-orgd3ec3ee" class="outline-3">
-<h3 id="orgd3ec3ee"><span class="section-number-3">1.5</span> Comportamento del sistema - protocollo</h3>
+<div id="outline-container-org90b8f9e" class="outline-3">
+<h3 id="org90b8f9e"><span class="section-number-3">1.5</span> Comportamento del sistema - protocollo</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Raggruppando tutti i comportamenti delle entita di un sistema è possibile definire
@@ -470,8 +470,8 @@ Per ogni entità definiamo un <b>ruolo</b>, e in base ad esso eseguiamo l'azione
 </div>
 
 
-<div id="outline-container-orgbf42a17" class="outline-3">
-<h3 id="orgbf42a17"><span class="section-number-3">1.6</span> Comunicazione</h3>
+<div id="outline-container-org4862f9a" class="outline-3">
+<h3 id="org4862f9a"><span class="section-number-3">1.6</span> Comunicazione</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Le entità di una rete distribuita possono (e devono) interagire tra di loro.
@@ -522,16 +522,16 @@ e ricevere messaggid dai suoi in-neighbors in \(N_{in}(x)\)
 </div>
 
 
-<div id="outline-container-org79b0dd0" class="outline-3">
-<h3 id="org79b0dd0"><span class="section-number-3">1.7</span> Assiomi della comunicazione</h3>
+<div id="outline-container-org7879fb3" class="outline-3">
+<h3 id="org7879fb3"><span class="section-number-3">1.7</span> Assiomi della comunicazione</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 Per tutto il corso, ogni argomento verrà trattato sotto le seguenti ipotesi fondamentali
 </p>
 </div>
 
-<div id="outline-container-orga2d342b" class="outline-4">
-<h4 id="orga2d342b"><span class="section-number-4">1.7.1</span> Finite Transmission Delays</h4>
+<div id="outline-container-org6aef910" class="outline-4">
+<h4 id="org6aef910"><span class="section-number-4">1.7.1</span> Finite Transmission Delays</h4>
 <div class="outline-text-4" id="text-1-7-1">
 <p>
 In assenza di <i>perdite di messaggi</i>, si assume che il tempo di trasmissione di un massaggio da un nodo verso
@@ -546,8 +546,8 @@ viene trasmesso lungo un arco.
 </div>
 
 
-<div id="outline-container-org6d09571" class="outline-4">
-<h4 id="org6d09571"><span class="section-number-4">1.7.2</span> Local orientation</h4>
+<div id="outline-container-org29bb590" class="outline-4">
+<h4 id="org29bb590"><span class="section-number-4">1.7.2</span> Local orientation</h4>
 <div class="outline-text-4" id="text-1-7-2">
 <p>
 Ogni nodo riesce a <i>distinguere</i> i suoi vicini, ovvero sa quale porta arriva un messaggio o attraverso quale porta inviarlo.
@@ -574,8 +574,8 @@ Secondo questa definizione di orientamento locale è possibile definire la <b>to
 </div>
 
 
-<div id="outline-container-orgdc511de" class="outline-3">
-<h3 id="orgdc511de"><span class="section-number-3">1.8</span> Restrizioni del modello</h3>
+<div id="outline-container-org3477de3" class="outline-3">
+<h3 id="org3477de3"><span class="section-number-3">1.8</span> Restrizioni del modello</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 Spesso si definiscono protocolli secondo l'assunzioni di ulteriori restrizioni.
@@ -588,12 +588,12 @@ Di seguito alcune tipologie di restrizioni
 </p>
 </div>
 
-<div id="outline-container-org090647e" class="outline-4">
-<h4 id="org090647e"><span class="section-number-4">1.8.1</span> Communication Restrictions</h4>
+<div id="outline-container-org78dc00f" class="outline-4">
+<h4 id="org78dc00f"><span class="section-number-4">1.8.1</span> Communication Restrictions</h4>
 <div class="outline-text-4" id="text-1-8-1">
 </div>
 <ol class="org-ol">
-<li><a id="orge632e07"></a><b>Message Ordering</b><br />
+<li><a id="org25869d6"></a><b>Message Ordering</b><br />
 <div class="outline-text-5" id="text-1-8-1-1">
 <p>
 In assenza di perdita di messaggi, i messaggi trasmessi mediante uno stesso link arrivano nello stesso ordine.
@@ -602,7 +602,7 @@ Seguono quindi una coda di tipo <b>FIFO</b><sup><a id="fnr.6" class="footref" hr
 </div>
 </li>
 
-<li><a id="org9def882"></a><b>Bidirectional Links</b><br />
+<li><a id="org98b9451"></a><b>Bidirectional Links</b><br />
 <div class="outline-text-5" id="text-1-8-1-2">
 <p>
 In questo modello le connessioni sono di tipo <i>bidirezionale</i>, e ogni nodo è anche in grado di distinguere
@@ -621,26 +621,26 @@ Più formalmente
 </ol>
 </div>
 
-<div id="outline-container-org861f5a2" class="outline-4">
-<h4 id="org861f5a2"><span class="section-number-4">1.8.2</span> Reliability Restrictions</h4>
+<div id="outline-container-org1aeafe2" class="outline-4">
+<h4 id="org1aeafe2"><span class="section-number-4">1.8.2</span> Reliability Restrictions</h4>
 <div class="outline-text-4" id="text-1-8-2">
 </div>
 <ol class="org-ol">
-<li><a id="org1c878df"></a><b>Guaranteed Delivery</b><br />
+<li><a id="orga42bdc6"></a><b>Guaranteed Delivery</b><br />
 <div class="outline-text-5" id="text-1-8-2-1">
 <p>
 I messaggi non arrivano mai corrotti.
 </p>
 </div>
 </li>
-<li><a id="orge191055"></a><b>Partial Reliability</b><br />
+<li><a id="org940118e"></a><b>Partial Reliability</b><br />
 <div class="outline-text-5" id="text-1-8-2-2">
 <p>
 Non ci saranno <i>failures</i><sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup> dal momento in cui osservo il sistema in poi (non ho certezza sul passato).
 </p>
 </div>
 </li>
-<li><a id="org99b2466"></a><b>Total Reliability</b><br />
+<li><a id="org80b9310"></a><b>Total Reliability</b><br />
 <div class="outline-text-5" id="text-1-8-2-3">
 <p>
 Ho la certezza che non sono mai evvenute <i>failures</i> e mai avverranno.
@@ -650,12 +650,12 @@ Ho la certezza che non sono mai evvenute <i>failures</i> e mai avverranno.
 </ol>
 </div>
 
-<div id="outline-container-org1f58c36" class="outline-4">
-<h4 id="org1f58c36"><span class="section-number-4">1.8.3</span> Topological restriction</h4>
+<div id="outline-container-orgda917cb" class="outline-4">
+<h4 id="orgda917cb"><span class="section-number-4">1.8.3</span> Topological restriction</h4>
 <div class="outline-text-4" id="text-1-8-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgbda7e2d"></a><b>Connection</b><br />
+<li><a id="orgf526a5d"></a><b>Connection</b><br />
 <div class="outline-text-5" id="text-1-8-3-1">
 <p>
 Il grafo \(G\) è connesso.
@@ -665,23 +665,23 @@ Il grafo \(G\) è connesso.
 </ol>
 </div>
 
-<div id="outline-container-orgcbe70bc" class="outline-4">
-<h4 id="orgcbe70bc"><span class="section-number-4">1.8.4</span> Knowledge Restrictions</h4>
+<div id="outline-container-org8a54cff" class="outline-4">
+<h4 id="org8a54cff"><span class="section-number-4">1.8.4</span> Knowledge Restrictions</h4>
 <div class="outline-text-4" id="text-1-8-4">
 </div>
 <ol class="org-ol">
-<li><a id="orgc7e354e"></a><b>Knowledge of number of nodes</b><br /></li>
-<li><a id="orgea0e97d"></a><b>Knowledge of number of links</b><br /></li>
-<li><a id="orgeccf6a8"></a><b>Knowledge of diameter</b><br /></li>
+<li><a id="org2f5bb87"></a><b>Knowledge of number of nodes</b><br /></li>
+<li><a id="org49ea05f"></a><b>Knowledge of number of links</b><br /></li>
+<li><a id="org34a01ee"></a><b>Knowledge of diameter</b><br /></li>
 </ol>
 </div>
 
-<div id="outline-container-org509e392" class="outline-4">
-<h4 id="org509e392"><span class="section-number-4">1.8.5</span> Time restriction</h4>
+<div id="outline-container-org2a65747" class="outline-4">
+<h4 id="org2a65747"><span class="section-number-4">1.8.5</span> Time restriction</h4>
 <div class="outline-text-4" id="text-1-8-5">
 </div>
 <ol class="org-ol">
-<li><a id="org2d07f35"></a><b>Bounded Communication Delay</b><br />
+<li><a id="org1568ee6"></a><b>Bounded Communication Delay</b><br />
 <div class="outline-text-5" id="text-1-8-5-1">
 <p>
 Esiste una costante \(\Delta\) tale che, in assenza di <i>failures</i>, il tempo tempo di trasmissione dei messaggi
@@ -689,7 +689,7 @@ tramite qualsiasi connessione è <i>al più</i> \(\Delta\).
 </p>
 </div>
 </li>
-<li><a id="orge04877b"></a><b>Synchronized clocks</b><br />
+<li><a id="orgcaf9909"></a><b>Synchronized clocks</b><br />
 <div class="outline-text-5" id="text-1-8-5-2">
 <p>
 Ogni clock delle entità è incrementato di una unità temporale costante in maniera <i>simultanea</i>.
@@ -701,8 +701,8 @@ Ogni clock delle entità è incrementato di una unità temporale costante in man
 </div>
 
 
-<div id="outline-container-orgd782e5b" class="outline-3">
-<h3 id="orgd782e5b"><span class="section-number-3">1.9</span> Misure di complessità</h3>
+<div id="outline-container-orga347b68" class="outline-3">
+<h3 id="orga347b68"><span class="section-number-3">1.9</span> Misure di complessità</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 In un sistema distribuito non ha sempre senso parlare di <i>complessità temporale</i>, in quanto non è detto che il tempo di
@@ -760,9 +760,9 @@ perdita di messaggi
 </div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-10-11 lun 00:00</p>
-<p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
+<p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-03 mer 12:43</p>
+<p class="date">Created: 2021-11-09 mar 12:40</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

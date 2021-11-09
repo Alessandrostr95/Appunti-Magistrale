@@ -5,7 +5,6 @@
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: ADRC - Lesson 04
 #+date: <2021-10-21 lun>
-#+author: Alessandro Straziota
 #+email: alessandrostr95@gmail.com
 #+teacher: Andrea Clementi
 #+language: it
