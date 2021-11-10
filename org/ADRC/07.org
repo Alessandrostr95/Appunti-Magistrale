@@ -1,0 +1,64 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 07
+#+date: <2021-10-28 lun>
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+
+* Spanning tree construction
+  Uno *spanning tree*, o *albero ricoprente*, è un sottoinsieme di archi $T \subseteq E$ tale che
+  il grafo $G=(V,T)$ risulta essere *connesso* e *aciclico*.\\
+
+  Come visto per il protocollo di broadcast, è spesso utile riuscire a calcolare uno spanning tree
+  su una rete in maniera /distribuita/.
+  
+  La definizione di tale problema è la seguente
+  - *Assunzioni*:
+    - *Single initiator* esiste un solo nodo che in risposta ad uno stimolo esterno o spontaneamente avvia il protocollo.
+    - *Bidirectional links* il grafo di rete è non diretto
+    - *Total reliability* si ha certezza che un messaggio trasmesso su un arco arriva sempre a destinazione in un tempo finito
+      e senza errori
+    - *Connectivity* il grafo di rete $G$ è connesso
+  - *Configurazione iniziale*: ogni nodo $x \in V$ conserva un sottoinsieme di vicini denominato con $\texttt{tree-neig}(x)$,
+    che rappresenta i relativi vicini nello /spanning tree/. Inizialmente tale insieme è /inizializzato/ come vuoto $\texttt{tree-neig}(x) = \lbrace \rbrace$.
+  - *Configurazione finale*: uno stato in cui tutti i nodi hanno nell'insieme $\texttt{tree-neig}(x)$ tutti e soli i nodi
+    vicini nello spanning tree ricavato dal protocollo.
+
+* Single Source Shout Protocol
+  Immedesimandosi in un generico nodo $x$ ci si può chiedere:
+  #+begin_quote
+  come decido chi saranno i miei vicini nello spanning tree?
+  #+end_quote
+  Semplicemente basta /chiedere/ ai propri vicini se appartengono già allo spanning tree che si sta costruendo,
+  e in base alla risposta agire di conseguenza:
+  - se il nodo già appartiene allo spanning tree allora lo si scarta.
+  - se il nodo ancora non appartiene allora gli si propone se vuole diventare un nodo /figlio/.
+  
+  In generale potrebbe capitare che un nodo riceva molteplici richieste di diventare nodo figlio, però
+  semplicemente può rispondere =YES= alla prima proposta, e =NO= a tutte le altre.\\
+  
+  Per ridurre ulteriormente il numero di messaggi, quando il nodo $x$ diventa parte dello spanning tree,
+  manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di diventare nodo figlio.\\
+
+  Definiamo quindi l'insieme degli stati del processo
+  \begin{align*}
+  S &= \lbrace \texttt{INIT}, \texttt{IDLE}, \texttt{ACTIVE}, \texttt{DONE} \rbrace\\
+  S_{init} &= \lbrace \texttt{INIT}, \texttt{IDLE} \rbrace\\
+  S_{final} &= \lbrace \texttt{DONE} \rbrace
+  \end{align*}
+
+  #+begin_src python
+    if self.state == "INIT":
+	spontaneusly:
+	    self.root = True
+        
+  #+end_src

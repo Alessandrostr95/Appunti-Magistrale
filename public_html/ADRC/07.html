@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-10 mer 12:46 -->
+<!-- 2021-11-10 mer 13:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 06</title>
+<title>ADRC - Lesson 07</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,209 +269,105 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 06</h1>
+<h1 class="title">ADRC - Lesson 07</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2dddce6">1. Wake-up problem</a>
-<ul>
-<li><a href="#orgb97d6d1">1.1. <code>WFLOOD</code> protocol</a>
-<ul>
-<li><a href="#org9e58afd">1.1.1. Correttezza</a></li>
-<li><a href="#orgadf438d">1.1.2. Message Complexity</a></li>
-<li><a href="#org85eab9f">1.1.3. Esercizio - WFLOOD on trees</a></li>
-</ul>
-</li>
-<li><a href="#org1c9e8c8">1.2. Un Lower-bound al <i>wake-up problem</i></a></li>
-</ul>
-</li>
+<li><a href="#org1c080d6">1. Spanning tree construction</a></li>
+<li><a href="#org603f86b">2. Single Source Shout Protocol</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2dddce6" class="outline-2">
-<h2 id="org2dddce6"><span class="section-number-2">1</span> Wake-up problem</h2>
+
+<div id="outline-container-org1c080d6" class="outline-2">
+<h2 id="org1c080d6"><span class="section-number-2">1</span> Spanning tree construction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Un altro problema ben noto negli ambienti distribuiti è il cosidetto <b>Wake-up problem</b>, o in italiano il problema della sveglia.
-Informalmente in questo problema abbiamo un insieme di nodi iniziali che si "<i>svegliano</i>", e che devono avvartire (tramite scambio di messaggi)
-l'intera rete in modo tale da <i>attivare</i> (o <i>svegliare</i>) tutti gli altri nodi.
-Se si pensa bene, il <i>Wake-up problem</i> è una <b>generalizzazione</b> del problema del <i>broadcasting</i>, in cui non c'è un solo nodo <code>initiator</code>, bensì
-un sottoinsieme di nodi.
-Più precisamente il problema del <i>broadcasting</i> è un <b>caso particolare</b> del problema della sveglia in cui il sottoinsieme di nodi svegli
-iniziali è composto da un solo nodo.<br />
+Uno <b>spanning tree</b>, o <b>albero ricoprente</b>, è un sottoinsieme di archi \(T \subseteq E\) tale che
+il grafo \(G=(V,T)\) risulta essere <b>connesso</b> e <b>aciclico</b>.<br />
 </p>
 
 <p>
-Una definizione formale del problema è la seguente:
+Come visto per il protocollo di broadcast, è spesso utile riuscire a calcolare uno spanning tree
+su una rete in maniera <i>distribuita</i>.
+</p>
+
+<p>
+La definizione di tale problema è la seguente
 </p>
 <ul class="org-ul">
-<li><b>Configurazioni iniziali:</b> un sottoinsieme \(W \subseteq V\) di <code>initiator</code> nello stato <code>AWAKE</code>, e l'insieme <i>complementare</i> \(\overline{W} \equiv V \setminus W\)
-di nodi nello stato <code>ASLEEP</code>.</li>
-<li><b>Configurazione finale:</b> il <i>task</i> risulta completato nel momento in cui tutti i nodi sono nello stato <code>AWAKE</code>, ovvero \(W \equiv V \land \overline{W} \equiv \emptyset\).</li>
-<li><b>Restrizioni:</b>
+<li><b>Assunzioni</b>:
 <ul class="org-ul">
-<li><b>Bidirectional links</b> se esiste l'arco \((x,y)\) esiste anche l'arco \((y,x)\), e inoltre i nodi sanno <i>distinguere</i> i vicini in maniera locale, ovvero \(\lambda_x(x,y) = \lambda_x(y,x)\).</li>
-<li><b>Connectivity</b> la rete è <i>connessa</i>.</li>
-<li><b>Total reliability</b> non ci sono mai errori durante la trasmissione dei messaggi.</li>
+<li><b>Single initiator</b> esiste un solo nodo che in risposta ad uno stimolo esterno o spontaneamente avvia il protocollo.</li>
+<li><b>Bidirectional links</b> il grafo di rete è non diretto</li>
+<li><b>Total reliability</b> si ha certezza che un messaggio trasmesso su un arco arriva sempre a destinazione in un tempo finito
+e senza errori</li>
+<li><b>Connectivity</b> il grafo di rete \(G\) è connesso</li>
 </ul></li>
+<li><b>Configurazione iniziale</b>: ogni nodo \(x \in V\) conserva un sottoinsieme di vicini denominato con \(\texttt{tree-neig}(x)\),
+che rappresenta i relativi vicini nello <i>spanning tree</i>. Inizialmente tale insieme è <i>inizializzato</i> come vuoto \(\texttt{tree-neig}(x) = \lbrace \rbrace\).</li>
+<li><b>Configurazione finale</b>: uno stato in cui tutti i nodi hanno nell'insieme \(\texttt{tree-neig}(x)\) tutti e soli i nodi
+vicini nello spanning tree ricavato dal protocollo.</li>
 </ul>
 </div>
-
-<div id="outline-container-orgb97d6d1" class="outline-3">
-<h3 id="orgb97d6d1"><span class="section-number-3">1.1</span> <code>WFLOOD</code> protocol</h3>
-<div class="outline-text-3" id="text-1-1">
-<p>
-Come detto in precedenza, il problema della sveglia è una <i>generalizzazione</i> del problema del <i>broadcast</i>, perciò applicando le dovute modifiche al
-protocollo <a href="./03.html#org9159fdc">flood</a> possiamo definire il protocollo <code>WFLOOD</code> per il problema
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-python">if self.state == "AWAKE":
-    if self.is_initiator:
-	send("wake-up!") to self.neighbors()
-    else:
-	recieving(msg):
-	    None
-
-if self.state == "ASLEEP":
-    recieving(msg):
-	send("wake-up!") to self.neighbors() - msg.sender
-	self.state = "AWAKE"
-</pre>
-</div>
-<p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo WFlood</p>
-
-<p>
-Come di consueto, analizziamo la <i>correttezza</i> e la <i>complessità</i> del protocollo.
-</p>
 </div>
 
-<div id="outline-container-org9e58afd" class="outline-4">
-<h4 id="org9e58afd"><span class="section-number-4">1.1.1</span> Correttezza</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<div id="outline-container-org603f86b" class="outline-2">
+<h2 id="org603f86b"><span class="section-number-2">2</span> Single Source Shout Protocol</h2>
+<div class="outline-text-2" id="text-2">
 <p>
-Si vuole dimostrare che esiste un tempo \(t \in \mathcal{R}^+\) tale che \(state_t(x) = \texttt{AWAKE}\) per ogni \(x \in V\),
-ovvero che al tempo \(t\) avremo che \(W \equiv V\).
-Consideriamo solo il caso in \(W\) è un sottoinsieme <i>proprio</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> di \(V\), perché se tutti i nodi sono <code>initiator</code> allora il tempo \(t\)
-esiste ed è pari a 0.<br />
+Immedesimandosi in un generico nodo \(x\) ci si può chiedere:
+</p>
+<blockquote>
+<p>
+come decido chi saranno i miei vicini nello spanning tree?
+</p>
+</blockquote>
+<p>
+Semplicemente basta <i>chiedere</i> ai propri vicini se appartengono già allo spanning tree che si sta costruendo,
+e in base alla risposta agire di conseguenza:
+</p>
+<ul class="org-ul">
+<li>se il nodo già appartiene allo spanning tree allora lo si scarta.</li>
+<li>se il nodo ancora non appartiene allora gli si propone se vuole diventare un nodo <i>figlio</i>.</li>
+</ul>
+
+<p>
+In generale potrebbe capitare che un nodo riceva molteplici richieste di diventare nodo figlio, però
+semplicemente può rispondere <code>YES</code> alla prima proposta, e <code>NO</code> a tutte le altre.<br />
 </p>
 
 <p>
-Quindi sia \(W \subset V\), definiamo la distanza di un nodo dall'insieme \(W\) come
-\[
-    d(x,W) = \min{\lbrace d(x,y) : y \in W \rbrace}
-    \]
-Osserviamo che se \(x \in W\) allora \(d(x,W) = d(x,x) = 0\).
-Per definizione del protocollo sappiamo che a un certo punto tutti i nodi in \(W\) che sono nello stato <code>AWAKE</code> avranno inviato il messaggio
-a tutti i loro vicini, e data l'assuzione di <i>total reliability</i> sappiamo che esiste un tempo \(t_1\) entro il quale tutti i nodi
-a distanza 1 da \(W\) saranno informati (e di conseguenza <i>svegliati</i>).
-Per comodità definiamo l'insieme
-\[
-    L_1 = \lbrace x \in V | d(x,W) = 1 \rbrace
-    \]
-Per <i>ipotesi induttiva</i> supponiamo che per ogni \(d>1\) sia vero che esiste un tempo \(t_d\) tale che tutti i nodi in \(L_d\) siano nello stato <code>AWAKE</code>.<br />
+Per ridurre ulteriormente il numero di messaggi, quando il nodo \(x\) diventa parte dello spanning tree,
+manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di diventare nodo figlio.<br />
 </p>
 
 <p>
-Si vuole dimostrare che questo è vero anche per il tempo \(d+1\).
-Consideriamo un nodo generico \(x \in L_{d+1}\): certamente deve esistere almeno un arco \((y,x)\) tale che \(y \in L_d\).
-Se così non fosse, allora ogni cammino minimo da \(W\) arriverebbe in \(x\) tramite un arco \((z,x)\)<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> tale che \(z \in L_k\) con \(k \neq d\),
-e ciò implica che \(x\) è a distanza \(k+1 \neq d+1\), ovvero \(x \not\in L_{d+1}\).<br />
-</p>
-
-<p>
-Dato che \(y\) è stato informato entro il tempo \(t_d\), e data la definizione del processo, \(y\) invierà il messaggio di <code>"wake-up"</code> ad \(x\).
-Infine, grazie alla <i>total reliability</i>, siamo certi che tale messaggio arriverà a destinazione, svegliano \(x\).
-Quindi esiste un tempo \(t_{d+1}\) tale che ogni \(x \in L_{d+1}\) verrà svegliato entro il tempo \(t_{d+1}\) \(\square\).<br />
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgadf438d" class="outline-4">
-<h4 id="orgadf438d"><span class="section-number-4">1.1.2</span> Message Complexity</h4>
-<div class="outline-text-4" id="text-1-1-2">
-<p>
-Ovviamente il caso peggiore è quando \(W \equiv V\).
-Dato che ogni nodo <b>non sa</b> lo stato degli altri, avremo che tutti i nodi manderanno il messagio di <code>"wake-up"</code> a <b>tutti</b> i vicini,
-ovvero a tutti i propri archi incidenti, perciò la message complexity in questo caso sarà \(2|E| = 2m\).
-Viceversa, il caso mgliore è quando \(|W| = 1\), dove il protocollo si riduce all'esecuzione del protocollo di flooding a singola sorgente, con
-message complexity di \(2m - n + 1\)
-\[
-    MSG(\texttt{FLOOD}) = 2m -n +1 \leq MSG(\texttt{WFLOOD}) \leq 2m 
-    \]
-</p>
-
-<p>
-Andando a fare un'analisi più fine, consideriamo il caso genereico in cui \(|W| = k\).
-Sicuramente \(k\) nodi invieranno i messaggi a <b>tutti</b> i loro vicini, mentre \(n-k\) invieranno i messaggi a tutti i vicini eccetto al nodo dal quale
-sono stati svegliati.
+Definiamo quindi l'insieme degli stati del processo
 </p>
 \begin{align*}
-  MSG(\texttt{WFLOOD})
-  &= \sum_{w \in W} \delta(w) + \sum_{v \in V \setminus W} (\delta(v) - 1)\\
-  &= \sum_{w \in W} \delta(w) + \sum_{v \in V \setminus W} \delta(v) - \sum_{v \in V \setminus W} 1\\
-  &= \sum_{v \in V} \delta(v) - \sum_{v \in V \setminus W} 1\\
-  &= 2m - (n-k) = 2m - n + k
+S &= \lbrace \texttt{INIT}, \texttt{IDLE}, \texttt{ACTIVE}, \texttt{DONE} \rbrace\\
+S_{init} &= \lbrace \texttt{INIT}, \texttt{IDLE} \rbrace\\
+S_{final} &= \lbrace \texttt{DONE} \rbrace
 \end{align*}
-<p>
-dove \(\delta(v)\) è il grado (uscente) del nodo \(v\).
-</p>
-</div>
-</div>
 
-<div id="outline-container-org85eab9f" class="outline-4">
-<h4 id="org85eab9f"><span class="section-number-4">1.1.3</span> Esercizio - WFLOOD on trees</h4>
-<div class="outline-text-4" id="text-1-1-3">
-<p>
-Dimostrare che la message complexity del protocollo <code>WFLOOD</code> per il problema della sveglia su un <i>albero</i> è pari a \(n + k - 2\), dove \(k = |W|\).<br />
-</p>
+<div class="org-src-container">
+<pre class="src src-python">if self.state == "INIT":
+    spontaneusly:
+	self.root = True
 
-<p>
-Rifacendoci alla formula calcolata nella precedente sezione, basta porre \(m = n-1\), ottenendo
-\[
-      MSG(\texttt{WFLOOD}/\texttt{Tree}) = 2m - n + k = 2(n-1) - n + k = n + k - 2
-    \]
-</p>
+</pre>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org1c9e8c8" class="outline-3">
-<h3 id="org1c9e8c8"><span class="section-number-3">1.2</span> Un Lower-bound al <i>wake-up problem</i></h3>
-<div class="outline-text-3" id="text-1-2">
-<p>
-<b>THM</b> se stiamo sotto le ulteriori assunzioni che \(G\) sia una <b>clique</b> \(K_n\), e che ogni nodo è <b>univocamente identificabile</b> dagli altri nodi da un identificatore
-globale che chiunque conosce, allora una delimitazione inferiore alla message complexity al problema della sveglia è \(\Omega(n\log{n})\).
-</p>
-
-<hr />
 </div>
-</div>
-</div>
-<div id="footnotes">
-<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
-<div id="text-footnotes">
-
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-\(W \subset V\)
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
-per <i>ipotesi di connettività</i> \(x\) è sempre raggiungibile dai nodi di \(W\)
-</p></div></div>
-
-
-</div>
-</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-10-28 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-10 mer 12:46</p>
+<p class="date">Created: 2021-11-10 mer 13:32</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
