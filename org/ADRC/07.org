@@ -49,6 +49,14 @@
   Per ridurre ulteriormente il numero di messaggi, quando il nodo $x$ diventa parte dello spanning tree,
   manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di diventare nodo figlio.\\
 
+  #+caption: Spontaneamente la sorgente avvia il protocollo
+  #+ATTR_HTML: :style max-width:200px width:100%
+  [[file:../images/adrc-lesson07-img1.png]]
+
+  #+caption: Possibili situazioni
+  #+ATTR_HTML: :style max-width:400px width:100%
+  [[file:../images/adrc-lesson07-img2.png]]
+  
   Definiamo quindi l'insieme degli stati del processo
   \begin{align*}
   S &= \lbrace \texttt{INIT}, \texttt{IDLE}, \texttt{ACTIVE}, \texttt{DONE} \rbrace\\
@@ -60,5 +68,115 @@
     if self.state == "INIT":
 	spontaneusly:
 	    self.root = True
-        
+	    self.tree_neig = {}
+	    send(Q) to self.neighbors
+	    self.counter = 0
+	    self.state = "ACTIVE"
+    
+    if self.state == "IDLE":
+	receiving(Q):
+	    self.root = False
+	    self.parent = Q.sender
+	    self.tree_neig = {Q.sender}
+	    send("YES") to Q.sender
+	    self.counter = 1
+    
+	    if self.counter == len(self.neighbors):
+		self.state = "DONE"
+	    else:
+		send(Q) to self.neighbors - {Q.sender}
+		self.state = "ACTIVE"
+    
+    if self.state == "ACTIVE":
+	receiving(Q):
+	    send("NO") to Q.sender
+	receiving(R):
+	
+	    if R.msg == "YES":
+		self.tree_neig = self.tree_neig + {R.sender}
+		self.counter += 1  
+	    elif R.msg == "NO":
+		self.counter += 1
+    
+	    if self.counter == len(self.neighbors):
+		    self.state == "DONE"
+    
+    if self.stat == "DONE":
+	None
   #+end_src
+  #+html: <p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout/p>
+
+** Terminazione del protocollo
+   Il protocollo =Shout= è molto simile al protocollo =Flood=, con l'aggiunta di messaggi di /feedback/ =YES/NO=.
+   Dato che siamo sotto l'assunzione che $G$ è connesso, allora certamente ogni nodo $x$ (eccetto la sorgente) riceverà almeno una richiesta =Q= di diventare figlio.
+   Perciò ogni nodo nello stato =IDLE= passerà allo stato =ACTIVE=, con il proprio contatore pari a 1.
+   Per _ogni richiesta_ ricevuta tutti i nodi risponderanno =YES= o =NO=.
+   Dato che prima di entrare nello stato =DONE= un nodo deve ricevere una risposta da tutti i vicini, e dato che per costruizione tutti rispondono alle richieste
+   allora prima o poi tutti i nodi passerranno dallo stato =ACTIVE= allo stato =DONE=, terminando localmente il proprio task.\\
+
+** Correttezza
+   Si vuole dimostrare che l'unione di tutti i $\texttt{tree-neig}(x)$ è uno /spanning tree/ per la rete $G$.\\
+
+   Per prima cosa bisogna dimostrare le *coerenza* degli insiemi $\texttt{tree-neig}(x)$, ovvero che $x$ ha come vicino $y$ nello spanning tree ($y \in \texttt{tree-neig}(x)$)
+   allora anche $x$ deve risultare essere vicino di $y$ ($x \in \texttt{tree-neig}(y)$).
+   Questo è facilmente verificabile: certamente uno tra $x$ e $y$ deve necessariamente essere il nodo padre, supponiamo $x$ senza perdita di generalità.
+   Dato che $y \in \texttt{tree-neig}(x)$, e dato che stiamo assumendo che $y$ è figlio di $x$, allora vuol dire che $y$ avrà risposto =YES= alla proposta di $x$, e per
+   costruzione del protocollo $x$ che è nello stato =ACTIVE= aggiungerà $y$ nel suo vicinato.
+   Contrariamente se $y$ ha risposto =YES= vuol dire che era nello stato =IDLE=, e che la prima richiesta ricevuta è stata quella di $x$.
+   Per costruzione del protocollo, $y$ contra $x$ come nodo padre, e lo aggiungerà nel suo vicinato.\\
+
+   A questo punto è necessario dimostrare che l'unione di tutti i $\texttt{tree-neig}(x)$ è *connesso*.
+   Anche questo è banalmente verificabile dal fatto che ogni nodo $x$ (eccetto la sorgente) è collegato al proprio genitore tramite una sequenza di /YES-links/
+   che risale fino alla sorgente.
+   Perciò data una qualsiasi coppia di nodi $x,y$, essi saranno connessi dal cammino $x \leadsto s \leadsto y$, dove $s$ è il nodo sorgente.\\
+
+   Infine non resta che dimostrare che il grafo risultante dal protocollo è *aciclico*.
+   Questo si può inferire dal fatto che ogni nodo (eccetto la sorgente) invia *una sola* risposta =YES=, la quale permetterà al nodo di "appendersi" all'albero.
+   Supponiamo quindi /per assurdo/ che da nodo $x$ esistano due cammini semplici distinti fino alla sorgente $s$ che formano un ciclo.
+   Anche se i dui cammini possono iniziare "scendendo" di livello, dato che entrambi i cammini *risalgono* alla sorgente
+   allora certamente da un certo punto in poi passeranno per un arco che parte da un nodo figlio verso un nodo padre salendo di livello.
+   Consideriamo solo uno dei due lati del ciclo (tanto il ragionamento è simmetrico).
+   Supponiamo che il primo arco del cammino che risale di livello è un certo $(a,b)$, dove $b$ è genitore di $a$.
+   Dato $(a,b)$ è il primo arco /risalente/, vuol dire che prima di prendere $(a,b)$ si è scesi di livello con tutti archi del tipo =PADRE->FIGLIO=.
+   Però sappiamo che ogni nodo ha un *singolo* nodo padre, perciò per arrivare ad $a$ certamente si sarà preso l'arco $(b,a)$.
+   Questo però non può accadere in quanto nei cammini semplici non si può ripercorrere due volte uno stesso arco, perciò entrambi i lati dell'ipotetico ciclo
+   devono necessariamente partire $x$ a *risalire*.
+   Ma dato che *x* ha un solo padre allora esiste un solo cammino (/risalente/) da $x$ alla sorgente $s$.
+
+
+** Message complexity
+   Come accennato in precedenza il protocollo =Shout= è una sorta di protocollo =Flood= con l'aggiunta di messaggi di /feedback/.
+   Perciò si può intuire che la message complexity del protocollo =Shout= è due volte quella del protocollo =Flood=.
+   \[
+   MSG(\texttt{SHOUT}) = 2 \cdot MSG(\texttt{FLOOD})
+   \]
+   Andiamo però a fare un'analisi più dettagliata per verificare l'intuizione.\\
+
+   Consideriamo che i messaggi che passano sugli archi sono del tipo =Q=, di richiesta di diventare figlio, e di tipo =R=, di risposta, il quale a sua
+   volta può essere di tipo =YES= o =NO=.
+   Si vuole quindi contare per ogni tipologia di messaggi =Q=, =YES=, =NO= quanti ne vengono trasmessi per ogni arco.\\
+
+   Iniziamo però considerando quali situazioni è possibbile che accadano e quali no:
+**** *Casi possibili*
+     - caso =Q-YES=, ovvero nel caso in cui su di un arco passa prima una proposta =Q= e poi la risposta =YES=.
+     - caso =Q-Q=, quando due nodi vicini passano nello stato active (_quasi_) simultaneamente e si scambiano reciporcamente una proposta =Q=.
+     - caso =NO-NO=, diretta conseguenza del caso precedente.
+**** *Casi impossibili*
+     - caso =NO-YES=, non può accadere in quanto il nodo sinistro per rispondere =NO= deve prima aver ricevuto una richiesta dal nodo destro, il quale avrà già
+       un padre e quindi non può rispondere nuovamente =YES=.
+     - caso =YES-YES=, per inviarsi reciprocamente il messaggio =YES=, vuol dire che entrambe le estremità dell'arco hanno inviato il messaggio =Q=, ma ciò implica
+       che hanno già un padre e che quindi hanno già inviato =YES= a un altro nodo.
+
+   #+ATTR_HTML: :style max-width:400px width:100%
+   [[file:../images/adrc-lesson07-img3.png]]
+
+
+   Contiamo ora quanti messaggi vengono scambiati per ogni caso possibile
+**** =Q= *messages :*
+     Il messaggio =Q= viene inviato nei casi =Q-YES= e =Q-Q=.
+     Il caso =Q-YES= accade esattamente una volta per ogni nodo eccetto la sorgente, ovvero $n-1$ volte.
+     Il caso =Q-Q= accade su tutti gli archi del vicinato di un nodo eccetto che per l'arco per il quale il nodo è diventato figlio (ovviamente escludendo la sorgente).
+     Perciò avremo $m$ archi meno un arco per ogni nodo esclusa la sorgente, ovvero meno $n-1$ archi.
+     Perciò in totale verranno scambiati $2(m - (n-1)) - (n-1) = 2m - n + 1$ messaggi di tipo =Q=.
+
+     *[da finire]*

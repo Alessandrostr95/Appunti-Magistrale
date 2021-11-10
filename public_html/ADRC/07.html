@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-10 mer 13:32 -->
+<!-- 2021-11-10 mer 23:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 07</title>
@@ -274,15 +274,21 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1c080d6">1. Spanning tree construction</a></li>
-<li><a href="#org603f86b">2. Single Source Shout Protocol</a></li>
+<li><a href="#orgc6c3176">1. Spanning tree construction</a></li>
+<li><a href="#org7a8c93f">2. Single Source Shout Protocol</a>
+<ul>
+<li><a href="#orge50cd3d">2.1. Terminazione del protocollo</a></li>
+<li><a href="#org5a2e072">2.2. Correttezza</a></li>
+<li><a href="#orga22891a">2.3. Message complexity</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org1c080d6" class="outline-2">
-<h2 id="org1c080d6"><span class="section-number-2">1</span> Spanning tree construction</h2>
+<div id="outline-container-orgc6c3176" class="outline-2">
+<h2 id="orgc6c3176"><span class="section-number-2">1</span> Spanning tree construction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Uno <b>spanning tree</b>, o <b>albero ricoprente</b>, è un sottoinsieme di archi \(T \subseteq E\) tale che
@@ -314,8 +320,8 @@ vicini nello spanning tree ricavato dal protocollo.</li>
 </div>
 </div>
 
-<div id="outline-container-org603f86b" class="outline-2">
-<h2 id="org603f86b"><span class="section-number-2">2</span> Single Source Shout Protocol</h2>
+<div id="outline-container-org7a8c93f" class="outline-2">
+<h2 id="org7a8c93f"><span class="section-number-2">2</span> Single Source Shout Protocol</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Immedesimandosi in un generico nodo \(x\) ci si può chiedere:
@@ -344,6 +350,20 @@ Per ridurre ulteriormente il numero di messaggi, quando il nodo \(x\) diventa pa
 manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di diventare nodo figlio.<br />
 </p>
 
+
+<div class="figure">
+<p><img src="../images/adrc-lesson07-img1.png" alt="adrc-lesson07-img1.png" style="max-width:200px width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Spontaneamente la sorgente avvia il protocollo</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson07-img2.png" alt="adrc-lesson07-img2.png" style="max-width:400px width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Possibili situazioni</p>
+</div>
+
 <p>
 Definiamo quindi l'insieme degli stati del processo
 </p>
@@ -357,9 +377,171 @@ S_{final} &= \lbrace \texttt{DONE} \rbrace
 <pre class="src src-python">if self.state == "INIT":
     spontaneusly:
 	self.root = True
+	self.tree_neig = {}
+	send(Q) to self.neighbors
+	self.counter = 0
+	self.state = "ACTIVE"
 
+if self.state == "IDLE":
+    receiving(Q):
+	self.root = False
+	self.parent = Q.sender
+	self.tree_neig = {Q.sender}
+	send("YES") to Q.sender
+	self.counter = 1
+
+	if self.counter == len(self.neighbors):
+	    self.state = "DONE"
+	else:
+	    send(Q) to self.neighbors - {Q.sender}
+	    self.state = "ACTIVE"
+
+if self.state == "ACTIVE":
+    receiving(Q):
+	send("NO") to Q.sender
+    receiving(R):
+
+	if R.msg == "YES":
+	    self.tree_neig = self.tree_neig + {R.sender}
+	    self.counter += 1  
+	elif R.msg == "NO":
+	    self.counter += 1
+
+	if self.counter == len(self.neighbors):
+		self.state == "DONE"
+
+if self.stat == "DONE":
+    None
 </pre>
 </div>
+<p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout/p>
+</div>
+
+<div id="outline-container-orge50cd3d" class="outline-3">
+<h3 id="orge50cd3d"><span class="section-number-3">2.1</span> Terminazione del protocollo</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Il protocollo <code>Shout</code> è molto simile al protocollo <code>Flood</code>, con l'aggiunta di messaggi di <i>feedback</i> <code>YES/NO</code>.
+Dato che siamo sotto l'assunzione che \(G\) è connesso, allora certamente ogni nodo \(x\) (eccetto la sorgente) riceverà almeno una richiesta <code>Q</code> di diventare figlio.
+Perciò ogni nodo nello stato <code>IDLE</code> passerà allo stato <code>ACTIVE</code>, con il proprio contatore pari a 1.
+Per <span class="underline">ogni richiesta</span> ricevuta tutti i nodi risponderanno <code>YES</code> o <code>NO</code>.
+Dato che prima di entrare nello stato <code>DONE</code> un nodo deve ricevere una risposta da tutti i vicini, e dato che per costruizione tutti rispondono alle richieste
+allora prima o poi tutti i nodi passerranno dallo stato <code>ACTIVE</code> allo stato <code>DONE</code>, terminando localmente il proprio task.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5a2e072" class="outline-3">
+<h3 id="org5a2e072"><span class="section-number-3">2.2</span> Correttezza</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Si vuole dimostrare che l'unione di tutti i \(\texttt{tree-neig}(x)\) è uno <i>spanning tree</i> per la rete \(G\).<br />
+</p>
+
+<p>
+Per prima cosa bisogna dimostrare le <b>coerenza</b> degli insiemi \(\texttt{tree-neig}(x)\), ovvero che \(x\) ha come vicino \(y\) nello spanning tree (\(y \in \texttt{tree-neig}(x)\))
+allora anche \(x\) deve risultare essere vicino di \(y\) (\(x \in \texttt{tree-neig}(y)\)).
+Questo è facilmente verificabile: certamente uno tra \(x\) e \(y\) deve necessariamente essere il nodo padre, supponiamo \(x\) senza perdita di generalità.
+Dato che \(y \in \texttt{tree-neig}(x)\), e dato che stiamo assumendo che \(y\) è figlio di \(x\), allora vuol dire che \(y\) avrà risposto <code>YES</code> alla proposta di \(x\), e per
+costruzione del protocollo \(x\) che è nello stato <code>ACTIVE</code> aggiungerà \(y\) nel suo vicinato.
+Contrariamente se \(y\) ha risposto <code>YES</code> vuol dire che era nello stato <code>IDLE</code>, e che la prima richiesta ricevuta è stata quella di \(x\).
+Per costruzione del protocollo, \(y\) contra \(x\) come nodo padre, e lo aggiungerà nel suo vicinato.<br />
+</p>
+
+<p>
+A questo punto è necessario dimostrare che l'unione di tutti i \(\texttt{tree-neig}(x)\) è <b>connesso</b>.
+Anche questo è banalmente verificabile dal fatto che ogni nodo \(x\) (eccetto la sorgente) è collegato al proprio genitore tramite una sequenza di <i>YES-links</i>
+che risale fino alla sorgente.
+Perciò data una qualsiasi coppia di nodi \(x,y\), essi saranno connessi dal cammino \(x \leadsto s \leadsto y\), dove \(s\) è il nodo sorgente.<br />
+</p>
+
+<p>
+Infine non resta che dimostrare che il grafo risultante dal protocollo è <b>aciclico</b>.
+Questo si può inferire dal fatto che ogni nodo (eccetto la sorgente) invia <b>una sola</b> risposta <code>YES</code>, la quale permetterà al nodo di "appendersi" all'albero.
+Supponiamo quindi <i>per assurdo</i> che da nodo \(x\) esistano due cammini semplici distinti fino alla sorgente \(s\) che formano un ciclo.
+Anche se i dui cammini possono iniziare "scendendo" di livello, dato che entrambi i cammini <b>risalgono</b> alla sorgente
+allora certamente da un certo punto in poi passeranno per un arco che parte da un nodo figlio verso un nodo padre salendo di livello.
+Consideriamo solo uno dei due lati del ciclo (tanto il ragionamento è simmetrico).
+Supponiamo che il primo arco del cammino che risale di livello è un certo \((a,b)\), dove \(b\) è genitore di \(a\).
+Dato \((a,b)\) è il primo arco <i>risalente</i>, vuol dire che prima di prendere \((a,b)\) si è scesi di livello con tutti archi del tipo <code>PADRE-&gt;FIGLIO</code>.
+Però sappiamo che ogni nodo ha un <b>singolo</b> nodo padre, perciò per arrivare ad \(a\) certamente si sarà preso l'arco \((b,a)\).
+Questo però non può accadere in quanto nei cammini semplici non si può ripercorrere due volte uno stesso arco, perciò entrambi i lati dell'ipotetico ciclo
+devono necessariamente partire \(x\) a <b>risalire</b>.
+Ma dato che <b>x</b> ha un solo padre allora esiste un solo cammino (<i>risalente</i>) da \(x\) alla sorgente \(s\).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orga22891a" class="outline-3">
+<h3 id="orga22891a"><span class="section-number-3">2.3</span> Message complexity</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Come accennato in precedenza il protocollo <code>Shout</code> è una sorta di protocollo <code>Flood</code> con l'aggiunta di messaggi di <i>feedback</i>.
+Perciò si può intuire che la message complexity del protocollo <code>Shout</code> è due volte quella del protocollo <code>Flood</code>.
+\[
+   MSG(\texttt{SHOUT}) = 2 \cdot MSG(\texttt{FLOOD})
+   \]
+Andiamo però a fare un'analisi più dettagliata per verificare l'intuizione.<br />
+</p>
+
+<p>
+Consideriamo che i messaggi che passano sugli archi sono del tipo <code>Q</code>, di richiesta di diventare figlio, e di tipo <code>R</code>, di risposta, il quale a sua
+volta può essere di tipo <code>YES</code> o <code>NO</code>.
+Si vuole quindi contare per ogni tipologia di messaggi <code>Q</code>, <code>YES</code>, <code>NO</code> quanti ne vengono trasmessi per ogni arco.<br />
+</p>
+
+<p>
+Iniziamo però considerando quali situazioni è possibbile che accadano e quali no:
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org9fbe00b"></a><b>Casi possibili</b><br />
+<div class="outline-text-5" id="text-2-3-0-1">
+<ul class="org-ul">
+<li>caso <code>Q-YES</code>, ovvero nel caso in cui su di un arco passa prima una proposta <code>Q</code> e poi la risposta <code>YES</code>.</li>
+<li>caso <code>Q-Q</code>, quando due nodi vicini passano nello stato active (<sub>quasi</sub>_) simultaneamente e si scambiano reciporcamente una proposta <code>Q</code>.</li>
+<li>caso <code>NO-NO</code>, diretta conseguenza del caso precedente.</li>
+</ul>
+</div>
+</li>
+<li><a id="org60623bd"></a><b>Casi impossibili</b><br />
+<div class="outline-text-5" id="text-2-3-0-2">
+<ul class="org-ul">
+<li>caso <code>NO-YES</code>, non può accadere in quanto il nodo sinistro per rispondere <code>NO</code> deve prima aver ricevuto una richiesta dal nodo destro, il quale avrà già
+un padre e quindi non può rispondere nuovamente <code>YES</code>.</li>
+<li>caso <code>YES-YES</code>, per inviarsi reciprocamente il messaggio <code>YES</code>, vuol dire che entrambe le estremità dell'arco hanno inviato il messaggio <code>Q</code>, ma ciò implica
+che hanno già un padre e che quindi hanno già inviato <code>YES</code> a un altro nodo.</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson07-img3.png" alt="adrc-lesson07-img3.png" style="max-width:400px width:100%" />
+</p>
+</div>
+
+
+<p>
+Contiamo ora quanti messaggi vengono scambiati per ogni caso possibile
+</p>
+</div>
+</li>
+<li><a id="org3eb8c65"></a><code>Q</code> <b>messages :</b><br />
+<div class="outline-text-5" id="text-2-3-0-3">
+<p>
+Il messaggio <code>Q</code> viene inviato nei casi <code>Q-YES</code> e <code>Q-Q</code>.
+Il caso <code>Q-YES</code> accade esattamente una volta per ogni nodo eccetto la sorgente, ovvero \(n-1\) volte.
+Il caso <code>Q-Q</code> accade su tutti gli archi del vicinato di un nodo eccetto che per l'arco per il quale il nodo è diventato figlio (ovviamente escludendo la sorgente).
+Perciò avremo \(m\) archi meno un arco per ogni nodo esclusa la sorgente, ovvero meno \(n-1\) archi.
+Perciò in totale verranno scambiati \(2(m - (n-1)) - (n-1) = 2m - n + 1\) messaggi di tipo <code>Q</code>.
+</p>
+
+<p>
+<b>[da finire]</b>
+</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -367,7 +549,7 @@ S_{final} &= \lbrace \texttt{DONE} \rbrace
 <p class="date">Data: 2021-10-28 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-10 mer 13:32</p>
+<p class="date">Created: 2021-11-10 mer 23:10</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
