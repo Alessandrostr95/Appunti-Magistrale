@@ -33,6 +33,8 @@
   - *Configurazione finale*: uno stato in cui tutti i nodi hanno nell'insieme $\texttt{tree-neig}(x)$ tutti e soli i nodi
     vicini nello spanning tree ricavato dal protocollo.
 
+  -----
+    
 * Single Source Shout Protocol
   Immedesimandosi in un generico nodo $x$ ci si può chiedere:
   #+begin_quote
@@ -247,4 +249,148 @@
    MSG(\texttt{SHOUT+}) = MSG(\texttt{SHOUT}) - 2(m - (n - 1)) = 2m 
    \]
 
-   *[da finire]*
+   Riguardo invece la terminazione locale del protocollo, ogni nodo sa che il suo compito è terminato nel momento in cui passa allo stato =DONE=.
+   Sarebbe interessante sapere se un nodo è in grado di capire quando il processo termina /globalmente/.
+   Certamente se la sorgente $s$ è in grado di sapere quando lo spanning tree è completato, allora potrebbe mandare una notifica in broadcast per avvertire tutti gli altri.
+   Il problema è che non ogni nodo ha solamente una *visione locale* della rete in cui si trova, perciò a meno che non ci sia un nodo che riesca ad osservare lo stato della
+   rete dall'alto non è possibile sapere solo col protocollo =Shout= se il processo di costruzione dello spanning tree è terminato.\\
+
+   *OSS.1* si può ottimizzare ulteriormente il protocollo in modo da abbattere il fattore $\Omega(m)$?
+   La risposta è *no*. Semplicemente perché per costruire uno spanning tree bisogna informare _in broadcast_ tutti i nodi della rete quantomeno che il protocollo è iniziato.
+   Se fosse possibile farlo, allora avremmo trovato anche un protocollo di broadcast che esegue il suo task in tempo $< m$, e sappiamo che non è possibile sotto
+   tali assunzioni (=BL=, =UI=, =C=, =TR=).\\
+
+   *THM* l'esecuzione del protocollo di broadcast genera uno /spanning tree/ *entrante*[fn:1] della rete.\\
+   *Proof:* basta semplicemente che ogni nodo $x$ conservi come variabile $father(x)$ il nodo dal quale per primo ha ricevuto l'informazione.
+
+   *OSS.2* Si può osservare che lo /spanning tree/ costruito con il protocollo =Shout= (o con la sua versione ottimizzata) dipende fortemente
+   dalla singola esecuzione e non dal protocollo, in quanto i ritardi di trasmissione variano ogni volta.
+   Ciò implica che maneggiando adeguatamente i ritardi di trasmissione potrebbe accadere che \(diam(\texttt{SPT}) >> diam(G)\).\\
+   
+   In base a quest'ultima osservazione si potrebbe voler cercare di costruire uno spanning tree con diametro non troppo maggiore del diametro dell'intera rete.
+   -----
+   
+* Depth First Traversal (DFT) Protocol
+  Consideriamo un problema in cui un /nodo iniziale/ possiede un *token*, e di volere che questo token (non replicabile) venga passato tra *tutti* i nodi della rete.
+  In pratica si tratterebbe di fare un broadcast del token, senza però l'opportunita di duplicare il token e di inviarlo a più vicini contemporaneamente.\\
+
+  Il protocollo =Depth First Traversal= (d'ora in poi definito con =DFT=) permette di risolvere questo problema eseguendo una [[https://en.wikipedia.org/wiki/Depth-first_search][visita in profondità]],
+  generando così uno spanning tree della rete.\\
+
+  L'idea del protocollo è la seguente:
+  1. quando un nodo $x$ riceve per la _prima volta_ il token da un nodo $y$, $x$ deve ricordarsi che $y$ è il suo padre bello spanning tree e poi
+     deve inviare _ad uno_ dei suoi vicini (eccetto $y$) il token, aspettando che ritorni indietro (=reply=).
+  2. quando un nodo $x$ che è già stato /visitato/ riceve di nuovo il token lo rispedisce indietro al mittente specificando che è già stato visitato,
+     contrassegnando l'arco di ritorno come =back-edge=.
+  3. quando un nodo $x$ riceve il token indietro da $z$, verifica se è un =back-edge= e in tal caso può affermare che $z$ non sarà un suo vicino nello spanning tree.
+     Se invece la risposta è solamente il token (senza specificare =back-edge=) allora $x$ sa che $z$ è un suo figlio nello spanning tree.
+     Dopodiché $x$ inoltrerà il token ad un altro dei suoi vicini.
+  4. quando $x$ avrà ricevuto indietro il token da tutti i suoi vicini lo inoltrerà nuovamente al padre.
+
+  Notare che il protocollo appena descritto è l'equivalente distribuita della visita in profondità ricorsiva, in cui la visita sul nodo $x$ termina quando
+  sarà terminata la vista in profondità su tutti i suoi vicini (eccetto che per il nodo padre).
+  Il protocollo terminerà nel momento in cui la sorgente $s$ avrà ricevuto il token indietro da tutti i suoi vicini.\\
+
+  #+ATTR_HTML: :style max-width:200px width:100%
+  [[file:../images/adrc-lesson07-img4.png]]
+
+** Message complexity
+   Osservare che esistono tre tipologie di messaggi:
+   1. =token= quando un nodo inoltre il token per procedere con la visita.
+   2. =back= quando un nodo già visitato restituisce il token al mittente.
+   3. =return= quando un nodo termina la propria visita è restituisce indietro il token al padre.
+   inoltre su ogni arco può passare solamente uno tra i messaggi =back= e =return=, mentre il messaggio di tipo =token= passa esattamente una volta su tutti gli archi.
+   Perciò la message complexity è esattamente $2m \in \Theta(m)$.
+   Ricordiamo sempre che esiste un teorema che dimostra che, sotto le assunzioni in questione, non è possibile eseguire il broadcasting di una informazione in meno
+   di $m$ messaggi, e dato che in questo caso sostanzialmente si sta facendo il broadcast del token, un lowerbound alla message complexity rimane $\Omega(m)$.
+
+** Time complexity
+   Anche se il protocollo è asincrono ha senso parlare di /time complexity/, in quanto lo scambio di messaggi avviene in maniera *totalmente sequenziale*[fn:2].
+   Perciò la time complexity è proporzionale alla message complexity.
+
+** Ottimizzazione
+   Osserviamo che in grafi molto densi una larga quantità di messaggi risolverà in messaggi di tipo =back=.
+   Perciò sarebbe ideale cercare di evitare che questo accada.\\
+
+   Un'idea è quella di far inviare una notifica a tutto il vicinato di $x$ qual'ora $x$ riceva il token per la prima volta (eccetto che al nodo padre, ovviamente).
+   Così facendo, tutti i vicini sapranno che $x$ è già stato informato e non ci sarà più bisogno in futuro di ritrasmettergli il token, evitando così i messaggi di
+   tipo =back=.\\
+
+   Il grosso vantaggio, dal punto di vista temporale, è che $x$ può mandare la notifica ai suoi vicini in maniera *parallela*.\\
+
+   Prima di proseguire all'inoltro del token, è *necessario* però che $x$ riceva un =ACK=[fn:3] dal suo vicinato, in quanto disponendo in modo adeguato i ritardi
+   di trasmissione, potrebbe capitare che un suo vicino $y$ riceva il token prima del messaggio di notifica, reinviando così nuovamente il token a $x$.
+   In tale situazione non avremmo risolto nulla, in quanto $x$ dovrebbe rispedire il token ad $y$ con un messaggio di =back=.\\
+
+*** Complexity
+    In questa ottimizzazione i tipi di messaggi scambiati sono:
+    1. =token= quando un nodo inoltre il token per procedere con la visita.
+    2. =visited= quando un nodo che ha appena ricevuto il token notifica i suoi vicini.
+    3. =ack= la risposta di avvenuta notifica da parte dei vicini.
+    4. =return= quando un nodo termina la propria visita è restituisce indietro il token al padre.
+
+    Ogni nodo (eccetto la sorgente $s$) ricerà il =token= una sola volta, e inoltre invierà il messaggio di =return= una sola volta, per un totale
+    di $2(n-1)$ messaggi.\\
+
+    Per quanto riguarda il messaggio di notifica =visited=, ogni nodo lo invierà a tutto il suo vicinato meno che al nodo da cui hanno ricevuto il token.
+    La sorgente sarà l'unico nodo che invierà la notifica a tutto il suo vicinato
+    \begin{align*}
+    msg(\texttt{visited})
+    &= |N(s)| + \sum_{v \in V \setminus \lbrace s \rbrace} |N(v)| - 1\\
+    &= |N(s)| + \sum_{v \in V \setminus \lbrace s \rbrace} |N(v)| -  \sum_{v \in V \setminus \lbrace s \rbrace} 1\\
+    &= \sum_{v \in V} |N(v)| -  \sum_{v \in V \setminus \lbrace s \rbrace} 1\\
+    &= 2m - (n - 1)
+    \end{align*}
+
+    Inoltre per ogni notifica =visited= corrisponde una risposta =ack=, quindi la message complexity sarà
+    \begin{align*}
+      MSG(\texttt{DFT+})
+      &= 2(n-1) + 2(2m - (n-1))\\
+      &= 2(n-1) + 4m - 2(n-1)\\
+      &= 4m\\
+      &= 2 \cdot MSG(\texttt{DFT})
+    \end{align*}
+    ovvero il doppio del protocollo con messaggi di tipo =back=.\\
+
+    Come già accennato il vantaggio sta nella time complexity.
+    Infatti sappiamo che possiamo mandare i messaggi di notifica in parallelo, inoltre se il sistema è /sincrono/ riceveremo i messaggi di =ack= nello stesso momento.
+    In un sistema sincrono in cui (senza perdita di generalità) tutti i messaggi sono trasmessi in una unità temporale, avremo che in soli due istanti (ovvero in tempo *costante*)
+    ogni nodo invierà le notifiche e riceverà le risposte.\\
+    Perciò il tempo necessario al completamento del task sarà:
+    1. $n-1$ per inviati di tipo =return=.
+    2. $n-1$ perché ogni nodo eccetto la sorgente riceverà esattamente un messaggio =token=.
+    3. $n$ perché ogni nodo invia le notifiche =visited= in parallelo ai suoi vicini.
+    4. $n$ perché tutti i vicini di un nodo risponderanno in maniera sincrona con un =ack=.
+    per un totale di $4n - 2$.\\
+
+    Con questa ottimizzazione, anche se si "paga" un fattore 2 alla message complexity otteremo che la time complexity sara *lineare* in $n$, e non più in $m$.
+    Ciò implica un miglioramento non indifferente se si considerano casi in cui la rete è molto densa, ovvero quando $m \in \Theta(n^2)$.
+
+    -----
+
+* Multiple Sources Spanning Tree Construction
+  Rilassiamo l'ipotesi =Single Initiator= e consideriamo il problema più generale in cui esiste un insieme $I \subseteq V$ di nodi =initiator=.\\
+
+  *THM* sotto le sole assunzioni di =BL=, =C= e =TR= il problema della costruzione di spanning tree con multipli =initiator= non è deterministicamente risolvibile.\\
+
+  *Proof:* consideriamo una clique di 3 nodi $x,y,z$, tutti e tre =initiator=.
+  Consideriamo il caso /sincrono/ in cui tutti si attivano e iniziano il protocollo al tempo $t_0$.\\
+
+  Dalle precedenti lezioni, sappiamo che presi dei nodi in uno stesso /stato interno/ $\sigma(v,t)$, allora essi da quel momento in poi si comporteranno alla stessa maniera,
+  dato che non sono in grado di distinguere una loro /identità/ all'interno della rete.\\
+
+  Assodato questo fatto, allora non si potrà *mai* arrivare in uno stato in cui un nodo è padre e gli altri due figli, in quanto questo implicherebbe
+  che uno dei nodi si è comportato in maniera differente dagli altri due (contrariamente all'osservazione precedente) $\square$.\\
+
+  Per risolvere questo problema è necessario risolvere un'altro problema: il problema della *leader election*.
+  Eletto un leader tra tutti i nodi =initiator=, esso potrà eseguire uno dei protocolli di costruzione di spanning tree a singola sorgente già noti.\\
+
+  Vedremo in futuro che il problema della leader election può essere risolto in maniera deterministica solamente se i nodi sono *univocamente identificati*
+  in maniera globale.\\
+
+  -----
+  
+
+[fn:1] ovvero dove ogni nodo possiede solamente informazioni su chi è il nodo padre, generando un albero con archi diretti "verso l'alto". 
+[fn:2] non può mai accadere che due nodi distinti inviino messaggi nello stesso momento.
+[fn:3] di conferma.
