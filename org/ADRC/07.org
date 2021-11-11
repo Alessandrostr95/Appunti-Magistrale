@@ -104,7 +104,7 @@
     if self.stat == "DONE":
 	None
   #+end_src
-  #+html: <p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout/p>
+  #+html: <p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout</p>
 
 ** Terminazione del protocollo
    Il protocollo =Shout= è molto simile al protocollo =Flood=, con l'aggiunta di messaggi di /feedback/ =YES/NO=.
@@ -159,7 +159,7 @@
    Iniziamo però considerando quali situazioni è possibbile che accadano e quali no:
 **** *Casi possibili*
      - caso =Q-YES=, ovvero nel caso in cui su di un arco passa prima una proposta =Q= e poi la risposta =YES=.
-     - caso =Q-Q=, quando due nodi vicini passano nello stato active (_quasi_) simultaneamente e si scambiano reciporcamente una proposta =Q=.
+     - caso =Q-Q=, quando due nodi vicini passano nello stato active e si scambiano reciporcamente una proposta =Q=.
      - caso =NO-NO=, diretta conseguenza del caso precedente.
 **** *Casi impossibili*
      - caso =NO-YES=, non può accadere in quanto il nodo sinistro per rispondere =NO= deve prima aver ricevuto una richiesta dal nodo destro, il quale avrà già
@@ -172,11 +172,79 @@
 
 
    Contiamo ora quanti messaggi vengono scambiati per ogni caso possibile
-**** =Q= *messages :*
-     Il messaggio =Q= viene inviato nei casi =Q-YES= e =Q-Q=.
+**** =Q= *messages:*
+     il messaggio =Q= viene inviato nei casi =Q-YES= e =Q-Q=.
      Il caso =Q-YES= accade esattamente una volta per ogni nodo eccetto la sorgente, ovvero $n-1$ volte.
      Il caso =Q-Q= accade su tutti gli archi del vicinato di un nodo eccetto che per l'arco per il quale il nodo è diventato figlio (ovviamente escludendo la sorgente).
-     Perciò avremo $m$ archi meno un arco per ogni nodo esclusa la sorgente, ovvero meno $n-1$ archi.
+     Perciò avremo $m$ archi, meno un arco per ogni nodo esclusa la sorgente, ovvero meno $n-1$ archi.
      Perciò in totale verranno scambiati $2(m - (n-1)) - (n-1) = 2m - n + 1$ messaggi di tipo =Q=.
 
-     *[da finire]*
+**** =YES= *messages:*
+     il messaggio di tipo =YES= viene scambiato solamente nella situazione =Q-YES=, per un totale di $n-1$ volte.
+
+**** =NO= *messages:*
+     il messaggio di tipo =NO= viene trasmesso per due volte nella situazione =NO-NO=, ovvero di conseguenza al caso =Q-Q=,
+     per un totale di $2(m - (n - 1))$.
+
+  La message complexity del protocollo =Shout= sarà la somma dei precedenti valori
+    \begin{align*}
+    MSG(\texttt{SHOUT}) &= (2m - n + 1) + (n - 1) + (2m - 2(n - 1))\\
+    &= 4m - 2n + 2 = 2(2m - n + 1)\\
+    &= 2 \cdot MSG(\texttt{FLOOD})
+    \end{align*}
+
+
+** Ottimizzazione - Protocollo =Shout+=
+   È possibile abbattere il fattore $4$ dalla complessità del protocollo =Shout= semplicemente facendo la seguente osservazione:
+   lo scambio di messaggi di tipo =NO= sono in realtà /superflui/, se un nodo $x$ riceve una proposta =Q= da un nodo $y$ allora certamente
+   $y$ è nello stato =ACTIVE=, e quindi avrà già un nodo padre, perciò è inutile che $x$ mandi una proposta ad $y$.
+   Perciò ricevere un messaggio =Q= può essere interpretato come la ricezione di un messaggio =NO= dalla stessa porta.\\
+
+   #+begin_src python
+     if self.state == "INIT":
+	 spontaneusly:
+	     self.root = True
+	     self.tree_neig = {}
+	     send(Q) to self.neighbors
+	     self.counter = 0
+	     self.state = "ACTIVE"
+     
+     if self.state == "IDLE":
+	 receiving(Q):
+	     self.root = False
+	     self.parent = Q.sender
+	     self.tree_neig = {Q.sender}
+	     send("YES") to Q.sender
+	     self.counter = 1
+     
+	     if self.counter == len(self.neighbors):
+		 self.state = "DONE"
+	     else:
+		 send(Q) to self.neighbors - {Q.sender}
+		 self.state = "ACTIVE"
+     
+     if self.state == "ACTIVE":
+	 receiving(Q):
+	     self.counter += 1
+	     if self.counter == len(self.neighbors):
+		     self.state == "DONE"
+		     
+	 receiving("YES"):
+	     self.tree_neig = self.tree_neig + {R.sender}
+	     self.counter += 1  
+	     if self.counter == len(self.neighbors):
+		     self.state == "DONE"
+     
+     if self.stat == "DONE":
+	 None
+   #+end_src
+   #+html: <p align="center"><span class="figure-number">Code 2:</span> Pseudocodice python-like del protocollo Shout+</p>
+
+   Per quanto riguarda la /message complexity/ del nuovo protocollo ottimizzato basta osservare che non può mai accadere la situazione =NO-NO=, ovvero
+   quando su un arco verrà trasmesso due volte il messaggio =NO=.
+   Perciò la message complexity del protocollo =Shout+= sarà
+   \[
+   MSG(\texttt{SHOUT+}) = MSG(\texttt{SHOUT}) - 2(m - (n - 1)) = 2m 
+   \]
+
+   *[da finire]*

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-10 mer 23:10 -->
+<!-- 2021-11-11 gio 13:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 07</title>
@@ -280,6 +280,7 @@ for the JavaScript code in this tag.
 <li><a href="#orge50cd3d">2.1. Terminazione del protocollo</a></li>
 <li><a href="#org5a2e072">2.2. Correttezza</a></li>
 <li><a href="#orga22891a">2.3. Message complexity</a></li>
+<li><a href="#org461e20b">2.4. Ottimizzazione - Protocollo <code>Shout+</code></a></li>
 </ul>
 </li>
 </ul>
@@ -414,7 +415,7 @@ if self.stat == "DONE":
     None
 </pre>
 </div>
-<p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout/p>
+<p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout</p>
 </div>
 
 <div id="outline-container-orge50cd3d" class="outline-3">
@@ -500,7 +501,7 @@ Iniziamo però considerando quali situazioni è possibbile che accadano e quali 
 <div class="outline-text-5" id="text-2-3-0-1">
 <ul class="org-ul">
 <li>caso <code>Q-YES</code>, ovvero nel caso in cui su di un arco passa prima una proposta <code>Q</code> e poi la risposta <code>YES</code>.</li>
-<li>caso <code>Q-Q</code>, quando due nodi vicini passano nello stato active (<sub>quasi</sub>_) simultaneamente e si scambiano reciporcamente una proposta <code>Q</code>.</li>
+<li>caso <code>Q-Q</code>, quando due nodi vicini passano nello stato active e si scambiano reciporcamente una proposta <code>Q</code>.</li>
 <li>caso <code>NO-NO</code>, diretta conseguenza del caso precedente.</li>
 </ul>
 </div>
@@ -526,22 +527,111 @@ Contiamo ora quanti messaggi vengono scambiati per ogni caso possibile
 </p>
 </div>
 </li>
-<li><a id="org3eb8c65"></a><code>Q</code> <b>messages :</b><br />
+<li><a id="orgb2e7040"></a><code>Q</code> <b>messages:</b><br />
 <div class="outline-text-5" id="text-2-3-0-3">
 <p>
-Il messaggio <code>Q</code> viene inviato nei casi <code>Q-YES</code> e <code>Q-Q</code>.
+il messaggio <code>Q</code> viene inviato nei casi <code>Q-YES</code> e <code>Q-Q</code>.
 Il caso <code>Q-YES</code> accade esattamente una volta per ogni nodo eccetto la sorgente, ovvero \(n-1\) volte.
 Il caso <code>Q-Q</code> accade su tutti gli archi del vicinato di un nodo eccetto che per l'arco per il quale il nodo è diventato figlio (ovviamente escludendo la sorgente).
-Perciò avremo \(m\) archi meno un arco per ogni nodo esclusa la sorgente, ovvero meno \(n-1\) archi.
+Perciò avremo \(m\) archi, meno un arco per ogni nodo esclusa la sorgente, ovvero meno \(n-1\) archi.
 Perciò in totale verranno scambiati \(2(m - (n-1)) - (n-1) = 2m - n + 1\) messaggi di tipo <code>Q</code>.
+</p>
+</div>
+</li>
+
+<li><a id="org3df0c55"></a><code>YES</code> <b>messages:</b><br />
+<div class="outline-text-5" id="text-2-3-0-4">
+<p>
+il messaggio di tipo <code>YES</code> viene scambiato solamente nella situazione <code>Q-YES</code>, per un totale di \(n-1\) volte.
+</p>
+</div>
+</li>
+
+<li><a id="orgffbcd21"></a><code>NO</code> <b>messages:</b><br />
+<div class="outline-text-5" id="text-2-3-0-5">
+<p>
+il messaggio di tipo <code>NO</code> viene trasmesso per due volte nella situazione <code>NO-NO</code>, ovvero di conseguenza al caso <code>Q-Q</code>,
+per un totale di \(2(m - (n - 1))\).
+</p>
+
+<p>
+La message complexity del protocollo <code>Shout</code> sarà la somma dei precedenti valori
+</p>
+\begin{align*}
+MSG(\texttt{SHOUT}) &= (2m - n + 1) + (n - 1) + (2m - 2(n - 1))\\
+&= 4m - 2n + 2 = 2(2m - n + 1)\\
+&= 2 \cdot MSG(\texttt{FLOOD})
+\end{align*}
+</div>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-org461e20b" class="outline-3">
+<h3 id="org461e20b"><span class="section-number-3">2.4</span> Ottimizzazione - Protocollo <code>Shout+</code></h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+È possibile abbattere il fattore \(4\) dalla complessità del protocollo <code>Shout</code> semplicemente facendo la seguente osservazione:
+lo scambio di messaggi di tipo <code>NO</code> sono in realtà <i>superflui</i>, se un nodo \(x\) riceve una proposta <code>Q</code> da un nodo \(y\) allora certamente
+\(y\) è nello stato <code>ACTIVE</code>, e quindi avrà già un nodo padre, perciò è inutile che \(x\) mandi una proposta ad \(y\).
+Perciò ricevere un messaggio <code>Q</code> può essere interpretato come la ricezione di un messaggio <code>NO</code> dalla stessa porta.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">if self.state == "INIT":
+    spontaneusly:
+	self.root = True
+	self.tree_neig = {}
+	send(Q) to self.neighbors
+	self.counter = 0
+	self.state = "ACTIVE"
+
+if self.state == "IDLE":
+    receiving(Q):
+	self.root = False
+	self.parent = Q.sender
+	self.tree_neig = {Q.sender}
+	send("YES") to Q.sender
+	self.counter = 1
+
+	if self.counter == len(self.neighbors):
+	    self.state = "DONE"
+	else:
+	    send(Q) to self.neighbors - {Q.sender}
+	    self.state = "ACTIVE"
+
+if self.state == "ACTIVE":
+    receiving(Q):
+	self.counter += 1
+	if self.counter == len(self.neighbors):
+		self.state == "DONE"
+
+    receiving("YES"):
+	self.tree_neig = self.tree_neig + {R.sender}
+	self.counter += 1  
+	if self.counter == len(self.neighbors):
+		self.state == "DONE"
+
+if self.stat == "DONE":
+    None
+</pre>
+</div>
+<p align="center"><span class="figure-number">Code 2:</span> Pseudocodice python-like del protocollo Shout+</p>
+
+<p>
+Per quanto riguarda la <i>message complexity</i> del nuovo protocollo ottimizzato basta osservare che non può mai accadere la situazione <code>NO-NO</code>, ovvero
+quando su un arco verrà trasmesso due volte il messaggio <code>NO</code>.
+Perciò la message complexity del protocollo <code>Shout+</code> sarà
+\[
+   MSG(\texttt{SHOUT+}) = MSG(\texttt{SHOUT}) - 2(m - (n - 1)) = 2m 
+   \]
 </p>
 
 <p>
 <b>[da finire]</b>
 </p>
 </div>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -549,7 +639,7 @@ Perciò in totale verranno scambiati \(2(m - (n-1)) - (n-1) = 2m - n + 1\) messa
 <p class="date">Data: 2021-10-28 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-10 mer 23:10</p>
+<p class="date">Created: 2021-11-11 gio 13:02</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
