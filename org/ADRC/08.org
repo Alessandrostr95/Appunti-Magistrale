@@ -77,8 +77,113 @@
   Assumiamo in fine che ogni nodo condivide una stessa idea di /destra/ e /sinistra/.
   Ovvero se definiamo che il nodo destro di $x_2$ è $x_3$, allora il nodo destro di ogni nodo $x_i$ sarà il nodo con indice $i+1 \mod{n}$[fn:1].
 
+  #+caption: Anello con 6 nodi. I simboli di colore rosso sono le etichette.
+  #+ATTR_HTML: :style max-width:250px; width:100%
+  [[file:../images/adrc-lesson08-img1.png]]
+
+  
 ** =All-the-way= protocol
-   Una prima idea abbastanza 
+   Una prima idea abbastanza semplice è la seguente:
+   - quando un nodo si attiva e inizia il protocollo inoltra un messaggio in una direzione concorde a tutti, diciamo a destra.
+     Nel messaggio inviato sarà scritta la propria etichetta.
+   - quando un nodo riceve un messaggio conserva l'etichetta scritta, tenendo traccia dell'etichetta minima ricevuta fino a quel momento.
+     Dopodiché inoltra in avanti il messaggio (=all-the-way=).
+   - quando un nodo riceve da sinistra un messaggio con la sua stessa etichetta allora vuol dire che avrà fatto il giro, e che tutti i nodi
+     avranno ricevuto la sua etichetta, perciò non dovrà più inoltrarla.
 
+   La domanda che sorge ora è: quando un nodo può affermare di aver identificato l'etichetta minima dell'anello?\\
 
+   Affermare di aver considerato tutte le etichette quando la propria etichetta avrà fatto il giro è sbagliato. Questo perché si necessiterebbe di un'ulteriore restrizione,
+   la =Message Orderign=.
+   Se i messaggi seguissero una coda FIFO di trsmissione, allora certamente a un nodo $x$ tornerebbe indietro il suo messaggio non prima di aver ricevuto gli altri $n-1$.\\
+
+   Si potrebbe pensare allora di terminare il protocollo quando un nodo riceve esattemente $n$ messaggi (compreso il suo di ritorno), però questo non è possibile
+   a meno che non si conosca a priori in valore di $n$.\\
+
+   È però possibile ricavare $n$ in qualche maniera.
+   Sappiamo che se il messaggio di $x$ torna a destinazione allora certamente sarà stato inoltrato da $n$ nodi (compreso $x$).
+   Se inseriamo un *contatore* nel messaggio che viene incrementato ad ogni inoltro, allora il valore del contatore quando il messaggio tornerà a destinazione
+   sarà esattamente pari ad $n$.
+   Perciò quando $x$ riceve il suo messaggio da sinistra potrà ricavare il valore di $n$ e comportarsi in due modi:
+   - se $x$ ha già ricevuto $n$ etichette allora basta fare il minimo tra tutte per identificare l'etichetta minima dell'intera rete.
+   - se $x$ ha ricevuto $k < n$ etichette, allora dovrà attendere di ricevere altre $n-k$ *nuove* etichette, per poi poter calcolare il minimo.
+
+   In questa maniera ogni nodo potrà sempre terminare localmente, riuscendo ad identificare un =leader= globale comune a tutti.\\
+   
+   Vediamo qundi una possibile implementazione del protocollo appena descritto.
+   L'insieme degli stati è
+   \begin{align*}
+     S &= \lbrace \texttt{ASLEEP}, \texttt{AWAKE}, \texttt{FOLLOWER}, \texttt{LEANDER} \rbrace\\
+     S_{init} &= \lbrace \texttt{ASLEEP} \rbrace\\
+     S_{final} &= \lbrace \texttt{FOLLOWER}, \texttt{LEANDER} \rbrace\\
+   \end{align*}
+
+   #+begin_src python
+     def initialize(self):
+	 self.count = 0
+	 self.size = 1
+	 self.known = False
+	 self.min = self.id
+	 send_right({msg: "ELECTION", id: self.id, count: 1})
+		 
+     def check(self):
+	 assert self.size == ring_size
+	 self.state = "LEADER" if self.min == self.id else "FOLLOWER"
+	 
+     ring_size = None
+	 
+     if self.state == "ASLEEP":
+	 spontaneously:
+	     self.initialize()
+	     self.state = "AWAKE"
+     
+	 receiving(msg):
+	     self.initialize()
+	     self.count += 1
+	     self.min = min(self.min, msg.id)
+	     self.state = "AWAKE"
+     
+     elif self.state == "AWAKE":
+	 receiving(msg):
+	     if self.id == msg.id:
+		 ring_size = msg.count
+		 self.known = True
+		 self.check()
+	 
+	     elif self.id != msg.id:
+		 send_right({msg: msg.msg, id: msg.id, count: msg.count+1})
+		 self.count += 1
+		 self.min = min(self.min, msg.id)
+		 if self.known:
+		     self.check()
+   #+end_src
+
+*** Correttezza e complessità
+    È facilmente intuibile la correttezza del protocollo, in quanto l'assunzione di total reliability ci garantisce che ogni nodo prima o poi riceverà le informazioni
+    riguardo le etichette di tutti quanti, e ne riuscirà a calcolare il minimo.\\
+
+    Per quanto riguarda la /message complexity/ basta osservare che ogni etichetta compierà l'intero giro dell'anello, per un tatole di
+    \[
+    MSG(\texttt{all-the-way}) = n^2
+    \]
+    Invece per la time complexity possiamo solo fare affermazioni riguardo un /ideal time/.
+    Assumendo che il sistema sia sincorno, che tutti i nodi iniziano il protocollo ad uno stesso istante $t$ e che il tempo di trasmissione è di una sola unità fissata,
+    allora il tempo ideale è $n$.
+    Il caso peggiore invece è quando si attiva un solo nodo $x_1$ al tempo $t_0$.
+    Inviando il messaggio al suo vicino $x_2$, esso si attiverà al tempo $t_1 = t_0 + 1$.
+    Il nodo $x_3$ si attievrà al tempo successivo, e così via fino al nodo $x_n$ che si attiverà dopo $n-1$ istanti.
+    Da quel momento in poi, l'ultimo nodo che terminerà il processo sarà proprio $x_n$, il quale dovrà aspettare che la sua etichetta faccia il giro completo dell'anello,
+    risultando così in una time complexity di
+    \[
+    time(\texttt{all-the-way}) \leq 2n -1
+    \]
+
+    Infine è possibile calcolare una *bit complexity* del protocollo =all-the-way=.
+    Trascurando la stringa /"ELECTION"/ che può anche essere omessa, è sufficiente contare il numero di bit necessari per rappresentare l'etichetta $id(x)$ e il contatore.
+    Considerando il messaggio =id + count= (dove l'operatore =+= sta per la /concatenazione/ dei due valori), il numero massimo di bit necessari per rappresentare
+    un messaggio se lo si codifica in binario sarà \(\log_2{(id(x) + n)}\), con una complessità globalde di $\Theta(n^2\log{(id(x) + n)})$.
+
+** =As Far (as it can)= protocol
+   *[da finire]*
+    
 [fn:1] il modulo è necessario perché il nodo a destra di $x_n$ non può essere $x_{n+1}$ in quanto non esiste, ma deve essere $x_1$.

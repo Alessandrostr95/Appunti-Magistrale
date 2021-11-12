@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-12 ven 12:08 -->
+<!-- 2021-11-12 ven 17:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 07</title>
@@ -274,34 +274,34 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1c080d6">1. Spanning tree construction</a></li>
-<li><a href="#org603f86b">2. Single Source Shout Protocol</a>
+<li><a href="#orgc6c3176">1. Spanning tree construction</a></li>
+<li><a href="#org7a8c93f">2. Single Source Shout Protocol</a>
 <ul>
-<li><a href="#org59b5904">2.1. Terminazione del protocollo</a></li>
-<li><a href="#org245a482">2.2. Correttezza</a></li>
-<li><a href="#org5fdc949">2.3. Message complexity</a></li>
-<li><a href="#orgd841daf">2.4. Ottimizzazione - Protocollo <code>Shout+</code></a></li>
+<li><a href="#orge50cd3d">2.1. Terminazione del protocollo</a></li>
+<li><a href="#org5a2e072">2.2. Correttezza</a></li>
+<li><a href="#orgefcf06d">2.3. Message complexity</a></li>
+<li><a href="#org461e20b">2.4. Ottimizzazione - Protocollo <code>Shout+</code></a></li>
 </ul>
 </li>
-<li><a href="#org62bdea8">3. Depth First Traversal (DFT) Protocol</a>
+<li><a href="#orgfb67c02">3. Depth First Traversal (DFT) Protocol</a>
 <ul>
-<li><a href="#org638dd2e">3.1. Message complexity</a></li>
-<li><a href="#orgc55b5c1">3.2. Time complexity</a></li>
-<li><a href="#org472fcba">3.3. Ottimizzazione</a>
+<li><a href="#org48b6134">3.1. Message complexity</a></li>
+<li><a href="#org19790dd">3.2. Time complexity</a></li>
+<li><a href="#orgf95fa0f">3.3. Ottimizzazione</a>
 <ul>
-<li><a href="#org1421d50">3.3.1. Complexity</a></li>
+<li><a href="#org554f62b">3.3.1. Complexity</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org6470f7d">4. Multiple Sources Spanning Tree Construction</a></li>
+<li><a href="#orge29102b">4. Multiple Sources Spanning Tree Construction</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org1c080d6" class="outline-2">
-<h2 id="org1c080d6"><span class="section-number-2">1</span> Spanning tree construction</h2>
+<div id="outline-container-orgc6c3176" class="outline-2">
+<h2 id="orgc6c3176"><span class="section-number-2">1</span> Spanning tree construction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Uno <b>spanning tree</b>, o <b>albero ricoprente</b>, è un sottoinsieme di archi \(T \subseteq E\) tale che
@@ -335,8 +335,8 @@ vicini nello spanning tree ricavato dal protocollo.</li>
 </div>
 </div>
 
-<div id="outline-container-org603f86b" class="outline-2">
-<h2 id="org603f86b"><span class="section-number-2">2</span> Single Source Shout Protocol</h2>
+<div id="outline-container-org7a8c93f" class="outline-2">
+<h2 id="org7a8c93f"><span class="section-number-2">2</span> Single Source Shout Protocol</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Immedesimandosi in un generico nodo \(x\) ci si può chiedere:
@@ -367,14 +367,14 @@ manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di 
 
 
 <div class="figure">
-<p><img src="../images/adrc-lesson07-img1.png" alt="adrc-lesson07-img1.png" style="max-width:200px width:100%" />
+<p><img src="../images/adrc-lesson07-img1.png" alt="adrc-lesson07-img1.png" style="max-width:200px; width:100%" />
 </p>
 <p><span class="figure-number">Figura 1: </span>Spontaneamente la sorgente avvia il protocollo</p>
 </div>
 
 
 <div class="figure">
-<p><img src="../images/adrc-lesson07-img2.png" alt="adrc-lesson07-img2.png" style="max-width:400px width:100%" />
+<p><img src="../images/adrc-lesson07-img2.png" alt="adrc-lesson07-img2.png" style="max-width:400px; width:100%" />
 </p>
 <p><span class="figure-number">Figura 2: </span>Possibili situazioni</p>
 </div>
@@ -432,8 +432,8 @@ if self.stat == "DONE":
 <p align="center"><span class="figure-number">Code 1:</span> Pseudocodice python-like del protocollo Shout</p>
 </div>
 
-<div id="outline-container-org59b5904" class="outline-3">
-<h3 id="org59b5904"><span class="section-number-3">2.1</span> Terminazione del protocollo</h3>
+<div id="outline-container-orge50cd3d" class="outline-3">
+<h3 id="orge50cd3d"><span class="section-number-3">2.1</span> Terminazione del protocollo</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Il protocollo <code>Shout</code> è molto simile al protocollo <code>Flood</code>, con l'aggiunta di messaggi di <i>feedback</i> <code>YES/NO</code>.
@@ -446,8 +446,8 @@ allora prima o poi tutti i nodi passerranno dallo stato <code>ACTIVE</code> allo
 </div>
 </div>
 
-<div id="outline-container-org245a482" class="outline-3">
-<h3 id="org245a482"><span class="section-number-3">2.2</span> Correttezza</h3>
+<div id="outline-container-org5a2e072" class="outline-3">
+<h3 id="org5a2e072"><span class="section-number-3">2.2</span> Correttezza</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Si vuole dimostrare che l'unione di tutti i \(\texttt{tree-neig}(x)\) è uno <i>spanning tree</i> per la rete \(G\).<br />
@@ -488,8 +488,8 @@ Ma dato che <b>x</b> ha un solo padre allora esiste un solo cammino (<i>risalent
 </div>
 
 
-<div id="outline-container-org5fdc949" class="outline-3">
-<h3 id="org5fdc949"><span class="section-number-3">2.3</span> Message complexity</h3>
+<div id="outline-container-orgefcf06d" class="outline-3">
+<h3 id="orgefcf06d"><span class="section-number-3">2.3</span> Message complexity</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Come accennato in precedenza il protocollo <code>Shout</code> è una sorta di protocollo <code>Flood</code> con l'aggiunta di messaggi di <i>feedback</i>.
@@ -511,7 +511,7 @@ Iniziamo però considerando quali situazioni è possibbile che accadano e quali 
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org10f69b9"></a><b>Casi possibili</b><br />
+<li><a id="org9fbe00b"></a><b>Casi possibili</b><br />
 <div class="outline-text-5" id="text-2-3-0-1">
 <ul class="org-ul">
 <li>caso <code>Q-YES</code>, ovvero nel caso in cui su di un arco passa prima una proposta <code>Q</code> e poi la risposta <code>YES</code>.</li>
@@ -520,7 +520,7 @@ Iniziamo però considerando quali situazioni è possibbile che accadano e quali 
 </ul>
 </div>
 </li>
-<li><a id="org6868867"></a><b>Casi impossibili</b><br />
+<li><a id="org60623bd"></a><b>Casi impossibili</b><br />
 <div class="outline-text-5" id="text-2-3-0-2">
 <ul class="org-ul">
 <li>caso <code>NO-YES</code>, non può accadere in quanto il nodo sinistro per rispondere <code>NO</code> deve prima aver ricevuto una richiesta dal nodo destro, il quale avrà già
@@ -541,7 +541,7 @@ Contiamo ora quanti messaggi vengono scambiati per ogni caso possibile
 </p>
 </div>
 </li>
-<li><a id="orgdb5c0f1"></a><code>Q</code> <b>messages:</b><br />
+<li><a id="orgb2e7040"></a><code>Q</code> <b>messages:</b><br />
 <div class="outline-text-5" id="text-2-3-0-3">
 <p>
 il messaggio <code>Q</code> viene inviato nei casi <code>Q-YES</code> e <code>Q-Q</code>.
@@ -553,7 +553,7 @@ Perciò in totale verranno scambiati \(2(m - (n-1)) - (n-1) = 2m - n + 1\) messa
 </div>
 </li>
 
-<li><a id="org669bb0b"></a><code>YES</code> <b>messages:</b><br />
+<li><a id="org3df0c55"></a><code>YES</code> <b>messages:</b><br />
 <div class="outline-text-5" id="text-2-3-0-4">
 <p>
 il messaggio di tipo <code>YES</code> viene scambiato solamente nella situazione <code>Q-YES</code>, per un totale di \(n-1\) volte.
@@ -561,7 +561,7 @@ il messaggio di tipo <code>YES</code> viene scambiato solamente nella situazione
 </div>
 </li>
 
-<li><a id="org1771a8c"></a><code>NO</code> <b>messages:</b><br />
+<li><a id="orgffbcd21"></a><code>NO</code> <b>messages:</b><br />
 <div class="outline-text-5" id="text-2-3-0-5">
 <p>
 il messaggio di tipo <code>NO</code> viene trasmesso per due volte nella situazione <code>NO-NO</code>, ovvero di conseguenza al caso <code>Q-Q</code>,
@@ -582,8 +582,8 @@ MSG(\texttt{SHOUT}) &= (2m - n + 1) + (n - 1) + (2m - 2(n - 1))\\
 </div>
 
 
-<div id="outline-container-orgd841daf" class="outline-3">
-<h3 id="orgd841daf"><span class="section-number-3">2.4</span> Ottimizzazione - Protocollo <code>Shout+</code></h3>
+<div id="outline-container-org461e20b" class="outline-3">
+<h3 id="org461e20b"><span class="section-number-3">2.4</span> Ottimizzazione - Protocollo <code>Shout+</code></h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 È possibile abbattere il fattore \(4\) dalla complessità del protocollo <code>Shout</code> semplicemente facendo la seguente osservazione:
@@ -676,8 +676,8 @@ In base a quest'ultima osservazione si potrebbe voler cercare di costruire uno s
 </div>
 </div>
 
-<div id="outline-container-org62bdea8" class="outline-2">
-<h2 id="org62bdea8"><span class="section-number-2">3</span> Depth First Traversal (DFT) Protocol</h2>
+<div id="outline-container-orgfb67c02" class="outline-2">
+<h2 id="orgfb67c02"><span class="section-number-2">3</span> Depth First Traversal (DFT) Protocol</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Consideriamo un problema in cui un <i>nodo iniziale</i> possiede un <b>token</b>, e di volere che questo token (non replicabile) venga passato tra <b>tutti</b> i nodi della rete.
@@ -711,13 +711,13 @@ Il protocollo terminerà nel momento in cui la sorgente \(s\) avrà ricevuto il 
 
 
 <div class="figure">
-<p><img src="../images/adrc-lesson07-img4.png" alt="adrc-lesson07-img4.png" style="max-width:200px width:100%" />
+<p><img src="../images/adrc-lesson07-img4.png" alt="adrc-lesson07-img4.png" style="max-width:200px; width:100%" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org638dd2e" class="outline-3">
-<h3 id="org638dd2e"><span class="section-number-3">3.1</span> Message complexity</h3>
+<div id="outline-container-org48b6134" class="outline-3">
+<h3 id="org48b6134"><span class="section-number-3">3.1</span> Message complexity</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Osservare che esistono tre tipologie di messaggi:
@@ -736,8 +736,8 @@ di \(m\) messaggi, e dato che in questo caso sostanzialmente si sta facendo il b
 </div>
 </div>
 
-<div id="outline-container-orgc55b5c1" class="outline-3">
-<h3 id="orgc55b5c1"><span class="section-number-3">3.2</span> Time complexity</h3>
+<div id="outline-container-org19790dd" class="outline-3">
+<h3 id="org19790dd"><span class="section-number-3">3.2</span> Time complexity</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Anche se il protocollo è asincrono ha senso parlare di <i>time complexity</i>, in quanto lo scambio di messaggi avviene in maniera <b>totalmente sequenziale</b><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.
@@ -746,8 +746,8 @@ Perciò la time complexity è proporzionale alla message complexity.
 </div>
 </div>
 
-<div id="outline-container-org472fcba" class="outline-3">
-<h3 id="org472fcba"><span class="section-number-3">3.3</span> Ottimizzazione</h3>
+<div id="outline-container-orgf95fa0f" class="outline-3">
+<h3 id="orgf95fa0f"><span class="section-number-3">3.3</span> Ottimizzazione</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Osserviamo che in grafi molto densi una larga quantità di messaggi risolverà in messaggi di tipo <code>back</code>.
@@ -771,8 +771,8 @@ In tale situazione non avremmo risolto nulla, in quanto \(x\) dovrebbe rispedire
 </p>
 </div>
 
-<div id="outline-container-org1421d50" class="outline-4">
-<h4 id="org1421d50"><span class="section-number-4">3.3.1</span> Complexity</h4>
+<div id="outline-container-org554f62b" class="outline-4">
+<h4 id="org554f62b"><span class="section-number-4">3.3.1</span> Complexity</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
 In questa ottimizzazione i tipi di messaggi scambiati sono:
@@ -843,8 +843,8 @@ Ciò implica un miglioramento non indifferente se si considerano casi in cui la 
 </div>
 </div>
 
-<div id="outline-container-org6470f7d" class="outline-2">
-<h2 id="org6470f7d"><span class="section-number-2">4</span> Multiple Sources Spanning Tree Construction</h2>
+<div id="outline-container-orge29102b" class="outline-2">
+<h2 id="orge29102b"><span class="section-number-2">4</span> Multiple Sources Spanning Tree Construction</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Rilassiamo l'ipotesi <code>Single Initiator</code> e consideriamo il problema più generale in cui esiste un insieme \(I \subseteq V\) di nodi <code>initiator</code>.<br />
@@ -905,7 +905,7 @@ di conferma.
 <p class="date">Data: 2021-10-28 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-12 ven 12:08</p>
+<p class="date">Created: 2021-11-12 ven 17:38</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -52,11 +52,11 @@
   manda in broadcast a tutti i suoi vicini (eccetto al nodo padre) la proposta di diventare nodo figlio.\\
 
   #+caption: Spontaneamente la sorgente avvia il protocollo
-  #+ATTR_HTML: :style max-width:200px width:100%
+  #+ATTR_HTML: :style max-width:200px; width:100%
   [[file:../images/adrc-lesson07-img1.png]]
 
   #+caption: Possibili situazioni
-  #+ATTR_HTML: :style max-width:400px width:100%
+  #+ATTR_HTML: :style max-width:400px; width:100%
   [[file:../images/adrc-lesson07-img2.png]]
   
   Definiamo quindi l'insieme degli stati del processo
@@ -291,7 +291,7 @@
   sarà terminata la vista in profondità su tutti i suoi vicini (eccetto che per il nodo padre).
   Il protocollo terminerà nel momento in cui la sorgente $s$ avrà ricevuto il token indietro da tutti i suoi vicini.\\
 
-  #+ATTR_HTML: :style max-width:200px width:100%
+  #+ATTR_HTML: :style max-width:200px; width:100%
   [[file:../images/adrc-lesson07-img4.png]]
 
 ** Message complexity
