@@ -1,0 +1,84 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: ADRC - Lesson 08
+#+date: <2021-11-04 lun>
+#+email: alessandrostr95@gmail.com
+#+teacher: Andrea Clementi
+#+language: it
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 27.1 (Org mode 9.4.6)
+#+setupfile: ../../org-template/appunti.org
+
+* Leader Election
+  In un sistema distribuito in molti casi si necessita che una singola entità coordini il lavoro delle altre
+  entità per la risoluzione di /task/.
+  La presenza di tale entità può essere necessaria per /semplificare/ lo svoglimento di un task oppure
+  perché è richiesto per la natura stessa del problema.\\
+
+  Il problema della scelta di un *leader* tra un insieme omogeneo e simmetrico di individui di una popolazione
+  è noto come il *Leader Election Problem*.
+  Generalmente il problema richiede di portare la rete da una configurazione iniziale in cui tutti i nodi
+  sono in uno stesso stato, ad una configurazione in cui tutti i nodi saranno in uno stato =follower= eccetto
+  uno solo che dovrà essere nello stato di =leader=.
+  Non ci sono restrizioni su quali nodi devono iniziare il task della leader election, e nemmeno su quali
+  nodi possono diventare leader.\\
+
+  Si può pensare alla leader election come un metodo che *forza* la restrizione di =unique initiator=,
+  infatti eletto un leader è possibile risolvere il task con protocolli a /single initiator/ semplicemente
+  ponendo il leader come nodo initiator.\\
+
+  Consideriamo il problema sotto il seguente insieme =R= di restrizioni:
+  - *BL*: bidirectional links
+  - *C*: connectivity
+  - *TR*: total reliability
+  
+  *THM 1* Sotto le restrizioni =R= non è *deterministicamente* possibile risolvere il problema della leader election
+  
+  Questo teorema forte è conseguenza della condizione di *perfetta simmetria*
+  Il fenomeno della *simmetria perfetta* occorre quando una rete ha una struttura totalmente simmetrica
+  in modo tale che ogni nodo non è in grado in nessun modo di distinguersi da un altro.
+  Ciò significa che se tutti i nodi sono in uno stato interno $\sigma$ ad uno stesso istante $t$, da quel
+  momento in poi essi si comporteranno esattamente alla stessa identica maniera perché avranno la stessa
+  visione del mondo esterno.
+  Non potendosi comportare in maniera differente, i nodi cambieranno stato alla stessa maniera, e quindi
+  non è possibile arrivare in una situazione in cui un nodo avrà uno stato /diverso/ dagli altri (il =leader=).\\
+    
+  Il problema della leader election è anche noto come *simmetry breaking*, perché appunto cerca di "rompere" tale simmetria tra i nodi.
+  Il teorema 1 ci dice però che per fare rompere la simmetria, le restrizioni =R= non sono sufficienti.
+  È necessario aggiungere la restrizione =Unique Indentifier= o =Initial Distinct Values= (in breve =ID=),
+  nella quale si assume che ogni nodo $x$ è *univocamente identificato* da valore $id(x)$, ovvero
+  che rispetta la seguente proprietà
+  \[
+  \forall x,y \in V \;\; id(x) \neq id(y)
+  \]
+
+  Notiamo che risolvere il task dell'elezione di un leader è risolvibile con con la restrizione =ID=:
+  per esempio si potrebbe eleggere come leader il nodo con *etichetta minima* (o *massima*).\\
+
+* Minimum Finding on Ring
+  Come accennato, trovare il nodo cone /etichetta minima/ può essere sfruttato per l'elezione di un leader.
+  Consideriamo una rete ad *anello*, ovvero una tra le tipologie più *sparse* di grafo simmetrico connesso.\\
+
+  Un anello è un grafo \(R = (\lbrace x_1, ..., x_n \rbrace, E)\) in cui l'insieme degli archi $E$ è
+  definito come 
+  \[
+  E \equiv \lbrace \lbrace x_i, x_{i+1} \rbrace \subseteq V | i = 1,2, ..., n-1  \rbrace \cup \lbrace \lbrace x_n, x_1 \rbrace \rbrace
+  \]
+  
+  *Oss.1* non è detto che gli =id= dei nodi siano globalmente *consistenti*, ovvero non è detto che
+  $id(x_i) = i$, oppure che se $id(x_i) = k$ allora per forza deve essere vero che $id(x_{i+1}) = k+1$ e  $id(x_{i-1}) = k-1$.\\
+
+  *Oss.2* in un anello con $n$ nodi ci sono /esattamente/ $n$ archi.\\
+
+  Assumiamo in fine che ogni nodo condivide una stessa idea di /destra/ e /sinistra/.
+  Ovvero se definiamo che il nodo destro di $x_2$ è $x_3$, allora il nodo destro di ogni nodo $x_i$ sarà il nodo con indice $i+1 \mod{n}$[fn:1].
+
+** =All-the-way= protocol
+   Una prima idea abbastanza 
+
+
+[fn:1] il modulo è necessario perché il nodo a destra di $x_n$ non può essere $x_{n+1}$ in quanto non esiste, ma deve essere $x_1$.
