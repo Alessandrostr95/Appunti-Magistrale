@@ -1,0 +1,78 @@
+#+title: AR - Lesson 06
+#+date: <2021-11-03 lun>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+
+* Fenomeno Small World
+
+** Six Degrees of Separation
+   Consideriamo l'esperimento dello psicologo statunitense Stanley Milgram (1967).
+   In tale esperimento Milgram scelse una persona *target* che risedeva dalla parte opposta degli Stati Uniti.
+   Dopodiché inviò una serie di lettere ad un gruppo di persone con le seguenti informazioni e regole:
+   1. nella lettera era specificato nome, indirizzo, occupazione e altre informazioni riguardo il target
+   2. chi riceveva questa lettera doveva *inoltrarla* (ovvero inviare una sola copia) ad un'altra persona, che secondo lui
+      si avvicinava di più al target.
+      Era possibile inviare la lettera ad una persona solo se la si conosceva di prima persona.
+
+   Al termine dell'esperimento Milgram osservò che circa un terzo delle lettere riuscirono ad arrivare al target, ma ancor più interessante
+   che tutte arrivarono mediamente in 6 passi.\\
+
+   Questo esperimento suggerì due proprietà importanti delle reti sociali:
+   1. un'abbondanza di *cammini brevi* tra gli individui della rete, noto come /fenomeno Small World/ (o /"Six Degrees of Separation"/).
+   2. tali cammini potevano facilmente essere individuati dagli individui, che altro non conoscono della struttura della rete se non il loro vicinato
+      ed una /euristica/ che gli consenta di intuire i vicini più plausibili per i cammini.
+      Questo è noto come /fenomeno della navigabilità/.
+
+   Certamente un aiuto molto rilevante per la /navigabilità/ è stata la presenza di alcune informazioni riguardo il target nella lettera (apparte il nome).
+   Per esempio se so che il target abita in un certa regione cercherò come prima cosa di inoltrare la lettera a una persona che geograficamente si avvicina.
+   Ancora, se so è abbastanza vicino a me e so anche che è un medico, certamente cercherò tra le mie conoscenze una persona che lavora (o che ha a che fare)
+   con l'ambiente sanitario (è meno probabile che mi avvicini se inoltro la lettera a un contadino).
+   Invece, se avessi avuto *solamente* il nome del target senza essere in grado nemmeno di individuare la sua città, molto probabilmente la lettera sarebbe stata
+   perduta.\\
+
+
+   Per quanto riguarda l'abbondanza di cammini brevi invece una possibile motivazione _intuitiva_ è la seguente:
+   supponiamo di avere conoscere in maniera diretta 100 persone, e che tali persone conoscono direttamente altre 100 persone.
+   Allora con due "hop" posso raggiungere \(100 \cdot 100 = 10000\) altre persone.
+   E se a loro volta gli amici dei miei amici conoscono 100 perso, in tre "hop" potrò raggiungere altri \(100 \cdot 100 \cdot 100 = 1000000\) persone, e così via...
+
+   #+caption: Crescita puramente esponeziale delle conoscenze.
+   #+ATTR_HTML: :style max-width:500px; :width 100%
+   [[file:../images/ar-lesson06-img1.png]]
+
+   Purtroppo però questo ragionamento è inconsistente, in quanto si fa un'assunzione molto forte, ovvero che ogni proprio amico conosce altre 100 persone *distinte*.
+   In un conteso reale è però poco plausibile questa proprietà: se sono amico stretto di due persone è /motlo probabile/ che prima o poi essi si conoscano e diventino
+   a loro volta conoscenti.
+   Per esempio le reti di conoscenze dei /social networks/ mostrano la presenza di una quantità elevata di *triangoli* tra gli individui, a conferma di quanto osservato.
+   La caratteristica di una rete di avere molti triangoli è detta *chiusura triadica* (*triadic closure*), la quale diminuisce di molto il numero di individui raggiungibili
+   con percorsi brevi rispetto al modello con crescita esponenziale.
+
+   #+caption: La chiusura triadica diminuisce di molto il numero di persone raggiungibili con percorsi brevi.
+   #+ATTR_HTML: :style max-width:500px; :width 100%
+   [[file:../images/ar-lesson06-img2.png]]
+
+
+** The Watts-Strogatz model
+   Nel 1998 Duncan Watts and Steve Strogatz proposero un modello generativo di grafi aleatori che soddisfano due proprietà precedentemente viste: la presenza
+   di numerosi triangoli e la presenza di cammini brevi che collegano le entità della rete.\\
+
+   Il grafo generato in accordo col *modello Watts-Strogatz* è composto da due componenti:
+   - una componente *deterministica* che consiste in una *griglia bidimensionale*
+   - una componente *aleatoria* sovrastante
+
+   La griglia bidimensionale è un sottoinsieme di $\mathbb{N}^2$, i cui /punti/ sono i nodi del grafo.
+   Nella griglia ogni nodo ha un acro con i suoi vicini posti a destra, sinistra, sopra, sotto e in diagonale.
+   Più formalmente, fissato un \(n \in \mathbb{N}\):
+   \[
+   V \equiv \lbrace (i,j) \in \mathbb{N}^2 | 0 \leq i < n \land 0 \leq j < n \rbrace\\
+   E_1 \equiv \lbrace \lbrace (i,j), (a,b) \rbrace \in V^2 | \left[ a \equiv_n i+\alpha \land b \equiv_n j+\beta \right] \; \forall \alpha,\beta = -1, 0, 1 \rbrace
+   \]
+   Se si fa attenzione alla definizione di $E_1$ (ovvero l'insieme degli archi della componente deterministica), si può vedere che la griglia ha una sorta di /periodicità/,
+   ovvero i nodi a un bordo della griglia sono collegati ai nodi sul bordo opposto.
+   In questa maniera otteniamo un primo grafo con un'alta quantità di /triangoli/ (prima proprietà desiderata).\\
+
+   Per costruire la componente aleatoria fissiamo un $k>1$, e per ogni nodo $v \in V$ esso aggiungerà come ulteriori vicini altri $k$ nodi scelti _uniformemente a caso_.
+   
+   #+caption: Costruzione modello Watts-Strogatz
+   #+ATTR_HTML: :style max-width:450px; :width 100%
+   [[file:../images/ar-lesson06-img3.png]]
