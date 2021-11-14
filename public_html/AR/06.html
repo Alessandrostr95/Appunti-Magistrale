@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-13 sab 22:29 -->
+<!-- 2021-11-14 dom 21:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 06</title>
@@ -274,22 +274,22 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgebf0346">1. Fenomeno Small World</a>
+<li><a href="#org8596eef">1. Fenomeno Small World</a>
 <ul>
-<li><a href="#org0b18a13">1.1. Six Degrees of Separation</a></li>
-<li><a href="#orgaa2f23e">1.2. The Watts-Strogatz model</a></li>
+<li><a href="#org6d5971f">1.1. Six Degrees of Separation</a></li>
+<li><a href="#orgf28b809">1.2. The Watts-Strogatz model</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgebf0346" class="outline-2">
-<h2 id="orgebf0346"><span class="section-number-2">1</span> Fenomeno Small World</h2>
+<div id="outline-container-org8596eef" class="outline-2">
+<h2 id="org8596eef"><span class="section-number-2">1</span> Fenomeno Small World</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org0b18a13" class="outline-3">
-<h3 id="org0b18a13"><span class="section-number-3">1.1</span> Six Degrees of Separation</h3>
+<div id="outline-container-org6d5971f" class="outline-3">
+<h3 id="org6d5971f"><span class="section-number-3">1.1</span> Six Degrees of Separation</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consideriamo l'esperimento dello psicologo statunitense Stanley Milgram (1967).
@@ -361,8 +361,8 @@ con percorsi brevi rispetto al modello con crescita esponenziale.
 </div>
 
 
-<div id="outline-container-orgaa2f23e" class="outline-3">
-<h3 id="orgaa2f23e"><span class="section-number-3">1.2</span> The Watts-Strogatz model</h3>
+<div id="outline-container-orgf28b809" class="outline-3">
+<h3 id="orgf28b809"><span class="section-number-3">1.2</span> The Watts-Strogatz model</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Nel 1998 Duncan Watts and Steve Strogatz proposero un modello generativo di grafi aleatori che soddisfano due proprietà precedentemente viste: la presenza
@@ -400,6 +400,33 @@ Per costruire la componente aleatoria fissiamo un \(k>1\), e per ogni nodo \(v \
 </p>
 <p><span class="figure-number">Figura 3: </span>Costruzione modello Watts-Strogatz</p>
 </div>
+
+<p>
+Si può osservare una certa <i>dicotomia</i> tra gli archi deterministici e quelli aleatori:
+</p>
+<ol class="org-ol">
+<li>gli archi deterministici rappresentano un <b>legame forte</b> tra i nodi (<b>strong tie</b>), infatti tra due nodi legati da un arco deterministico esistono sempre dei triagoli.</li>
+<li>gli archi aleatori rappresentano invece delle conoscenze "alla lontana", e in quanto tale un <b>legame debole</b> (<b>weak tie</b>). Infatti è molto poco probabile trovare triangoli nella componente
+aleatoria (a meno che \(k\) non sia <span class="underline">molto</span> grande).<br /></li>
+</ol>
+
+<p>
+A questo punto è doveroso chiedersi se effetivamente esistono cammini brevi tra i nodi della rete.
+Intuitivamente parlando, se si considerano cammini composti dai soli archi aleatori, è poco probabile incontrare due volte uno stesso nodo in brevi distanze.
+Perciò, nella compononete aleatoria la crescita dei <span class="underline">nuovi</span> nodi vicini è più simile al modello con crescita esponenziale (vedi Img. 1).<br />
+</p>
+
+<p>
+Successivamente Bollobàs &amp; Ching diedero una dimostrazione formale a questo fenomeno. Più precisamente dimostrarono la presenza di cammini brevi in un modello
+con molta meno <i>randomness</i>.
+Consideriamo un nuovo modello simile a quello Watts-Strogatz, dove però solo un nodo su \(k\) ha archi random, e il numero di archi random è pari a 1.
+Partizioniamo poi la rete in "<b>città</b>" di \(k \times k\) individui, e consideriamo il fenomeno small-world a livello di città.
+Certamente ogni città avrà mediamente \(k\) archi random, e inoltre ogni coppia di nodi \(u,v\) di una stessa città sarà connessa da un cammino breve di lunghezza <i>al più</i> \(2k\).
+</p>
+
+<p>
+<b>[da finire]</b>
+</p>
 </div>
 </div>
 </div>
@@ -408,7 +435,7 @@ Per costruire la componente aleatoria fissiamo un \(k>1\), e per ogni nodo \(v \
 <p class="date">Data: 2021-11-03 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-13 sab 22:29</p>
+<p class="date">Created: 2021-11-14 dom 21:57</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

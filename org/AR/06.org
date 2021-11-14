@@ -76,3 +76,21 @@
    #+caption: Costruzione modello Watts-Strogatz
    #+ATTR_HTML: :style max-width:450px; :width 100%
    [[file:../images/ar-lesson06-img3.png]]
+
+   Si può osservare una certa /dicotomia/ tra gli archi deterministici e quelli aleatori:
+   1. gli archi deterministici rappresentano un *legame forte* tra i nodi (*strong tie*), infatti tra due nodi legati da un arco deterministico esistono sempre dei triagoli.
+   2. gli archi aleatori rappresentano invece delle conoscenze "alla lontana", e in quanto tale un *legame debole* (*weak tie*). Infatti è molto poco probabile trovare triangoli nella componente
+      aleatoria (a meno che $k$ non sia _molto_ grande).\\
+
+   A questo punto è doveroso chiedersi se effetivamente esistono cammini brevi tra i nodi della rete.
+   Intuitivamente parlando, se si considerano cammini composti dai soli archi aleatori, è poco probabile incontrare due volte uno stesso nodo in brevi distanze.
+   Perciò, nella compononete aleatoria la crescita dei _nuovi_ nodi vicini è più simile al modello con crescita esponenziale (vedi Img. 1).\\
+
+   Successivamente Bollobàs & Ching diedero una dimostrazione formale a questo fenomeno. Più precisamente dimostrarono la presenza di cammini brevi in un modello
+   con molta meno /randomness/.
+   Consideriamo un nuovo modello simile a quello Watts-Strogatz, dove però solo un nodo su $k$ ha archi random, e il numero di archi random è pari a 1.
+   Partizioniamo poi la rete in "*città*" di \(k \times k\) individui, e consideriamo il fenomeno small-world a livello di città.
+   Certamente ogni città avrà mediamente $k$ archi random, e inoltre ogni coppia di nodi $u,v$ di una stessa città sarà connessa da un cammino breve di lunghezza /al più/ $2k$.
+
+   *[da finire]*
+   

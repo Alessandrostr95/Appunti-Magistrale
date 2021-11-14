@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-10 mer 12:46 -->
+<!-- 2021-11-14 dom 21:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 03</title>
@@ -274,12 +274,12 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org794cde4">1. Single source broadcast problem</a></li>
-<li><a href="#org9159fdc">2. Flooding protocol</a>
+<li><a href="#org148f9bd">1. Single source broadcast problem</a></li>
+<li><a href="#org12c9824">2. Flooding protocol</a>
 <ul>
-<li><a href="#org2086dd7">2.1. Correttezza</a></li>
-<li><a href="#orgd2211e8">2.2. Miglioramento protocollo</a></li>
-<li><a href="#org7ee2c52">2.3. Message Complexity</a></li>
+<li><a href="#orgc7d59d8">2.1. Correttezza</a></li>
+<li><a href="#org6ac285d">2.2. Miglioramento protocollo</a></li>
+<li><a href="#org90d1f61">2.3. Message Complexity</a></li>
 </ul>
 </li>
 </ul>
@@ -287,8 +287,8 @@ for the JavaScript code in this tag.
 </div>
 <hr />
 
-<div id="outline-container-org794cde4" class="outline-2">
-<h2 id="org794cde4"><span class="section-number-2">1</span> Single source broadcast problem</h2>
+<div id="outline-container-org148f9bd" class="outline-2">
+<h2 id="org148f9bd"><span class="section-number-2">1</span> Single source broadcast problem</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Come introdotto nella <a href="./02.html">lezione 2</a>, in un sistema <i>distribuito</i> non ha senso parlare di <code>input/output</code> di un algoritmo,
@@ -339,8 +339,8 @@ Una volta progettato il protocollo, si richiede:
 </div>
 
 
-<div id="outline-container-org9159fdc" class="outline-2">
-<h2 id="org9159fdc"><span class="section-number-2">2</span> Flooding protocol</h2>
+<div id="outline-container-org12c9824" class="outline-2">
+<h2 id="org12c9824"><span class="section-number-2">2</span> Flooding protocol</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Una prima idea banale è la seguente: se un'entità riceve un messaggio allora lo invia ai suoi vicini.
@@ -375,8 +375,8 @@ elif self.state == "SLEEPING":
 <hr />
 </div>
 
-<div id="outline-container-org2086dd7" class="outline-3">
-<h3 id="org2086dd7"><span class="section-number-3">2.1</span> Correttezza</h3>
+<div id="outline-container-orgc7d59d8" class="outline-3">
+<h3 id="orgc7d59d8"><span class="section-number-3">2.1</span> Correttezza</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 <b>THM</b> se eseguiamo il protocollo <i>trivial-flood</i> sotto le assunzioni <code>1,2,3,4</code>, esiste un tempo \(t \in \mathbb{R}^+\) tale che
@@ -428,8 +428,8 @@ tale che \(v \in L_k\) \(\square\).
 </div>
 
 
-<div id="outline-container-orgd2211e8" class="outline-3">
-<h3 id="orgd2211e8"><span class="section-number-3">2.2</span> Miglioramento protocollo</h3>
+<div id="outline-container-org6ac285d" class="outline-3">
+<h3 id="org6ac285d"><span class="section-number-3">2.2</span> Miglioramento protocollo</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Per come è stato descritto, il protocollo precedente porta a termine il suo <i>task</i>, però non termina mai.
@@ -466,8 +466,8 @@ elif self.state == "DONE":
 </div>
 
 
-<div id="outline-container-org7ee2c52" class="outline-3">
-<h3 id="org7ee2c52"><span class="section-number-3">2.3</span> Message Complexity</h3>
+<div id="outline-container-org90d1f61" class="outline-3">
+<h3 id="org90d1f61"><span class="section-number-3">2.3</span> Message Complexity</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Come già accennato in precedenza, non ha senso parlare di <i>time complexity</i> in un sistema che non è sincrono.
@@ -481,7 +481,7 @@ Verranno proposte due analisi abbastanza semplici sul protocollo ottimizzato<sup
 </div>
 
 <ol class="org-ol">
-<li><a id="org053a15b"></a><b>Analisi 1</b><br />
+<li><a id="orgdc67adc"></a><b>Analisi 1</b><br />
 <div class="outline-text-5" id="text-2-3-0-1">
 <p>
 Si osservi che per via del <b>ritardo</b> di trasmissione, su ogni arco possono essere trasmessi <span class="underline">al più</span> due messaggi durante l'intero protocollo.
@@ -492,7 +492,7 @@ Fatta questa premessa, nel caso peggiore verranno inviati due messaggi per ogni 
 </div>
 </li>
 
-<li><a id="org923b417"></a><b>Analisi 2</b><br />
+<li><a id="org877f691"></a><b>Analisi 2</b><br />
 <div class="outline-text-5" id="text-2-3-0-2">
 <p>
 Nel caso precedente si è calcolata la complessità in base gli archi.
@@ -541,7 +541,7 @@ in quanto è l'unico che termina
 <p class="date">Data: 2021-10-19 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-10 mer 12:46</p>
+<p class="date">Created: 2021-11-14 dom 21:57</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
