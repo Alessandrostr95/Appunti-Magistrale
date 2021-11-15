@@ -18,16 +18,16 @@
   Nel senso più ampio del termine, una *rete* è uno schema di /interconnessioni/ tra entità.
   A seconda del tipo di entità e di interconnessioni, possono esistere diverse tipologie di reti, come:
   - reti di calcolatori che interagiscono tra di loro per eseguire task di computazione distribuita
-  - le reti sociali, come per esmpio una rete di conoscenza di un social network
+  - le reti sociali, come per esempio una rete di conoscenza di un social network
   - le reti di informazioni, ovvero il /web/
   - ...
   Lo studio di una rete po' interessare ed essere affrontato da differenti discipline: nella matematica/informatica
-  studiando i modelli che le rappresentano e gli algoritmi che le coinvolgono, nelll'economia studiando le dinamiche
-  di incentivo/disincentivo che influenzano il comportamento delle entità, o anche nelle scienze sociali per quanto riguarda i fenomi che influenzano
+  studiando i modelli che le rappresentano e gli algoritmi che le coinvolgono, nell'economia studiando le dinamiche
+  di incentivo/disincentivo che influenzano il comportamento delle entità, o anche nelle scienze sociali per quanto riguarda i fenomeni che influenzano
   i singoli individui o l'intera popolazione.
   Sostanzialmente, il modo in cui ci interesserà osservare una rete è come un ampio insieme di individui che reagisce in base al
   comportamento dei singoli.
-  Quindi ci interesserà osservare come il comportamento locale di una entità influenza i fenomi globali dell'intera rete.\\
+  Quindi ci interesserà osservare come il comportamento locale di una entità influenza i fenomeni globali dell'intera rete.\\
   
   L'analisi di una rete, nel nostro ambito d'interesse, verrà fatta considerando numerosi aspetti, come per esempio
   le *prestazioni*, la *struttura* e il loro *utilizzo*,e verranno anche analizzate le *tecniche* impiegate nell'analisi stessa.
@@ -37,19 +37,19 @@
    In questo esempio verrà mostrato come i legami influiscono sul comportamento dei singoli individui.
    Supponiamo di giocare a una variante probabilistica del gioco del telefono in cui siamo disposti tutti in cerchio, e un volta
    ricevuto il messaggio lo passo solo se lanciando una moneta esce testa.
-   La moneta è la stessa per tutti, però è *non* equa, ovvero esce testa con probabilità $p = 0.6$ e corce con probabilità $1-p = 0.4$.
+   La moneta è la stessa per tutti, però è *non* equa, ovvero esce testa con probabilità $p = 0.6$ e croce con probabilità $1-p = 0.4$.
    Se il cerchio è molto grande, è davvero molto poco probabile che il messaggio arrivi a un numero elevato di persone.
-   Se invece per ogni persona nel cerchio associassimo un terzo "vicino" totlmente a caso a cui poter trasmettere il messaggio, succederà
+   Se invece per ogni persona nel cerchio associassimo un terzo "vicino" totalmente a caso a cui poter trasmettere il messaggio, succederà
    che /molto probabilmente/ il messaggio arriverà a una grossa porzione di persone in poco tempo.\\
 
-   Questo esempio può essere paraganato al fenome della diffusione di un'infezione, in cui la probabilità di infettare un vicino non infetto (o
+   Questo esempio può essere paragonato al fenomeno della diffusione di un'infezione, in cui la probabilità di infettare un vicino non infetto (o
    che non è stato infettato in precedenza) è $p$ (vedi [[https://arxiv.org/abs/2103.16398][qui]]).
 
 ** Fenomeno di stabilità
-   Un classico esempio in cui invece la presenza di legami influsce sulla struttura della rete è il seguente:
+   Un classico esempio in cui invece la presenza di legami influisce sulla struttura della rete è il seguente:
    consideriamo di avere una rete sociale in cui /Bob/ è amico di /Alice/ e di /Carol/, ma /Alice/ e /Carol/
-   non si sopportano (perchè entrambe segretamente innamorate di /Bob/).
-   Questa rete è detta *instabile*, in quanto per /Bob/ sarà difficle uscire con entrambe.
+   non si sopportano (perché entrambe segretamente innamorate di /Bob/).
+   Questa rete è detta *instabile*, in quanto per /Bob/ sarà difficile uscire con entrambe.
    Dovendo scegliere per forza una delle due con la quale passare più tempo, necessariamente il legame con l'altra
    tenderà a rompersi, rendendo così la rete più stabile.
    (Proprio non vorrei essere nei panni di /Bob/...).
@@ -60,56 +60,56 @@
 
 * Struttura di una Rete
 #+LABEL: sec:struttura
-  Generalmente si è interessati a studiare reti di deminsioni enormi, perciò diventa estremamente complicato studiare ed analizzare
+  Generalmente si è interessati a studiare reti di dimensioni enormi, perciò diventa estremamente complicato studiare ed analizzare
   ciò che accade ad ogni singolo individuo.
   Infatti ciò che si studia sono delle *proprietà globali* della rete.
-  Esempi di proprietà globali interesanti sono
+  Esempi di proprietà globali interessanti sono
 
   1. esistenza di *componenti giganti*, ovvero se in un rete esiste una [[https://en.wikipedia.org/wiki/Strongly_connected_component][componente fortemente connessa]] molto grande (ovvero paragonabile alla grandezza della rete stessa).
    Un esperimento famoso a riguardo fu quello del 2006 condotto da /Leskovec & Horvitz/ in cui presero i dati (in maniera anonima?) delle
    comunicazioni fatte in un mese da 240 milioni di utenti di Instant Messenger.
-   Su questi dati costruirono un grafo in cui i nodi erano i 240M di utenti, e inseririono un arco tra due nodi se i rispettivi utenti si
+   Su questi dati costruirono un grafo in cui i nodi erano i 240M di utenti, e inserirono un arco tra due nodi se i rispettivi utenti si
    scambiarono almeno un messaggio in quel mese.
    Risultò fuori l'esistenza di una componente fortemente connessa di circa 200 milioni di utenti.
-  2. presenza di componenti (o porzioni di esse) *densamente connesse* (ovverro con un elevato numero di connessioni)
+  2. presenza di componenti (o porzioni di esse) *densamente connesse* (ovvero con un elevato numero di connessioni)
   3. verificare se la struttura della rete è di tipo *centro/periferica*
   4. verificare se la rete ha un *diametro* piccolo nonostante sia poco denso.
 
-  Riguardo quest'ultimo punto è di dovere citare il famoso esperimento dello psicologo Stanley Milgram sui /"6 gradi di separazion"/.
+  Riguardo quest'ultimo punto è di dovere citare il famoso esperimento dello psicologo Stanley Milgram sui /"6 gradi di separazione"/.
   In pratica supponiamo di avere una lettera di volerla recapitare al presidente degli stati uniti.
   Sappiamo esattamente a chi farla arrivare, ma non come.
   Supponiamo di dare la lettera in mano al nostro conoscente che secondo noi è più probabile che la faccia arrivare al presidente, e
   diciamogli di fare lo stesso.
-  Mediamente, tramite solo 5 intermediari, lattera arriverà al presidente Joe Biden.\\
+  Mediamente, tramite solo 5 intermediari, la lettera arriverà al presidente Joe Biden.\\
 
-  Lo studio di queste prorietà globali sarà fatto sia a /livello di popolazione/, ovvero considerando mediamente ciò che succede agli
+  Lo studio di queste proprietà globali sarà fatto sia a /livello di popolazione/, ovvero considerando mediamente ciò che succede agli
   individui, sia a /livello di singolo individui/, andando a considerare la topologia della rete (relazione per relazione).
 
   #+html: <hr>
   
 
 * Rappresentazione di una rete
-  Come si è poptuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
+  Come si è potuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
   matematico di /Grafo/.
   Si assume che i concetti e le definizioni base della teoria dei grafi siano ben note al lettore (se così non fosse,
   questi appunti non fanno per te... e nemmeno questo corso!).\\
 
-  Supponiamo quendi di riuscire ad avere le informazioni di una rete reale (cosa che all'atto pratico non accade molto spesso),
-  si potrebbe modellizzare semplicemente associando un nodo ad ogni entità della rete, e un arco per ogni interconnessione (facile no?).
+  Supponiamo quindi di riuscire ad avere le informazioni di una rete reale (cosa che all'atto pratico non accade molto spesso),
+  si potrebbe modellare semplicemente associando un nodo ad ogni entità della rete, e un arco per ogni interconnessione (facile no?).
   Fatto ciò si può "tranquillamente" procedere con l'analisi, alla ricerca di tutte le proprietà viste nella precedente [[sec:struttura][sezione]].\\
 
-  Però, ammettendo pure di avere a disposizione questi dati, è difficle essere interessati a studiare le proprietà di una singola
+  Però, ammettendo pure di avere a disposizione questi dati, è difficile essere interessati a studiare le proprietà di una singola
   rete.
-  Generlamente si è interessati a sapere proprietà *generali*, come per esempio qual è il diametro medio di una rete espresso in funzione
+  Generalmente si è interessati a sapere proprietà *generali*, come per esempio qual è il diametro medio di una rete espresso in funzione
   del numero delle sue entità, oppure dato il grado medio dei nodi quanto sono grandi (mediamente) le componenti connesse.\\
   Per fare ciò bisognerebbe osservare un gran numero di reti!
   E in un contesto reale non si hanno così tante informazioni; un po' perché generalmente chi è in possesso di questi dati così
-  preziosi difficilmente li condivide col mondo, un po' perchè di reti reali non ne esistono abbastanza da poter consentire di
+  preziosi difficilmente li condivide col mondo, un po' perché di reti reali non ne esistono abbastanza da poter consentire di
   fare un'analisi statistica.\\
   Perciò quello che si fa generalmente è /inventare/ nuovi modelli di grafi che rispecchino il più possibile le proprietà che una
   rete reale possiede.
-  Ovviemente non è possibile creare un medo che abbia *tutte* le proprietà di una rete reale, per via del grado di complissità delle ultime.
-  Però in base al fenome che si desidera studiare, esistono dei modelli che presentano alcune proprietà abbastanza utili ai fini analitici.\\
+  Ovviamente non è possibile creare un modo che abbia *tutte* le proprietà di una rete reale, per via del grado di complessità delle ultime.
+  Però in base al fenomeno che si desidera studiare, esistono dei modelli che presentano alcune proprietà abbastanza utili ai fini analitici.\\
   Perciò, una volta creato un modello, si possono *campionare* (o *istanziare*) quanti grafi si necessita.
 
 ** Il modello Erdős–Rényi
@@ -139,7 +139,7 @@
     Per alta probabilità si intende con probabilità dell'ordine di _*almeno*_ $\left( 1 - \frac{ b }{ n^c } \right)$, per qualche coppia di costanti
     $b,c$ strettamente positive.\\
 
-    Da cui quindi il seugente teorema:
+    Da cui quindi il seguente teorema:
     
     #+begin_quote
     *THM* sia $G_{n,p}$ un Erdős–Rényi random graph di parametri $n,p$, e sia $X$ la /variabile aleatori/ che indica il numero
@@ -178,7 +178,7 @@
     - $|A| \geq \frac{n}{4}$ per costruzione
     - $|A| = \underbrace{|C_1| + |C_2| + ... + |C_{k-1}|}_{ < n/4 } + \underbrace{|C_k|}_{< n/2} < \frac{n}{4} + \frac{n}{2} = \frac{3}{4}n$
     - Non ci possono essere archi nel taglio $(A,\left[ n \right] \setminus A)$, in quanto i due insiemi sono composti da componenti connesse.
-      Infatti se esistesse un arco nel taglio, i due estremi apperterrebbero a due componenti connesse $C_i, C_j$ distinte,
+      Infatti se esistesse un arco nel taglio, i due estremi apparterrebbero a due componenti connesse $C_i, C_j$ distinte,
       ma ciò significherebbe che $C_i \cup C_j$ è a sua volta una componente connessa (*assurdo!*).  $\square$
     #+end_quote
 
@@ -189,7 +189,7 @@
     In questo caso gli eventi corrispondono $\mathcal{E_1}$ = "$X < n/2$" e $\mathcal{E_2}$ = "esiste un insieme buono $A$".\\
 
     #+begin_quote
-    *Proof (THM)* Si deisdera calcolare $\mathcal{P}\left( X < \frac{n}{2} \right)$, ovvero il complementare della probabilità che si
+    *Proof (THM)* Si desidera calcolare $\mathcal{P}\left( X < \frac{n}{2} \right)$, ovvero il complementare della probabilità che si
     desidera dimostrare.\\
 
     Dal *Lemma* avremo che
@@ -247,7 +247,7 @@
     Ciò significa che, fissato un $p$ *costante*, ogni individuo nella rete sarà in contatto con una porzione constante della reta stessa, ovvero il grado medio cresce in maniera /lineare nel numero di nodi/.
     Ovviamente è inverosimile che in una rete di un social network composta da centinaia di milioni (se non miliardi) di nodi, io abbia un numero di amicizie proporzionale al numero di utenti (non penso sarà mai così famoso).\\
 
-    Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che $p$ sia una funzione di $n$, e che magari /descresca/ in maniera
+    Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che $p$ sia una funzione di $n$, e che magari /decresca/ in maniera
     inversamente proporzionale, del tipo
     \[ p = p(n) = \frac{ \lambda }{n} \]
     Scegliendo $p$ in questa maniera, avremo che il grado medio di un nodo sarà pari alla *costante* $\lambda$, indipendentemente dalla dimensione della rete.\\
@@ -260,7 +260,7 @@
     \]
     Questo perché:
     1. $\binom{n-1}{k}$ è il numero di tutte le possibili $k$-uple di nodi in $\left[ n \right] \setminus \lbrace i \rbrace$.
-    2. $p^k$ è la probabilità che eistano gli archi tra $i$ e i nodi di una $k$ -upla.
+    2. $p^k$ è la probabilità che esistano gli archi tra $i$ e i nodi di una $k$ -upla.
     3. $\left( 1-p \right)^{(n-1) - k}$ è la probabilità che non esista nessun altro arco (ne vogliamo solo $k$).
     
     Scegliendo $p = \frac{ \lambda }{n}$ in funzione di $n$ come detto in precedenza, avremo che la probabilità che un nodo abbia grado
@@ -309,6 +309,6 @@
     = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
     \]
     Perciò, in un grafo /Erdős–Rényi/ $G_{n,p}$ con grado medio constante, ovvero con parametro $p = \frac{\lambda}{n}$,
-    il numero di nodi di grado esattamente $k$ descrese esponenzialmente in $k$ (come $k^{-k}$).
+    il numero di nodi di grado esattamente $k$ decresce esponenzialmente in $k$ (come $k^{-k}$).
    
 #+html: <hr>
