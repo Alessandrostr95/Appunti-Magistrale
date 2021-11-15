@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-14 dom 21:57 -->
+<!-- 2021-11-15 lun 17:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 06</title>
@@ -274,22 +274,27 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8596eef">1. Fenomeno Small World</a>
+<li><a href="#org22b92d7">1. Fenomeno Small World</a>
 <ul>
-<li><a href="#org6d5971f">1.1. Six Degrees of Separation</a></li>
-<li><a href="#orgf28b809">1.2. The Watts-Strogatz model</a></li>
+<li><a href="#orgbd90230">1.1. Six Degrees of Separation</a></li>
+<li><a href="#org78b000d">1.2. The Watts-Strogatz model</a>
+<ul>
+<li><a href="#org20af4cd">1.2.1. Navigabilità del modello Watts-Strogatz</a></li>
+</ul>
+</li>
+<li><a href="#orgf7e6e09">1.3. Un modello per la ricerca decentralizzata</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8596eef" class="outline-2">
-<h2 id="org8596eef"><span class="section-number-2">1</span> Fenomeno Small World</h2>
+<div id="outline-container-org22b92d7" class="outline-2">
+<h2 id="org22b92d7"><span class="section-number-2">1</span> Fenomeno Small World</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org6d5971f" class="outline-3">
-<h3 id="org6d5971f"><span class="section-number-3">1.1</span> Six Degrees of Separation</h3>
+<div id="outline-container-orgbd90230" class="outline-3">
+<h3 id="orgbd90230"><span class="section-number-3">1.1</span> Six Degrees of Separation</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consideriamo l'esperimento dello psicologo statunitense Stanley Milgram (1967).
@@ -361,8 +366,8 @@ con percorsi brevi rispetto al modello con crescita esponenziale.
 </div>
 
 
-<div id="outline-container-orgf28b809" class="outline-3">
-<h3 id="orgf28b809"><span class="section-number-3">1.2</span> The Watts-Strogatz model</h3>
+<div id="outline-container-org78b000d" class="outline-3">
+<h3 id="org78b000d"><span class="section-number-3">1.2</span> The Watts-Strogatz model</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Nel 1998 Duncan Watts and Steve Strogatz proposero un modello generativo di grafi aleatori che soddisfano due proprietà precedentemente viste: la presenza
@@ -422,6 +427,104 @@ con molta meno <i>randomness</i>.
 Consideriamo un nuovo modello simile a quello Watts-Strogatz, dove però solo un nodo su \(k\) ha archi random, e il numero di archi random è pari a 1.
 Partizioniamo poi la rete in "<b>città</b>" di \(k \times k\) individui, e consideriamo il fenomeno small-world a livello di città.
 Certamente ogni città avrà mediamente \(k\) archi random, e inoltre ogni coppia di nodi \(u,v\) di una stessa città sarà connessa da un cammino breve di lunghezza <i>al più</i> \(2k\).
+Venne dimostrato che per trovare un cammino relativamente corto tra due nodi \(u,v\) di due città differenti, basta che
+\(u\) raggiunga un nodo \(w\) nella stessa città (in al più \(2k\)) passi, e poi tramite pochi salti passare da dua città all'altra
+fino ad arrivare alla città di \(v\).<br />
+</p>
+
+<p>
+In conclusione, anche con un piccolo ammontare di casualità, il modello Watts-Strogatz cattura il fenomeno di "mondo piccolo".<br />
+</p>
+</div>
+
+<div id="outline-container-org20af4cd" class="outline-4">
+<h4 id="org20af4cd"><span class="section-number-4">1.2.1</span> Navigabilità del modello Watts-Strogatz</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Assodato che nel modello Watts-Strogatz esistono cammini relativamente corti tra i nodi della rete, quello che ci si chiede
+è se tali cammini corti sono facilmente rintracciabili dai nodi, che conoscono solamente il loro vicinato e non la struttura dell'intera rete.<br />
+</p>
+
+<p>
+Supponiamo che un nodo \(u\) deve mandare un messaggio a un nodo \(v\) del quale conosce solamente le sue coordinate sulla griglia geometrica.7
+Il nodo \(u\) potrebbe mandare in broadcast il messaggio a tutti i suoi vicini (che sono 8 o 9), e chiedere a loro di inviare
+il messaggio a tutti i loro vicini.
+Questo metodo è noto come <code>Flooding</code> dei messaggi, ed è il metodo più veloce per raggiungere il nodo \(v\) (in quanto equivale
+ad una <i>visita in ampiezza</i>).
+Il problema è che dopo \(h\) salti, ci sarebbero circa \(8^h\) messaggi in circolazione, oltre al fatto che sarebbe scortese
+chiedere di inviare 8 messaggi ai propri vicini.<br />
+</p>
+
+<p>
+Vorremmo un modo per trovare un cammino non troppo lungo tra \(u\) e \(v\) in modo da trasmettere una sola copia del messaggio,
+e non un numero esponenziale, un po' come fecero le persone che parteciparono all'esperimento di Milgram.<br />
+</p>
+
+<p>
+Purtroppo fare questo tipo di ricerca <b>miope</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> in un modello Watts-Strogatz non è possibile.
+Per esempio il nodo \(u\) potrebbe pensare di mandare il messaggio al suo vicino che più si avvicina alla destinazione \(v\).
+Questo però potrebbe non essere il modo miglio per raggiongere \(v\).
+Per esempio potrebbe esistere un nodo \(w\) vicino di \(u\) che si allontana di 1 rispetto a \(v\) nella griglia deterministica,
+ma che però è direttamente collegato a \(v\) tramite la componente aleatoria.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson06-img4.png" alt="ar-lesson06-img4.png" style="max-width:450px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Controesempio appena descritto</p>
+</div>
+
+<p>
+Purtroppo però \(u\) non può in alcun modo sapere che conviene inviare il messagio a \(w\), in quanto conosce <span class="underline">solo il suo vicinato</span> e non quello di \(w\).
+Inoltre è stato anche dimostrato<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> con questo tipo di ricerca (nota come <b>ricerca decentralizzata</b>), non solo non c'è
+nessuna garanzia di trovare un cammino corto, ma mediamente i cammini trovati sono <i>molto</i> più lunghi dei cammini minimi che
+esistono tra mittente e destinatario.<br />
+</p>
+
+<p>
+Sostanzialmente il problema è che gli archi random della componente aleatoria sono "troppo" casuali per dare un supporto alla ricerca decentralizzata.
+Infatti in un contesto sociale reale, è molto poco probabile che due persone <i>totalmente a caso</i> entrino in contatto.
+È invece più probabile avere archi casuali tra persone più vicine fisicamente, anziché tra persone molto lontane.
+</p>
+
+<p>
+Quindi possiamo dire che questo modello non è navigabile, e quindi non rispecchia le caratteristiche volute.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf7e6e09" class="outline-3">
+<h3 id="orgf7e6e09"><span class="section-number-3">1.3</span> Un modello per la ricerca decentralizzata</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Vogliamo quindi definire un modello di generazione di reti sociali che in qualche modo consenta una ricerca decentralizzata
+di caminni che non siano troppo più lunghi dei cammini minimi.<br />
+</p>
+
+<p>
+Basandoci sull'osservazione precedentemente fatta che è poco probabile avere archi random <span class="underline">totalmente a caso</span>, possiamo
+definire un modello che aggiunge un parametro che controlla il <i>range di copertura</i> degli archi random<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>.<br />
+</p>
+
+<p>
+Più formalmente siano due nodi \(u,v\) con distanza \(d(u,v)\) nella <i>griglia deterministica</i> sottostante, e sia una costante
+\(c \geq 0\) detta <b>esponente di clustering</b>.
+Perciò la probabilità che nella componente aleatoria esista l'arco \((u,v)\) è proporzionale alla quantità \(d(u,v)^{-q}\).
+Il fattore di proporzionalità è invece pari alla quantità \(Z_u\), definita come
+\[
+   Z_u = \sum_{v \in V \setminus \lbrace v \rbrace} \frac{1}{d(u,v)^q}
+   \]
+</p>
+
+<p>
+Perciò dati due nodi \(u,v\), l'esistenza di arco random tra \(u\) e \(v\) è guidata da
+\[
+   \mathcal{P}( (u,v) \in E_2 ) = \frac{1}{Z_u} \cdot \frac{1}{d(u,v)^q}
+   \]
+dove chiamiamo per comodità \(E_2\) l'insieme di archi random.
 </p>
 
 <p>
@@ -430,12 +533,30 @@ Certamente ogni città avrà mediamente \(k\) archi random, e inoltre ogni coppi
 </div>
 </div>
 </div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+ovvero quando i nodi conoscono solamente il proprio vicinato.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+Klinberg, 2000.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+ovvero la distanza nella griglia deterministica sottostante tra le estremità dei random edges.
+</p></div></div>
+
+
 </div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-03 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-14 dom 21:57</p>
+<p class="date">Created: 2021-11-15 lun 17:42</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

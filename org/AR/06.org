@@ -91,6 +91,74 @@
    Consideriamo un nuovo modello simile a quello Watts-Strogatz, dove però solo un nodo su $k$ ha archi random, e il numero di archi random è pari a 1.
    Partizioniamo poi la rete in "*città*" di \(k \times k\) individui, e consideriamo il fenomeno small-world a livello di città.
    Certamente ogni città avrà mediamente $k$ archi random, e inoltre ogni coppia di nodi $u,v$ di una stessa città sarà connessa da un cammino breve di lunghezza /al più/ $2k$.
+   Venne dimostrato che per trovare un cammino relativamente corto tra due nodi $u,v$ di due città differenti, basta che
+   $u$ raggiunga un nodo $w$ nella stessa città (in al più $2k$) passi, e poi tramite pochi salti passare da dua città all'altra
+   fino ad arrivare alla città di $v$.\\
+
+   In conclusione, anche con un piccolo ammontare di casualità, il modello Watts-Strogatz cattura il fenomeno di "mondo piccolo".\\
+
+*** Navigabilità del modello Watts-Strogatz
+    Assodato che nel modello Watts-Strogatz esistono cammini relativamente corti tra i nodi della rete, quello che ci si chiede
+    è se tali cammini corti sono facilmente rintracciabili dai nodi, che conoscono solamente il loro vicinato e non la struttura dell'intera rete.\\
+
+    Supponiamo che un nodo $u$ deve mandare un messaggio a un nodo $v$ del quale conosce solamente le sue coordinate sulla griglia geometrica.7
+    Il nodo $u$ potrebbe mandare in broadcast il messaggio a tutti i suoi vicini (che sono 8 o 9), e chiedere a loro di inviare
+    il messaggio a tutti i loro vicini.
+    Questo metodo è noto come =Flooding= dei messaggi, ed è il metodo più veloce per raggiungere il nodo $v$ (in quanto equivale
+    ad una /visita in ampiezza/).
+    Il problema è che dopo $h$ salti, ci sarebbero circa $8^h$ messaggi in circolazione, oltre al fatto che sarebbe scortese
+    chiedere di inviare 8 messaggi ai propri vicini.\\
+
+    Vorremmo un modo per trovare un cammino non troppo lungo tra $u$ e $v$ in modo da trasmettere una sola copia del messaggio,
+    e non un numero esponenziale, un po' come fecero le persone che parteciparono all'esperimento di Milgram.\\
+
+    Purtroppo fare questo tipo di ricerca *miope*[fn:1] in un modello Watts-Strogatz non è possibile.
+    Per esempio il nodo $u$ potrebbe pensare di mandare il messaggio al suo vicino che più si avvicina alla destinazione $v$.
+    Questo però potrebbe non essere il modo miglio per raggiongere $v$.
+    Per esempio potrebbe esistere un nodo $w$ vicino di $u$ che si allontana di 1 rispetto a $v$ nella griglia deterministica,
+    ma che però è direttamente collegato a $v$ tramite la componente aleatoria.
+    
+    #+caption: Controesempio appena descritto
+    #+ATTR_HTML: :style max-width:450px; :width 100%
+    [[file:../images/ar-lesson06-img4.png]]
+
+    Purtroppo però $u$ non può in alcun modo sapere che conviene inviare il messagio a $w$, in quanto conosce _solo il suo vicinato_ e non quello di $w$.
+    Inoltre è stato anche dimostrato[fn:2] con questo tipo di ricerca (nota come *ricerca decentralizzata*), non solo non c'è
+    nessuna garanzia di trovare un cammino corto, ma mediamente i cammini trovati sono /molto/ più lunghi dei cammini minimi che
+    esistono tra mittente e destinatario.\\
+
+    Sostanzialmente il problema è che gli archi random della componente aleatoria sono "troppo" casuali per dare un supporto alla ricerca decentralizzata.
+    Infatti in un contesto sociale reale, è molto poco probabile che due persone /totalmente a caso/ entrino in contatto.
+    È invece più probabile avere archi casuali tra persone più vicine fisicamente, anziché tra persone molto lontane.
+    
+    Quindi possiamo dire che questo modello non è navigabile, e quindi non rispecchia le caratteristiche volute.
+   
+
+** Un modello per la ricerca decentralizzata
+   Vogliamo quindi definire un modello di generazione di reti sociali che in qualche modo consenta una ricerca decentralizzata
+   di caminni che non siano troppo più lunghi dei cammini minimi.\\
+
+   Basandoci sull'osservazione precedentemente fatta che è poco probabile avere archi random _totalmente a caso_, possiamo
+   definire un modello che aggiunge un parametro che controlla il /range di copertura/ degli archi random[fn:3].\\
+
+   Più formalmente siano due nodi $u,v$ con distanza $d(u,v)$ nella /griglia deterministica/ sottostante, e sia una costante
+   $c \geq 0$ detta *esponente di clustering*.
+   Perciò la probabilità che nella componente aleatoria esista l'arco $(u,v)$ è proporzionale alla quantità $d(u,v)^{-q}$.
+   Il fattore di proporzionalità è invece pari alla quantità $Z_u$, definita come
+   \[
+   Z_u = \sum_{v \in V \setminus \lbrace v \rbrace} \frac{1}{d(u,v)^q}
+   \]
+   
+   Perciò dati due nodi $u,v$, l'esistenza di arco random tra $u$ e $v$ è guidata da
+   \[
+   \mathcal{P}( (u,v) \in E_2 ) = \frac{1}{Z_u} \cdot \frac{1}{d(u,v)^q}
+   \]
+   dove chiamiamo per comodità $E_2$ l'insieme di archi random.
 
    *[da finire]*
-   
+
+
+    
+[fn:1] ovvero quando i nodi conoscono solamente il proprio vicinato.
+[fn:2] Klinberg, 2000.
+[fn:3] ovvero la distanza nella griglia deterministica sottostante tra le estremità dei random edges.
