@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-15 lun 17:42 -->
+<!-- 2021-11-15 lun 23:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 06</title>
@@ -282,7 +282,11 @@ for the JavaScript code in this tag.
 <li><a href="#org20af4cd">1.2.1. Navigabilità del modello Watts-Strogatz</a></li>
 </ul>
 </li>
-<li><a href="#orgf7e6e09">1.3. Un modello per la ricerca decentralizzata</a></li>
+<li><a href="#orgf7e6e09">1.3. Un modello per la ricerca decentralizzata</a>
+<ul>
+<li><a href="#org4d545d9">1.3.1. Prestazioni della ricerca miope (decentralizzata)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -446,7 +450,7 @@ Assodato che nel modello Watts-Strogatz esistono cammini relativamente corti tra
 </p>
 
 <p>
-Supponiamo che un nodo \(u\) deve mandare un messaggio a un nodo \(v\) del quale conosce solamente le sue coordinate sulla griglia geometrica.7
+Supponiamo che un nodo \(u\) deve mandare un messaggio a un nodo \(v\) del quale conosce solamente le sue coordinate sulla griglia geometrica.
 Il nodo \(u\) potrebbe mandare in broadcast il messaggio a tutti i suoi vicini (che sono 8 o 9), e chiedere a loro di inviare
 il messaggio a tutti i loro vicini.
 Questo metodo è noto come <code>Flooding</code> dei messaggi, ed è il metodo più veloce per raggiungere il nodo \(v\) (in quanto equivale
@@ -510,26 +514,138 @@ definire un modello che aggiunge un parametro che controlla il <i>range di coper
 </p>
 
 <p>
-Più formalmente siano due nodi \(u,v\) con distanza \(d(u,v)\) nella <i>griglia deterministica</i> sottostante, e sia una costante
+Più formalmente siano due nodi \(u,v\) con distanza \(d(u,v)\) nella <i>componente deterministica</i> sottostante, e sia una costante
 \(c \geq 0\) detta <b>esponente di clustering</b>.
-Perciò la probabilità che nella componente aleatoria esista l'arco \((u,v)\) è proporzionale alla quantità \(d(u,v)^{-q}\).
-Il fattore di proporzionalità è invece pari alla quantità \(Z_u\), definita come
+Perciò la probabilità che nella componente aleatoria esista l'arco \((u,v)\) è proporzionale alla quantità \(d(u,v)^{-q}\),
+più precisamente
+\[
+   \mathcal{P}( (u,v) \in E_2 ) = \frac{1}{Z_u} \cdot \frac{1}{d(u,v)^q}
+   \]
+dove chiamiamo per comodità \(E_2\) l'insieme di archi random, e \(Z_u\) è un <b>fattore di normalizzazione</b> definito come
 \[
    Z_u = \sum_{v \in V \setminus \lbrace v \rbrace} \frac{1}{d(u,v)^q}
    \]
 </p>
 
 <p>
-Perciò dati due nodi \(u,v\), l'esistenza di arco random tra \(u\) e \(v\) è guidata da
+Il fattore di normalizzazione è detto tale in quanto
 \[
-   \mathcal{P}( (u,v) \in E_2 ) = \frac{1}{Z_u} \cdot \frac{1}{d(u,v)^q}
+   \sum_{v \in V \setminus \lbrace v \rbrace} \mathcal{P}( (u,v) \in E_2 ) = 1
    \]
-dove chiamiamo per comodità \(E_2\) l'insieme di archi random.
 </p>
 
 <p>
-<b>[da finire]</b>
+Se consideriamo come componente deterministica una griglia <i>simmetrica e periodica</i> come nel modello Watts-Strogatz,
+allora il fattore di normalizzazione sarà un certo \(Z\) uguale per tutti i nodi.
+Questo in generale è vero per ogni componente deterministica completamente simmetrica.
+D'ora in poi si farà riferimento a modelli che presentano questo livello di simmetria.<br />
 </p>
+
+<p>
+Osserviamo che quando \(q=0\) gli archi random sono totalmente casuali, in quanto la probabilità che tale arco esista è uguale per tutti<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>,
+risultando quindi uguale al modello Watts-Strogatz.
+Quando invece la \(q\) è molto grande sostanzialmente la probabilità di trovare archi random molto lunghi diventa molto piccola,
+perciò la componente aleatoria diventa sempre più simile alla sola componente deterministica.
+Ricapitolando quando \(q\) è piccolo la casualità è tanta, quando \(q\) è grande la casualità è poca.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson06-img5.png" alt="ar-lesson06-img5.png" style="max-width:550px;" width="100%" />
+</p>
+</div>
+
+<p>
+Intuitivamente al variare di \(q\) esistono valori migliori e valori perggiori per la ricerca decentralizzata.
+Già sappiamo che per \(q=0\) il valore è pessimo.
+È possibile però dimostrare, che data una griglia \(d\)-dimensionale <b>wrapped</b><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>, allora il componente di
+clustering ottimale sarà esattamente \(q = d\).<br />
+</p>
+
+<p>
+Cerchiamo ora di dare una spiegazione intuitiva a questo fenomeno.
+Riconsideriamo nuovamente l'esperimento di Milgram, dove però abbiamo il mittente <code>A</code> che vive negli Stati Uniti mentre
+il destinatario <code>B</code> vive a Roma quartiere Garbatella.
+Certamente la prima cosa che farebbe <code>A</code> sarebbe quella di inviare la lettera qunatomeno ad una persona che vive in Europa.
+Anche se <code>A</code> non ha amici diretti in Europa a cui inviare la lettera, passandola ad altri amici negli USA troverà brevemente
+qualcuno che ha amici che vivono oltre oceano.
+Per semplicità assumiamo che <code>A</code> invii direttamente la lettera ad un suo amico <code>C</code> che vive a Mosca.
+A sua volta <code>C</code> cerca tra i suoi amici qualcuno che abiti almeno in Europa Occidentale.
+Da <code>C</code> la lettera passa a <code>D</code> che vive a Parigi.
+Per fortuna <code>D</code> ha un amico in Italia che però vive a Perugia, e quindi la lettera finisce in Umbira.
+<code>D</code> si ricorda di avere un lontano parente <code>E</code> nel Lazio, a cui invia la lettera.
+Dopodiché <code>E</code> invia la lettera ad un suo collega <code>F</code> che abita a Roma Centocelle, il quale a sua volta
+invierà la lettera a un amico <code>G</code> che abita a Garbatella.
+Di li, sicuramente in un numero non esagerato di passi la lettera arriva a <code>B</code>.<br />
+</p>
+
+<p>
+Come si può intuire, il processo di ricerca decentralizzata procede per <b>scale di risoluzione</b>.
+Infatti, anche se per pochi salti la lettera percorre relativamente poca distanza, presto farà un salto che riduce
+drasticamente la distanza con la destinazione.<br />
+</p>
+
+<p>
+<b>[aggiungere immagini]</b><br />
+</p>
+
+<p>
+Consideriamo una semplice griglia <span class="underline">bidimensionale</span> (con \(d = 2\)) wrapped, e partizioniamo i nodi in base alla distanza dal mittente \(u\).
+Più precisamente partizioniamo i nodi i gruppi in cui la distanza cresce esponenziale, ovvero i nodi da \(u\) tra 2 e 4, poi
+tra 4 e 8, tra 8 e 16, tra 16 e 32, &#x2026;, tra \(2^h\) e \(2^{h+1}\).
+Dato che i punti in una circonferenza crescono come il quadrato del raggio, avremo che i nodi nell'intervallo tra \(2^h\) e \(2^{h+1}\)
+sarà proporzionale a \(2^{2h}\).
+Infatti
+\[
+   \vert \lbrace x \in V \vert 2^h \leq d(u,x) < 2^{h+1} \rbrace \vert \approx (2^{h+1})^2\pi - (2^h)^2\pi = 4\pi 2^{2h} - \pi 2^{2h} = 3\pi 2^{2h} 
+   \]
+</p>
+
+<p>
+Consideriamo l'indice di clustering ottimo per la griglia bidimensionale, ovvero \(q=2\).
+Preso un nodo \(x\) nell'intervallo tra \(2^h\) e \(2^{h+1}\), la probabilità che esista un arco random tra \(u\) e \(x\) è proporzionale
+proprio \(2^{-2h}\), ovvero 1 diviso la distanza tra \(u\) e \(x\) che compresa tra \(2^h\) e \(2^{h+1}\), il tutto elevato a \(q\) che è pari a 2.<br />
+</p>
+
+<p>
+Assodato che la probabilità che \(u\) abbia un arco random con un nodo fissato \(x\) nell'intervallo \(2^h,2^{h+1}\) e proporzionale a \(2^{-2h}\),
+e sapendo che in tale blocco ci sono un numero di nodi proporzionale proprio a \(2^{2h}\), possiamo affermare che la probabilità
+che esista un arco random tra \(u\) e un nodo qualsiasi dell'intervallo \(2^h,2^{h+1}\) è una probabilità <b>costante</b>.
+Specifichiamo perché costante:
+Sia l'evento \(\mathcal{E}_x\) che occorre se esiste l'arco random tra \(u\) e il nodo \(x\) a distanza \(2^h \leq d(u,x) < 2^{h+1}\).
+Sappiamo che tale evento occore con probabilità
+\[
+   \mathcal{P}(\mathcal{E}_x) \propto d(u,x)^{-2} \propto 2^{-2h}
+   \]
+Sia quindi l'evento \(\mathcal{E}\) che occorre quando esiste un arco random che collega \(u\) all'intervallo desiderato.
+Tale probabilità sarà pari a
+</p>
+\begin{align*}
+\mathcal{P}(\mathcal{E})
+\textbf{(1)} &= \mathcal{P}(\bigcup_{x : 2^h \leq d(u,x) < 2^{h+1}} \mathcal{E}_x)\\
+&= \sum_{x : 2^h \leq d(u,x) < 2^{h+1}} \mathcal{P}(\mathcal{E}_x)\\
+&\approx |C_{2^{h+1}}(u) - C_{2^h}(u)| \cdot \mathcal{P}(\mathcal{E}_x)\\
+&= \alpha 2^{2h} \cdot \beta 2^{-2h}\\
+&= \gamma
+\end{align*}
+<p>
+per qualche costante \(\alpha, \beta, \gamma\).
+Specifichiamo che \(C_r(u)\) è il cerchio di raggio \(r\) centrato in \(u\), mentre l'uguaglianza <b>(1)</b> è deta dal fatto che tutti
+gli eventi del tipo \(\mathcal{E}_x\) sono mutuamente disgiunti.<br />
+</p>
+
+<p>
+L'ultimo risultato è molto forte, in quanto suggerisce che la probabilità che un arco random che parta da \(u\) consenta un salto
+di risoluzione è <b>indipendente</b> dalla risoluzione, che sia \(2^4\) o \(2^{100}\).
+Ciò implica che i weak ties sono distribuiti in maniera <b>uniforme</b> tra le risoluzioni, ammesso che poniamo \(q\) pari al valore
+ottimale \(d\).
+</p>
+</div>
+
+<div id="outline-container-org4d545d9" class="outline-4">
+<h4 id="org4d545d9"><span class="section-number-4">1.3.1</span> Prestazioni della ricerca miope (decentralizzata)</h4>
+<div class="outline-text-4" id="text-1-3-1">
+</div>
 </div>
 </div>
 </div>
@@ -549,6 +665,14 @@ Klinberg, 2000.
 ovvero la distanza nella griglia deterministica sottostante tra le estremità dei random edges.
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+probabilità uniforme.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+periodica.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -556,7 +680,7 @@ ovvero la distanza nella griglia deterministica sottostante tra le estremità de
 <p class="date">Data: 2021-11-03 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-15 lun 17:42</p>
+<p class="date">Created: 2021-11-15 lun 23:25</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
