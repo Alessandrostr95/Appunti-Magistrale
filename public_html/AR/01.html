@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-14 dom 21:57 -->
+<!-- 2021-11-15 lun 17:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 01</title>
@@ -274,19 +274,19 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6745d17">1. Analisi di Reti - definizione</a>
+<li><a href="#org2c945b9">1. Analisi di Reti - definizione</a>
 <ul>
-<li><a href="#org969d69c">1.1. Fenomeno di diffusione</a></li>
-<li><a href="#org101b211">1.2. Fenomeno di stabilità</a></li>
+<li><a href="#org28f8cb6">1.1. Fenomeno di diffusione</a></li>
+<li><a href="#org569c634">1.2. Fenomeno di stabilità</a></li>
 </ul>
 </li>
-<li><a href="#org0eed7be">2. Struttura di una Rete</a></li>
-<li><a href="#org0baf0e4">3. Rappresentazione di una rete</a>
+<li><a href="#orgb615a9f">2. Struttura di una Rete</a></li>
+<li><a href="#orgab6d848">3. Rappresentazione di una rete</a>
 <ul>
-<li><a href="#orgf2d57b3">3.1. Il modello Erdős–Rényi</a>
+<li><a href="#orgc94ec2a">3.1. Il modello Erdős–Rényi</a>
 <ul>
-<li><a href="#orgdce9f87">3.1.1. Componenti Giganti</a></li>
-<li><a href="#org6c5897e">3.1.2. Grado dei nodi</a></li>
+<li><a href="#org18f4547">3.1.1. Componenti Giganti</a></li>
+<li><a href="#org00dba88">3.1.2. Grado dei nodi</a></li>
 </ul>
 </li>
 </ul>
@@ -295,8 +295,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org6745d17" class="outline-2">
-<h2 id="org6745d17"><span class="section-number-2">1</span> Analisi di Reti - definizione</h2>
+<div id="outline-container-org2c945b9" class="outline-2">
+<h2 id="org2c945b9"><span class="section-number-2">1</span> Analisi di Reti - definizione</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Nel senso più ampio del termine, una <b>rete</b> è uno schema di <i>interconnessioni</i> tra entità.
@@ -304,18 +304,18 @@ A seconda del tipo di entità e di interconnessioni, possono esistere diverse ti
 </p>
 <ul class="org-ul">
 <li>reti di calcolatori che interagiscono tra di loro per eseguire task di computazione distribuita</li>
-<li>le reti sociali, come per esmpio una rete di conoscenza di un social network</li>
+<li>le reti sociali, come per esempio una rete di conoscenza di un social network</li>
 <li>le reti di informazioni, ovvero il <i>web</i></li>
 <li>&#x2026;</li>
 </ul>
 <p>
 Lo studio di una rete po' interessare ed essere affrontato da differenti discipline: nella matematica/informatica
-studiando i modelli che le rappresentano e gli algoritmi che le coinvolgono, nelll'economia studiando le dinamiche
-di incentivo/disincentivo che influenzano il comportamento delle entità, o anche nelle scienze sociali per quanto riguarda i fenomi che influenzano
+studiando i modelli che le rappresentano e gli algoritmi che le coinvolgono, nell'economia studiando le dinamiche
+di incentivo/disincentivo che influenzano il comportamento delle entità, o anche nelle scienze sociali per quanto riguarda i fenomeni che influenzano
 i singoli individui o l'intera popolazione.
 Sostanzialmente, il modo in cui ci interesserà osservare una rete è come un ampio insieme di individui che reagisce in base al
 comportamento dei singoli.
-Quindi ci interesserà osservare come il comportamento locale di una entità influenza i fenomi globali dell'intera rete.<br />
+Quindi ci interesserà osservare come il comportamento locale di una entità influenza i fenomeni globali dell'intera rete.<br />
 </p>
 
 <p>
@@ -325,34 +325,34 @@ Alcuni aspetti strutturali che sono interessanti di analizzare sono:
 </p>
 </div>
 
-<div id="outline-container-org969d69c" class="outline-3">
-<h3 id="org969d69c"><span class="section-number-3">1.1</span> Fenomeno di diffusione</h3>
+<div id="outline-container-org28f8cb6" class="outline-3">
+<h3 id="org28f8cb6"><span class="section-number-3">1.1</span> Fenomeno di diffusione</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 In questo esempio verrà mostrato come i legami influiscono sul comportamento dei singoli individui.
 Supponiamo di giocare a una variante probabilistica del gioco del telefono in cui siamo disposti tutti in cerchio, e un volta
 ricevuto il messaggio lo passo solo se lanciando una moneta esce testa.
-La moneta è la stessa per tutti, però è <b>non</b> equa, ovvero esce testa con probabilità \(p = 0.6\) e corce con probabilità \(1-p = 0.4\).
+La moneta è la stessa per tutti, però è <b>non</b> equa, ovvero esce testa con probabilità \(p = 0.6\) e croce con probabilità \(1-p = 0.4\).
 Se il cerchio è molto grande, è davvero molto poco probabile che il messaggio arrivi a un numero elevato di persone.
-Se invece per ogni persona nel cerchio associassimo un terzo "vicino" totlmente a caso a cui poter trasmettere il messaggio, succederà
+Se invece per ogni persona nel cerchio associassimo un terzo "vicino" totalmente a caso a cui poter trasmettere il messaggio, succederà
 che <i>molto probabilmente</i> il messaggio arriverà a una grossa porzione di persone in poco tempo.<br />
 </p>
 
 <p>
-Questo esempio può essere paraganato al fenome della diffusione di un'infezione, in cui la probabilità di infettare un vicino non infetto (o
+Questo esempio può essere paragonato al fenomeno della diffusione di un'infezione, in cui la probabilità di infettare un vicino non infetto (o
 che non è stato infettato in precedenza) è \(p\) (vedi <a href="https://arxiv.org/abs/2103.16398">qui</a>).
 </p>
 </div>
 </div>
 
-<div id="outline-container-org101b211" class="outline-3">
-<h3 id="org101b211"><span class="section-number-3">1.2</span> Fenomeno di stabilità</h3>
+<div id="outline-container-org569c634" class="outline-3">
+<h3 id="org569c634"><span class="section-number-3">1.2</span> Fenomeno di stabilità</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-Un classico esempio in cui invece la presenza di legami influsce sulla struttura della rete è il seguente:
+Un classico esempio in cui invece la presenza di legami influisce sulla struttura della rete è il seguente:
 consideriamo di avere una rete sociale in cui <i>Bob</i> è amico di <i>Alice</i> e di <i>Carol</i>, ma <i>Alice</i> e <i>Carol</i>
-non si sopportano (perchè entrambe segretamente innamorate di <i>Bob</i>).
-Questa rete è detta <b>instabile</b>, in quanto per <i>Bob</i> sarà difficle uscire con entrambe.
+non si sopportano (perché entrambe segretamente innamorate di <i>Bob</i>).
+Questa rete è detta <b>instabile</b>, in quanto per <i>Bob</i> sarà difficile uscire con entrambe.
 Dovendo scegliere per forza una delle due con la quale passare più tempo, necessariamente il legame con l'altra
 tenderà a rompersi, rendendo così la rete più stabile.
 (Proprio non vorrei essere nei panni di <i>Bob</i>&#x2026;).
@@ -365,39 +365,39 @@ tenderà a rompersi, rendendo così la rete più stabile.
 </div>
 
 
-<div id="outline-container-org0eed7be" class="outline-2">
-<h2 id="org0eed7be"><span class="section-number-2">2</span> Struttura di una Rete</h2>
+<div id="outline-container-orgb615a9f" class="outline-2">
+<h2 id="orgb615a9f"><span class="section-number-2">2</span> Struttura di una Rete</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-Generalmente si è interessati a studiare reti di deminsioni enormi, perciò diventa estremamente complicato studiare ed analizzare
+Generalmente si è interessati a studiare reti di dimensioni enormi, perciò diventa estremamente complicato studiare ed analizzare
 ciò che accade ad ogni singolo individuo.
 Infatti ciò che si studia sono delle <b>proprietà globali</b> della rete.
-Esempi di proprietà globali interesanti sono
+Esempi di proprietà globali interessanti sono
 </p>
 
 <ol class="org-ol">
 <li>esistenza di <b>componenti giganti</b>, ovvero se in un rete esiste una <a href="https://en.wikipedia.org/wiki/Strongly_connected_component">componente fortemente connessa</a> molto grande (ovvero paragonabile alla grandezza della rete stessa).
 Un esperimento famoso a riguardo fu quello del 2006 condotto da <i>Leskovec &amp; Horvitz</i> in cui presero i dati (in maniera anonima?) delle
 comunicazioni fatte in un mese da 240 milioni di utenti di Instant Messenger.
-Su questi dati costruirono un grafo in cui i nodi erano i 240M di utenti, e inseririono un arco tra due nodi se i rispettivi utenti si
+Su questi dati costruirono un grafo in cui i nodi erano i 240M di utenti, e inserirono un arco tra due nodi se i rispettivi utenti si
 scambiarono almeno un messaggio in quel mese.
 Risultò fuori l'esistenza di una componente fortemente connessa di circa 200 milioni di utenti.</li>
-<li>presenza di componenti (o porzioni di esse) <b>densamente connesse</b> (ovverro con un elevato numero di connessioni)</li>
+<li>presenza di componenti (o porzioni di esse) <b>densamente connesse</b> (ovvero con un elevato numero di connessioni)</li>
 <li>verificare se la struttura della rete è di tipo <b>centro/periferica</b></li>
 <li>verificare se la rete ha un <b>diametro</b> piccolo nonostante sia poco denso.</li>
 </ol>
 
 <p>
-Riguardo quest'ultimo punto è di dovere citare il famoso esperimento dello psicologo Stanley Milgram sui <i>"6 gradi di separazion"</i>.
+Riguardo quest'ultimo punto è di dovere citare il famoso esperimento dello psicologo Stanley Milgram sui <i>"6 gradi di separazione"</i>.
 In pratica supponiamo di avere una lettera di volerla recapitare al presidente degli stati uniti.
 Sappiamo esattamente a chi farla arrivare, ma non come.
 Supponiamo di dare la lettera in mano al nostro conoscente che secondo noi è più probabile che la faccia arrivare al presidente, e
 diciamogli di fare lo stesso.
-Mediamente, tramite solo 5 intermediari, lattera arriverà al presidente Joe Biden.<br />
+Mediamente, tramite solo 5 intermediari, la lettera arriverà al presidente Joe Biden.<br />
 </p>
 
 <p>
-Lo studio di queste prorietà globali sarà fatto sia a <i>livello di popolazione</i>, ovvero considerando mediamente ciò che succede agli
+Lo studio di queste proprietà globali sarà fatto sia a <i>livello di popolazione</i>, ovvero considerando mediamente ciò che succede agli
 individui, sia a <i>livello di singolo individui</i>, andando a considerare la topologia della rete (relazione per relazione).
 </p>
 
@@ -406,41 +406,41 @@ individui, sia a <i>livello di singolo individui</i>, andando a considerare la t
 </div>
 
 
-<div id="outline-container-org0baf0e4" class="outline-2">
-<h2 id="org0baf0e4"><span class="section-number-2">3</span> Rappresentazione di una rete</h2>
+<div id="outline-container-orgab6d848" class="outline-2">
+<h2 id="orgab6d848"><span class="section-number-2">3</span> Rappresentazione di una rete</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Come si è poptuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
+Come si è potuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
 matematico di <i>Grafo</i>.
 Si assume che i concetti e le definizioni base della teoria dei grafi siano ben note al lettore (se così non fosse,
 questi appunti non fanno per te&#x2026; e nemmeno questo corso!).<br />
 </p>
 
 <p>
-Supponiamo quendi di riuscire ad avere le informazioni di una rete reale (cosa che all'atto pratico non accade molto spesso),
-si potrebbe modellizzare semplicemente associando un nodo ad ogni entità della rete, e un arco per ogni interconnessione (facile no?).
-Fatto ciò si può "tranquillamente" procedere con l'analisi, alla ricerca di tutte le proprietà viste nella precedente <a href="#orgfc81629">sezione</a>.<br />
+Supponiamo quindi di riuscire ad avere le informazioni di una rete reale (cosa che all'atto pratico non accade molto spesso),
+si potrebbe modellare semplicemente associando un nodo ad ogni entità della rete, e un arco per ogni interconnessione (facile no?).
+Fatto ciò si può "tranquillamente" procedere con l'analisi, alla ricerca di tutte le proprietà viste nella precedente <a href="#org9d719b4">sezione</a>.<br />
 </p>
 
 <p>
-Però, ammettendo pure di avere a disposizione questi dati, è difficle essere interessati a studiare le proprietà di una singola
+Però, ammettendo pure di avere a disposizione questi dati, è difficile essere interessati a studiare le proprietà di una singola
 rete.
-Generlamente si è interessati a sapere proprietà <b>generali</b>, come per esempio qual è il diametro medio di una rete espresso in funzione
+Generalmente si è interessati a sapere proprietà <b>generali</b>, come per esempio qual è il diametro medio di una rete espresso in funzione
 del numero delle sue entità, oppure dato il grado medio dei nodi quanto sono grandi (mediamente) le componenti connesse.<br />
 Per fare ciò bisognerebbe osservare un gran numero di reti!
 E in un contesto reale non si hanno così tante informazioni; un po' perché generalmente chi è in possesso di questi dati così
-preziosi difficilmente li condivide col mondo, un po' perchè di reti reali non ne esistono abbastanza da poter consentire di
+preziosi difficilmente li condivide col mondo, un po' perché di reti reali non ne esistono abbastanza da poter consentire di
 fare un'analisi statistica.<br />
 Perciò quello che si fa generalmente è <i>inventare</i> nuovi modelli di grafi che rispecchino il più possibile le proprietà che una
 rete reale possiede.
-Ovviemente non è possibile creare un medo che abbia <b>tutte</b> le proprietà di una rete reale, per via del grado di complissità delle ultime.
-Però in base al fenome che si desidera studiare, esistono dei modelli che presentano alcune proprietà abbastanza utili ai fini analitici.<br />
+Ovviamente non è possibile creare un modo che abbia <b>tutte</b> le proprietà di una rete reale, per via del grado di complessità delle ultime.
+Però in base al fenomeno che si desidera studiare, esistono dei modelli che presentano alcune proprietà abbastanza utili ai fini analitici.<br />
 Perciò, una volta creato un modello, si possono <b>campionare</b> (o <b>istanziare</b>) quanti grafi si necessita.
 </p>
 </div>
 
-<div id="outline-container-orgf2d57b3" class="outline-3">
-<h3 id="orgf2d57b3"><span class="section-number-3">3.1</span> Il modello Erdős–Rényi</h3>
+<div id="outline-container-orgc94ec2a" class="outline-3">
+<h3 id="orgc94ec2a"><span class="section-number-3">3.1</span> Il modello Erdős–Rényi</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Uno dei modelli più semplici e classici della letteratura è il cosiddetto <i>modello Erdős–Rényi</i>, noto anche come <i>Erdős–Rényi random graph</i>.
@@ -462,8 +462,8 @@ di <i>distribuzione Erdős–Rényi</i>.<br />
 </p>
 </div>
 
-<div id="outline-container-orgdce9f87" class="outline-4">
-<h4 id="orgdce9f87"><span class="section-number-4">3.1.1</span> Componenti Giganti</h4>
+<div id="outline-container-org18f4547" class="outline-4">
+<h4 id="org18f4547"><span class="section-number-4">3.1.1</span> Componenti Giganti</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 Una definizione più precisa di <i>componente gigante</i> equivale a una <i>componente connessa</i> grande una <b>frazione costante</b> dei nodi del grafo.
@@ -486,7 +486,7 @@ Per alta probabilità si intende con probabilità dell'ordine di <span class="un
 </p>
 
 <p>
-Da cui quindi il seugente teorema:
+Da cui quindi il seguente teorema:
 </p>
 
 <blockquote>
@@ -539,7 +539,7 @@ Seguono quindi le condizioni del lemma
 <li>\(|A| \geq \frac{n}{4}\) per costruzione</li>
 <li>\(|A| = \underbrace{|C_1| + |C_2| + ... + |C_{k-1}|}_{ < n/4 } + \underbrace{|C_k|}_{< n/2} < \frac{n}{4} + \frac{n}{2} = \frac{3}{4}n\)</li>
 <li>Non ci possono essere archi nel taglio \((A,\left[ n \right] \setminus A)\), in quanto i due insiemi sono composti da componenti connesse.
-Infatti se esistesse un arco nel taglio, i due estremi apperterrebbero a due componenti connesse \(C_i, C_j\) distinte,
+Infatti se esistesse un arco nel taglio, i due estremi apparterrebbero a due componenti connesse \(C_i, C_j\) distinte,
 ma ciò significherebbe che \(C_i \cup C_j\) è a sua volta una componente connessa (<b>assurdo!</b>).  \(\square\)</li>
 </ul>
 </blockquote>
@@ -554,7 +554,7 @@ In questo caso gli eventi corrispondono \(\mathcal{E_1}\) = "\(X < n/2\)" e \(\m
 
 <blockquote>
 <p>
-<b>Proof (THM)</b> Si deisdera calcolare \(\mathcal{P}\left( X < \frac{n}{2} \right)\), ovvero il complementare della probabilità che si
+<b>Proof (THM)</b> Si desidera calcolare \(\mathcal{P}\left( X < \frac{n}{2} \right)\), ovvero il complementare della probabilità che si
 desidera dimostrare.<br />
 </p>
 
@@ -610,8 +610,8 @@ Questo verrà mostrato nella seguente sezione.
 </div>
 
 
-<div id="outline-container-org6c5897e" class="outline-4">
-<h4 id="org6c5897e"><span class="section-number-4">3.1.2</span> Grado dei nodi</h4>
+<div id="outline-container-org00dba88" class="outline-4">
+<h4 id="org00dba88"><span class="section-number-4">3.1.2</span> Grado dei nodi</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Dato un grafo <i>Erdős–Rényi</i> \(G_{n,p}\), definiamo col simbolo \(\delta_i\) la <i>variabile aleatoria</i> che esprime il <b>grado</b> del nodo \(i\).
@@ -634,7 +634,7 @@ Ovviamente è inverosimile che in una rete di un social network composta da cent
 </p>
 
 <p>
-Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che \(p\) sia una funzione di \(n\), e che magari <i>descresca</i> in maniera
+Perciò, per modellare una rete che sia più verosimile, si potrebbe volere che \(p\) sia una funzione di \(n\), e che magari <i>decresca</i> in maniera
 inversamente proporzionale, del tipo
 \[ p = p(n) = \frac{ \lambda }{n} \]
 Scegliendo \(p\) in questa maniera, avremo che il grado medio di un nodo sarà pari alla <b>costante</b> \(\lambda\), indipendentemente dalla dimensione della rete.<br />
@@ -651,7 +651,7 @@ Questo perché:
 </p>
 <ol class="org-ol">
 <li>\(\binom{n-1}{k}\) è il numero di tutte le possibili $k$-uple di nodi in \(\left[ n \right] \setminus \lbrace i \rbrace\).</li>
-<li>\(p^k\) è la probabilità che eistano gli archi tra \(i\) e i nodi di una \(k\) -upla.</li>
+<li>\(p^k\) è la probabilità che esistano gli archi tra \(i\) e i nodi di una \(k\) -upla.</li>
 <li>\(\left( 1-p \right)^{(n-1) - k}\) è la probabilità che non esista nessun altro arco (ne vogliamo solo \(k\)).</li>
 </ol>
 
@@ -706,7 +706,7 @@ con valore atteso
     = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
     \]
 Perciò, in un grafo <i>Erdős–Rényi</i> \(G_{n,p}\) con grado medio constante, ovvero con parametro \(p = \frac{\lambda}{n}\),
-il numero di nodi di grado esattamente \(k\) descrese esponenzialmente in \(k\) (come \(k^{-k}\)).
+il numero di nodi di grado esattamente \(k\) decresce esponenzialmente in \(k\) (come \(k^{-k}\)).
 </p>
 
 <hr>
@@ -719,7 +719,7 @@ il numero di nodi di grado esattamente \(k\) descrese esponenzialmente in \(k\) 
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-14 dom 21:57</p>
+<p class="date">Created: 2021-11-15 lun 17:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
