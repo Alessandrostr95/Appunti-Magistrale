@@ -184,6 +184,39 @@
     un messaggio se lo si codifica in binario sarà \(\log_2{(id(x) + n)}\), con una complessità globalde di $\Theta(n^2\log{(id(x) + n)})$.
 
 ** =As Far (as it can)= protocol
-   *[da finire]*
+   Un'idea per ottimizzare il processo di ricerca dell'etichetta minima è quella che non è necessario inoltrare una etichetta che so già che non potra essere minima.
+   Perciò quando un nodo $x$ riceve un'etichetta che è /maggiore/ di quella che $x$ momentaneamente ritiene minima, semplicemente non la inoltrerà.
+   Un'etichetta viaggia in avanti /più a lungo che può/ (/as far as it can/) e non /in ogno caso/ (/all the way/).\\
+
+   Certamente il nodo con etichetta minima sarà l'unico a veder ricevere dal lato opposto la propria etichetta, perciò potrà terminare /localmente/ il suo compito.
+   Il problema è: come faranno gli altri a poter ritenere il task completo?
+   Semplice, il nodo che alla fine potrà stabilire di essere quello con etichetta minima dovrà _necessariamente_ notificare (in broadcast) gli altri nodi.
+   Osservare che il costo aggiuntivo in bit complexity non è eccessivo, in quanto tutti i nodi certamente convergeranno su una singola etichetta minima, e quindi
+   basterà _un solo bit_ per terminare il task.\\
+
+*** Message complexity
+    Il caso peggiore in termini di message complexity è quando le etichette seguono un ordine crescente di valori nel senso in cui il messaggio viene inoltrato.
+
+    #+caption: Situazione peggiore nel caso in cui i messaggi girino in senso orario.
+    #+ATTR_HTML: :style max-width:250px; width:100%
+    [[file:../images/adrc-lesson08-img2.png]]
+
+    Nel caso peggio inizierà il protocollo il nodo con etichetta $n$, ma il suo messaggio verrà bloccato da nodo 1.
+    Dopodichè si attiva in nodo $n-1$, la cui etichetta verrà bloccata dopo 2 passi sempre dal nodo 1.
+    E così via fino nodo 2 la cui etichetta farà quasi un giro completo dell'anello fino a bloccarsi sempre al nodo 1.
+    Infine si sveglia il nodo 1 la cui etichetta farà il giro completo dell'anello, scatenando così il broadcast di notifica di fine protocollo.\\
+
+    La messagge complexity in questa situazione critica sarà
+    \[
+    MSG(\texttt{as-far}) \leq  n + \sum_{i = 1}^{n} i = n + \frac{n(n-1)}{2}
+    \]
+
+    Questo complessità non è asintoticamente migliore rispetto a quella del protocollo =all-the-way=.\\
+
+    Banalmente invece il caso migliore è quando il nodo con etichetta minima inizia il protocollo per primo e la sua etichetta riesce a fare il giro
+    prima che le altre vengano inoltrete.\\
+
+    Ricapitolando la complessità temporale del protocollo ha un /upper-bound/ di \(O(n^2)\) e un /lower-bound/ di \(O(n)\).
+    
     
 [fn:1] il modulo è necessario perché il nodo a destra di $x_n$ non può essere $x_{n+1}$ in quanto non esiste, ma deve essere $x_1$.
