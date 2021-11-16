@@ -241,9 +241,238 @@
    ottimale $d$.
 
 *** Prestazioni della ricerca miope (decentralizzata)
+    Nella precedente sezione abbiamo dato un'idea intuitiva del perché una distribuzione inversamente quadratica dei weak ties rispetto
+    alle distanze rende la ricerca decentralizzata possibile.\\
     
+    Per semplicità verrà fatta un'analisi rigorosa (e non intuitiva) di questo fenomeno su una griglia 1-dimensionale, ovvero un /anello/.
+    
+    #+caption: Anello con random links.
+    #+ATTR_HTML: :style max-width:300px; :width 100%
+    [[file:../images/ar-lesson06-img6.png]]
+    
+    All'interno dell'anello ogni nodo $v$ ha esattamente 2 vicini, detti *contatti locali* (o *local links*), e nella compontente aleatoria da ogni nodo
+    $v$ parte un arco diretto casuale $(v,w)$, detto *contatto a lunga distanza* (o *long-range link*), che esiste con probabilità $d(v,w)^{-1}$.\\
+
+    Ricordiamo che la *ricerca miope* consiste essenzialmente nel passare il messaggio al nodo vicino che più si avvicina al destinatario.
+    Considerando la precedente figura, supponiamo che il nodo =a= voglia inviare il messaggio al nodo =i= dalla parte opposta dell'anello.
+    Tra i suoi vicini ci sono =b= e =p= collegati da /local links/ e il nodo =d= collegato da un /long-range link/.
+    Tra i tre, il più vicino a =i= è il nodo =d=, e quindi =a= gli passa il messaggio.
+    Dopodiché =d= passa il nodo a =e= che è il suo vicino più prossimo alla destinazione, che a sua volta invia il messaggio al nodo =f= (per gli stessi ragionamenti fatti fin ora).
+    Infine =f= inoltra il messaggio attraverso il un /long-range link/ al nodo =h=, che è recapita il messaggio al destinatario in quanto suo
+    diretto vicino.\\
+
+    #+caption: Risultato della ricera miope da a ad i
+    #+ATTR_HTML: :style max-width:300px; :width 100%
+    [[file:../images/ar-lesson06-img7.png]]
+
+    Ovviamente questo non è un cammino minimo, per esempio se =a= avesse inviato il messaggio a =b= anziché a =d=, esso sarebbe arrivato
+    a destinazione in soli 3 passi.
+    Però sappiamo che =a= non ha alcuna informazione oltre alla visione del suo vicinato, e il cammino risultate dalla ricerca miope
+    è abbastanza corto da essere un risultato più che accettabile con le poche informazioni a disposizione.\\
+
+    Scelti una mittente $s$ e un destinatario $t$ a caso, definiamo la v.a. $X$ come il la lunghezza di un cammino da $s$ a $t$ risultante
+    dalla ricerca miope, e sia $\mathbb{E}\left[ X \right]$ la lunghezza _media_ di tali cammini.\\
+    Considerando una ricerca miope da $s$ a $t$, diremo che essa si trova della fase $j$ se il messaggio si trova ad una distanza
+    compresa tra $2^j$ e $2^{j+1}$ dal destinatario.
+    
+    #+ATTR_HTML: :style max-width:300px; :width 100%
+    [[file:../images/ar-lesson06-img8.png]]
    
+    Osserviamo che le fasi possono essere al più $\log_{2}{n}$.\\
+
+    Possiamo scrivere $X$ come la somma delle v.a. $X_1, X_2, ..., X_{log{n}}$ dove $X_i$ è la lunghezza complessiva del cammino lungo
+    la fase $i$
+    \[
+    X = X_1 + X_2 + ... + X_{log{n}}
+    \]
+    Per linearità avremo che
+    \[
+    \mathbb{E}\left[ X \right] = \mathbb{E}\left[ X_1 + X_2 + ... + X_{log{n}} \right] = \mathbb{E}\left[ X_1 \right] +  \mathbb{E}\left[ X_2 \right] + ... +  \mathbb{E}\left[ X_{log{n}} \right]
+    \]
+
+    Di seguito il temoremo che stima $\mathbb{E}\left[ X \right]$ \\
+
+    *THM* Sia $\mathbb{E}\left[ X \right]$ la lunghezza media dei cammini risultati dalla ricerca miope tra una qualsiasi coppia di nodi, allora
+    \[
+    \mathbb{E}\left[ X \right] \in O(\log^2{n})
+    \]
+
+    Per dimostrare il precedente teorema basta dimostrare che \(\mathbb{E}\left[ X_i \right] \in O(\log{n})\), per ogni fase $i$.
+    Prima di procedere alla dimostrazione del teorema però è necessario fare alcune considerazioni sul fattore di normalizzazione $Z$ del modello.
     
+    Sappiamo che $Z$ è pari alla somma di tutti i $d(u,v)^{-1}$ per ogni $u \neq v$.
+    Però sappiamo che in un anello ci sono esattamente 2 nodi a distanza 1 da $u$, 2 a distanza 2, 2 a distanza 3, ..., 2 a distanza $n/2$ (assumendo senza perdita di generalità che $n$ sia pari).
+    Perciò avremo che
+    \[
+    Z = 2\left( 1 + \frac{1}{2} + \frac{1}{3} + ... + \frac{1}{n/2} \right)
+    \]
+    Sappiamo inoltre approssimmare la sommatoria in parentesi come
+    \[
+    1 + \frac{1}{2} + \frac{1}{3} + ... + \frac{1}{n/2} \leq 1 + \int_{1}^{n/2} \frac{1}{x} \,dx =  1 + \ln{(n/2)}
+    \]
+    Tornando a $Z$ avremo che
+    \begin{align*}
+    Z &\leq 2(1 + \ln{(n/2)})\\
+    &\leq 2(1 + \log_2{(n/2)})\\
+    &= 2 + 2\log_2{(n/2)}\\
+    &= 2 + 2\log_2{(n)} - 2\log_2{(2)} = 2\log_2{(n)}
+    \end{align*}
+
+    Perciò la probabilità che esista un random edge tra $u$ e $v$ sarè
+    \[
+    \mathcal{P}((u,v) \in E_2) = \frac{1}{Z}d(u,v)^{-1} \geq  \frac{1}{2\log{n}}d(u,v)^{-1}
+    \]
+    Procediamo ora alla dimsotrazione del teorema
+
+    *Proof THM:* 
+    Siano i nodi $s,t$ rispettivamente il nodo /mittente/ e il nodo /destinatario/.
+    Abbiamo partizionato i nodi in base a distanze dalla sorgente $t$ che si _dimezzano_, ovvero abbiamo definito
+    la fase $j$ in cui il messaggio appartiene a un nodo $u$ con distanza
+    \[
+    \frac{d(s,t)}{2^{j+1}} \leq d(u,t) < \frac{d(s,t)}{2^j}
+    \]
+    Certamente è vero che se esiste un arco $(u,v)$ tale che
+    \[
+    d(v,t) \leq \frac{d(u,t)}{2} < \frac{1}{2}\frac{d(s,t)}{2^j} = \frac{d(s,t)}{2^{j+1}}
+    \]
+    allora la fase $j$ termina.\\
+
+    Abbiamo quindi un limite inferiore alla probabilità che la fase $j$ termini
+    \begin{align*}
+      \mathcal{P}(\mbox{la fase } j \mbox{ termina})
+      &= \mathcal{P}(\exists (u,v) \in E : d(v,t) < \frac{d(s,t)}{2^{j+1}})\\
+      &\geq \mathcal{P}(\exists (u,v) \in E : d(v,t) \leq \frac{d(u,t)}{2})
+    \end{align*}
+
+    Definiamo ora con $I$ l'insieme di tutti i nodi a distanza da $t$ non più di $\frac{d(u,t)}{2}$, ovvero
+    \[
+    I \equiv \lbrace x \in V : d(x,t) \leq \frac{d(u,t)}{2} \rbrace
+    \]
+    
+    Ricordando che $E_1$ è l'insieme di archi della componente deterministica ed $E_2$ gli archi di quella aleatoria, avremo quindi che
+    \begin{align*}
+      \mathcal{P}(\exists (u,v) \in E : d(v,t) \leq \frac{d(u,t)}{2})
+      &= \mathcal{P}(\exists v \in I : (u,v) \in E)\\
+      &= \mathcal{P}(\exists v \in I : (u,v) \in E_1 \cup (u,v) \in E_2)\\
+      &= \sum_{v \in I} \mathcal{P}((u,v) \in E_1 \cup (u,v) \in E_2)\\
+      &= \sum_{v \in I} \mathcal{P}((u,v) \in E_1) + \mathcal{P}((u,v) \in E_2)\\
+      &\geq \sum_{v \in I} \mathcal{P}((u,v) \in E_2) = \sum_{v \in I} \frac{1}{Z}\frac{1}{d(u,v)}
+    \end{align*}
+
+    Diamo ora una stima alla distanza $d(u,v)$.
+    Certamente $u$ può raggiungere $v$ tramite un cammino del tipo $u \leadsto t \leadsto v$, e questo cammino sarà
+    lungo *almeno* $d(u,v)$
+    \[
+    d(u,v) \leq d(u,t) + d(t,v) = d(u,t) + d(v,t) \leq d(u,t) + \frac{d(u,t)}{2} = \frac{3d(u,t)}{2}
+    \]
+    perciò, per ogni $v \in I$ avremo che
+    \begin{align*}
+      \sum_{v \in I} \mathcal{P}((u,v) \in E_2)
+      &= \sum_{v \in I} \frac{1}{Z}\frac{1}{d(u,v)}\\
+      &\geq \sum_{v \in I} \frac{1}{Z}\frac{2}{3d(u,t)}\\
+      (Z \leq 2\ln{n}) &\geq \sum_{v \in I} \frac{1}{2\ln{n}}\frac{2}{3d(u,t)}\\
+      &= \sum_{v \in I} \frac{1}{3d(u,t)\ln{n}}\\
+      &= \frac{|I|}{3d(u,t)\ln{n}}
+    \end{align*}
+
+    Ora dobbiamo stimare $|I|$.
+    Sappiamo che in $I$ ci sono tutti quei nodi a distanza al più $d(u,t)/2$, che siano dal lato destro o sinistro.
+    Per definizione dobbiamo contare anche $t$, in quanto $d(t,t) = 0 \leq d(u,t)/2$.
+    Avremo quindi
+    \[
+    \vert I \vert = \lfloor \frac{d(u,t)}{2} \rfloor + \lfloor \frac{d(u,t)}{2} \rfloor + 1 \geq \frac{d(u,t)-1}{2} + \frac{d(u,t)-1}{2} + 1 = \frac{d(u,t)}{2}
+    \]
+    perciò
+    \[
+    \sum_{v \in I} \mathcal{P}((u,v) \in E_2) \geq \frac{d(u,t)}{3d(u,t)\ln{n}} = \frac{1}{3\ln{n}}
+    \]
+
+    Perciò l'evento complementare, ovvero l'evento che la fase $j$ non termina se siamo nel nodo $u$ è pari a \(1 -  \frac{1}{3\ln{n}}\).
+    Possiamo ora ricavare la probabilità che la fase $j$ non termini entro $h$ passi come segue
+    \[
+    \mathcal{P}(X_j \geq h) \leq \left( 1 -  \frac{1}{3\ln{n}} \right)^h
+    \]
+
+    Per conculdere non resta che calcolare $\mathbf{E}\left[ X_j \right]$.
+    Iniziamo col comporre tale fattore in una sommatoria
+    \begin{align*}
+      \mathbf{E}\left[ X_j \right]
+      &= 1 \cdot \mathbf{P}( X_j = 1 ) + 2 \cdot \mathbf{P}( X_j = 2 ) +  3 \cdot \mathbf{P}( X_j = 3 ) + ... + \frac{n}{2} \cdot \mathbf{P}( X_j = \frac{n}{2} )\\
+      &= \mathbf{P}( X_j \geq 1 ) + 1 \cdot \mathbf{P}( X_j = 2 ) +  2 \cdot \mathbf{P}( X_j = 3 ) + ... + \left(\frac{n}{2} - 1 \right) \cdot \mathbf{P}( X_j = \frac{n}{2} )\\
+      &= \mathbf{P}( X_j \geq 1 ) + \mathbf{P}( X_j \geq 2 ) +  1 \cdot \mathbf{P}( X_j = 3 ) + ... + \left(\frac{n}{2} - 2 \right) \cdot \mathbf{P}( X_j = \frac{n}{2} )\\
+      &\vdots\\
+      &= \mathbf{P}( X_j \geq 1 ) + \mathbf{P}( X_j \geq 2 ) + \mathbf{P}( X_j \geq 3 ) + ... + \mathbf{P}( X_j \geq \frac{n}{2} )\\
+      &= \sum_{1 \leq h \leq n/2} \mathbf{P}( X_j \geq h )
+    \end{align*}
+    dove $n/2$ è il massimo valore che può assumere $X_j$ in quanto $n/2$ è la distanza massima tra due nodi.\\
+
+    A questo punto possiamo stimare il valor medio della durata della fase $j$ come
+    \begin{align*}
+      \mathbf{E}\left[ X_j \right]
+      &= \sum_{1 \leq h \leq n/2} \mathbf{P}( X_j \geq h )\\
+      &\leq \sum_{1 \leq h \leq n/2} \left( 1 -  \frac{1}{3\ln{n}} \right)^h\\
+      &\leq \sum_{h \geq 1}^{\infty} \left( 1 -  \frac{1}{3\ln{n}} \right)^h\\
+      &= \frac{1}{1 - \left( 1 -  \frac{1}{3\ln{n}} \right)} = 3\ln{n} \in O(\log{n})
+    \end{align*}
+
+    Di conseguenza l'ipotesi del teorema
+    \[
+    \mathbf{E}\left[ X \right] = \sum_{j = 1}^{\log_2{n}} \mathbf{E}\left[ X_j \right] \in O(\log^2{n})
+    \]
+    $\square$.
+
+*** Ricerca miope per \(q \neq d\)
+    Prendiamo il caso $d = 1$ e $q = 0$.
+    Con $q = 0$, la probabilità di avere l'arco random $(u,v)$ sarà pari a $1/Z$.
+    \[
+    \mathcal{P}((u,v) \in E) = \frac{1}{Z}\frac{1}{d(u,v)^0} = \frac{1}{Z}
+    \]
+    Osservaimo inoltre che $Z$ sarà pari a
+    \[
+    Z = \sum_{v \neq u}\frac{1}{d(u,v)^0} = n - 1
+    \]
+   
+    Quindi la probabilità di avere un arco random sarè $\frac{1}{n-1} > \frac{1}{n}$.\\
+
+    Definiamo ora l'insieme $R$ di nodi a distanza _al più_ $\sqrt{n}$ dal destinatario $t$
+    \[
+    R \equiv \lbrace x \in V : d(x,t) \leq \sqrt{n} \rbrace
+    \]
+    
+    Prendiamo il mittente $s$ fuori da $R$, avremo che la probabilità di entrare in $R$ tramite un arco random $(u,v)$ sarà
+    \begin{align*}
+      \forall u \not\in R\\
+      \mathcal{P}(\exists (u,v) \in (R, E-R))
+      &= \sum_{v \in R} \mathcal{P}( (u,v) \in E_2 )\\
+      &> \sum_{v \in R} \frac{1}{n}\\
+      &= \frac{|R|}{n} = \frac{2\sqrt{n}}{n} = \frac{2}{\sqrt{n}}
+    \end{align*}
+
+    Sia quindi $Y$ la v.a. che indica quanti passi ci vogliono per raggiungere $R$ partendo da $s$, con probabilità
+    \[
+    \mathcal{P}(Y \geq h) < \left( 1 - \frac{2}{\sqrt{n}} \right)^h
+    \]
+    con media
+    \[
+    \mathbf{E}\left[ Y \right] = \sum_h \mathbf{P}( Y ) \leq \frac{1}{1 - \left( 1 - \frac{2}{\sqrt{n}} \right)} =  \frac{\sqrt{n}}{2}
+    \]
+    e questo di per se è già un tempo esponenzialmente più grande del tempo che ci impiegherebbe l'intera ricerca miope nel caso $q=1$.\\
+    
+    D'altro canto, se $q > 1$, avremo che gli archi random sono più corti rispetto al caso $q=1$, perciò la ricerca miope non migliora.
+    Addirittura per $q$ abbastanza grande la rete tende ad essere composta dalla sola componente deterministica.\\
+
+    Di seguito un teorema che racgiude tutti questi raggionamenti
+
+    *THM* sia $X$ la variabile aleatoria che indica la lunghezza del cammino trovato dalla ricerca miope su un anello di $n$ nodi.
+    Comunque si sceglie un $q \neq 1$ esistono sempre due costanti $\alpha_q$ e $c_q$ tali che
+    \[
+    \mathbf{E}\left[ Y \right] \geq a_q \cdot n^{c_q}
+    \]
+    
+    Ribadendo che il tutto vale nel caso in cui la componente deterministica sia un anello di $n$ nodi, si possono estendere
+    tutti i raggionamenti anche per un qualsiasi $d > 1$, a scapito di calcoli più complessi.
+
+
 [fn:1] ovvero quando i nodi conoscono solamente il proprio vicinato.
 [fn:2] Klinberg, 2000.
 [fn:3] ovvero la distanza nella griglia deterministica sottostante tra le estremità dei random edges.
