@@ -130,3 +130,11 @@ h2:after {
 #postamble {
     text-align: center;
 }
+
+pre.src {
+    overflow: auto !important;
+}
+
+pre.src::before {
+    top: 10px !important;
+}

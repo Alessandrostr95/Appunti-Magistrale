@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-17 mer 00:40 -->
+<!-- 2021-11-17 mer 18:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 08</title>
@@ -274,17 +274,17 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9f9b466">1. Leader Election</a></li>
-<li><a href="#orgc902652">2. Minimum Finding on Ring</a>
+<li><a href="#org90880d7">1. Leader Election</a></li>
+<li><a href="#orgd692147">2. Minimum Finding on Ring</a>
 <ul>
-<li><a href="#org0539e63">2.1. <code>All-the-way</code> protocol</a>
+<li><a href="#orge845475">2.1. <code>All-the-way</code> protocol</a>
 <ul>
-<li><a href="#org2ddade0">2.1.1. Correttezza e complessità</a></li>
+<li><a href="#orge27de65">2.1.1. Correttezza e complessità</a></li>
 </ul>
 </li>
-<li><a href="#orga601254">2.2. <code>As Far (as it can)</code> protocol</a>
+<li><a href="#org8431580">2.2. <code>As Far (as it can)</code> protocol</a>
 <ul>
-<li><a href="#orgdb94732">2.2.1. Message complexity</a></li>
+<li><a href="#orgf5ee7e4">2.2.1. Message complexity</a></li>
 </ul>
 </li>
 </ul>
@@ -293,8 +293,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9f9b466" class="outline-2">
-<h2 id="org9f9b466"><span class="section-number-2">1</span> Leader Election</h2>
+<div id="outline-container-org90880d7" class="outline-2">
+<h2 id="org90880d7"><span class="section-number-2">1</span> Leader Election</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 In un sistema distribuito in molti casi si necessita che una singola entità coordini il lavoro delle altre
@@ -361,8 +361,8 @@ per esempio si potrebbe eleggere come leader il nodo con <b>etichetta minima</b>
 </div>
 </div>
 
-<div id="outline-container-orgc902652" class="outline-2">
-<h2 id="orgc902652"><span class="section-number-2">2</span> Minimum Finding on Ring</h2>
+<div id="outline-container-orgd692147" class="outline-2">
+<h2 id="orgd692147"><span class="section-number-2">2</span> Minimum Finding on Ring</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Come accennato, trovare il nodo cone <i>etichetta minima</i> può essere sfruttato per l'elezione di un leader.
@@ -400,8 +400,8 @@ Ovvero se definiamo che il nodo destro di \(x_2\) è \(x_3\), allora il nodo des
 </div>
 
 
-<div id="outline-container-org0539e63" class="outline-3">
-<h3 id="org0539e63"><span class="section-number-3">2.1</span> <code>All-the-way</code> protocol</h3>
+<div id="outline-container-orge845475" class="outline-3">
+<h3 id="orge845475"><span class="section-number-3">2.1</span> <code>All-the-way</code> protocol</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Una prima idea abbastanza semplice è la seguente:
@@ -498,8 +498,8 @@ elif self.state == "AWAKE":
 </div>
 </div>
 
-<div id="outline-container-org2ddade0" class="outline-4">
-<h4 id="org2ddade0"><span class="section-number-4">2.1.1</span> Correttezza e complessità</h4>
+<div id="outline-container-orge27de65" class="outline-4">
+<h4 id="orge27de65"><span class="section-number-4">2.1.1</span> Correttezza e complessità</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <p>
 È facilmente intuibile la correttezza del protocollo, in quanto l'assunzione di total reliability ci garantisce che ogni nodo prima o poi riceverà le informazioni
@@ -534,8 +534,8 @@ un messaggio se lo si codifica in binario sarà \(\log_2{(id(x) + n)}\), con una
 </div>
 </div>
 
-<div id="outline-container-orga601254" class="outline-3">
-<h3 id="orga601254"><span class="section-number-3">2.2</span> <code>As Far (as it can)</code> protocol</h3>
+<div id="outline-container-org8431580" class="outline-3">
+<h3 id="org8431580"><span class="section-number-3">2.2</span> <code>As Far (as it can)</code> protocol</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Un'idea per ottimizzare il processo di ricerca dell'etichetta minima è quella che non è necessario inoltrare una etichetta che so già che non potra essere minima.
@@ -552,8 +552,8 @@ basterà <span class="underline">un solo bit</span> per terminare il task.<br />
 </p>
 </div>
 
-<div id="outline-container-orgdb94732" class="outline-4">
-<h4 id="orgdb94732"><span class="section-number-4">2.2.1</span> Message complexity</h4>
+<div id="outline-container-orgf5ee7e4" class="outline-4">
+<h4 id="orgf5ee7e4"><span class="section-number-4">2.2.1</span> Message complexity</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 Il caso peggiore in termini di message complexity è quando le etichette seguono un ordine crescente di valori nel senso in cui il messaggio viene inoltrato.
@@ -611,7 +611,7 @@ il modulo è necessario perché il nodo a destra di \(x_n\) non può essere \(x_
 <p class="date">Data: 2021-11-04 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-17 mer 00:40</p>
+<p class="date">Created: 2021-11-17 mer 18:58</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
