@@ -70,7 +70,7 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
 
    Diremo che quindi il nodo $u$ rispetta la *Strong Triadic Closure Property* (=STCP= in breve) se
    \[
-   \forall (u,v), (u,w) \in S \left[ (v,w) \in S \cuo W \right]
+   \forall (u,v), (u,w) \in S \left[ (v,w) \in S \cup W \right]
    \]
 
    Infine diciamo che $G$ soddisfa la =STCP= se _tutti_ i suoi nodi la soddisfano.\\
@@ -85,5 +85,7 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    *Proof*
    Se per assurdo $(u,y) \in S$.
    Dato che $u$ soddisfa la =STCP= allora deve essere vero che esiste l'arco $(x,y)$, e quindi $x \in N(y)$.
-   Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e $x \in N(u)$, allora deve essere vero che $x \not\in N(y)$ (*assurdo*).
+   Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e $x \in N(u)$, allora deve essere vero che $x \not\in N(y)$ (*assurdo*)
    \(\implies (u,y) \in W\) $\square$.
+
+*[DA FINIRE]*

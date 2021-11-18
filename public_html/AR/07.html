@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-18 gio 23:40 -->
+<!-- 2021-11-18 gio 23:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 07</title>
@@ -401,7 +401,7 @@ Sia il nodo \(a\) e due suoi vicini \(b\) e \(c\), allora l'arco \((b,c)\) proba
 <p>
 Diremo che quindi il nodo \(u\) rispetta la <b>Strong Triadic Closure Property</b> (<code>STCP</code> in breve) se
 \[
-   \forall (u,v), (u,w) \in S \left[ (v,w) \in S \cuo W \right]
+   \forall (u,v), (u,w) \in S \left[ (v,w) \in S \cup W \right]
    \]
 </p>
 
@@ -428,8 +428,12 @@ allora certamente \((u,y) \in W\) (è un <i>weak tie</i>).
 <b>Proof</b>
 Se per assurdo \((u,y) \in S\).
 Dato che \(u\) soddisfa la <code>STCP</code> allora deve essere vero che esiste l'arco \((x,y)\), e quindi \(x \in N(y)\).
-Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve essere vero che \(x \not\in N(y)\) (<b>assurdo</b>).
+Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve essere vero che \(x \not\in N(y)\) (<b>assurdo</b>)
 \(\implies (u,y) \in W\) \(\square\).
+</p>
+
+<p>
+<b>[DA FINIRE]</b>
 </p>
 </div>
 </div>
@@ -439,7 +443,7 @@ Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve ess
 <p class="date">Data: 2021-11-08 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-18 gio 23:40</p>
+<p class="date">Created: 2021-11-18 gio 23:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
