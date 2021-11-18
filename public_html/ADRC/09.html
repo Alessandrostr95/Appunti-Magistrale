@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-11-17 mer 23:34 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 09</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 09</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc3ac56d">1. Controlled distances - The Stage Technique</a>
+<ul>
+<li><a href="#orgf71e0ce">1.1. Correttezza</a></li>
+<li><a href="#orga064902">1.2. Message Complexity</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+Nella <a href="./08.html">precedente lezione</a> sono stati introdotti due protocollo per la <i>leader election</i> su anelli con etichette uniche.
+In particolare il protocollo <code>as-far</code> che risolve il task nel <i>worst case</i> con una message complexity di \(O(n^2)\).
+È possibile dimostrare che nel <i>caso medio</i> il protocollo ha una message complexity invece di \(O(n\log{n})\).
+Si parla di caso medio perché il tempo di esecuzione dipende dalla disposizione delle etichette, e questa è un
+evento aleatorio.
+In seguito verrà mostrato un protocollo deterministico che anche nel caso peggiore ha una message complexity
+dell'ordine di \(O(n\log{n})\).<br />
+</p>
+
+<div id="outline-container-orgc3ac56d" class="outline-2">
+<h2 id="orgc3ac56d"><span class="section-number-2">1</span> Controlled distances - The Stage Technique</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Osserviamo che sia nel protocollo <code>as-far</code> che nel protocollo <code>all-the-way</code> le etichette viaggiano lungo l'anello in maniera incontrollata.
+In particolare nel protocollo <code>as-far</code> viaggiano finché non vengono filtrati da un nodo con etichetta più bassa,
+mentre nel protocollo <code>all-the-way</code> addirittura viaggiano lungo l'intero anello.
+L'idea sarebbe quindi quella di <b>controllare</b> la trasmissione di una etichetta ad una distanza <b>limitata</b>, e di avere dei
+<b>feedback</b> per eventualmente bloccare o estendere la trasmissione di una etichetta.<br />
+</p>
+
+<p>
+Più precisamente un nodo attivo \(x\) esegue il protocollo a <b>stages</b>, dove nello stage \(i\)-esimo esso inoltrerà a destra e
+a sinistra la sua etichetta \(id(x)\) fino a un massimo di distanza \(2^{i-1}\).
+Così facendo l'etichetta avrà ricoperto un numero di nodi pari a \(2^i\), ovvero \(2^{i-1}\) nodi a destra e \(2^{i-1}\) nodi a sinistra.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson09-img1.png" alt="adrc-lesson09-img1.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+Quando un nodo \(y\) riceve l'etichetta di \(x\) la inoltrerà solamente se \(id(y) > id(x)\).
+Nel caso in cui \(y\) inoltrerà \(id(x)\) allora vorrà dire che certamente \(y\) non sarà mai eletto leader, e quindi passerà
+in uno stato di <code>defeated</code> in cui potrà solamente inoltrere le etichette degli altri.<br />
+</p>
+
+<p>
+Se l'etichetta \(id(x)\) arriva a distanza \(2^{i-1}\) allora essa verrà rispedita indietro come messaggio di <i>feedback</i>.
+Se il nodo \(x\) riceverà un feedback da entrambi i lati vorrà dire che tutti i nodi a distanza \(2^{i-1}\) da lui avranno
+etichette maggiori, e quindi dovrà inoltrere l'etichetta più lontano.
+In questo caso diciamo che \(x\) è sopravvissuto allo stage \(i\) e quindi potrà passare allo stage \(i+1\).<br />
+</p>
+
+<p>
+Notiamo che se \(x\) non riceve il feedback da uno o tutti e due i lati, vuol dire che esiste almeno un nodo \(z\) entro \(2^{i-1}\)
+passi con etichetta minore \(id(z) < id(x)\), e quindi prima o poi \(x\) verrà <i>battuto</i> (<i>defeat</i>) dall'etichetta \(id(z)\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson09-img2.png" alt="adrc-lesson09-img2.png" style="max-width:450px; width:100%" />
+</p>
+</div>
+
+<p>
+Infine, quando un nodo \(x^\star\) riceverà da destra il messaggio che aveva inviato a sinistra, oppure da sinistra quello che
+aveva invato a destra, allora \(x^\star\) potrà affermare di essere il leader.
+A questo punto \(x^\star\) manderà in broadcast un messaggio di notifica, che farà terminare globalmente il protocollo,
+facendo passare tutti i nodi nello stato <code>defeated</code> allo stato <code>follower</code>.<br />
+</p>
+
+<p>
+Ricapitolando:
+</p>
+<ol class="org-ol">
+<li>in ogno <b>stage</b> \(i\) c'è un insieme di nodi <i>candidati</i> al ruolo di leader.</li>
+<li>ogni candidato manda la sua etichetta a destra e a sinistra.</li>
+<li>l'etichetta viaggia finché non incontra un nodo con etichetta più piccola oppure finché non arriva a distanza \(2^{i-1}\).</li>
+<li>se l'etichetta non incontra nessun nodo con etichetta più piccola allora essa tornerà indietro.</li>
+<li>se un nodo riceverà indietro le etichette da entrambi i lati allora potrà passare allo stage successivo.</li>
+</ol>
+<p>
+In aggiunta ci sono altre tre <i>meta</i>-regole:
+</p>
+<ol class="org-ol">
+<li>se un nodo nello stato <code>candidato</code> riceverà un'etichetta da lato opposto a quello da cui l'ha mandata, allora diventerà <code>leader</code> e lo notificherà ai suoi vicini.</li>
+<li>se un nodo <code>candidato</code> riceverà un'etichetta minore della sua allora passerà allo stato <code>defeated</code>.</li>
+<li>un nodo nello stato <code>defeated</code> potrà solamente inoltrare i messaggi di altri nodi, e passerà allo stato <code>follower</code> quando riceverà la notifica dal leader.</li>
+</ol>
+
+<p>
+Definiamo ora formalmente gli stati del protocollo e una sua possibile implementazione
+</p>
+\begin{align*}
+  S &= \lbrace \texttt{ASLEEP}, \texttt{CANDIDATE}, \texttt{DEFEATED}, \texttt{FOLLOWER}, \texttt{LEADER} \rbrace\\
+  S_{init} &= \lbrace \texttt{ASLEEP} \rbrace\\
+  S_{final} &= \lbrace \texttt{FOLLOWER}, \texttt{LEADER} \rbrace
+\end{align*}
+
+<div class="org-src-container">
+<pre class="src src-python">def limit(i):
+    assert i &gt; 0
+    return 2**(i+1)
+
+def initialize(self):
+    self.stage = 1
+    self.limit = limit(1)
+    self.count = 0
+    send("FORTH", self.id, self.stage, self.limit, direction=1) to self.neigh(direction=1)  # 1 = right
+    send("FORTH", self.id, self.stage, self.limit, direction=0) to self.neigh(direction=0)  # 0 = left
+
+def process(self, msg):
+    msg.limit -= 1
+    if msg.limit == 0:
+	self.send("BACK", msg.id, direction = not msg.direction) to msg.sender
+    else:
+	self.send("FORTH", msg.id, msg.state, msg.limit) to self.neigh(direction=msg.direction)
+
+
+def notify(self):
+    send("NOTIFY", leader=self.id, direction=1)
+
+def check(self):
+    self.count += 1
+    if self.count == 2:
+	self.count = 0
+	self.stage += 1
+	self.limit = limit(self.stage)
+	send("FORTH", self.id, self.stage, self.limit, direction=1) to self.neigh(direction=1)  # 1 = right
+	send("FORTH", self.id, self.stage, self.limit, direction=0) to self.neigh(direction=0)  # 0 = left
+
+LEADER = None
+
+if self.state == "ASLEEP":
+    spontaneously:
+	self.initialize()
+	self.state = "CANDIDATE"
+
+    receiving(msg):
+	if msg.id &lt; self.id:
+	    self.process(msg)
+	    self.state = "DEFEATED"
+	else:
+	    self.initialize()
+	    self.state = "CANDIDATE"
+
+elif self.state == "CANDIDATE":
+    receiving(msg):
+	if msg.type == "FORTH":
+	    if msg.id &lt; self.id:
+		self.process(msg)
+		self.state = "DEFEATED"
+	    elif msg.id == self.id:
+		LEADER = self.id
+		self.notify()
+
+	if msg.type == "BACK":
+	    if msg.id == self.id:
+		self.check()
+
+	if msg.type == "NOTIFY":
+	    LEADER = msg.id
+	    send(msg) to self.neigh(direction=msg.direction)
+	    self.state = "FOLLOWER"
+
+elif self.state == "DEFEATED":
+    receiving(msg):
+	send(msg) to self.neigh(direction=msg.direction)
+	self.state = "FOLLOWER"
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf71e0ce" class="outline-3">
+<h3 id="orgf71e0ce"><span class="section-number-3">1.1</span> Correttezza</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+La correttezza del protocollo è implicata dalla descrizione del protocollo.
+Infatti solamente l'etichetta minima sarà in grado di compiere un giro completo, portando allo stato <code>defeat</code> tutti gli altri nodi dell'onello.
+Inoltre tramite il messaggio di notifica da parte del leader tutti gli altri nodi passeranno allo stato follower.
+In conclusione si arriverà sempre allo stato finale accettabile in cui si ha un solo leader e tutti followers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga064902" class="outline-3">
+<h3 id="orga064902"><span class="section-number-3">1.2</span> Message Complexity</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Considerando che il ritardo dei messaggi è <b>impredicibile</b> si osserverà che ad un dato tempo \(t\) non solo ci saranno nodi
+in stati differenti (come ci si aspetta) ma anche che ci saranno nodi <i>candidati</i> in <b>fasi differenti</b>.
+Più in generale, non essendoci una <i>Message Ordering</i>, può capitare che dei messaggi sorpassino degli altri.
+Perciò, per i motivi precedentemente citati, faremo un'analisi procedendo per <b>logical stages</b>, ovvero non considerando
+che differenti nodi possono eseguire uno stesso stage a tempi differenti.<br />
+</p>
+
+<p>
+Sia \(i > 1\), definiamo \(n_i\) il numero di nodi che iniziano lo stage \(i\), ovvero quelli sopravvissuti allo stage \(i-1\).
+Per essere sopravvissuti allo stage \(i-1\) (e quindi ritrovarsi allo stage \(i\)) vuol dire che il nodo \(x\) ha un'etichetta \(id(x)\)
+minore di \(2^{i-2}\) nodi alla sua destra e \(2^{i-2}\) nodi alla sua sinistra.
+Perciò possiamo dire che nella fase \(i-1\) può sopravvivere <span class="underline">al più</span> un solo nodo ogni \(2^{i-2}+1\) nodi, e quindi avremo che
+\[
+   n_i \leq \frac{n}{2^{i-2}+1}
+   \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson09-img3.png" alt="adrc-lesson09-img3.png" style="max-width:450px; width:100%" />
+</p>
+</div>
+
+<p>
+Non ci può essere più di un sopravvissuto ogni \(2^{i-2}+1\) nodi in quanto se ce ne fossero di più, per esempio \(x\) e \(y\),
+vorrebbe dire che \(x\) ed \(y\) si sono scambiati le etichette senza però che uno dei due venisse "sconfitto" (<i>defeated</i>),
+e ciò implicherebbe che \(id(x) < id(y) < id(x)\) (<b>assurdo!</b>).<br />
+</p>
+
+<p>
+Allo stage \(i\) ogni nodo candidato \(x\) inoltra la sua etichetta ad <span class="underline">al più</span> \(2 \cdot 2^{i-1} = 2^i\) nodi, per un totale
+massimo di nodi di tipo <code>FORTH</code> inviti di \(n_i2^i\).<br />
+</p>
+
+<p>
+Dato che alla fase \(i\) sopravviveranno \(n_{i+1}\) candidati, per ognuno verranno necessariamente trasmessi altri \(2 \cdot 2^{i-1} = 2^i\)
+messaggi di <i>feedback</i>, per un complessivo massimo di \(n_{i+1}2^i\) messaggi di tipo <code>BACK</code>.<br />
+</p>
+
+<p>
+Infine ogni nodo che non sopravvive alla fase \(i\) riceverà nessuno o al più un <i>feedback</i>, per un massimo di \(2^{i-1}\) ulteriori messaggi.
+Dato che sono \(n_i - n_{i+1}\) nodi <code>defeated</code> nella fase \(i\), si pagerà un costo in messaggi di <span class="underline">al più</span>
+\((n_i - n_{i+1})2^{i-1}\) messaggi ulteriori.<br />
+</p>
+
+<p>
+Perciò complessivamente nella fase \(i>1\) verranno mandati al più il seguente valore di messaggi
+</p>
+\begin{align*}
+  2n_i2^{i-1} + 2n_{i+1}2^{i-1} + (n_i - n_{i+1})2^{i-1}
+  &= (3n_i + n_{i+1})2^{i-1}\\
+  &\leq (3\lfloor \frac{n}{2^{i-2}+1} \rfloor + \lfloor \frac{n}{2^{i-1}+1} \rfloor)2^{i-1}\\
+  &< (3\frac{n}{2^{i-2}+1} + \frac{n}{2^{i-1}+1})2^{i-1}\\
+  &< (3\frac{n}{2^{i-2}} + \frac{n}{2^{i-1}})2^{i-1}\\
+  &= 6n + n = 7n
+\end{align*}
+
+<p>
+Dando una stima di \(n_1 \leq n\) avremo che le fasi potranno essere al più \(\log_2{n}\).
+Complessivamente la message complexity sarà
+</p>
+\begin{align*}
+  MSG(\texttt{stage})
+  &\leq \overbrace{O(n)}^{\texttt{stage 1}} + \sum_{i=2}^{\log_2{n}} 7n\\
+  &< O(n) + n\sum_{i=1}^{\log_2{n}} 7\\
+  &= O(n) + 7n\log_2{n} \in O(n\log{n})
+\end{align*}
+
+<p>
+<b>[da aggiungere conclusioni]</b>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-11-09 mar 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-11-17 mer 23:34</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
