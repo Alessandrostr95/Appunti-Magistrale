@@ -55,7 +55,7 @@
    (Proprio non vorrei essere nei panni di /Bob/...).
 
 
-#+html: <hr>   
+-----   
 
 
 * Struttura di una Rete
@@ -85,7 +85,7 @@
   Lo studio di queste proprietà globali sarà fatto sia a /livello di popolazione/, ovvero considerando mediamente ciò che succede agli
   individui, sia a /livello di singolo individui/, andando a considerare la topologia della rete (relazione per relazione).
 
-  #+html: <hr>
+  -----
   
 
 * Rappresentazione di una rete
@@ -193,20 +193,21 @@
     desidera dimostrare.\\
 
     Dal *Lemma* avremo che
-    \[
-    \mathcal{P}\left( X < \frac{n}{2} \right) \leq \mathcal{P}( \exists A \subset \left[ n \right] : A \mbox{ è buono})\\
-    = \mathcal{P}\left( \bigcup_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n }  A : \mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per definizione di insieme buono}\\
-    \leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } \mathcal{P}\left(\mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per il principio di union bound}\\
-    = \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{|A| \cdot |\overline{A}|} \;\;\; \mbox{(1)}\\
-    \leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{\frac{3}{16}n^2} \;\;\; \mbox{(2)}\\
-    \leq 2^{n} (1-p)^{\frac{3}{16}n^2} \;\;\; (3)\\
-    < 2^{n} \left(1 - \frac{ \ln{64} }{n} \right)^{\frac{3}{16}n^2} \;\;\; (4)\\
-    = 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^n \right]^{\frac{3}{16}n}\\
-    = 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^{n \cdot \left( \frac{ -\ln{64} }{ -\ln{64} }  \right)  } \right]^{\frac{3}{16}n}\\
-    \approx 2^{n} \left[ e^{-\ln{64}}  \right]^{\frac{3}{16}n} \;\;\; (5)\\
-    = 2^{n} \left[ 64^{-1}  \right]^{\frac{3}{16}n}\\
-    = 2^{n} \left[ 2^{-6}  \right]^{\frac{3}{16}n} = 2^{n} 2^{ -\frac{18}{16}n } = 2^{-\frac{n}{8}} \;\;\; \square
-    \]
+    \begin{align*}
+      \mathcal{P}\left( X < \frac{n}{2} \right)
+      &\leq \mathcal{P}( \exists A \subset \left[ n \right] : A \mbox{ è buono})\\
+      &= \mathcal{P}\left( \bigcup_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n }  A : \mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per definizione di insieme buono}\\
+      &\leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } \mathcal{P}\left(\mbox{ non ci sono archi nel taglio } (A, \overline{A}) \right) \;\;\; \mbox{-- per il principio di union bound}\\
+      &= \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{|A| \cdot |\overline{A}|} \;\;\; \mbox{(1)}\\
+      &\leq \sum_{A \subset \left[ n \right] \land \frac{n}{4} \leq |A| < \frac{3}{4}n } (1-p)^{\frac{3}{16}n^2} \;\;\; \mbox{(2)}\\
+      &\leq 2^{n} (1-p)^{\frac{3}{16}n^2} \;\;\; (3)\\
+      &< 2^{n} \left(1 - \frac{ \ln{64} }{n} \right)^{\frac{3}{16}n^2} \;\;\; (4)\\
+      &= 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^n \right]^{\frac{3}{16}n}\\
+      &= 2^{n} \left[ \left(1- \frac{ \ln{64} }{n} \right)^{n \cdot \left( \frac{ -\ln{64} }{ -\ln{64} }  \right)  } \right]^{\frac{3}{16}n}\\
+      &\approx 2^{n} \left[ e^{-\ln{64}}  \right]^{\frac{3}{16}n} \;\;\; (5)\\
+      &= 2^{n} \left[ 64^{-1}  \right]^{\frac{3}{16}n}\\
+      &= 2^{n} \left[ 2^{-6}  \right]^{\frac{3}{16}n} = 2^{n} 2^{ -\frac{18}{16}n } = 2^{-\frac{n}{8}} \;\;\; \square
+    \end{align*}
    
     Di seguito spiegate le disuguaglianze:
     - *(1)* è data dal fatto che tale probabilità è data dalla probabilità che *non* esista un arco nel taglio, ovvero $(1-p)$, moltiplicato tante volte quanti i archi possono esistere tra $A$ e $\overline{A}$, ovvero $|A| \cdot |\overline{A}|$.
@@ -238,11 +239,12 @@
     \end{cases}
     \]
     Perciò il [[https://it.wikipedia.org/wiki/Valore_atteso][valore atteso]] di $\delta_i$ sarà
-    \[
-    \mathbb{E} \left[ \delta_i  \right] = \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{j,i} \right]\\
-    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{j,i} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
-    = \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
-    \]
+    \begin{align*}
+      \mathbb{E} \left[ \delta_i  \right]
+      &= \mathbb{E} \left[ \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } X_{j,i} \right]\\
+      &= \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace }  \mathbb{E} \left[  X_{j,i} \right] \;\;\; \mbox{(per linearità del valore atteso)}\\
+      &= \sum_{j \in \left[ n \right] \setminus \lbrace i \rbrace } 1 \cdot p + 0 \cdot (1-p) = (n-1)p
+    \end{align*}
     Perciò la quantità $p(n-1)$ vista nella precedente sezione, altro non è che il /grado medio/ di un nodo.
     Ciò significa che, fissato un $p$ *costante*, ogni individuo nella rete sarà in contatto con una porzione constante della reta stessa, ovvero il grado medio cresce in maniera /lineare nel numero di nodi/.
     Ovviamente è inverosimile che in una rete di un social network composta da centinaia di milioni (se non miliardi) di nodi, io abbia un numero di amicizie proporzionale al numero di utenti (non penso sarà mai così famoso).\\
@@ -265,14 +267,15 @@
     
     Scegliendo $p = \frac{ \lambda }{n}$ in funzione di $n$ come detto in precedenza, avremo che la probabilità che un nodo abbia grado
     medio esattamente $k$ è
-    \[
-    \mathcal{P}\left( \delta_i = k \right) = \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}\\
-    \binom{n-1}{k} \left(  \frac{ \lambda }{n} \right)^k \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
-    = \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
-    < \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}} \;\;\; (1)\\
-    < \frac{n^k}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}}\\
-    \approx \frac{ \lambda^k }{ k! } e^{ -\lambda } \;\;\; \mbox{per } n \mbox{ sufficientemente grande}
-    \]
+    \begin{align*}
+      \mathcal{P}\left( \delta_i = k \right)
+      &= \binom{n-1}{k} p^k \left( 1-p \right)^{(n-1) - k}\\
+      &= \binom{n-1}{k} \left(  \frac{ \lambda }{n} \right)^k \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+      &= \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } \left( 1-  \frac{ \lambda }{n} \right)^{(n-1) - k}\\
+      &< \frac{(n-1) \cdot (n-2) \cdot ... \cdot (n-k)}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}} \;\;\; (1)\\
+      &< \frac{n^k}{k!} \frac{ \lambda^k }{ n^k } e^{ \frac{-\lambda (n - 1 - k)}{n}}\\
+      &\approx \frac{ \lambda^k }{ k! } e^{ -\lambda } \;\;\; \mbox{per } n \mbox{ sufficientemente grande}
+    \end{align*}
     Più semplicemente
     \[ \mathcal{P}\left( \delta_i = k \right) < \frac{ \lambda^k }{ k! } e^{ -\lambda } \]
     La disuguaglianza *(1)* è data dal fatto che $\forall x < 1$ vale sempre che $1-x < e^{-x}$.
@@ -298,17 +301,17 @@
     Definiamo in oltre la v.a. $F_k$ che indica la /frazione/ di nodi della rete che hanno grado $k$
     \[ F_k = \frac{ \sum_{i \in \left[ n \right] } \delta_{i,k}  }{n} \]
     con valore atteso
-    \[
-    \mathbb{E} \left[ F_k \right]
-    = \mathbb{E} \left[ \frac{ \sum_{i \in \left[ n \right] } \delta_{i,k}  }{n} \right]\\
-    = \frac{1}{n} \sum_{i \in \left[ n \right] } \mathbb{E} \left[ \delta_{i,k} \right] \;\;\; \mbox{per linearità}\\
-    = \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_{i,k} = 1) + 0 \cdot \mathcal{p}(\delta_{i,k} = 0) \right)\\
-    = \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_i = k) + 0 \cdot \mathcal{p}(\delta_i \neq k) \right)\\
-    = \frac{1}{n} \sum_{i \in \left[ n \right] } \mathcal{p}(\delta_i = k)\\
-    < \frac{1}{n} \sum_{i \in \left[ n \right] } \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k\\
-    = \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
-    \]
+    \begin{align*}
+      \mathbb{E} \left[ F_k \right]
+      &= \mathbb{E} \left[ \frac{ \sum_{i \in \left[ n \right] } \delta_{i,k}  }{n} \right]\\
+      &= \frac{1}{n} \sum_{i \in \left[ n \right] } \mathbb{E} \left[ \delta_{i,k} \right] \;\;\; \mbox{per linearità}\\
+      &= \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_{i,k} = 1) + 0 \cdot \mathcal{p}(\delta_{i,k} = 0) \right)\\
+      &= \frac{1}{n} \sum_{i \in \left[ n \right] } \left( 1 \cdot \mathcal{p}(\delta_i = k) + 0 \cdot \mathcal{p}(\delta_i \neq k) \right)\\
+      &= \frac{1}{n} \sum_{i \in \left[ n \right] } \mathcal{p}(\delta_i = k)\\
+      &< \frac{1}{n} \sum_{i \in \left[ n \right] } \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k\\
+      &= \frac{ e^{ -\lambda } }{ \sqrt{2 \pi k} } \left( \frac{ \lambda e }{k}  \right)^k
+    \end{align*}
     Perciò, in un grafo /Erdős–Rényi/ $G_{n,p}$ con grado medio constante, ovvero con parametro $p = \frac{\lambda}{n}$,
     il numero di nodi di grado esattamente $k$ decresce esponenzialmente in $k$ (come $k^{-k}$).
    
-#+html: <hr>
+-----

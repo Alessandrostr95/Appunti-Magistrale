@@ -6,7 +6,7 @@
 Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressandoci delle caratteristiche dei singoli nodi e soffermandoci su ciò che *mediamente* accadeva.
 ...
 
-* Tipi di legami
+* Reti con struttura disomogenea
 
 ** Esperimento di Granovetter
    Nel 1960, il sociologo Mark Granovetter prosope il seguente esperimento nella sua tesi di dottorato:
@@ -86,6 +86,81 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    Se per assurdo $(u,y) \in S$.
    Dato che $u$ soddisfa la =STCP= allora deve essere vero che esiste l'arco $(x,y)$, e quindi $x \in N(y)$.
    Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e $x \in N(u)$, allora deve essere vero che $x \not\in N(y)$ (*assurdo*)
-   \(\implies (u,y) \in W\) $\square$.
+   \(\implies (u,y) \in W\) $\square$.\\
 
-*[DA FINIRE]*
+   Il teorema precedentemente enunciato mostra come una proprietà che ha effetti globali (ovvero essere un /local bridge/) involve in una
+   proprietà strettamente locale (ovvere essere un /weak ties/).
+   Infatti la proprietà di /weak ties/ è visibile dal punto di vista locale da parte di un nodo: ogni persona sà se un suo amico è stretto o alla lontana.
+   Viceversa, la proprietà di un arco di essere un /local edge/ non intuibile da parte di un nodo.
+   Infatti, dato che un nodo conosce solo il suo vicinato non può sapere sapere se ha vicini in comune con un altro suo vicino.\\
+
+* Comunità e Coefficiente di Clustering
+  Abbiamo definito in precedenza un modello di rete dinamica i cui archi si modificano nel tempo, e dove la rete si stabilizza nel momento
+  in cui essa soddisfa la =STCP=.
+  Dato che si generano tanti triangoli, allora nel grafo stabilizzato si creeranno gruppi di nodi *fortemente coesi* da una densa quantità di archi.
+  Chiameremo questi gruppi fortemente coesi *comunità*, o *cluster*.\\
+
+  La precedente è una definizione informale e discorsiva.
+  Dal punto di vista formale, quando possiamo dire che un gruppo di nodi è abbastanza /coeso/ da essere definito comunità?
+  E che significa /coeso/?\\
+
+  Per fare ciò iniziamo col *quantificare* la coesione del nodo $u$ all'interno dei suoi vicini.
+  Sia quindi il *coefficiente di clustering* 
+  \begin{align*}
+    c(u)
+    &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \land y \in N(u) \rbrace \vert }{ \binom{N(u)}{2}  }\\
+    &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \land y \in N(u) \rbrace \vert }{ \frac{ \vert N(u) \vert (\vert N(u) \vert - 1) }{2}  }
+  \end{align*}
+  Intuitivamente tale valore cerca di misuare quanto un nodo $u$ è /ben inserito/ nel gruppo sociale formato dai suoi vicini.
+  Infatti tale quantità calcola il rapporto tra i triangoli che coinvolgono $u$ e il numero massimo possibile di relazioni che possono
+  esistere tra tutti i suoi vicini.
+  Se un nodo ha un coefficiente di clustering basso vuol dire che si trova in una posizione periferica rispetto ai suoi mici.
+  Viceversa, un nodo con un coefficiente di clustering è ben inserito tra i suoi amici, e quindi diremo che è un elemento *centrale* nella
+  sua cerchia di conoscenze.\\
+
+  Possiamo quindi vedere e riferirci al coefficiente di clustering come *indice di centralità* di un nodo.\\
+
+  Analogamente possiamo definire un coefficiente di clustering relativo a un sottoinsieme $C$ di nodi.
+  Ovvero, dato un sottoinsieme \(C \subseteq V\) definiamo il /coefficiente di clustering di $u$ relativo a $C$/ come la quantità
+  \begin{align*}
+    c_C(u)
+    &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \cap C \land y \in N(u) \cap C \rbrace \vert }{ \binom{N(u) \cap C}{2}  }\\
+    &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \cap C \land y \in N(u) \cap C \rbrace \vert }{ \frac{ \vert N(u) \cap C \vert (\vert N(u) \cap C \vert - 1) }{2}  }
+  \end{align*}
+  Questa quantità definisce quanto il nodo $u$ è integrato all'interno del sottoinsieme di nodi $C$:
+  più il coefficiente $c_C(u)$ è elevato più $u$ è /centrale/ all'interno di $C$, contrariamente più è basse, meno $u$ è integrato.\\
+
+  Perciò potremmo dire che se $C$ ha tutti nodi con coefficiente di clustering alto, allora $C$ è una *comunità* (o *cluster*).
+  Ma di preciso quanto deve essere elevato questo valore per poter dire che $C$ è una comunità?\\
+  Inoltre il coefficiente di clustering è un buon fattore da considerare per identificare le comunità?\\
+
+* Alcuni tipi di Comunità
+** Cut-Communities
+   Dato un grafo $G = (V,E)$ e una coppia di nodi $s,t \in V$, diciamo che una *cut-community* rispetto a $s,t$ è un sottoinsieme
+   proprio e non vuoto dei nodi $C \subset V$ (con $C \not\equiv \emptyset$) tale che $s \in C$ e $t \in \overline{C} \equiv V \setminus C$, e tale 
+   che questo sottoinsieme _minimizza_ gli archi del taglio $(C,\overline{C})$, ovvero
+   \[
+   \vert (C, \overline{C}) \vert = \min_{A \subset V}{\lbrace \vert (A, \overline{A}) \vert : s \in A \land t \in \overline{A} \rbrace } 
+   \]
+   
+   Citando il [[https://en.wikipedia.org/wiki/Max-flow_min-cut_theorem][Max-Flow/Min-Cut Theorem]], trovare un \( s \)-\( t \) cut minimo equivale a trovare il flusso massimo tra $s$ e $t$.
+   Perciò, dati $s$ e $t$ possiamo trovare una cut community grazie all'algoritmo di max-flow /[[https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm][Ford&Fulkerson]]/.\\
+
+   Perciò, per trovare una cut comunity che sia la più coesa possibile, si potrebbero calcolare tutti gli \( s \)-\( t \) cut minimi e
+   scegleire quello più piccolo.
+   Osservare che questo si può fare in /tempo polinomiale/[fn:1].\\
+
+   Il problema di questo metodo è che non c'è modo di controllare la dimensione della comunità $C$ risultante, infatti potrebbe capitare
+   che $C$ sia composta dal solo elemento $s$, e ciò è in disaccordo col concetto intuitivo di comunità (una sola persona non può costituire
+   una comunità).\\
+
+   Consideriamo infatti il seguente esempio:
+   #+begin_center
+   immagine
+   #+end_center
+   abbiamo un grafo $G$ composto dall'unione di due /clique/ $K_5$
+   \[
+   G = K_5^{(u)} \cup K_5^{(v)}
+   \]
+
+[fn:1] ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).

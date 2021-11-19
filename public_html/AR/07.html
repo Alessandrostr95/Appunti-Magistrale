@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-18 gio 23:48 -->
+<!-- 2021-11-19 ven 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 07</title>
@@ -274,13 +274,19 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd6a2286">1. Tipi di legami</a>
+<li><a href="#org4bba26e">1. Reti con struttura disomogenea</a>
 <ul>
-<li><a href="#org4f4dae3">1.1. Esperimento di Granovetter</a></li>
-<li><a href="#orgc9813d6">1.2. Bridges e Local Bridges</a></li>
-<li><a href="#org1f2cb71">1.3. Strong &amp; Weak Ties</a></li>
-<li><a href="#org60016b7">1.4. The Strong Triadic Closure Property</a></li>
-<li><a href="#org91238aa">1.5. STCP e Local Bridges</a></li>
+<li><a href="#orga7903dd">1.1. Esperimento di Granovetter</a></li>
+<li><a href="#orga794a9f">1.2. Bridges e Local Bridges</a></li>
+<li><a href="#org043f432">1.3. Strong &amp; Weak Ties</a></li>
+<li><a href="#org591d866">1.4. The Strong Triadic Closure Property</a></li>
+<li><a href="#orge950127">1.5. STCP e Local Bridges</a></li>
+</ul>
+</li>
+<li><a href="#orge368b37">2. Comunità e Coefficiente di Clustering</a></li>
+<li><a href="#org71e54a9">3. Alcuni tipi di Comunità</a>
+<ul>
+<li><a href="#org431f27b">3.1. Cut-Communities</a></li>
 </ul>
 </li>
 </ul>
@@ -291,12 +297,12 @@ Fin ora abbiamo analizzato le reti dal punto di vista <i>statistico</i>, disinte
 &#x2026;
 </p>
 
-<div id="outline-container-orgd6a2286" class="outline-2">
-<h2 id="orgd6a2286"><span class="section-number-2">1</span> Tipi di legami</h2>
+<div id="outline-container-org4bba26e" class="outline-2">
+<h2 id="org4bba26e"><span class="section-number-2">1</span> Reti con struttura disomogenea</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org4f4dae3" class="outline-3">
-<h3 id="org4f4dae3"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
+<div id="outline-container-orga7903dd" class="outline-3">
+<h3 id="orga7903dd"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Nel 1960, il sociologo Mark Granovetter prosope il seguente esperimento nella sua tesi di dottorato:
@@ -317,8 +323,8 @@ al di fuori della mia <i>comunità</i>.<br />
 </div>
 </div>
 
-<div id="outline-container-orgc9813d6" class="outline-3">
-<h3 id="orgc9813d6"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
+<div id="outline-container-orga794a9f" class="outline-3">
+<h3 id="orga794a9f"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Come si può intuire dall'esperimento di Granovetter i contatti che più sono rilevanti nella diffusione di informazioni in una rete sono quei contatti che collegano due comunità differenti.
@@ -346,8 +352,8 @@ Possiamo vedere i local bridge come archi la cui rimozione aumenta la distanza t
 </div>
 </div>
 
-<div id="outline-container-org1f2cb71" class="outline-3">
-<h3 id="org1f2cb71"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
+<div id="outline-container-org043f432" class="outline-3">
+<h3 id="org043f432"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 L'esperimento di Granovetter mostra che le informazioni sono veicolate tramite le conoscenze più deboli, proprio perché permettono di accingere ad altre fonti di informazioni.
@@ -369,8 +375,8 @@ non sia una persona falsa, ma questo è un altro discorso&#x2026;).
 </div>
 
 
-<div id="outline-container-org60016b7" class="outline-3">
-<h3 id="org60016b7"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
+<div id="outline-container-org591d866" class="outline-3">
+<h3 id="org591d866"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Consideriamo lo stato di una rete sociali in un dato istante, sarebbe interessante sapere come si evolve nel tempo e quali sono i meccanismi che portano alla creazione
@@ -415,8 +421,8 @@ Se si osserva bene, quando una rete soddisfa la <code>STCP</code> essa si <b>sta
 </div>
 </div>
 
-<div id="outline-container-org91238aa" class="outline-3">
-<h3 id="org91238aa"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
+<div id="outline-container-orge950127" class="outline-3">
+<h3 id="orge950127"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 <b>THM</b>
@@ -429,21 +435,146 @@ allora certamente \((u,y) \in W\) (è un <i>weak tie</i>).
 Se per assurdo \((u,y) \in S\).
 Dato che \(u\) soddisfa la <code>STCP</code> allora deve essere vero che esiste l'arco \((x,y)\), e quindi \(x \in N(y)\).
 Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve essere vero che \(x \not\in N(y)\) (<b>assurdo</b>)
-\(\implies (u,y) \in W\) \(\square\).
+\(\implies (u,y) \in W\) \(\square\).<br />
 </p>
 
 <p>
-<b>[DA FINIRE]</b>
+Il teorema precedentemente enunciato mostra come una proprietà che ha effetti globali (ovvero essere un <i>local bridge</i>) involve in una
+proprietà strettamente locale (ovvere essere un <i>weak ties</i>).
+Infatti la proprietà di <i>weak ties</i> è visibile dal punto di vista locale da parte di un nodo: ogni persona sà se un suo amico è stretto o alla lontana.
+Viceversa, la proprietà di un arco di essere un <i>local edge</i> non intuibile da parte di un nodo.
+Infatti, dato che un nodo conosce solo il suo vicinato non può sapere sapere se ha vicini in comune con un altro suo vicino.<br />
 </p>
 </div>
 </div>
 </div>
+
+<div id="outline-container-orge368b37" class="outline-2">
+<h2 id="orge368b37"><span class="section-number-2">2</span> Comunità e Coefficiente di Clustering</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Abbiamo definito in precedenza un modello di rete dinamica i cui archi si modificano nel tempo, e dove la rete si stabilizza nel momento
+in cui essa soddisfa la <code>STCP</code>.
+Dato che si generano tanti triangoli, allora nel grafo stabilizzato si creeranno gruppi di nodi <b>fortemente coesi</b> da una densa quantità di archi.
+Chiameremo questi gruppi fortemente coesi <b>comunità</b>, o <b>cluster</b>.<br />
+</p>
+
+<p>
+La precedente è una definizione informale e discorsiva.
+Dal punto di vista formale, quando possiamo dire che un gruppo di nodi è abbastanza <i>coeso</i> da essere definito comunità?
+E che significa <i>coeso</i>?<br />
+</p>
+
+<p>
+Per fare ciò iniziamo col <b>quantificare</b> la coesione del nodo \(u\) all'interno dei suoi vicini.
+Sia quindi il <b>coefficiente di clustering</b> 
+</p>
+\begin{align*}
+  c(u)
+  &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \land y \in N(u) \rbrace \vert }{ \binom{N(u)}{2}  }\\
+  &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \land y \in N(u) \rbrace \vert }{ \frac{ \vert N(u) \vert (\vert N(u) \vert - 1) }{2}  }
+\end{align*}
+<p>
+Intuitivamente tale valore cerca di misuare quanto un nodo \(u\) è <i>ben inserito</i> nel gruppo sociale formato dai suoi vicini.
+Infatti tale quantità calcola il rapporto tra i triangoli che coinvolgono \(u\) e il numero massimo possibile di relazioni che possono
+esistere tra tutti i suoi vicini.
+Se un nodo ha un coefficiente di clustering basso vuol dire che si trova in una posizione periferica rispetto ai suoi mici.
+Viceversa, un nodo con un coefficiente di clustering è ben inserito tra i suoi amici, e quindi diremo che è un elemento <b>centrale</b> nella
+sua cerchia di conoscenze.<br />
+</p>
+
+<p>
+Possiamo quindi vedere e riferirci al coefficiente di clustering come <b>indice di centralità</b> di un nodo.<br />
+</p>
+
+<p>
+Analogamente possiamo definire un coefficiente di clustering relativo a un sottoinsieme \(C\) di nodi.
+Ovvero, dato un sottoinsieme \(C \subseteq V\) definiamo il <i>coefficiente di clustering di \(u\) relativo a \(C\)</i> come la quantità
+</p>
+\begin{align*}
+  c_C(u)
+  &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \cap C \land y \in N(u) \cap C \rbrace \vert }{ \binom{N(u) \cap C}{2}  }\\
+  &= \frac{ \vert \lbrace (x,y) \in E : x \in N(u) \cap C \land y \in N(u) \cap C \rbrace \vert }{ \frac{ \vert N(u) \cap C \vert (\vert N(u) \cap C \vert - 1) }{2}  }
+\end{align*}
+<p>
+Questa quantità definisce quanto il nodo \(u\) è integrato all'interno del sottoinsieme di nodi \(C\):
+più il coefficiente \(c_C(u)\) è elevato più \(u\) è <i>centrale</i> all'interno di \(C\), contrariamente più è basse, meno \(u\) è integrato.<br />
+</p>
+
+<p>
+Perciò potremmo dire che se \(C\) ha tutti nodi con coefficiente di clustering alto, allora \(C\) è una <b>comunità</b> (o <b>cluster</b>).
+Ma di preciso quanto deve essere elevato questo valore per poter dire che \(C\) è una comunità?<br />
+Inoltre il coefficiente di clustering è un buon fattore da considerare per identificare le comunità?<br />
+</p>
 </div>
+</div>
+
+<div id="outline-container-org71e54a9" class="outline-2">
+<h2 id="org71e54a9"><span class="section-number-2">3</span> Alcuni tipi di Comunità</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org431f27b" class="outline-3">
+<h3 id="org431f27b"><span class="section-number-3">3.1</span> Cut-Communities</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Dato un grafo \(G = (V,E)\) e una coppia di nodi \(s,t \in V\), diciamo che una <b>cut-community</b> rispetto a \(s,t\) è un sottoinsieme
+proprio e non vuoto dei nodi \(C \subset V\) (con \(C \not\equiv \emptyset\)) tale che \(s \in C\) e \(t \in \overline{C} \equiv V \setminus C\), e tale 
+che questo sottoinsieme <span class="underline">minimizza</span> gli archi del taglio \((C,\overline{C})\), ovvero
+\[
+   \vert (C, \overline{C}) \vert = \min_{A \subset V}{\lbrace \vert (A, \overline{A}) \vert : s \in A \land t \in \overline{A} \rbrace } 
+   \]
+</p>
+
+<p>
+Citando il <a href="https://en.wikipedia.org/wiki/Max-flow_min-cut_theorem">Max-Flow/Min-Cut Theorem</a>, trovare un \( s \)-\( t \) cut minimo equivale a trovare il flusso massimo tra \(s\) e \(t\).
+Perciò, dati \(s\) e \(t\) possiamo trovare una cut community grazie all'algoritmo di max-flow <i><a href="https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm">Ford&amp;Fulkerson</a></i>.<br />
+</p>
+
+<p>
+Perciò, per trovare una cut comunity che sia la più coesa possibile, si potrebbero calcolare tutti gli \( s \)-\( t \) cut minimi e
+scegleire quello più piccolo.
+Osservare che questo si può fare in <i>tempo polinomiale</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.<br />
+</p>
+
+<p>
+Il problema di questo metodo è che non c'è modo di controllare la dimensione della comunità \(C\) risultante, infatti potrebbe capitare
+che \(C\) sia composta dal solo elemento \(s\), e ciò è in disaccordo col concetto intuitivo di comunità (una sola persona non può costituire
+una comunità).<br />
+</p>
+
+<p>
+Consideriamo infatti il seguente esempio:
+</p>
+<div class="org-center">
+<p>
+immagine
+</p>
+</div>
+<p>
+abbiamo un grafo \(G\) composto dall'unione di due <i>clique</i> \(K_5\)
+\[
+   G = K_5^{(u)} \cup K_5^{(v)}
+   \]
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-08 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-18 gio 23:48</p>
+<p class="date">Created: 2021-11-19 ven 19:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
