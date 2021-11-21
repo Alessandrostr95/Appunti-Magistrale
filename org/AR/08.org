@@ -1,0 +1,37 @@
+#+title: AR - Lesson 08
+#+date: <2021-11-10 lun>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+
+* Metodi euristici per partizionare in comunità
+  Nella precedente [[./07.html][parte]] sono stati introdotti i concetti cut- e web-community, e dimostrato che il problema del partizionamento di un grafo
+  in web-communities è un problema *difficile*[fn:1] dal punto di vista computazionale.\\
+  In questa parte verranno mostrate due famiglie approcci che dal punto di vista euristico riescono a partizionare un grafo in comunità accettabili,
+  ovvero in gruppi di nodi abbastanza coesi tra di loro.\\
+
+  Più precisamente i due metodi si dividono in:
+  - *metodi partitivi*, in cui si parte considerando l'intero grafo come unica grande comunità, e la si inizia a disconnettere (rimuovendo archi) finché non
+    si otterranno due comunità distinte e coese.
+    Se si desidera ottenere una /granularità/ maggiore basta iterare il metodo sui sottografi ottenuti.
+  - *metodi agglomerativi*, in cui si parte considerando ogni singolo nodo una comunità, e man mano si aggiungono gli archi del grafo finché non si otterranno
+    un numero di comunità desiderato con un livello di coesione accettabile.
+
+  Osservare che entrambi i metodi consentono di ottenere delle *partizioni nidificate* (*nested*), infatti nel metodo partitivo si genera una partizione
+  a partire da una più grande (approccio *top-down*), e nel metodo agglomerativo si genera una partizione come composizione di altre più piccole (approccio *bottom-up*).
+  
+  #+caption: Schema di partizione metodo partitivo.
+  #+ATTR_HTML: :style max-width:350px; :width 100%
+  [[file:../images/ar-lesson08-img1.png]]
+
+  #+caption: Schema di partizione metodo agglomerativo.
+  #+ATTR_HTML: :style max-width:350px; :width 100%
+  [[file:../images/ar-lesson08-img2.png]]
+
+  Entrambi i metodi hanno quindi uno /schema di partizione/ ad albero.\\
+
+  Osservare infine che entrambi i metodi richiedono la scelta di un arco da rimuovere o aggiungere ad ogni passo.
+
+** Betweenness di un arco
+   *[DA FINIRE]*
+
+[fn:1] ovvero *NP-completo*.

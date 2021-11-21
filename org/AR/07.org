@@ -1,4 +1,4 @@
-#+title: AR - Lesson 07-08
+#+title: AR - Lesson 07
 #+date: <2021-11-08 lun>
 #+teacher: Miriam Di Ianni
 #+setupfile: ../../org-template/appunti.org
@@ -340,7 +340,7 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    - se $a(x_i) = \texttt{false}$, inseiriamo $\overline{x_i}$, i suoi nodi senza nomi, e i nodi $y_i, t_i$.
    Le due comunità risultanti saranno due cut-communites $\square$.\\
 
-   
-   
+-----
+
 [fn:1] ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
 [fn:2] un problema =X= è *NP-completo* se _ogni_ problema appartenente alla classe *NP* può essere /ridotto polinomialmente/ al problema =X=.
