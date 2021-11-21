@@ -315,7 +315,32 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    #+ATTR_HTML: :style max-width:550px; :width 100%
    [[file:../images/ar-lesson07-img5.png]]
    
-   *[DA FINIRE]*
+  
+   Riassumendo abbiamo visto che affinché $G$ sia partizionabile in due web-communities è necessario che $T$ ed $F$ siano contenuti in due
+   comunità differenti, e se $T$ ed $F$ sono in due comunità differenti abbiamo che anche $x_i$ e $\overline{x_i}$ sono in due comunità differenti, per ogni $i = 1, 2, ..., n$.
+   Questo significa che ogni partizione di $G$ in due web-communities corrisponde ad una assegnazione di verità per le variabili in $X$.\\
+
+   Inoltre, la partizione di $G$ è possibile solo se per ogni clausola $c_j$ /almeno/ uno dei suoi letterali appartiene alla stessa comunità di $T$.\\
+
+   Perciò, data una partizione $C, V \setminus C$ in due web-communities di $G$, basterà dare la seguente /assegnazione di verità/ per soddisfare $\phi$
+   \[
+   a(x_i) = \begin{cases}
+     \texttt{true} &\mbox{if } x_i \in C\\
+     \texttt{false} &\mbox{if } x_i \in V \setminus C
+   \end{cases}
+   \]
+   dove $C$ è la comunità a cui appartiene $T$.\\
+
+   Viceversa, se esiste un'assegnazione \(a: X \rightarrow \lbrace \texttt{true}, \texttt{false} \rbrace\) che soddisfa $\phi$, allora è possibile ricavare
+   una partizione di $G$ in due web-communitie.
+   Innanzitutto poniamo $T$ in $C$ ed $F$ in $V \setminus C$.
+   Dopodiché, dato che $a$ soddisfa $\phi$, allora insieriamo in $C$ tutti i nodi clausola $c_j$ e i rispettivi $l_{j1}, l_{j2}, l_{j3}$.
+   Infine, per ogni $i$, inseiriamo in $C$ i seguenti nodi:
+   - se $a(x_i) = \texttt{true}$, inseiriamo $x_i$, i suoi nodi senza nomi, e i nodi $y_i, t_i$.
+   - se $a(x_i) = \texttt{false}$, inseiriamo $\overline{x_i}$, i suoi nodi senza nomi, e i nodi $y_i, t_i$.
+   Le due comunità risultanti saranno due cut-communites $\square$.\\
+
+   
    
 [fn:1] ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
 [fn:2] un problema =X= è *NP-completo* se _ogni_ problema appartenente alla classe *NP* può essere /ridotto polinomialmente/ al problema =X=.
