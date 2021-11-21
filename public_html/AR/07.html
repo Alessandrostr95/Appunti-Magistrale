@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-19 ven 19:36 -->
+<!-- 2021-11-21 dom 01:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AR - Lesson 07</title>
+<title>AR - Lesson 07-08</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,24 +269,26 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">AR - Lesson 07</h1>
+<h1 class="title">AR - Lesson 07-08</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4bba26e">1. Reti con struttura disomogenea</a>
+<li><a href="#org85083f8">1. Reti con struttura disomogenea</a>
 <ul>
-<li><a href="#orga7903dd">1.1. Esperimento di Granovetter</a></li>
-<li><a href="#orga794a9f">1.2. Bridges e Local Bridges</a></li>
-<li><a href="#org043f432">1.3. Strong &amp; Weak Ties</a></li>
-<li><a href="#org591d866">1.4. The Strong Triadic Closure Property</a></li>
-<li><a href="#orge950127">1.5. STCP e Local Bridges</a></li>
+<li><a href="#org4f4dae3">1.1. Esperimento di Granovetter</a></li>
+<li><a href="#orgc9813d6">1.2. Bridges e Local Bridges</a></li>
+<li><a href="#org1f2cb71">1.3. Strong &amp; Weak Ties</a></li>
+<li><a href="#org60016b7">1.4. The Strong Triadic Closure Property</a></li>
+<li><a href="#org91238aa">1.5. STCP e Local Bridges</a></li>
 </ul>
 </li>
-<li><a href="#orge368b37">2. Comunità e Coefficiente di Clustering</a></li>
-<li><a href="#org71e54a9">3. Alcuni tipi di Comunità</a>
+<li><a href="#orgde05759">2. Comunità e Coefficiente di Clustering</a></li>
+<li><a href="#orgbfb7ee7">3. Alcuni tipi di Comunità</a>
 <ul>
-<li><a href="#org431f27b">3.1. Cut-Communities</a></li>
+<li><a href="#orgb591826">3.1. Cut-Communities</a></li>
+<li><a href="#orgc1c8440">3.2. Web-Communities</a></li>
+<li><a href="#org431f545">3.3. Relazione tra cut- e web-communities</a></li>
 </ul>
 </li>
 </ul>
@@ -297,12 +299,12 @@ Fin ora abbiamo analizzato le reti dal punto di vista <i>statistico</i>, disinte
 &#x2026;
 </p>
 
-<div id="outline-container-org4bba26e" class="outline-2">
-<h2 id="org4bba26e"><span class="section-number-2">1</span> Reti con struttura disomogenea</h2>
+<div id="outline-container-org85083f8" class="outline-2">
+<h2 id="org85083f8"><span class="section-number-2">1</span> Reti con struttura disomogenea</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga7903dd" class="outline-3">
-<h3 id="orga7903dd"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
+<div id="outline-container-org4f4dae3" class="outline-3">
+<h3 id="org4f4dae3"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Nel 1960, il sociologo Mark Granovetter prosope il seguente esperimento nella sua tesi di dottorato:
@@ -323,8 +325,8 @@ al di fuori della mia <i>comunità</i>.<br />
 </div>
 </div>
 
-<div id="outline-container-orga794a9f" class="outline-3">
-<h3 id="orga794a9f"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
+<div id="outline-container-orgc9813d6" class="outline-3">
+<h3 id="orgc9813d6"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Come si può intuire dall'esperimento di Granovetter i contatti che più sono rilevanti nella diffusione di informazioni in una rete sono quei contatti che collegano due comunità differenti.
@@ -352,8 +354,8 @@ Possiamo vedere i local bridge come archi la cui rimozione aumenta la distanza t
 </div>
 </div>
 
-<div id="outline-container-org043f432" class="outline-3">
-<h3 id="org043f432"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
+<div id="outline-container-org1f2cb71" class="outline-3">
+<h3 id="org1f2cb71"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 L'esperimento di Granovetter mostra che le informazioni sono veicolate tramite le conoscenze più deboli, proprio perché permettono di accingere ad altre fonti di informazioni.
@@ -375,8 +377,8 @@ non sia una persona falsa, ma questo è un altro discorso&#x2026;).
 </div>
 
 
-<div id="outline-container-org591d866" class="outline-3">
-<h3 id="org591d866"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
+<div id="outline-container-org60016b7" class="outline-3">
+<h3 id="org60016b7"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Consideriamo lo stato di una rete sociali in un dato istante, sarebbe interessante sapere come si evolve nel tempo e quali sono i meccanismi che portano alla creazione
@@ -421,8 +423,8 @@ Se si osserva bene, quando una rete soddisfa la <code>STCP</code> essa si <b>sta
 </div>
 </div>
 
-<div id="outline-container-orge950127" class="outline-3">
-<h3 id="orge950127"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
+<div id="outline-container-org91238aa" class="outline-3">
+<h3 id="org91238aa"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 <b>THM</b>
@@ -449,8 +451,8 @@ Infatti, dato che un nodo conosce solo il suo vicinato non può sapere sapere se
 </div>
 </div>
 
-<div id="outline-container-orge368b37" class="outline-2">
-<h2 id="orge368b37"><span class="section-number-2">2</span> Comunità e Coefficiente di Clustering</h2>
+<div id="outline-container-orgde05759" class="outline-2">
+<h2 id="orgde05759"><span class="section-number-2">2</span> Comunità e Coefficiente di Clustering</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Abbiamo definito in precedenza un modello di rete dinamica i cui archi si modificano nel tempo, e dove la rete si stabilizza nel momento
@@ -509,12 +511,12 @@ Inoltre il coefficiente di clustering è un buon fattore da considerare per iden
 </div>
 </div>
 
-<div id="outline-container-org71e54a9" class="outline-2">
-<h2 id="org71e54a9"><span class="section-number-2">3</span> Alcuni tipi di Comunità</h2>
+<div id="outline-container-orgbfb7ee7" class="outline-2">
+<h2 id="orgbfb7ee7"><span class="section-number-2">3</span> Alcuni tipi di Comunità</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org431f27b" class="outline-3">
-<h3 id="org431f27b"><span class="section-number-3">3.1</span> Cut-Communities</h3>
+<div id="outline-container-orgb591826" class="outline-3">
+<h3 id="orgb591826"><span class="section-number-3">3.1</span> Cut-Communities</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Dato un grafo \(G = (V,E)\) e una coppia di nodi \(s,t \in V\), diciamo che una <b>cut-community</b> rispetto a \(s,t\) è un sottoinsieme
@@ -531,9 +533,10 @@ Perciò, dati \(s\) e \(t\) possiamo trovare una cut community grazie all'algori
 </p>
 
 <p>
-Perciò, per trovare una cut comunity che sia la più coesa possibile, si potrebbero calcolare tutti gli \( s \)-\( t \) cut minimi e
-scegleire quello più piccolo.
-Osservare che questo si può fare in <i>tempo polinomiale</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.<br />
+Perciò, per trovare una cut comunity che sia la più coesa possibile (quindi una cut-community non necessariamente riferita a due nodi \(s,t\)), si potrebbero calcolare
+tutti gli \( s \)-\( t \) cut minimi e scegleire quello più piccolo, ovvero basta calcolare un <b>taglio minimo</b> del grafo.
+Osservare che questo si può fare in <i>tempo polinomiale</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, perciò possiamo affermare che il problema decisionale che stabilisce se un grafo è partizionabile in due
+cut-communities è collocato nella classe di complessità <b>P</b>.<br />
 </p>
 
 <p>
@@ -545,16 +548,245 @@ una comunità).<br />
 <p>
 Consideriamo infatti il seguente esempio:
 </p>
-<div class="org-center">
-<p>
-immagine
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson07-img2.png" alt="ar-lesson07-img2.png" style="max-width:450px;" width="100%" />
 </p>
+<p><span class="figure-number">Figura 2: </span>Controesempio</p>
 </div>
+
 <p>
 abbiamo un grafo \(G\) composto dall'unione di due <i>clique</i> \(K_5\)
 \[
    G = K_5^{(u)} \cup K_5^{(v)}
    \]
+</p>
+
+<p>
+Oltre agli archi delle due clique, per ogni nodo \(u_i \in K_5^{(u)}\) esistono i tre archi \((u_i, v_{i-1 \mod{5}}), (u_i, v_i), (u_i, v_{i + 1 \mod{5}})\) (come mostrato nella precedente figura).<br />
+Se si osserva bene, comunque scegliamo un nodo \(x\), l'unico taglio minimo è del tipo \((\lbrace x \rbrace, V \setminus \lbrace x \rbrace)\), di dimensione 7.
+Infatti, se aggiungessimo un qualsiasi nodo insieme ad \(x\) otterremmo un taglio di dimensione strettamente maggiore di 7.<br />
+Per esempio \( 12 = \vert (\lbrace u_0, u_1 \rbrace, V \setminus \lbrace u_0, u_1 \rbrace ) \vert > \vert (\lbrace u_0 \rbrace, V \setminus \lbrace u_0 \rbrace ) \vert = 7 \).<br />
+</p>
+
+<p>
+Se ci riveriamo alla definizione di cut-cumminity, non ha molto senso dire che il solo nodo \(u_0\) compone una comunità, per questo è necessario dare una nuova definizione di comunità.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc1c8440" class="outline-3">
+<h3 id="orgc1c8440"><span class="section-number-3">3.2</span> Web-Communities</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Una (<b>strong</b>) <b>web-community</b> un sottoinsieme <span class="underline">proprio e non vuoto</span> \(C \subset V\), tale che i nodi che lo compongono hanno più vicini all'interno di \(C\) stesso anzichè all'esterno, ovvero
+\[
+   \forall u \in C \left[ \vert N(u) \cap C \vert > \vert N(u) \setminus C \vert = \vert N(u) \cap (V \setminus C) \vert  \right]
+   \]
+Alternativamente è comodo guardare alla precedente proprietà come il fatto che <i>almeno</i> la metà dei vicini di \(u\) è all'interno di \(C\)
+\[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} > \frac{1}{2}
+   \]
+</p>
+
+<p>
+Rilassando la relazione di maggioranza stretta, possiamo definire in maniera analoga una <b>weak web-community</b> qualsiasi sottoinsieme \(C\) non vuoto e proprio di \(V\) tale che
+\[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} \geq \frac{1}{2}
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org431f545" class="outline-3">
+<h3 id="org431f545"><span class="section-number-3">3.3</span> Relazione tra cut- e web-communities</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Il concetto di cut-community e weak web-community sono in realtà strettamente correlati, risultando nel seguente teorema<br />
+</p>
+
+<p>
+<b>THM</b> Sia un grafo \(G = (V,E)\).
+Se \(G\) ha una cut-community \(C \subset V\) tale che \(|C| > 1\), allora \(C\) è anche una weak web-community.
+Più formalmente, dato un sottoinsieme \(C \subset V\) tale che
+\[
+   \vert (C, V \setminus C) \vert = \min_{A \subset V}{ \lbrace \vert (A, V \setminus A) \vert \rbrace }\\
+   \land\\
+   1 < \vert C \vert < \vert V \vert
+   \]
+allora
+\[
+   \forall u \in C \; \left[ \vert N(u) \cap C \vert \geq \vert N(u) \setminus C \vert \right]
+   \]
+</p>
+
+
+<p>
+<b>Proof</b>
+Supponiamo per assurdo che l'insieme \(C\) non sia una weak web-community, ovvero che
+\[
+   \exists u \in C : \vert N(u) \cap C \vert < \vert N(u) \setminus C \vert
+   \]
+Dato che \(C\) ha <i>almeno</i> due elementi, allora \(C \setminus \lbrace u \rbrace , (V \setminus C) \cup \lbrace u \rbrace )\) è un taglio del grafo.
+Calcoliamo ora la dimensione di questo nuovo taglio
+</p>
+\begin{align*}
+  \vert (C \setminus \lbrace u \rbrace , (V \setminus C) \cup \lbrace u \rbrace ) \vert
+  &= \vert (C, V \setminus C) \vert + \underbrace{\vert N(u) \cap C \vert - \vert N(u) \setminus C \vert}_{< 1}\\
+  &< \vert (C, V \setminus C) \vert
+\end{align*}
+<p>
+Quindi abbiamo trovato un altro taglio <span class="underline">minore</span> \((C, V \setminus C)\), e questo è assurdo in quanto essendo \(C\) per ipotesi una cut-community deve essere vero che
+\((C, V \setminus C)\) è un taglio minimo di \(G\).
+Perciò necessariamente è falsa l'ipotesi che \(C\) non sia una weak web-community \(\square\).<br />
+</p>
+
+<p>
+Anche se esiste un algoritmo polinomiale che decide se un grafo è partizionabile in cut-community, non ne conosciamo un che <span class="underline">decida</span> in tempo polinomiale se un grafo è
+partizionabile in web-communities.
+Infatti, sappiamo trovare due cut-communities \(C\), \(V \setminus C\) che generino un taglio minimo, ma non sappiamo garantire che \(\vert C \vert > 1\) e \(\vert V \setminus C \vert > 1\).
+In realtà, non solo non conosciamo un algoritmo che possa farlo in tempo polinomiale, ma è possibile dimostrare che tale problema è <b>NP-completo</b><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.<br />
+</p>
+
+<p>
+Definiamo qundi il problema <b>Strong Web-Community Partitioning</b> (<b>SWCP</b>) il problema <i>decisionale</i> che si occupa di stabilire se dato un grafo \(G\) esiste un sottoinsieme dei nodi \(C\) tale
+che \(C\) e \(V \setminus C\) sono due strong web-community.<br />
+</p>
+
+<p>
+<b>THM</b> il problema <b>SWCP</b> è un problema <b>NP-completo</b>.<br />
+</p>
+
+<p>
+Prima di procedere alla dimostrazione di questo teorema enunciamo e dimostriamo il seguente lemma
+</p>
+
+<blockquote>
+<p>
+<b>Lemma</b> Sia \(G\) un grafo partizionabile in due strong web-community.
+Se esiste un nodo \(u\) di grado esattamente 2, allora necessariamente \(u\) e i suoi due vicini devo appartenere alla stessa comunità.
+</p>
+
+<p>
+<b>Proof</b> Consideriamo una partizione in due strong web-communities \(C, V \setminus C = \overline{C}\), e siano \(v, w\) i due soli nodi vicini di \(u\).
+Supponiamo per assurdo che \(v \in C\) e \(w \in \overline{C}\).
+Dato che \(C, \overline{C}\) è una partizione di \(V\), allora necessariamente o \(u \in C\) o \(u \in \overline{C}\).
+Se \(u \in C\) avremo che \(\vert N(u) \cap C \vert = \vert N(u) \setminus C \vert\), e quindi \(C\) non sarebbe una <span class="underline">strong</span> web-community.
+Allora deve essere che \(u \in \overline{C}\), però avremo \(\vert N(u) \cap \overline{C} \vert = \vert N(u) \setminus \overline{C} \vert\), e quindi \(\overline{C}\) non è una <i>strong</i> web-community.
+Perciò non può essere vero che \(v \in C\) e \(w \in \overline{C}\), quindi \(u,v,w\) devono necessariamente appartenere alla stessa comunità \(\square\).
+</p>
+</blockquote>
+
+<p>
+Procediamo ora alla dimostrazione del teorema<br />
+</p>
+
+<p>
+<b>Proof (THM)</b>
+Innanzitutto è facile verificare che <b>SWCP</b> è un problema in <b>NP</b>, basta mostrare un <i>certificato polinomiale</i>.
+Un certificato polinomiale banale è prorpio un sottoinsieme di nodi \(C\) tale che \(C\) e \(V \setminus C\) sono due strong web-communities.<br />
+</p>
+
+<p>
+Per verificarne invece la completezza, è necessario mostrare una <i>riduzione</i> da un problema già noto essere <b>NP-completo</b> al problema in questione.
+In questo caso verrà mostrata una riduzione dal problema <b>3-SAT</b>.<br />
+</p>
+
+<p>
+\[
+   \mbox{3-STA} \preccurlyeq_{P} SWCP
+   \]
+</p>
+
+<p>
+Consideriamo quindi una formula \(\phi = c_1 \land c_2 \land ... \land c_m\) in 3-CNF, con variabili in \(X = \lbrace x_1, x_2, ..., x_n \rbrace\).
+Costruiamo quindi il grafo \(G\) come segue.<br />
+</p>
+
+<p>
+L'insieme dei nodi \(V\) contiene i nodi \(T\) e \(F\), che rappresenteranno le assegnazioni <code>true</code> e <code>false</code>.
+Questi due nodi sono posizionati nel grafo in modo tale che essi dovranno necessariamente appartenere a due comunità differenti affinché \(G\) sia partizionabile in due
+strong web-community.<br />
+</p>
+
+<p>
+Per ogni <i>variabile</i> \(x_i \in X\) costruiamo un <b>gadget variabile</b> come seuge:
+</p>
+<ol class="org-ol">
+<li>inseriamo in \(V\) i nodi \(x_i, \overline{x_i}, y_i, z_i, t_i, f_i\).</li>
+<li>inseriamo in \(E\) gli archi \((x_i,y_i), (x_i,z_i), (y_i,t_i), (t_i,T), (\overline{x_i}, z_i), (\overline{x_i}, y_i), (z_i, f_i), (f_i, F)\).</li>
+<li>per il nodo \(x_i\) aggiungiamo tanti vicini senza nome, tante quante sono le clausole che contengono \(x_i\). più 1.</li>
+<li>stessa cosa per \(\overline{x_i}\) come nel punto 3.</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson07-img3.png" alt="ar-lesson07-img3.png" style="max-width:300px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Esempio gadget variabile.</p>
+</div>
+
+<p>
+Osserviamo che se \(T\) ed \(F\) appartongono a due comunità differenti, allora anche \(x_i\) ed \(\overline{x_i}\) apparterranno a due comunità differenti.
+Infatti, senza perdita di generalità poniamo \(T \in C\) e \(F \in \overline{C}\): poiché \(t_i\) e \(f_i\) hanno entrambi grado 2, per il Lemma precedente deve necessariamente essere vero che
+\(t_i, y_i \in C\) e \(f_i, z_i \in \overline{C}\).
+Poiché \(y_i\) ha grado 3, allora almeno 1 tra \(x_i\) e \(\overline{x_i}\) deve appartene a \(C\).
+Stessa cosa per \(z_i\), poiché ha grado 3 allora almeno 1 tra \(x_i\) e \(\overline{x_i}\) deve appartene a \(\overline{C}\).
+Infine, poiché \(y_i\) e \(z_i\) non devono poter essere raggiungibili (altrimenti apparterrebbero alla stessa comunità), allora possiamo dire che o \(x_i\) appartiene e \(C\) e \(\overline{x_i}\) a \(\overline{C}\),
+oppure viceversa.
+Infine, collocati i nodi \(x_i\) e \(\overline{x_i}\) nelle rispettive comunità, essi si porteranno appresso i rispettivi vicini senza nome.<br />
+</p>
+
+<p>
+Continuando, per ogni clausola \(c_j\) di \(\phi\), definiamo un <b>gadget clausola</b> come segue:
+</p>
+<ol class="org-ol">
+<li>inseriamo in \(V\) un nodo \(c_j\) e un nodo per ognuno dei suoi letterali \(l_{j1},l_{j2},l_{j3}\).</li>
+<li>in \(E\) inseriamo gli archi da \(c_j\) verso \(l_{j1},l_{j2},l_{j3}\) e dai nodi \(l_{j1},l_{j2},l_{j3}\) verso il nodo \(T\).</li>
+<li>infine aggiungiamo in \(E\) un arco da \(c_j\) verso ognuno dei letterali che lo compongono: se in \(c_j = x_1 \lor \overline{x_2} \lor \overline{x_3}\) ollra inseriamo gli archi \((c_j,x_1), (c_j,\overline{x_2}), (c_j,\overline{x_3})\).</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson07-img4.png" alt="ar-lesson07-img4.png" style="max-width:450px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Esempio gadget clausola.</p>
+</div>
+
+<p>
+Notiamo che sempre per il Lemma precedente, dato che \(l_{j1},l_{j2},l_{j3}\) hanno tutti grado 2, allora se \(G\) è partizionabile in due strong web-community certamente sia \(l_{j1},l_{j2},l_{j3}\)
+che \(c_j\) devono essere nella stessa comunità a cui appartiene \(T\).
+Inoltre poiché \(c_j\) ha grado esattamente \(6\), e poiché 3 dei suoi vicini sono nella comunità a cui appartiene \(T\), allora basta che <span class="underline">almeno</span> uno tra i suoi letterali (nell'esempio predente \(x_1, \overline{x_2}, \overline{x_3}\))
+appartenga anch'esso alla comunità in cui si trova \(T\).<br />
+</p>
+
+<p>
+Dalla costruizione appena fatta emerge che quindi \(c_j\) deve appartenere alla stessa comunità a cui appartiene \(T\), e per rendere ciò possibile <span class="underline">almeno uno</span> dei letterali che lo compongono deve appartenere alla stessa comunità.<br />
+</p>
+
+<p>
+Iniziamo col dimostrare che \(T\) ed \(F\) devono necessariamente appartenere a due comunità differenti, e questo verrà dimostrato dimosrtando che se \(T\) ed \(F\) appartengono alla stessa comunità \(C\) allora \(C \equiv V\)
+\[
+   T, F \in C \Leftrightarrow C \equiv V
+   \]
+Iniziamo con l'osservare che se \(T,F\) appartengono alla stessa comunità \(C\) allora anche i nodi \(y_i\) e \(z_i\) appartengono a \(C\), per ogni \(i = 1, 2, ..., n\).
+Consideriamo il letterale \(x_i\) che è contenuto in \(k\) clausole del tipo \(c_j\).
+Poichè ognuna di queste clausole sono per costruzione nella stessa comunità di \(T\) (e quindi in \(C\)) e poiché \(x_i\) ha a altri due suoi vicini \(y_i, z_i\) in \(C\), risulterà che più della metà dei suoi vicini sono in \(C\).
+Infatti risulta che \(x_i\) ha esattamente \(k+2\) vicini in \(C\) più altri \(k+1\) nodi senza nome.
+Perciò, dovunque insieriamo qui \(k+1\) nodi senza nome, per forza \(x_i\) deve stare in \(C\).
+Stesso ragionamento per \(\overline{x_i}\).<br />
+Infine poiché i nodi senza nome hanno un solo vicino (che sicuramente sta in \(C\)), possiamo concludere che tutti i nodi del grafo stanno in \(C\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson07-img5.png" alt="ar-lesson07-img5.png" style="max-width:550px;" width="100%" />
+</p>
+</div>
+
+<p>
+<b>[DA FINIRE]</b>
 </p>
 </div>
 </div>
@@ -567,6 +799,10 @@ abbiamo un grafo \(G\) composto dall'unione di due <i>clique</i> \(K_5\)
 ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+un problema <code>X</code> è <b>NP-completo</b> se <span class="underline">ogni</span> problema appartenente alla classe <b>NP</b> può essere <i>ridotto polinomialmente</i> al problema <code>X</code>.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -574,7 +810,7 @@ ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
 <p class="date">Data: 2021-11-08 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-19 ven 19:36</p>
+<p class="date">Created: 2021-11-21 dom 01:07</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

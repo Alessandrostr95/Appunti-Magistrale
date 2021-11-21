@@ -1,4 +1,4 @@
-#+title: AR - Lesson 07
+#+title: AR - Lesson 07-08
 #+date: <2021-11-08 lun>
 #+teacher: Miriam Di Ianni
 #+setupfile: ../../org-template/appunti.org
@@ -146,21 +146,176 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    Citando il [[https://en.wikipedia.org/wiki/Max-flow_min-cut_theorem][Max-Flow/Min-Cut Theorem]], trovare un \( s \)-\( t \) cut minimo equivale a trovare il flusso massimo tra $s$ e $t$.
    Perciò, dati $s$ e $t$ possiamo trovare una cut community grazie all'algoritmo di max-flow /[[https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm][Ford&Fulkerson]]/.\\
 
-   Perciò, per trovare una cut comunity che sia la più coesa possibile, si potrebbero calcolare tutti gli \( s \)-\( t \) cut minimi e
-   scegleire quello più piccolo.
-   Osservare che questo si può fare in /tempo polinomiale/[fn:1].\\
+   Perciò, per trovare una cut comunity che sia la più coesa possibile (quindi una cut-community non necessariamente riferita a due nodi $s,t$), si potrebbero calcolare
+   tutti gli \( s \)-\( t \) cut minimi e scegleire quello più piccolo, ovvero basta calcolare un *taglio minimo* del grafo.
+   Osservare che questo si può fare in /tempo polinomiale/[fn:1], perciò possiamo affermare che il problema decisionale che stabilisce se un grafo è partizionabile in due
+   cut-communities è collocato nella classe di complessità *P*.\\
 
    Il problema di questo metodo è che non c'è modo di controllare la dimensione della comunità $C$ risultante, infatti potrebbe capitare
    che $C$ sia composta dal solo elemento $s$, e ciò è in disaccordo col concetto intuitivo di comunità (una sola persona non può costituire
    una comunità).\\
 
    Consideriamo infatti il seguente esempio:
-   #+begin_center
-   immagine
-   #+end_center
+
+   #+caption: Controesempio
+   #+ATTR_HTML: :style max-width:450px; :width 100%
+   [[file:../images/ar-lesson07-img2.png]]
+   
    abbiamo un grafo $G$ composto dall'unione di due /clique/ $K_5$
    \[
    G = K_5^{(u)} \cup K_5^{(v)}
    \]
 
+   Oltre agli archi delle due clique, per ogni nodo \(u_i \in K_5^{(u)}\) esistono i tre archi \((u_i, v_{i-1 \mod{5}}), (u_i, v_i), (u_i, v_{i + 1 \mod{5}})\) (come mostrato nella precedente figura).\\
+   Se si osserva bene, comunque scegliamo un nodo $x$, l'unico taglio minimo è del tipo \((\lbrace x \rbrace, V \setminus \lbrace x \rbrace)\), di dimensione 7.
+   Infatti, se aggiungessimo un qualsiasi nodo insieme ad $x$ otterremmo un taglio di dimensione strettamente maggiore di 7.\\
+   Per esempio \( 12 = \vert (\lbrace u_0, u_1 \rbrace, V \setminus \lbrace u_0, u_1 \rbrace ) \vert > \vert (\lbrace u_0 \rbrace, V \setminus \lbrace u_0 \rbrace ) \vert = 7 \).\\
+
+   Se ci riveriamo alla definizione di cut-cumminity, non ha molto senso dire che il solo nodo $u_0$ compone una comunità, per questo è necessario dare una nuova definizione di comunità.
+   
+** Web-Communities
+   Una (*strong*) *web-community* un sottoinsieme _proprio e non vuoto_ $C \subset V$, tale che i nodi che lo compongono hanno più vicini all'interno di $C$ stesso anzichè all'esterno, ovvero
+   \[
+   \forall u \in C \left[ \vert N(u) \cap C \vert > \vert N(u) \setminus C \vert = \vert N(u) \cap (V \setminus C) \vert  \right]
+   \]
+   Alternativamente è comodo guardare alla precedente proprietà come il fatto che /almeno/ la metà dei vicini di $u$ è all'interno di $C$
+   \[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} > \frac{1}{2}
+   \]
+
+   Rilassando la relazione di maggioranza stretta, possiamo definire in maniera analoga una *weak web-community* qualsiasi sottoinsieme $C$ non vuoto e proprio di $V$ tale che
+   \[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} \geq \frac{1}{2}
+   \]
+
+** Relazione tra cut- e web-communities
+   Il concetto di cut-community e weak web-community sono in realtà strettamente correlati, risultando nel seguente teorema\\
+
+   *THM* Sia un grafo $G = (V,E)$.
+   Se $G$ ha una cut-community $C \subset V$ tale che $|C| > 1$, allora $C$ è anche una weak web-community.
+   Più formalmente, dato un sottoinsieme $C \subset V$ tale che
+   \[
+   \vert (C, V \setminus C) \vert = \min_{A \subset V}{ \lbrace \vert (A, V \setminus A) \vert \rbrace }\\
+   \land\\
+   1 < \vert C \vert < \vert V \vert
+   \]
+   allora
+   \[
+   \forall u \in C \; \left[ \vert N(u) \cap C \vert \geq \vert N(u) \setminus C \vert \right]
+   \]
+   
+   
+   *Proof*
+   Supponiamo per assurdo che l'insieme $C$ non sia una weak web-community, ovvero che
+   \[
+   \exists u \in C : \vert N(u) \cap C \vert < \vert N(u) \setminus C \vert
+   \]
+   Dato che $C$ ha /almeno/ due elementi, allora \(C \setminus \lbrace u \rbrace , (V \setminus C) \cup \lbrace u \rbrace )\) è un taglio del grafo.
+   Calcoliamo ora la dimensione di questo nuovo taglio
+   \begin{align*}
+     \vert (C \setminus \lbrace u \rbrace , (V \setminus C) \cup \lbrace u \rbrace ) \vert
+     &= \vert (C, V \setminus C) \vert + \underbrace{\vert N(u) \cap C \vert - \vert N(u) \setminus C \vert}_{< 1}\\
+     &< \vert (C, V \setminus C) \vert
+   \end{align*}
+   Quindi abbiamo trovato un altro taglio _minore_ \((C, V \setminus C)\), e questo è assurdo in quanto essendo $C$ per ipotesi una cut-community deve essere vero che
+   \((C, V \setminus C)\) è un taglio minimo di $G$.
+   Perciò necessariamente è falsa l'ipotesi che $C$ non sia una weak web-community \(\square\).\\
+
+   Anche se esiste un algoritmo polinomiale che decide se un grafo è partizionabile in cut-community, non ne conosciamo un che _decida_ in tempo polinomiale se un grafo è
+   partizionabile in web-communities.
+   Infatti, sappiamo trovare due cut-communities $C$, $V \setminus C$ che generino un taglio minimo, ma non sappiamo garantire che \(\vert C \vert > 1\) e \(\vert V \setminus C \vert > 1\).
+   In realtà, non solo non conosciamo un algoritmo che possa farlo in tempo polinomiale, ma è possibile dimostrare che tale problema è *NP-completo*[fn:2].\\
+
+   Definiamo qundi il problema *Strong Web-Community Partitioning* (*SWCP*) il problema /decisionale/ che si occupa di stabilire se dato un grafo $G$ esiste un sottoinsieme dei nodi $C$ tale
+   che $C$ e $V \setminus C$ sono due strong web-community.\\
+
+   *THM* il problema *SWCP* è un problema *NP-completo*.\\
+
+   Prima di procedere alla dimostrazione di questo teorema enunciamo e dimostriamo il seguente lemma
+
+   #+begin_quote
+   *Lemma* Sia $G$ un grafo partizionabile in due strong web-community.
+   Se esiste un nodo $u$ di grado esattamente 2, allora necessariamente $u$ e i suoi due vicini devo appartenere alla stessa comunità.
+
+   *Proof* Consideriamo una partizione in due strong web-communities $C, V \setminus C = \overline{C}$, e siano $v, w$ i due soli nodi vicini di $u$.
+   Supponiamo per assurdo che $v \in C$ e $w \in \overline{C}$.
+   Dato che $C, \overline{C}$ è una partizione di $V$, allora necessariamente o $u \in C$ o $u \in \overline{C}$.
+   Se $u \in C$ avremo che $\vert N(u) \cap C \vert = \vert N(u) \setminus C \vert$, e quindi $C$ non sarebbe una _strong_ web-community.
+   Allora deve essere che $u \in \overline{C}$, però avremo $\vert N(u) \cap \overline{C} \vert = \vert N(u) \setminus \overline{C} \vert$, e quindi $\overline{C}$ non è una /strong/ web-community.
+   Perciò non può essere vero che $v \in C$ e $w \in \overline{C}$, quindi $u,v,w$ devono necessariamente appartenere alla stessa comunità \(\square\).
+   #+end_quote
+
+   Procediamo ora alla dimostrazione del teorema\\
+
+   *Proof (THM)*
+   Innanzitutto è facile verificare che *SWCP* è un problema in *NP*, basta mostrare un /certificato polinomiale/.
+   Un certificato polinomiale banale è prorpio un sottoinsieme di nodi $C$ tale che $C$ e $V \setminus C$ sono due strong web-communities.\\
+
+   Per verificarne invece la completezza, è necessario mostrare una /riduzione/ da un problema già noto essere *NP-completo* al problema in questione.
+   In questo caso verrà mostrata una riduzione dal problema *3-SAT*.\\
+
+   \[
+   \mbox{3-STA} \preccurlyeq_{P} SWCP
+   \]
+   
+   Consideriamo quindi una formula \(\phi = c_1 \land c_2 \land ... \land c_m\) in 3-CNF, con variabili in \(X = \lbrace x_1, x_2, ..., x_n \rbrace\).
+   Costruiamo quindi il grafo $G$ come segue.\\
+
+   L'insieme dei nodi $V$ contiene i nodi $T$ e $F$, che rappresenteranno le assegnazioni =true= e =false=.
+   Questi due nodi sono posizionati nel grafo in modo tale che essi dovranno necessariamente appartenere a due comunità differenti affinché $G$ sia partizionabile in due
+   strong web-community.\\
+
+   Per ogni /variabile/ \(x_i \in X\) costruiamo un *gadget variabile* come seuge:
+   1. inseriamo in $V$ i nodi \(x_i, \overline{x_i}, y_i, z_i, t_i, f_i\).
+   2. inseriamo in $E$ gli archi \((x_i,y_i), (x_i,z_i), (y_i,t_i), (t_i,T), (\overline{x_i}, z_i), (\overline{x_i}, y_i), (z_i, f_i), (f_i, F)\).
+   3. per il nodo $x_i$ aggiungiamo tanti vicini senza nome, tante quante sono le clausole che contengono $x_i$. più 1.
+   4. stessa cosa per $\overline{x_i}$ come nel punto 3.
+
+   #+caption: Esempio gadget variabile.
+   #+ATTR_HTML: :style max-width:300px; :width 100%
+   [[file:../images/ar-lesson07-img3.png]]
+
+   Osserviamo che se $T$ ed $F$ appartongono a due comunità differenti, allora anche $x_i$ ed $\overline{x_i}$ apparterranno a due comunità differenti.
+   Infatti, senza perdita di generalità poniamo $T \in C$ e $F \in \overline{C}$: poiché $t_i$ e $f_i$ hanno entrambi grado 2, per il Lemma precedente deve necessariamente essere vero che
+   $t_i, y_i \in C$ e $f_i, z_i \in \overline{C}$.
+   Poiché $y_i$ ha grado 3, allora almeno 1 tra $x_i$ e $\overline{x_i}$ deve appartene a $C$.
+   Stessa cosa per $z_i$, poiché ha grado 3 allora almeno 1 tra $x_i$ e $\overline{x_i}$ deve appartene a $\overline{C}$.
+   Infine, poiché $y_i$ e $z_i$ non devono poter essere raggiungibili (altrimenti apparterrebbero alla stessa comunità), allora possiamo dire che o $x_i$ appartiene e $C$ e $\overline{x_i}$ a $\overline{C}$,
+   oppure viceversa.
+   Infine, collocati i nodi $x_i$ e $\overline{x_i}$ nelle rispettive comunità, essi si porteranno appresso i rispettivi vicini senza nome.\\
+
+   Continuando, per ogni clausola $c_j$ di $\phi$, definiamo un *gadget clausola* come segue:
+   1. inseriamo in $V$ un nodo $c_j$ e un nodo per ognuno dei suoi letterali $l_{j1},l_{j2},l_{j3}$.
+   2. in $E$ inseriamo gli archi da $c_j$ verso $l_{j1},l_{j2},l_{j3}$ e dai nodi $l_{j1},l_{j2},l_{j3}$ verso il nodo $T$.
+   3. infine aggiungiamo in $E$ un arco da $c_j$ verso ognuno dei letterali che lo compongono: se in \(c_j = x_1 \lor \overline{x_2} \lor \overline{x_3}\) ollra inseriamo gli archi \((c_j,x_1), (c_j,\overline{x_2}), (c_j,\overline{x_3})\).
+
+   #+caption: Esempio gadget clausola.
+   #+ATTR_HTML: :style max-width:450px; :width 100%
+   [[file:../images/ar-lesson07-img4.png]]
+   
+   Notiamo che sempre per il Lemma precedente, dato che $l_{j1},l_{j2},l_{j3}$ hanno tutti grado 2, allora se $G$ è partizionabile in due strong web-community certamente sia $l_{j1},l_{j2},l_{j3}$
+   che $c_j$ devono essere nella stessa comunità a cui appartiene $T$.
+   Inoltre poiché $c_j$ ha grado esattamente $6$, e poiché 3 dei suoi vicini sono nella comunità a cui appartiene $T$, allora basta che _almeno_ uno tra i suoi letterali (nell'esempio predente \(x_1, \overline{x_2}, \overline{x_3}\))
+   appartenga anch'esso alla comunità in cui si trova $T$.\\
+
+   Dalla costruizione appena fatta emerge che quindi $c_j$ deve appartenere alla stessa comunità a cui appartiene $T$, e per rendere ciò possibile _almeno uno_ dei letterali che lo compongono deve appartenere alla stessa comunità.\\
+
+   Iniziamo col dimostrare che $T$ ed $F$ devono necessariamente appartenere a due comunità differenti, e questo verrà dimostrato dimosrtando che se $T$ ed $F$ appartengono alla stessa comunità $C$ allora $C \equiv V$
+   \[
+   T, F \in C \Leftrightarrow C \equiv V
+   \]
+   Iniziamo con l'osservare che se $T,F$ appartengono alla stessa comunità $C$ allora anche i nodi $y_i$ e $z_i$ appartengono a $C$, per ogni $i = 1, 2, ..., n$.
+   Consideriamo il letterale $x_i$ che è contenuto in $k$ clausole del tipo $c_j$.
+   Poichè ognuna di queste clausole sono per costruzione nella stessa comunità di $T$ (e quindi in $C$) e poiché $x_i$ ha a altri due suoi vicini $y_i, z_i$ in $C$, risulterà che più della metà dei suoi vicini sono in $C$.
+   Infatti risulta che $x_i$ ha esattamente $k+2$ vicini in $C$ più altri $k+1$ nodi senza nome.
+   Perciò, dovunque insieriamo qui $k+1$ nodi senza nome, per forza $x_i$ deve stare in $C$.
+   Stesso ragionamento per $\overline{x_i}$.\\
+   Infine poiché i nodi senza nome hanno un solo vicino (che sicuramente sta in $C$), possiamo concludere che tutti i nodi del grafo stanno in $C$.\\
+
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson07-img5.png]]
+   
+   *[DA FINIRE]*
+   
 [fn:1] ovvero in tempo \(O(n^c)\) per qualche costante \( c > 0 \).
+[fn:2] un problema =X= è *NP-completo* se _ogni_ problema appartenente alla classe *NP* può essere /ridotto polinomialmente/ al problema =X=.

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-19 ven 19:47 -->
+<!-- 2021-11-20 sab 15:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 01</title>
@@ -274,19 +274,19 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2c945b9">1. Analisi di Reti - definizione</a>
+<li><a href="#org6745d17">1. Analisi di Reti - definizione</a>
 <ul>
-<li><a href="#org28f8cb6">1.1. Fenomeno di diffusione</a></li>
-<li><a href="#org569c634">1.2. Fenomeno di stabilità</a></li>
+<li><a href="#org969d69c">1.1. Fenomeno di diffusione</a></li>
+<li><a href="#org101b211">1.2. Fenomeno di stabilità</a></li>
 </ul>
 </li>
-<li><a href="#orgb615a9f">2. Struttura di una Rete</a></li>
-<li><a href="#orgab6d848">3. Rappresentazione di una rete</a>
+<li><a href="#org0eed7be">2. Struttura di una Rete</a></li>
+<li><a href="#org0baf0e4">3. Rappresentazione di una rete</a>
 <ul>
-<li><a href="#orgc94ec2a">3.1. Il modello Erdős–Rényi</a>
+<li><a href="#orgf2d57b3">3.1. Il modello Erdős–Rényi</a>
 <ul>
-<li><a href="#org18f4547">3.1.1. Componenti Giganti</a></li>
-<li><a href="#org00dba88">3.1.2. Grado dei nodi</a></li>
+<li><a href="#orgdce9f87">3.1.1. Componenti Giganti</a></li>
+<li><a href="#org6c5897e">3.1.2. Grado dei nodi</a></li>
 </ul>
 </li>
 </ul>
@@ -295,8 +295,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org2c945b9" class="outline-2">
-<h2 id="org2c945b9"><span class="section-number-2">1</span> Analisi di Reti - definizione</h2>
+<div id="outline-container-org6745d17" class="outline-2">
+<h2 id="org6745d17"><span class="section-number-2">1</span> Analisi di Reti - definizione</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Nel senso più ampio del termine, una <b>rete</b> è uno schema di <i>interconnessioni</i> tra entità.
@@ -325,8 +325,8 @@ Alcuni aspetti strutturali che sono interessanti di analizzare sono:
 </p>
 </div>
 
-<div id="outline-container-org28f8cb6" class="outline-3">
-<h3 id="org28f8cb6"><span class="section-number-3">1.1</span> Fenomeno di diffusione</h3>
+<div id="outline-container-org969d69c" class="outline-3">
+<h3 id="org969d69c"><span class="section-number-3">1.1</span> Fenomeno di diffusione</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 In questo esempio verrà mostrato come i legami influiscono sul comportamento dei singoli individui.
@@ -345,8 +345,8 @@ che non è stato infettato in precedenza) è \(p\) (vedi <a href="https://arxiv.
 </div>
 </div>
 
-<div id="outline-container-org569c634" class="outline-3">
-<h3 id="org569c634"><span class="section-number-3">1.2</span> Fenomeno di stabilità</h3>
+<div id="outline-container-org101b211" class="outline-3">
+<h3 id="org101b211"><span class="section-number-3">1.2</span> Fenomeno di stabilità</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Un classico esempio in cui invece la presenza di legami influisce sulla struttura della rete è il seguente:
@@ -365,8 +365,8 @@ tenderà a rompersi, rendendo così la rete più stabile.
 </div>
 
 
-<div id="outline-container-orgb615a9f" class="outline-2">
-<h2 id="orgb615a9f"><span class="section-number-2">2</span> Struttura di una Rete</h2>
+<div id="outline-container-org0eed7be" class="outline-2">
+<h2 id="org0eed7be"><span class="section-number-2">2</span> Struttura di una Rete</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Generalmente si è interessati a studiare reti di dimensioni enormi, perciò diventa estremamente complicato studiare ed analizzare
@@ -406,8 +406,8 @@ individui, sia a <i>livello di singolo individui</i>, andando a considerare la t
 </div>
 
 
-<div id="outline-container-orgab6d848" class="outline-2">
-<h2 id="orgab6d848"><span class="section-number-2">3</span> Rappresentazione di una rete</h2>
+<div id="outline-container-org0baf0e4" class="outline-2">
+<h2 id="org0baf0e4"><span class="section-number-2">3</span> Rappresentazione di una rete</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Come si è potuto facilmente intuire in precedenza, il modo in cui verrà raffigurata una rete sarà tramite il modello
@@ -419,7 +419,7 @@ questi appunti non fanno per te&#x2026; e nemmeno questo corso!).<br />
 <p>
 Supponiamo quindi di riuscire ad avere le informazioni di una rete reale (cosa che all'atto pratico non accade molto spesso),
 si potrebbe modellare semplicemente associando un nodo ad ogni entità della rete, e un arco per ogni interconnessione (facile no?).
-Fatto ciò si può "tranquillamente" procedere con l'analisi, alla ricerca di tutte le proprietà viste nella precedente <a href="#org9d719b4">sezione</a>.<br />
+Fatto ciò si può "tranquillamente" procedere con l'analisi, alla ricerca di tutte le proprietà viste nella precedente <a href="#orgfc81629">sezione</a>.<br />
 </p>
 
 <p>
@@ -439,8 +439,8 @@ Perciò, una volta creato un modello, si possono <b>campionare</b> (o <b>istanzi
 </p>
 </div>
 
-<div id="outline-container-orgc94ec2a" class="outline-3">
-<h3 id="orgc94ec2a"><span class="section-number-3">3.1</span> Il modello Erdős–Rényi</h3>
+<div id="outline-container-orgf2d57b3" class="outline-3">
+<h3 id="orgf2d57b3"><span class="section-number-3">3.1</span> Il modello Erdős–Rényi</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Uno dei modelli più semplici e classici della letteratura è il cosiddetto <i>modello Erdős–Rényi</i>, noto anche come <i>Erdős–Rényi random graph</i>.
@@ -462,8 +462,8 @@ di <i>distribuzione Erdős–Rényi</i>.<br />
 </p>
 </div>
 
-<div id="outline-container-org18f4547" class="outline-4">
-<h4 id="org18f4547"><span class="section-number-4">3.1.1</span> Componenti Giganti</h4>
+<div id="outline-container-orgdce9f87" class="outline-4">
+<h4 id="orgdce9f87"><span class="section-number-4">3.1.1</span> Componenti Giganti</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 Una definizione più precisa di <i>componente gigante</i> equivale a una <i>componente connessa</i> grande una <b>frazione costante</b> dei nodi del grafo.
@@ -611,8 +611,8 @@ Questo verrà mostrato nella seguente sezione.
 </div>
 
 
-<div id="outline-container-org00dba88" class="outline-4">
-<h4 id="org00dba88"><span class="section-number-4">3.1.2</span> Grado dei nodi</h4>
+<div id="outline-container-org6c5897e" class="outline-4">
+<h4 id="org6c5897e"><span class="section-number-4">3.1.2</span> Grado dei nodi</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Dato un grafo <i>Erdős–Rényi</i> \(G_{n,p}\), definiamo col simbolo \(\delta_i\) la <i>variabile aleatoria</i> che esprime il <b>grado</b> del nodo \(i\).
@@ -728,7 +728,7 @@ il numero di nodi di grado esattamente \(k\) decresce esponenzialmente in \(k\) 
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-19 ven 19:47</p>
+<p class="date">Created: 2021-11-20 sab 15:52</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
