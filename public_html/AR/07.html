@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-21 dom 11:43 -->
+<!-- 2021-11-21 dom 20:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 07</title>
@@ -274,21 +274,21 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4bba26e">1. Reti con struttura disomogenea</a>
+<li><a href="#org85083f8">1. Reti con struttura disomogenea</a>
 <ul>
-<li><a href="#orga7903dd">1.1. Esperimento di Granovetter</a></li>
-<li><a href="#orga794a9f">1.2. Bridges e Local Bridges</a></li>
-<li><a href="#org043f432">1.3. Strong &amp; Weak Ties</a></li>
-<li><a href="#org591d866">1.4. The Strong Triadic Closure Property</a></li>
-<li><a href="#orge950127">1.5. STCP e Local Bridges</a></li>
+<li><a href="#org4f4dae3">1.1. Esperimento di Granovetter</a></li>
+<li><a href="#orgc9813d6">1.2. Bridges e Local Bridges</a></li>
+<li><a href="#org1f2cb71">1.3. Strong &amp; Weak Ties</a></li>
+<li><a href="#org60016b7">1.4. The Strong Triadic Closure Property</a></li>
+<li><a href="#org91238aa">1.5. STCP e Local Bridges</a></li>
 </ul>
 </li>
-<li><a href="#orge368b37">2. Comunità e Coefficiente di Clustering</a></li>
-<li><a href="#org71e54a9">3. Alcuni tipi di Comunità</a>
+<li><a href="#orgde05759">2. Comunità e Coefficiente di Clustering</a></li>
+<li><a href="#orgbfb7ee7">3. Alcuni tipi di Comunità</a>
 <ul>
-<li><a href="#org431f27b">3.1. Cut-Communities</a></li>
-<li><a href="#orgc862aa6">3.2. Web-Communities</a></li>
-<li><a href="#org6e7c1de">3.3. Relazione tra cut- e web-communities</a></li>
+<li><a href="#orgb591826">3.1. Cut-Communities</a></li>
+<li><a href="#orgc1c8440">3.2. Web-Communities</a></li>
+<li><a href="#org431f545">3.3. Relazione tra cut- e web-communities</a></li>
 </ul>
 </li>
 </ul>
@@ -299,12 +299,12 @@ Fin ora abbiamo analizzato le reti dal punto di vista <i>statistico</i>, disinte
 &#x2026;
 </p>
 
-<div id="outline-container-org4bba26e" class="outline-2">
-<h2 id="org4bba26e"><span class="section-number-2">1</span> Reti con struttura disomogenea</h2>
+<div id="outline-container-org85083f8" class="outline-2">
+<h2 id="org85083f8"><span class="section-number-2">1</span> Reti con struttura disomogenea</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga7903dd" class="outline-3">
-<h3 id="orga7903dd"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
+<div id="outline-container-org4f4dae3" class="outline-3">
+<h3 id="org4f4dae3"><span class="section-number-3">1.1</span> Esperimento di Granovetter</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Nel 1960, il sociologo Mark Granovetter prosope il seguente esperimento nella sua tesi di dottorato:
@@ -325,8 +325,8 @@ al di fuori della mia <i>comunità</i>.<br />
 </div>
 </div>
 
-<div id="outline-container-orga794a9f" class="outline-3">
-<h3 id="orga794a9f"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
+<div id="outline-container-orgc9813d6" class="outline-3">
+<h3 id="orgc9813d6"><span class="section-number-3">1.2</span> Bridges e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Come si può intuire dall'esperimento di Granovetter i contatti che più sono rilevanti nella diffusione di informazioni in una rete sono quei contatti che collegano due comunità differenti.
@@ -354,8 +354,8 @@ Possiamo vedere i local bridge come archi la cui rimozione aumenta la distanza t
 </div>
 </div>
 
-<div id="outline-container-org043f432" class="outline-3">
-<h3 id="org043f432"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
+<div id="outline-container-org1f2cb71" class="outline-3">
+<h3 id="org1f2cb71"><span class="section-number-3">1.3</span> Strong &amp; Weak Ties</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 L'esperimento di Granovetter mostra che le informazioni sono veicolate tramite le conoscenze più deboli, proprio perché permettono di accingere ad altre fonti di informazioni.
@@ -377,8 +377,8 @@ non sia una persona falsa, ma questo è un altro discorso&#x2026;).
 </div>
 
 
-<div id="outline-container-org591d866" class="outline-3">
-<h3 id="org591d866"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
+<div id="outline-container-org60016b7" class="outline-3">
+<h3 id="org60016b7"><span class="section-number-3">1.4</span> The Strong Triadic Closure Property</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Consideriamo lo stato di una rete sociali in un dato istante, sarebbe interessante sapere come si evolve nel tempo e quali sono i meccanismi che portano alla creazione
@@ -423,8 +423,8 @@ Se si osserva bene, quando una rete soddisfa la <code>STCP</code> essa si <b>sta
 </div>
 </div>
 
-<div id="outline-container-orge950127" class="outline-3">
-<h3 id="orge950127"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
+<div id="outline-container-org91238aa" class="outline-3">
+<h3 id="org91238aa"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 <b>THM</b>
@@ -451,8 +451,8 @@ Infatti, dato che un nodo conosce solo il suo vicinato non può sapere sapere se
 </div>
 </div>
 
-<div id="outline-container-orge368b37" class="outline-2">
-<h2 id="orge368b37"><span class="section-number-2">2</span> Comunità e Coefficiente di Clustering</h2>
+<div id="outline-container-orgde05759" class="outline-2">
+<h2 id="orgde05759"><span class="section-number-2">2</span> Comunità e Coefficiente di Clustering</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Abbiamo definito in precedenza un modello di rete dinamica i cui archi si modificano nel tempo, e dove la rete si stabilizza nel momento
@@ -511,12 +511,12 @@ Inoltre il coefficiente di clustering è un buon fattore da considerare per iden
 </div>
 </div>
 
-<div id="outline-container-org71e54a9" class="outline-2">
-<h2 id="org71e54a9"><span class="section-number-2">3</span> Alcuni tipi di Comunità</h2>
+<div id="outline-container-orgbfb7ee7" class="outline-2">
+<h2 id="orgbfb7ee7"><span class="section-number-2">3</span> Alcuni tipi di Comunità</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org431f27b" class="outline-3">
-<h3 id="org431f27b"><span class="section-number-3">3.1</span> Cut-Communities</h3>
+<div id="outline-container-orgb591826" class="outline-3">
+<h3 id="orgb591826"><span class="section-number-3">3.1</span> Cut-Communities</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Dato un grafo \(G = (V,E)\) e una coppia di nodi \(s,t \in V\), diciamo che una <b>cut-community</b> rispetto a \(s,t\) è un sottoinsieme
@@ -576,8 +576,8 @@ Se ci riveriamo alla definizione di cut-cumminity, non ha molto senso dire che i
 </div>
 </div>
 
-<div id="outline-container-orgc862aa6" class="outline-3">
-<h3 id="orgc862aa6"><span class="section-number-3">3.2</span> Web-Communities</h3>
+<div id="outline-container-orgc1c8440" class="outline-3">
+<h3 id="orgc1c8440"><span class="section-number-3">3.2</span> Web-Communities</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Una (<b>strong</b>) <b>web-community</b> un sottoinsieme <span class="underline">proprio e non vuoto</span> \(C \subset V\), tale che i nodi che lo compongono hanno più vicini all'interno di \(C\) stesso anzichè all'esterno, ovvero
@@ -599,8 +599,8 @@ Rilassando la relazione di maggioranza stretta, possiamo definire in maniera ana
 </div>
 </div>
 
-<div id="outline-container-org6e7c1de" class="outline-3">
-<h3 id="org6e7c1de"><span class="section-number-3">3.3</span> Relazione tra cut- e web-communities</h3>
+<div id="outline-container-org431f545" class="outline-3">
+<h3 id="org431f545"><span class="section-number-3">3.3</span> Relazione tra cut- e web-communities</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Il concetto di cut-community e weak web-community sono in realtà strettamente correlati, risultando nel seguente teorema<br />
@@ -845,7 +845,7 @@ un problema <code>X</code> è <b>NP-completo</b> se <span class="underline">ogni
 <p class="date">Data: 2021-11-08 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-21 dom 11:43</p>
+<p class="date">Created: 2021-11-21 dom 20:50</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

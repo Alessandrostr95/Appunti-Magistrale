@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-11-22 lun 22:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 10</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 10</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0e32fac">1. Radio Networks</a>
+<ul>
+<li><a href="#orgfad4d77">1.1. Il modello Radio Network</a></li>
+<li><a href="#orgacbdd83">1.2. Modello d'interferenza</a></li>
+<li><a href="#org7bf7f2f">1.3. Broadcast su reti radio</a></li>
+<li><a href="#orgf2c8568">1.4. Protocollo Round-Robin</a>
+<ul>
+<li><a href="#orgcabda48">1.4.1. Correttezza</a></li>
+<li><a href="#org41ac0ec">1.4.2. Terminazione e time complexity</a></li>
+<li><a href="#org4f815bb">1.4.3. Message complexity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0e32fac" class="outline-2">
+<h2 id="org0e32fac"><span class="section-number-2">1</span> Radio Networks</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+In questa parte vedremo un modello che più si presta a reti <i>fisiche</i> reali.
+</p>
+</div>
+
+<div id="outline-container-orgfad4d77" class="outline-3">
+<h3 id="orgfad4d77"><span class="section-number-3">1.1</span> Il modello Radio Network</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Una <b>radio network</b> è un insieme di <i>dispositivi</i> fisici collocati in uno <b>spazio euclideo</b>, ognuno dei qua dotato di un trasmettitore <i>radio</i> (o <i>wireless</i>).
+Ogni nodo \(v\) della rete ha un fissato <b>raggio di trasmissione</b> \(r(v) > 0\), entro il quale potrà trasmettere il suo segnale.
+Un qualsiasi nodo \(w\) per ricevere un messaggio da \(v\) deve essere ad una <i>distanza</i> minore del raggio di trasmissione \(r(v)\)
+\[
+   \Vert v - w \Vert \leq r(v)
+   \]
+Inoltre il nodo \(v\) non può selezionare a quale dei suoi nodi vicini inviare il messaggio e a quali no: il messaggio verrà trasmesso in <i>broadcast</i> a tutti i nodi
+entro il raggio di trasmissione di \(v\).
+Questo tipo di comunicazione è detta <b>node based</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.<br />
+</p>
+
+<p>
+Data quindi una rete radio si può costruire una <b>grafo diretto delle comunicazioni</b>, in cui esiste l'arco diretto \((u,v)\) solo se \(v\) è coperto dal raggio di trasmissione di \(u\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson10-img1.png" alt="adrc-lesson10-img1.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Rete radio.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson10-img2.png" alt="adrc-lesson10-img2.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Grafo di connessione relativo.</p>
+</div>
+
+<p>
+Le reti radio sono anche dette <b>unknown</b> in quanto i nodi non hanno nessuna conoscenza in merito agli altri nodi e alla loro posizione, perciò è come considerare un grafo
+in cui i nodi non conoscono il loro vicinato, in cui hanno una sola porta dalla quale trasmettere il messaggio e basta.<br />
+</p>
+
+<p>
+Infine le reti radio sono considerate essere un sistema completamente <b>sincrono</b>
+Tutti i nodi condividono un <b>clock globale</b>, perciò diremo che i nodi agiscono in <b>time slots</b>
+Inoltre si assume che i messaggi vengono trasmessi nella propria area di stramissione in un solo time slot.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgacbdd83" class="outline-3">
+<h3 id="orgacbdd83"><span class="section-number-3">1.2</span> Modello d'interferenza</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In un contesto reale, in genere, se troppi dispositivi trasmettono nello stesso momento e in una stessa area si crea troppo <i>rumore</i>, o <i>interferenza</i>.
+In una rete radio quindi, se un nodo \(v\) riceve più di un messaggio in uno stesso time slot, assumeremo che si crei una interferenza e che quindi \(v\) non ha ricevuto il messaggio.<br />
+</p>
+
+<p>
+Più formalmente diremo che il nodo \(v\) viene informato al time slot \(t>0\) se e solo se esiste un <span class="underline">unico</span> suo vicino che gli trasmette il messaggio al tempo \(t\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7bf7f2f" class="outline-3">
+<h3 id="org7bf7f2f"><span class="section-number-3">1.3</span> Broadcast su reti radio</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Uno dei <i>task</i> più comuni in un ambiete reale è quello del broadcast di un segnale su una rete radio.
+Come accennato, questo task soffre del problema dell'interferenza, perciò si vuole trovare un protocollo che porti a termine il broadcast di un'informazione considerando questa ulteriore difficoltà.<br />
+</p>
+
+<p>
+Modelliamo quindi il problema considerando come grafo il <i>grafo di comunicazione</i> \(G\) derivato dalla rete radio, assumendo di trovarci sotto le seguenti assunzioni:
+</p>
+<ol class="org-ol">
+<li><b>Sistema sincrono</b> ogni nodo condivide uno stesso clock globale che standisce le azioni.</li>
+<li><b>Unica sorgente</b> \(s\) che avvia il protocollo.</li>
+<li><b>Connettività</b> di \(G\), non necessariamente forte, quantomeno ogni nodo deve essere raggiungibile dalla sorgente \(s\).</li>
+<li><b>Presenza di interferenze</b> come descritta nella precedente sezione: un nodo \(v\) viene informato al tempo \(t\) se esiste un <span class="underline">unico</span> nodo che al tempo \(t-1\) gli trasmette il messaggio.</li>
+</ol>
+
+<p>
+Come primo passo potremmo iniziare considerando il protocollo di <i>flooding</i> discusso nella <a href="./03.html">lezione 3</a>.
+È facile trovare un controesempio in cui il protocollo non informerà mai tutti i nodi
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson10-img3.png" alt="adrc-lesson10-img3.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Controesempio in cui il protocollo flooding non funziona.</p>
+</div>
+
+<p>
+Consideriamo il grafo di comunicazione nella precedente immagine, e supponiamo che la sorgente sia il nodo \(s\).
+Al time slot \(t_0\) la sorgente \(s\) invierà il messaggio ai nodi \(u,v,w\), e al time slot successivo i nodi \(u,v,w\) invieranno il messaggio al nodo \(x\), causando un interferenza.
+Dopo che \(u,v,w\) avranno trasmesso, essi entrarenna nello stato <code>done</code> e non trasmetteranno mai più.
+Così facendo il nodo \(x\) non riceverà <span class="underline">mai</span> il messaggio, e il task non sarà mai risolto.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf2c8568" class="outline-3">
+<h3 id="orgf2c8568"><span class="section-number-3">1.4</span> Protocollo Round-Robin</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Assumiamo che i nodi siano univocamente identificati da un valore nell'intervallo \(\left[ 1, n \right]\), e che tutti i nodi conoscano una <b>buona approssimazione</b> di \(n\).
+Per semplicità al momento assumiamo che conoscano il valore esatto di \(n\).<br />
+</p>
+
+<p>
+L'idea del protocollo <code>Round-Robin</code> (in breve <code>RR</code>) è quella di scandire il protocollo in <b>fasi</b> con durata complessiva di \(n\) time slots ciascuno.
+Dato che ogni fase \(k \geq 0\) dura esattamente \(n\) istanti, ogni nodo con etichetta \(i\) trasmetterà al time slot \(i\)-esimo della fase \(k\).
+Più formalmente per ogni \(k \geq 0\), il nodo \(i\) può trasmettere solo negli istanti \(kn + i\).
+Importante osservare che è possibile definire una scansione temporale delle azioni da svolgere grazie all'assunzione di sincronismo del sistema.<br />
+</p>
+
+<p>
+Questo sistema ci garantisce che non è possibile che accada una situazione d'interferenza, in quanto può "paralre" (trasmettere) un solo nodo alla volta.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">if self.state == "SOURCE":
+    spontaneously:
+	self.state = "INFORMED"
+
+elif self.state == "ASLEEP":
+    receiving(msg):
+	self.state = "INFORMED"
+
+elif self.state == "INFORMED":
+    global clock, n
+    if clock % n == self.id:
+	transimt(msg)
+	self.state = "DONE"
+
+elif self.state == "DONE":
+    None
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgcabda48" class="outline-4">
+<h4 id="orgcabda48"><span class="section-number-4">1.4.1</span> Correttezza</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+<b>THM</b> Nel protocollo <code>RR</code> sotto le precedenti assunzioni, tutti i nodi a distanza \(k\) dalla sorgente \(s\) verranno informati <span class="underline">entro</span> \(k\) fasi.
+</p>
+
+<p>
+<b>Proof</b> La dimostrazione di questo teorema varrà fatta per <i>induzione</i> sulla distanza \(k\).<br />
+</p>
+
+<p>
+Il passo base è abbastanza semplice, in quanto nella prima fase l'unico nodo a trasmettere sarà la sorgente \(s\) nel time slot \(id(s)\).<br />
+Supponiamo quindi per ipotesi induttiva che sia vero che per ogni fase \(k > 0\) ogni nodo nell'insieme \(L_k\) (ovvero i nodi a distanza esattamente \(k\) dalla sorgente)
+verrà informato entro la fine della fase \(k\).<br />
+</p>
+
+<p>
+Consideriamo ora un qualsiasi nodo \(w \in L_{k+1}\).
+Per definizione di \(L_{k+1}\), esiste <span class="underline">alemeno</span> un nodo in \(v \in L_k\) tale che esista l'arco diretto \((v,w)\).
+Per ipotesi induttiva, sappiamo che entro la fine della fase \(k\) il nodo \(v\) è stato informato.
+Se \(v\) ha ricevuto il messaggio in un time slot \(kn + i < kn + id(v)\), allora \(v\) può trasmettere durante la fase \(k\) stessa al tempo \(kn + id(v)\), altrimenti se ha ricevuto il messaggio
+a un time slot \(kn + i > kn + id(v)\), allora \(v\) trasmetterà certamente nell fase \(k+1\), più precisamente al time slot \((k+1)n + id(v)\).
+In ogni caso, per definizione del protocollo <code>RR</code>, sia che \(v\) trasmetta al temp \(kn + id(v)\) sia che trasmetta al tempo \((k+1)n + id(v)\), sarà l'unico che in quel momento invierà il messaggio a \(w\).
+Perciò possiamo affermare che \(w\) riceverà almeno una volta il messaggio senza alcuna interferenza, e questo vale per ogni \(w \in L_{k+1}\).<br />
+</p>
+
+<p>
+Infine, per ipotesi di connettività di \(G\), sappiamo che per ogni nodo \(x \in V\) esiste un intero \(h\) tale che \(x \in L_h\) \(\square\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org41ac0ec" class="outline-4">
+<h4 id="org41ac0ec"><span class="section-number-4">1.4.2</span> Terminazione e time complexity</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+Sia \(D\) l'eccentricità della sorgente \(s\), ovvero il più lungo dei cammini minimi che partono da \(s\).
+Sicuramente in \(D\) fasi tutti i nodi della rete verranno informati grazie al protocollo <code>RR</code>.
+Il problema è che nessun nodo conosce né l'eccentricità di \(s\), ne il diametro della rete.
+Però è noto che in una rete connessa di \(n\) nodi il diametro è <span class="underline">al più</span> \(n-1\).
+Perciò, dato che ogni nodo conosce il valore \(n\), ognuno può stabilire che entro <span class="underline">al più</span> \(n-1\) fasi tutti i nodi saranno informati, e quindi potranno <i>terminare</i> l'esecuzione del protocollo.<br />
+</p>
+
+<p>
+Segue quindi il seguente teorema
+</p>
+
+<p>
+<b>THM</b> Sia la rete \(G\) con \(n\) nodi e sorgente \(s\) di eccentricità \(D\).
+Sotto le precedenti assunzioni il protocollo <code>RR</code> <b>completerà</b> il suo task in esattamente \(nD\) time slots e tutti i nodi <b>termineranno</b> l'esecuzione del protocollo in \(O(n^2)\) time slots.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4f815bb" class="outline-4">
+<h4 id="org4f815bb"><span class="section-number-4">1.4.3</span> Message complexity</h4>
+<div class="outline-text-4" id="text-1-4-3">
+<p>
+La message complexity di questo protocollo è banale, in quanto ogni nodo trasmetterà lungo tutti i suoi archi uscenti una volta sola il messaggio, perciò la message compelxity sarà pari al numero
+di archi del grafo di trasmissione
+\[
+    MSG(\texttt{RR}) = |E|
+    \]
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+Fin ora abbiamo considerato una comunicazione di tipo <b>link based</b>, in cui un nodo poteva scegliere attraverso quale arco inviare il messaggio.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-11-10 mer 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-11-22 lun 22:23</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+#+title: ADRC - Lesson 10
+#+date: <2021-11-10 lun>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+
+* Radio Networks
+  In questa parte vedremo un modello che più si presta a reti /fisiche/ reali.
+
+** Il modello Radio Network
+   Una *radio network* è un insieme di /dispositivi/ fisici collocati in uno *spazio euclideo*, ognuno dei qua dotato di un trasmettitore /radio/ (o /wireless/).
+   Ogni nodo $v$ della rete ha un fissato *raggio di trasmissione* $r(v) > 0$, entro il quale potrà trasmettere il suo segnale.
+   Un qualsiasi nodo $w$ per ricevere un messaggio da $v$ deve essere ad una /distanza/ minore del raggio di trasmissione $r(v)$
+   \[
+   \Vert v - w \Vert \leq r(v)
+   \]
+   Inoltre il nodo $v$ non può selezionare a quale dei suoi nodi vicini inviare il messaggio e a quali no: il messaggio verrà trasmesso in /broadcast/ a tutti i nodi
+   entro il raggio di trasmissione di $v$.
+   Questo tipo di comunicazione è detta *node based*[fn:1].\\
+
+   Data quindi una rete radio si può costruire una *grafo diretto delle comunicazioni*, in cui esiste l'arco diretto $(u,v)$ solo se $v$ è coperto dal raggio di trasmissione di $u$.
+
+   #+caption: Rete radio.
+   #+ATTR_HTML: :style max-width:400px; width:100%
+   [[file:../images/adrc-lesson10-img1.png]]
+
+   #+caption: Grafo di connessione relativo.
+   #+ATTR_HTML: :style max-width:400px; width:100%
+   [[file:../images/adrc-lesson10-img2.png]]
+
+   Le reti radio sono anche dette *unknown* in quanto i nodi non hanno nessuna conoscenza in merito agli altri nodi e alla loro posizione, perciò è come considerare un grafo
+   in cui i nodi non conoscono il loro vicinato, in cui hanno una sola porta dalla quale trasmettere il messaggio e basta.\\
+
+   Infine le reti radio sono considerate essere un sistema completamente *sincrono*
+   Tutti i nodi condividono un *clock globale*, perciò diremo che i nodi agiscono in *time slots*
+   Inoltre si assume che i messaggi vengono trasmessi nella propria area di stramissione in un solo time slot.\\
+
+** Modello d'interferenza
+   In un contesto reale, in genere, se troppi dispositivi trasmettono nello stesso momento e in una stessa area si crea troppo /rumore/, o /interferenza/.
+   In una rete radio quindi, se un nodo $v$ riceve più di un messaggio in uno stesso time slot, assumeremo che si crei una interferenza e che quindi $v$ non ha ricevuto il messaggio.\\
+
+   Più formalmente diremo che il nodo $v$ viene informato al time slot $t>0$ se e solo se esiste un _unico_ suo vicino che gli trasmette il messaggio al tempo $t$.\\
+
+** Broadcast su reti radio
+   Uno dei /task/ più comuni in un ambiete reale è quello del broadcast di un segnale su una rete radio.
+   Come accennato, questo task soffre del problema dell'interferenza, perciò si vuole trovare un protocollo che porti a termine il broadcast di un'informazione considerando questa ulteriore difficoltà.\\
+
+   Modelliamo quindi il problema considerando come grafo il /grafo di comunicazione/ $G$ derivato dalla rete radio, assumendo di trovarci sotto le seguenti assunzioni:
+   1. *Sistema sincrono* ogni nodo condivide uno stesso clock globale che standisce le azioni.
+   2. *Unica sorgente* $s$ che avvia il protocollo.
+   3. *Connettività* di $G$, non necessariamente forte, quantomeno ogni nodo deve essere raggiungibile dalla sorgente $s$.
+   4. *Presenza di interferenze* come descritta nella precedente sezione: un nodo $v$ viene informato al tempo $t$ se esiste un _unico_ nodo che al tempo $t-1$ gli trasmette il messaggio.
+
+   Come primo passo potremmo iniziare considerando il protocollo di /flooding/ discusso nella [[./03.html][lezione 3]].
+   È facile trovare un controesempio in cui il protocollo non informerà mai tutti i nodi
+
+   #+caption: Controesempio in cui il protocollo flooding non funziona.
+   #+ATTR_HTML: :style max-width:400px; width:100%
+   [[file:../images/adrc-lesson10-img3.png]]
+
+   Consideriamo il grafo di comunicazione nella precedente immagine, e supponiamo che la sorgente sia il nodo $s$.
+   Al time slot $t_0$ la sorgente $s$ invierà il messaggio ai nodi $u,v,w$, e al time slot successivo i nodi $u,v,w$ invieranno il messaggio al nodo $x$, causando un interferenza.
+   Dopo che $u,v,w$ avranno trasmesso, essi entrarenna nello stato =done= e non trasmetteranno mai più.
+   Così facendo il nodo $x$ non riceverà _mai_ il messaggio, e il task non sarà mai risolto.\\
+
+** Protocollo Round-Robin
+   Assumiamo che i nodi siano univocamente identificati da un valore nell'intervallo \(\left[ 1, n \right]\), e che tutti i nodi conoscano una *buona approssimazione* di $n$.
+   Per semplicità al momento assumiamo che conoscano il valore esatto di $n$.\\
+   
+   L'idea del protocollo =Round-Robin= (in breve =RR=) è quella di scandire il protocollo in *fasi* con durata complessiva di $n$ time slots ciascuno.
+   Dato che ogni fase $k \geq 0$ dura esattamente $n$ istanti, ogni nodo con etichetta $i$ trasmetterà al time slot \(i\)-esimo della fase $k$.
+   Più formalmente per ogni $k \geq 0$, il nodo $i$ può trasmettere solo negli istanti \(kn + i\).
+   Importante osservare che è possibile definire una scansione temporale delle azioni da svolgere grazie all'assunzione di sincronismo del sistema.\\
+
+   Questo sistema ci garantisce che non è possibile che accada una situazione d'interferenza, in quanto può "paralre" (trasmettere) un solo nodo alla volta.\\
+
+   #+begin_src python :result output
+     if self.state == "SOURCE":
+	 spontaneously:
+	     self.state = "INFORMED"
+     
+     elif self.state == "ASLEEP":
+	 receiving(msg):
+	     self.state = "INFORMED"
+     
+     elif self.state == "INFORMED":
+	 global clock, n
+	 if clock % n == self.id:
+	     transimt(msg)
+	     self.state = "DONE"
+     
+     elif self.state == "DONE":
+	 None
+   #+end_src
+
+*** Correttezza
+    *THM* Nel protocollo =RR= sotto le precedenti assunzioni, tutti i nodi a distanza $k$ dalla sorgente $s$ verranno informati _entro_ $k$ fasi.
+
+    *Proof* La dimostrazione di questo teorema varrà fatta per /induzione/ sulla distanza $k$.\\
+
+    Il passo base è abbastanza semplice, in quanto nella prima fase l'unico nodo a trasmettere sarà la sorgente $s$ nel time slot $id(s)$.\\
+    Supponiamo quindi per ipotesi induttiva che sia vero che per ogni fase \(k > 0\) ogni nodo nell'insieme \(L_k\) (ovvero i nodi a distanza esattamente $k$ dalla sorgente)
+    verrà informato entro la fine della fase $k$.\\
+
+    Consideriamo ora un qualsiasi nodo \(w \in L_{k+1}\).
+    Per definizione di \(L_{k+1}\), esiste _alemeno_ un nodo in \(v \in L_k\) tale che esista l'arco diretto $(v,w)$.
+    Per ipotesi induttiva, sappiamo che entro la fine della fase $k$ il nodo $v$ è stato informato.
+    Se $v$ ha ricevuto il messaggio in un time slot $kn + i < kn + id(v)$, allora $v$ può trasmettere durante la fase $k$ stessa al tempo $kn + id(v)$, altrimenti se ha ricevuto il messaggio
+    a un time slot $kn + i > kn + id(v)$, allora $v$ trasmetterà certamente nell fase $k+1$, più precisamente al time slot $(k+1)n + id(v)$.
+    In ogni caso, per definizione del protocollo =RR=, sia che $v$ trasmetta al temp $kn + id(v)$ sia che trasmetta al tempo $(k+1)n + id(v)$, sarà l'unico che in quel momento invierà il messaggio a $w$.
+    Perciò possiamo affermare che $w$ riceverà almeno una volta il messaggio senza alcuna interferenza, e questo vale per ogni \(w \in L_{k+1}\).\\
+
+    Infine, per ipotesi di connettività di $G$, sappiamo che per ogni nodo \(x \in V\) esiste un intero \(h\) tale che \(x \in L_h\) \(\square\).\\
+
+*** Terminazione e time complexity
+    Sia $D$ l'eccentricità della sorgente $s$, ovvero il più lungo dei cammini minimi che partono da $s$.
+    Sicuramente in $D$ fasi tutti i nodi della rete verranno informati grazie al protocollo =RR=.
+    Il problema è che nessun nodo conosce né l'eccentricità di $s$, ne il diametro della rete.
+    Però è noto che in una rete connessa di $n$ nodi il diametro è _al più_ $n-1$.
+    Perciò, dato che ogni nodo conosce il valore $n$, ognuno può stabilire che entro _al più_ $n-1$ fasi tutti i nodi saranno informati, e quindi potranno /terminare/ l'esecuzione del protocollo.\\
+
+    Segue quindi il seguente teorema
+
+    *THM* Sia la rete $G$ con $n$ nodi e sorgente $s$ di eccentricità $D$.
+    Sotto le precedenti assunzioni il protocollo =RR= *completerà* il suo task in esattamente \(nD\) time slots e tutti i nodi *termineranno* l'esecuzione del protocollo in \(O(n^2)\) time slots.
+
+*** Message complexity
+    La message complexity di questo protocollo è banale, in quanto ogni nodo trasmetterà lungo tutti i suoi archi uscenti una volta sola il messaggio, perciò la message compelxity sarà pari al numero
+    di archi del grafo di trasmissione
+    \[
+    MSG(\texttt{RR}) = |E|
+    \]
+    
+[fn:1] Fin ora abbiamo considerato una comunicazione di tipo *link based*, in cui un nodo poteva scegliere attraverso quale arco inviare il messaggio.
