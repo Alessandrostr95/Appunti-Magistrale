@@ -2,57 +2,109 @@
     <head>
       <meta http-equiv="Content-type" content="text/html;charset=utf-8">
       <style>
-	/* file tree lists */
-	body {
-	    background: white;
-	}
-	
-	.file-tree ul {
-	    font-family: courier;
-	    margin: 0;
-	    padding-left: 3rem;
-	    list-style: none;
-	    line-height: 1.25;
+	.tree {
 	    position: relative;
-	    overflow: hidden;
+	    background: white;
+	    margin: auto;
+	    padding: 0;
+	    font-family: 'Roboto Mono', monospace;
+	    font-size: 0.85rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    color: #212529;
 	}
-	
-	.file-tree li:not(:last-child) > ul::before {
-	    content: '\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020';
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    bottom: 0;
-	    width: 1em;
-	}
-	
-	.file-tree > ul {
-	    margin: 0;
+
+	.card .card-body .tree {
 	    padding: 0;
 	}
 
-	.file-tree li {
-	    /*background: #fff;*/
+	@media screen and (min-width: 992px) {
+	    .tree {
+		padding-left: 0;
+	    }
+	}
+
+	.tree .comment {
+	    font-size: 13px;
+	    font-style: italic;
+	    letter-spacing: 0.4px;
+	    color: #a8a8a8;
+	}
+
+	.tree ul {
+	    padding-left: 5px;
+	    list-style: none;
+	    transition: display 0.2s ease-out;
+	}
+
+	.tree ul li {
 	    position: relative;
+	    padding-top: 5px;
+	    padding-bottom: 5px;
+	    padding-left: 15px;
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
 	}
 
-	.file-tree li::before {
-	    content: '\251C\2500\2500\0020';
+	.tree ul li:before {
+	    position: absolute;
+	    top: 15px;
+	    left: 0;
+	    width: 10px;
+	    height: 1px;
+	    margin: auto;
+	    content: "";
+	    background-color: #666;
 	}
 
-	.file-tree li:last-child::before {
-	    content: '\2514\2500\2500\0020';
+	.tree ul li:after {
+	    position: absolute;
+	    top: 0;
+	    bottom: 0;
+	    left: 0;
+	    width: 1px;
+	    height: 100%;
+	    content: "";
+	    background-color: #666;
 	}
 
+	.tree ul li:last-child:after {
+	    height: 15px;
+	}
+
+	.tree ul a {
+	    text-decoration: none;
+	    color: inherit;
+	    cursor: pointer;
+	}
+
+	.tree ul a:hover {
+	    text-decoration: none;
+	    font-weight: bold;
+	    color: green;
+	}
+
+	.tree .tree-node {
+	    cursor: pointer;
+	}
+
+	.node {
+	    border-radius: 50%;
+	    border: 1px solid black;
+	    background-color: white;
+	    z-index: 99;
+	    padding: 5px 10px;
+	}
 	.bold {
 	    font-weight: bold;
 	}
       </style>
     </head>
     <body>
-      <div class="file-tree">
-	<span class="bold" style="font-family: courier; line-height: 1.75; font-size: 1.2em;">/Appunti-Magistrale</span>
-	<ul>
+      <div class="tree">
+	<span class="bold tree-node" style="font-family: 'Roboto Mono', monospace; line-height: 1.75; font-size: 1.2em;">/Appunti-Magistrale</span>
+	<ul style="margin-top:0px;">
 	  <li><span class="bold">Primo Anno</span>
 	    <ul>
 	      <li> <span class="bold">Analisi di reti</span>
