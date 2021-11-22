@@ -121,7 +121,7 @@
     Segue quindi il seguente teorema
 
     *THM* Sia la rete $G$ con $n$ nodi e sorgente $s$ di eccentricità $D$.
-    Sotto le precedenti assunzioni il protocollo =RR= *completerà* il suo task in esattamente \(nD\) time slots e tutti i nodi *termineranno* l'esecuzione del protocollo in \(O(n^2)\) time slots.
+    Sotto le precedenti assunzioni il protocollo =RR= *completerà* il suo task in esattamente \(nD \in O(n^2)\) time slots e tutti i nodi *termineranno* l'esecuzione del protocollo in \(O(n^2)\) time slots.
 
 *** Message complexity
     La message complexity di questo protocollo è banale, in quanto ogni nodo trasmetterà lungo tutti i suoi archi uscenti una volta sola il messaggio, perciò la message compelxity sarà pari al numero
@@ -129,5 +129,36 @@
     \[
     MSG(\texttt{RR}) = |E|
     \]
+
+** Generalizzazione del problema
+   Fin ora abbiamo assunto che tutti i nodi hanno una conoscenza di $n$, oppure una sua /buona approssimazione/.
+   Per esempio, se tutti i nodi avessero come approssimazione di $n$ un valore del tipo $3.5n$, l'efficienza del protocollo =RR= in temrmini asintotici non cambia.\\
+
+   Supponiamo ora invece che i nodi abbiano un'approssimazione $N$ del numero di nodi $n$.
+   Col protocollo =RR= il tempo di terminazione globale[fn:2] sarà \(O(N^2)\).
+   Purtroppo però, se \(N \approx n^2\) il tempo di terminazion del protocollo sarà dell'ordine di \(O(n^4)\), e se \(N \approx 2^n\) il tempo di completamento sarà \(O(2^{2n})\) (=molto male!=).\\
+
+   Supponiamo in maniera ancor più generale che i nodi della rete non conoscano affatto $n$ né una sua stima.
+   Generalmente, in questi casi in cui non si conoscono alcuni parametri importanti per il problema, si ricorre alla tecnica della *simulazione*, in cui si provano tutti i possibili valori
+   che i parametri mancanti possono assumere.\\
+
+   In questo caso quindi, dato che stiamo in un sistema totalmente sincrono, si eseguirà per prima cosa il protocollor =RR= supponendo che $n$ sia pari ad 1, poi si ripete supponendo che sia uguale 2, e così via...
+   Così facendo, esisterà un tempo $t$ nel quale verrà eseguito il protocollo col corretto valore di $n$, portando a termine così il task del bradcast su reti radio.
+   #+begin_src python
+     i = 1
+     while True:
+	 round_robin(i)
+	 i += 1
+   #+end_src
+
+   In questo caso il task verrà completato in un tempo dell'ordine di
+   \[
+   TIME = \sum_{i=1}^{n} TIME(\texttt{round_robin}(i)) = \sum_{i=1}^{n} \Theta(i^2) \in \Theta(n^3)
+   \]
+
+*** Terminazione Locale
+    *[da finire]*
+    
     
 [fn:1] Fin ora abbiamo considerato una comunicazione di tipo *link based*, in cui un nodo poteva scegliere attraverso quale arco inviare il messaggio.
+[fn:2] Tempo in cui tutti i nodi terminano di eseguire il protocollo, non il tempo in cui viene completato il /task/ del problema, che rimane invariato.

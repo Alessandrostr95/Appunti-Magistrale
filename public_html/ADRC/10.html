@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-22 lun 22:23 -->
+<!-- 2021-11-23 mar 00:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 10</title>
@@ -286,6 +286,11 @@ for the JavaScript code in this tag.
 <li><a href="#org4f815bb">1.4.3. Message complexity</a></li>
 </ul>
 </li>
+<li><a href="#org8ee5cb9">1.5. Generalizzazione del problema</a>
+<ul>
+<li><a href="#org79d1fe8">1.5.1. Terminazione Locale</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -489,7 +494,7 @@ Segue quindi il seguente teorema
 
 <p>
 <b>THM</b> Sia la rete \(G\) con \(n\) nodi e sorgente \(s\) di eccentricità \(D\).
-Sotto le precedenti assunzioni il protocollo <code>RR</code> <b>completerà</b> il suo task in esattamente \(nD\) time slots e tutti i nodi <b>termineranno</b> l'esecuzione del protocollo in \(O(n^2)\) time slots.
+Sotto le precedenti assunzioni il protocollo <code>RR</code> <b>completerà</b> il suo task in esattamente \(nD \in O(n^2)\) time slots e tutti i nodi <b>termineranno</b> l'esecuzione del protocollo in \(O(n^2)\) time slots.
 </p>
 </div>
 </div>
@@ -507,6 +512,56 @@ di archi del grafo di trasmissione
 </div>
 </div>
 </div>
+
+<div id="outline-container-org8ee5cb9" class="outline-3">
+<h3 id="org8ee5cb9"><span class="section-number-3">1.5</span> Generalizzazione del problema</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Fin ora abbiamo assunto che tutti i nodi hanno una conoscenza di \(n\), oppure una sua <i>buona approssimazione</i>.
+Per esempio, se tutti i nodi avessero come approssimazione di \(n\) un valore del tipo \(3.5n\), l'efficienza del protocollo <code>RR</code> in temrmini asintotici non cambia.<br />
+</p>
+
+<p>
+Supponiamo ora invece che i nodi abbiano un'approssimazione \(N\) del numero di nodi \(n\).
+Col protocollo <code>RR</code> il tempo di terminazione globale<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> sarà \(O(N^2)\).
+Purtroppo però, se \(N \approx n^2\) il tempo di terminazion del protocollo sarà dell'ordine di \(O(n^4)\), e se \(N \approx 2^n\) il tempo di completamento sarà \(O(2^{2n})\) (<code>molto male!</code>).<br />
+</p>
+
+<p>
+Supponiamo in maniera ancor più generale che i nodi della rete non conoscano affatto \(n\) né una sua stima.
+Generalmente, in questi casi in cui non si conoscono alcuni parametri importanti per il problema, si ricorre alla tecnica della <b>simulazione</b>, in cui si provano tutti i possibili valori
+che i parametri mancanti possono assumere.<br />
+</p>
+
+<p>
+In questo caso quindi, dato che stiamo in un sistema totalmente sincrono, si eseguirà per prima cosa il protocollor <code>RR</code> supponendo che \(n\) sia pari ad 1, poi si ripete supponendo che sia uguale 2, e così via&#x2026;
+Così facendo, esisterà un tempo \(t\) nel quale verrà eseguito il protocollo col corretto valore di \(n\), portando a termine così il task del bradcast su reti radio.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">i = 1
+while True:
+    round_robin(i)
+    i += 1
+</pre>
+</div>
+
+<p>
+In questo caso il task verrà completato in un tempo dell'ordine di
+\[
+   TIME = \sum_{i=1}^{n} TIME(\texttt{round_robin}(i)) = \sum_{i=1}^{n} \Theta(i^2) \in \Theta(n^3)
+   \]
+</p>
+</div>
+
+<div id="outline-container-org79d1fe8" class="outline-4">
+<h4 id="org79d1fe8"><span class="section-number-4">1.5.1</span> Terminazione Locale</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+<b>[da finire]</b>
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footnotes">
 <h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
@@ -516,6 +571,10 @@ di archi del grafo di trasmissione
 Fin ora abbiamo considerato una comunicazione di tipo <b>link based</b>, in cui un nodo poteva scegliere attraverso quale arco inviare il messaggio.
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+Tempo in cui tutti i nodi terminano di eseguire il protocollo, non il tempo in cui viene completato il <i>task</i> del problema, che rimane invariato.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -523,7 +582,7 @@ Fin ora abbiamo considerato una comunicazione di tipo <b>link based</b>, in cui 
 <p class="date">Data: 2021-11-10 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-22 lun 22:23</p>
+<p class="date">Created: 2021-11-23 mar 00:16</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
