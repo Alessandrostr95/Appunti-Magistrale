@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-23 mar 00:16 -->
+<!-- 2021-11-23 mar 22:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 10</title>
@@ -289,6 +289,7 @@ for the JavaScript code in this tag.
 <li><a href="#org8ee5cb9">1.5. Generalizzazione del problema</a>
 <ul>
 <li><a href="#org79d1fe8">1.5.1. Terminazione Locale</a></li>
+<li><a href="#orgbe5b5af">1.5.2. Ottimizzazione</a></li>
 </ul>
 </li>
 </ul>
@@ -440,6 +441,8 @@ elif self.state == "INFORMED":
 
 elif self.state == "DONE":
     None
+
+
 </pre>
 </div>
 </div>
@@ -448,7 +451,7 @@ elif self.state == "DONE":
 <h4 id="orgcabda48"><span class="section-number-4">1.4.1</span> Correttezza</h4>
 <div class="outline-text-4" id="text-1-4-1">
 <p>
-<b>THM</b> Nel protocollo <code>RR</code> sotto le precedenti assunzioni, tutti i nodi a distanza \(k\) dalla sorgente \(s\) verranno informati <span class="underline">entro</span> \(k\) fasi.
+.    <b>THM</b> Nel protocollo <code>RR</code> sotto le precedenti assunzioni, tutti i nodi a distanza \(k\) dalla sorgente \(s\) verranno informati <span class="underline">entro</span> \(k\) fasi.
 </p>
 
 <p>
@@ -538,12 +541,41 @@ In questo caso quindi, dato che stiamo in un sistema totalmente sincrono, si ese
 Così facendo, esisterà un tempo \(t\) nel quale verrà eseguito il protocollo col corretto valore di \(n\), portando a termine così il task del bradcast su reti radio.
 </p>
 <div class="org-src-container">
-<pre class="src src-python">i = 1
+<pre class="src src-python">def round_robin(n):
+    clock = 0
+
+    if self.state == "SOURCE":
+	self.state = "INFORMED"
+
+    for fase in range(n):
+
+	for round in range(n):
+
+	    if self.state == "ASLEEP":
+		receiving(msg):
+		    self.state = "INFORMED"
+
+	    elif self.state == "INFORMED":
+		if clock % n == self.id and self.id &lt;= n:
+		    transimt(msg)
+		    self.state = "DONE"
+
+	    elif self.state == "DONE":
+		None
+
+	    clock += 1
+
+i = 1
 while True:
     round_robin(i)
     i += 1
 </pre>
 </div>
+
+<p>
+Importante specificare però, che qualora un nodo abbia una etichetta \(x\) <span class="underline">maggiore</span> del corrente valore di \(n\), esso non dovrà mai essere in grado di mandare il messaggio, in quanto potrebbe
+esistere un altro nodo con etichetta \(y \leq n\) tale che \(x \equiv_n y\), e quindi potrebbero occorrere interferenze.<br />
+</p>
 
 <p>
 In questo caso il task verrà completato in un tempo dell'ordine di
@@ -557,7 +589,34 @@ In questo caso il task verrà completato in un tempo dell'ordine di
 <h4 id="org79d1fe8"><span class="section-number-4">1.5.1</span> Terminazione Locale</h4>
 <div class="outline-text-4" id="text-1-5-1">
 <p>
-<b>[da finire]</b>
+Consideriamo il nodo \(v_j\) con etichetta \(id(v_j) = j\), e consideriamo l'esecuzione del protocollo di <code>RR</code> di parametro \(n = i\) in cui \(v_j\) viene informato.
+Se abbiamo che \(j < i\), sappiamo che se siamo fortunati \(v_j\) trasmetterà il messaggio direttamente nella fase \(i\), altrimenti dovrà attendere la fase successiva \(i+1\).
+Se invece abbiamo che \(j > i\), allora sappiamo che \(v_j\) non parlerà mai nella simulazione del <code>RR</code> \(i\)-esima.
+Esisterà comunque un tempo \(i^\star \geq j\) in cui \(v_j\) avrà opportunità di trasmettere il messaggio ai suoi vicini.<br />
+In entrambi i casi, per come è costruito il protocollo, sappiamo che quando \(v_j\) trasmetterà non ci potranno essere altri nodi che trasmetteranno nello stesso istante.
+Perciò \(v_j\) informerà tutti i suoi vicini senza interferenze, e potrà concludere localmente il suo compito, passando allo stato <code>done</code>.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbe5b5af" class="outline-4">
+<h4 id="orgbe5b5af"><span class="section-number-4">1.5.2</span> Ottimizzazione</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+Una ottimizzazione abbastanza intuitiva, è quella di non far crescere il valore simulato di \(n\) in maniera lineare, bensì in maniera <i>esponenziale</i>.
+Ovvero, iteriamo le simulazioni del protocollo <code>RR</code> ponendo il parametro \(n = 2^i\), per ogni \(i > 0\).<br />
+</p>
+
+<p>
+Per quanto riguarda il completamento del <i>task</i>, esisterà certamente un certo \(i\) tale cke \(2^{i-1} < n \leq 2^i\), garantendo quindi che entro \(2^i\) simulazioni tutti i nodi verranno informati.<br />
+</p>
+
+<p>
+Per il tempo di completamento invece, basta osservare che ci saranno al più \(\lceil \log_2{n} \rceil\) simulazioni, ognuna delle quali con complessità temporale di \(O(n^2)\).
+Perciò avremo che
+\[
+    TIME = \sum_{i=1}^{\lceil \log_2{n} \rceil} TIME(\texttt{round_robin}(2^i)) = O(n^2\log{n}) \in o(n^3)
+    \]
 </p>
 </div>
 </div>
@@ -582,7 +641,7 @@ Tempo in cui tutti i nodi terminano di eseguire il protocollo, non il tempo in c
 <p class="date">Data: 2021-11-10 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-23 mar 00:16</p>
+<p class="date">Created: 2021-11-23 mar 22:52</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

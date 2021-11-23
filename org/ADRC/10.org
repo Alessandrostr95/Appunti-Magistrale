@@ -77,11 +77,11 @@
      if self.state == "SOURCE":
 	 spontaneously:
 	     self.state = "INFORMED"
-     
+	 
      elif self.state == "ASLEEP":
 	 receiving(msg):
 	     self.state = "INFORMED"
-     
+	 
      elif self.state == "INFORMED":
 	 global clock, n
 	 if clock % n == self.id:
@@ -90,10 +90,12 @@
      
      elif self.state == "DONE":
 	 None
+     
+     
    #+end_src
 
 *** Correttezza
-    *THM* Nel protocollo =RR= sotto le precedenti assunzioni, tutti i nodi a distanza $k$ dalla sorgente $s$ verranno informati _entro_ $k$ fasi.
+.    *THM* Nel protocollo =RR= sotto le precedenti assunzioni, tutti i nodi a distanza $k$ dalla sorgente $s$ verranno informati _entro_ $k$ fasi.
 
     *Proof* La dimostrazione di questo teorema varrà fatta per /induzione/ sulla distanza $k$.\\
 
@@ -145,11 +147,38 @@
    In questo caso quindi, dato che stiamo in un sistema totalmente sincrono, si eseguirà per prima cosa il protocollor =RR= supponendo che $n$ sia pari ad 1, poi si ripete supponendo che sia uguale 2, e così via...
    Così facendo, esisterà un tempo $t$ nel quale verrà eseguito il protocollo col corretto valore di $n$, portando a termine così il task del bradcast su reti radio.
    #+begin_src python
+     def round_robin(n):
+	 clock = 0
+     
+	 if self.state == "SOURCE":
+	     self.state = "INFORMED"
+	 
+	 for fase in range(n):
+	     
+	     for round in range(n):
+     
+		 if self.state == "ASLEEP":
+		     receiving(msg):
+			 self.state = "INFORMED"
+	 
+		 elif self.state == "INFORMED":
+		     if clock % n == self.id and self.id <= n:
+			 transimt(msg)
+			 self.state = "DONE"
+     
+		 elif self.state == "DONE":
+		     None
+     
+		 clock += 1
+		     
      i = 1
      while True:
 	 round_robin(i)
 	 i += 1
    #+end_src
+
+   Importante specificare però, che qualora un nodo abbia una etichetta $x$ _maggiore_ del corrente valore di $n$, esso non dovrà mai essere in grado di mandare il messaggio, in quanto potrebbe
+   esistere un altro nodo con etichetta $y \leq n$ tale che \(x \equiv_n y\), e quindi potrebbero occorrere interferenze.\\
 
    In questo caso il task verrà completato in un tempo dell'ordine di
    \[
@@ -157,8 +186,24 @@
    \]
 
 *** Terminazione Locale
-    *[da finire]*
-    
-    
+    Consideriamo il nodo $v_j$ con etichetta $id(v_j) = j$, e consideriamo l'esecuzione del protocollo di =RR= di parametro $n = i$ in cui $v_j$ viene informato.
+    Se abbiamo che \(j < i\), sappiamo che se siamo fortunati \(v_j\) trasmetterà il messaggio direttamente nella fase $i$, altrimenti dovrà attendere la fase successiva \(i+1\).
+    Se invece abbiamo che $j > i$, allora sappiamo che $v_j$ non parlerà mai nella simulazione del =RR= \(i\)-esima.
+    Esisterà comunque un tempo \(i^\star \geq j\) in cui \(v_j\) avrà opportunità di trasmettere il messaggio ai suoi vicini.\\
+    In entrambi i casi, per come è costruito il protocollo, sappiamo che quando \(v_j\) trasmetterà non ci potranno essere altri nodi che trasmetteranno nello stesso istante.
+    Perciò \(v_j\) informerà tutti i suoi vicini senza interferenze, e potrà concludere localmente il suo compito, passando allo stato =done=.\\
+
+*** Ottimizzazione
+    Una ottimizzazione abbastanza intuitiva, è quella di non far crescere il valore simulato di $n$ in maniera lineare, bensì in maniera /esponenziale/.
+    Ovvero, iteriamo le simulazioni del protocollo =RR= ponendo il parametro \(n = 2^i\), per ogni \(i > 0\).\\
+
+    Per quanto riguarda il completamento del /task/, esisterà certamente un certo \(i\) tale cke \(2^{i-1} < n \leq 2^i\), garantendo quindi che entro \(2^i\) simulazioni tutti i nodi verranno informati.\\
+
+    Per il tempo di completamento invece, basta osservare che ci saranno al più \(\lceil \log_2{n} \rceil\) simulazioni, ognuna delle quali con complessità temporale di \(O(n^2)\).
+    Perciò avremo che
+    \[
+    TIME = \sum_{i=1}^{\lceil \log_2{n} \rceil} TIME(\texttt{round_robin}(2^i)) = O(n^2\log{n}) \in o(n^3)
+    \]
+
 [fn:1] Fin ora abbiamo considerato una comunicazione di tipo *link based*, in cui un nodo poteva scegliere attraverso quale arco inviare il messaggio.
 [fn:2] Tempo in cui tutti i nodi terminano di eseguire il protocollo, non il tempo in cui viene completato il /task/ del problema, che rimane invariato.

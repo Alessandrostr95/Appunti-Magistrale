@@ -1,0 +1,98 @@
+<html>
+    <head>
+      <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+      <style>
+	/* file tree lists */
+	body {
+	    background: white;
+	}
+	
+	.file-tree ul {
+	    font-family: courier;
+	    margin: 0;
+	    padding-left: 3rem;
+	    list-style: none;
+	    line-height: 1.25;
+	    position: relative;
+	    overflow: hidden;
+	}
+	
+	.file-tree li:not(:last-child) > ul::before {
+	    content: '\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020\2502\0020';
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    bottom: 0;
+	    width: 1em;
+	}
+	
+	.file-tree > ul {
+	    margin: 0;
+	    padding: 0;
+	}
+
+	.file-tree li {
+	    /*background: #fff;*/
+	    position: relative;
+	}
+
+	.file-tree li::before {
+	    content: '\251C\2500\2500\0020';
+	}
+
+	.file-tree li:last-child::before {
+	    content: '\2514\2500\2500\0020';
+	}
+
+	.bold {
+	    font-weight: bold;
+	}
+      </style>
+    </head>
+    <body>
+      <div class="file-tree">
+	<span class="bold" style="font-family: courier; line-height: 1.75; font-size: 1.2em;">/Appunti-Magistrale</span>
+	<ul>
+	  <li><span class="bold">Primo Anno</span>
+	    <ul>
+	      <li> <span class="bold">Analisi di reti</span>
+		<ul>
+		  <li><a href="./AR/01.html">Lesson 1 - Modello Erdős–Rényi</a></li>
+		  <li><a href="./AR/02.html">Lesson 2-3 - Fenomeno rich-get-richer</a></li>
+		  <li><a href="./AR/04.html">Lesson 4-5 - Grafi Geometrici Aleatori e Reti Wireless</a></li>
+		  <li><a href="./AR/06.html">Lesson 6 - Modello Small World</a></li>
+		  <li><a href="./AR/07.html">Lesson 7 - Communities - Part 1</a></li>
+		  <li><a href="./AR/08.html">Lesson 8 - Communities - Part 2</a></li>
+		</ul>    
+	      </li>
+	      <li> <span class="bold">Logica Matematica</span>
+		<ul>
+		  <li><a href="./LM1/01.html">Lesson 1</a></li>
+		</ul>    
+	      </li>
+	      <li> <span class="bold">Algoritmi Distribuiti e Reti Complesse</span>
+		<ul>
+		  <li><a href="./ADRC/02.html">Lesson 2 - Ambienti distribuiti</a></li>
+		  <li><a href="./ADRC/03.html">Lesson 3 - Single source broadcast problem - Part 1</a></li>
+		  <li><a href="./ADRC/04.html">Lesson 4 - Single source broadcast problem - Part 2</a></li>
+		  <li><a href="./ADRC/05.html">Lesson 5 - Broadcast on Labeled Hypercube</a></li>
+		  <li><a href="./ADRC/06.html">Lesson 6 - Wake-up problem</a></li>
+		  <li><a href="./ADRC/07.html">Lesson 7 - Spanning Tree Costruction</a></li>
+		  <li><a href="./ADRC/08.html">Lesson 8 - Leader Election on Ring - Part 1</a></li>
+		  <li><a href="./ADRC/09.html">Lesson 9 - Leader Election on Ring - Part 2</a></li>
+		  <li><a href="./ADRC/10.html">Lesson 10 - Broadcast on Radio Network</a></li>
+		</ul>    
+	      </li>
+	      <li> <span class="bold">Sistemi Distribuiti Coperativi</span>
+		<ul>
+		  <li><a href="./SDC/01.html">Lesson 1</a></li>
+		  <li><a href="./SDC/02.html">Lesson 2</a></li>
+		  <li><a href="./SDC/03.html">Lesson 3</a></li>	    
+		</ul>    
+	      </li>
+            </ul>
+	  </li>
+	</ul>
+      </div>
+    </body>
+</html>
