@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-21 dom 20:50 -->
+<!-- 2021-11-24 mer 00:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 08</title>
@@ -240,6 +240,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -254,7 +276,9 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#org95261b2">1. Metodi euristici per partizionare in comunità</a>
 <ul>
-<li><a href="#org5a2bd8f">1.1. Betweenness di un arco</a></li>
+<li><a href="#org7234dd3">1.1. Edge-Betweenness</a></li>
+<li><a href="#org2017b08">1.2. Il metodo di Girvan-Newman</a></li>
+<li><a href="#org8adb2a4">1.3. Algoritmo per il calcolo della betweenness</a></li>
 </ul>
 </li>
 </ul>
@@ -310,9 +334,117 @@ Osservare infine che entrambi i metodi richiedono la scelta di un arco da rimuov
 </p>
 </div>
 
-<div id="outline-container-org5a2bd8f" class="outline-3">
-<h3 id="org5a2bd8f"><span class="section-number-3">1.1</span> Betweenness di un arco</h3>
+<div id="outline-container-org7234dd3" class="outline-3">
+<h3 id="org7234dd3"><span class="section-number-3">1.1</span> Edge-Betweenness</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+Il concetto di <b>betweennes</b> di un arco è sfruttato come criterio di rimozione degli archi nei metodi partitivi di partizionamento precedentemente accennati.
+Tale concetto a sua volta si basa sulle proprietà di un arco di essere <i>bridge</i> o <i>local bridge</i>.
+Sappiamo che per definizione, rimuovere un arco bridge disconnette due porzioni di una rete, mentre rimuovere un local bridge certamente peggiora la connettività tra due comunità.<br />
+</p>
+
+<p>
+Sappiamo anche che gli archi bridge e local brdige sono dei <i>weak ties</i>.
+Perciò, rimuovendo tutti i weak ties da una rete rimangono solamente gruppi di nodi connessi da relazioni forti (<i>strong ties</i>), e tali gruppi rispecchiano il concetto intuitivo
+di comunità (ovvero gruppi di persone collegati da legami forti).<br />
+</p>
+
+<p>
+Purtroppo però esistono casi in cui anche rimuovendo tutti i weak ties non avviene un partizionamento in comunità.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img3.png" alt="ar-lesson08-img3.png" style="max-width:350px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Controesempio: in blu i weak ties e in rosso gli strong ties.</p>
+</div>
+
+<p>
+Infatti, considerando il precedente controesempio, pur rimuovendo l'arco rosso non avremo un partizionamento.
+Invece è evidente che c'è una comunità composta da una clique a destra e una composta da una clique a sinistra.
+Per quanto riguarda il nodo centrale esso può essere inserito indistintamente i una delle due comunità.<br />
+</p>
+
+<p>
+Perciò come criterio potremmo considerare la quantità di <b>traffico</b> (o <b>flusso</b>) di informazioni che passa attraverso gli archi.
+Possiamo considerare come "nuovi archi ponte" tutti quegli archi attraverso i quali passa una grande quantità di flusso, e che se rimossi rendono più difficile la comunicazione tra due comunità.
+Secondo questo criterio possiamo rimuovere gli archi sui quali passa maggior flusso, finché non otterremo un partizionamento accettabile della rete.<br />
+</p>
+
+<p>
+Più formalmente, considerando un grafo <span class="underline">non diretto</span> \(G = (V,E)\), definiamo con \(\sigma_{st}(u,v)\) il numero di <i><a href="https://en.wikipedia.org/wiki/Shortest_path_problem">shortest-paths</a></i> \(\pi^\star(s,t)\) (o <i>camminimi minimi</i>) tra \(s\) e \(t\) che passano per l'arco \((u,v)\).<br />
+</p>
+
+<p>
+Definiamo poi con \(b_{st}(u,v)\) la <b>betweennes dell'arco</b> \((u,v)\) <b>rispetto alla coppia</b> \(s,t\) come la <span class="underline">frazione</span> di shortest path \(\pi^\star(s,t)\) che passano per l'arco \((u,v)\)
+</p>
+\begin{align*}
+  \sigma_{st} &= \vert \lbrace \pi^\star(s,t)  \rbrace \vert\\
+  b_{st}(u,v) &= \frac{\sigma_{st}(u,v)}{\sigma_{st}}
+\end{align*}
+
+<p>
+Definiamo infine la <b>betweenness</b> \(b(u,v)\) di un arco \((u,v)\) come la semi-somma di tutte le betweenness relative \(b_{st}(u,v)\), per ogni coppia di nodi \(s,t\)
+\[
+   b(u,v) = \frac{1}{2} \sum_{(s,t) \in \binom{V}{2}} b_{st}(u,v)
+   \]
+</p>
+
+<p>
+Notare che il fattore \(1/2\) è necessario per evitare di contare le ripetizioni, del tipo \(b_{st}(u,v)\) e \(b_{ts}(u,v)\).<br />
+</p>
+
+<p>
+Analogamente alla <b>edge-betweenness</b> si può definire una <b>node-betweenness</b>, seguendo la stessa definizione.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2017b08" class="outline-3">
+<h3 id="org2017b08"><span class="section-number-3">1.2</span> Il metodo di Girvan-Newman</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Il metodo di <i>Girvan-Newman</i> è un metodo partitivo per il partizionamento, basato sul concetto di <i>edge-betweenness</i>, abbastanza semplice.
+I passaggi sono i seguenti:
+</p>
+<ol class="org-ol">
+<li>Si calcola l'arco \((u,v)\) con betweenness \(b(u,v)\) <span class="underline">massima</span>, e lo si rimuove.</li>
+<li>Se il grafo residuo risulta partizionato con in una granularità desiderata allora abbiamo concluso.</li>
+<li>Se così non fosse si ricalcola il nuovo arco con betweenness massima del nuovo grafo e si itera finché non si ottiene il risultato desiderato.</li>
+</ol>
+
+<p>
+L'algoritmo di suo è abbastanza semplice, l'unico problema è il calcolo delle betweenness degli archi.
+Purtroppo non si può applicare un approccio brute force calcolando tutti gli shortest path altrimenti la complessità risulterebbe esponenziale.
+Serve quindi un approccio più efficiente.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8adb2a4" class="outline-3">
+<h3 id="org8adb2a4"><span class="section-number-3">1.3</span> Algoritmo per il calcolo della betweenness</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Per ogni nodo \(s \in V\) l'algoritmo del calcolo della betweenness degli archi si suddivide in tre fasi:
+</p>
+<ol class="org-ol">
+<li>calcolare il sottografo \(T(s)\) composto dall'<i>unione</i> degli alberi di camminimi minimi radicati in \(s\).
+Anche se il numero di tali alberi può essere esponenziale, in realtà il calcolo di \(T(s)\) può essere effettuato in tempo polinomiale con una visita in ampiezza <code>BFS</code> con le dovute modifiche.</li>
+<li>Mediante una visita <code>top-down</code> calcolo i valori \(\sigma_{sv}\) per ogni \(v \in V \setminus \lbrace s \rbrace\), e questo vedremo si può fare in tempo polinomiale.</li>
+<li>Infine mediante una visita <code>bottom-up</code>, e grazie a quanto calcolato nel punto 2, calcolo per ogni arco \((u,v) \in T(s)\) tutte le betweennes relative a shortest paths che partono da \(s\), ovvero il valore
+\[
+      b_s(u,v) = \sum_{t \in V \setminus \lbrace s \rbrace} b_{st}(u,v) \;\; \forall (u,v) \in T(s)
+      \]</li>
+</ol>
+
+<p>
+Per concludere, una volta eseguiti i punti <code>1-2-3</code> per ogni nodo \(s \in V\), possiamo ricavare i valori delle betweenness come segue
+\[
+   b(u,v) = \frac{1}{2} \sum_{s \in V} b_s(u,v)
+   \]
+</p>
+
 <p>
 <b>[DA FINIRE]</b>
 </p>
@@ -331,10 +463,10 @@ ovvero <b>NP-completo</b>.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-11-10 mer 00:00</p>
+<p class="date">Data: 2021-11-15 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-21 dom 20:50</p>
+<p class="date">Created: 2021-11-24 mer 00:21</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
