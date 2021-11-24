@@ -1,0 +1,57 @@
+#+title: ADRC - Lesson 11
+#+date: <2021-11-10 lun>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+
+* Randomized Distributed Protocols
+  Un *algoritmo probabilistico* \(\mathcal{A}\) è un algoritmo che accessi a una fonte di /S/ di random bits, e che prende decisioni in accordo ai bit casuali dati dalla fonte /S/.
+  Sia un qualsiasi input $x$ di \(\mathcal{A}\) di dimensione \(\vert x \vert = n\), e sia \(r = r(x)\) il numero totale di random bit che \(\mathcal{A}\) richiede ad /S/ durante
+  l'esecuzione \(\mathcal{A}(x)\).
+  Avremo quindi che la correttezza del risultate dell'esecuzione \(\mathcal{A}(x)\) e il suo tempo di completamento, sono /variabili aleatorie/ sopra lo spazio di probabilità
+  \[
+  \Omega = (\lbrace 0,1 \rbrace^r, \mathcal{P}(\cdot))
+  \]
+  dove \(\mathcal{P}(\cdot)\) è la /distribuzione di probabilità/ indotta da \(\mathcal{A}(x)\).\\
+
+  Osserviamo che se \(\mathcal{A}\) sceglie gli $r$ bits *uniformemente a caso* e in maniera *indipendente*, allora avremo che la distribuzione \(\mathcal{P}(\cdot)\) è espicitamente
+  definita come
+  \[
+  \mathcal{P}(\mathbf{y}) = 2^{-r} \;\; \forall \mathbf{y} \in \lbrace 0,1 \rbrace^r
+  \]
+
+  Infine, per semplicità assumiamo che \(\mathcal{A}\) è un algoritmo per il *problema decisionale* \(\Pi\).\\
+  Diamo ora una definizione di concetto di *probabilità d'errore* di \(\mathcal{A}\) in termini di eventi nello spazio di probabilità \(\Sigma\), e quindi
+  una migliore definizione di /algoritmo probabilistico/.\\
+
+  #+begin_quote
+  *Def.* un algoritmo \(\mathcal{A}\) per un un problema \(\Pi\) ha una *probabilità d'errore* \(\varepsilon \in \left[ 0, 1 \right]\), se per ogni possibile
+  input \(x \in \lbrace 0,1 \rbrace^n\) avremo che
+  \[
+  \mathcal{P}_{\Omega}(\mathcal{A}(x) = \Pi(x)) \geq 1 - \varepsilon
+  \]
+  Diremo inoltre che \(\mathcal{A}\) risolve \(\Pi\) con *alta probabilità* (*with high probability*, in breve *w.h.p*), se per valori di $n$ /sufficientemente grandi/,
+  e per ogni input \(x \in \lbrace 0,1 \rbrace^n\) avremo che
+  \[
+  \mathcal{P}_{\Omega}(\mathcal{A}(x) = \Pi(x)) \geq 1 - n^{-\beta}
+  \]
+  per qualche costante \(\beta > 0\).
+  #+end_quote
+
+  A questo punto, possiamo definire in maniera del tutto analoga il concetto di *protocollo distribuito probabilistico*.
+  Sia quindi un dato protocollo \(\mathcal{A}\), che viene eseguito su un grafo \(G = (V,E)\) con \(\vert V \vert = n\) nodi, e che inizia con una *configurazione iniziale* $x$.
+  Ogni nodo $v$ ha accesso a una fonte *provata* e *indipendente* \(s(v)\) di random bits.
+  Le decisioni di ogni nodo $v$ in accordo in quanto descritto dal protocollo \(\mathcal{A}\), dipendono /anche/ dalle sequenze di random bits generate dalle fonti di casualità \(s(v)\).\\
+
+  Supponiamo che il _massimo_ numero di random bits generati dalle fonti durante l'esecuzione di \(\mathcal{A}(G,x)\)[fn:1] sia una certa quantità \(r > 0\).
+  Perciò il risultato dell'esecuzione \(\mathcal{A}(G,x)\) (o il suo tempo di completamento) è una variabile aleatoria completamente determinata dallo spazio di probabilità
+  \[
+  \Omega = (\lbrace 0,1 \rbrace^{n \times r}, \mathcal{P}(\cdot))
+  \]
+  dove \(\mathcal{P}(\cdot)\) è la /distribuzione di probabilità/ indotta da \(\mathcal{A}(G,x)\).\\
+
+  Analogamente possiamo estendere i concetti di *probabilità di errore* e *w.h.p* anche per i protocolli distribuiti probabilistici.\\
+
+* Leader Election in a Unlabeled Ring
+  *[DA FINIRE]*
+[fn:1] ovvero l'esecuzione del protocollo \(\mathcal{A}\) sul grafo $G$ partendo dalla configurazione $x$.
+  
