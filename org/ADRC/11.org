@@ -1,5 +1,5 @@
 #+title: ADRC - Lesson 11
-#+date: <2021-11-10 lun>
+#+date: <2021-11-11>
 #+teacher: Andrea Clementi
 #+setupfile: ../../org-template/appunti.org
 
@@ -52,6 +52,85 @@
   Analogamente possiamo estendere i concetti di *probabilità di errore* e *w.h.p* anche per i protocolli distribuiti probabilistici.\\
 
 * Leader Election in a Unlabeled Ring
-  *[DA FINIRE]*
+  Nella lezione della [[./08.html][leader election]] abbiamo visto che non è possibile risolvere /deterministicamente/ tale problema senza l'assunzione che tutti i nodi abbiano un *Unique ID*.\\
+
+  Assumiamo ora un contensto in cui abbiamo una rete \(G=(V,E)\) di $n$ nodi *anonimi* (senza un ID unico) in cui però tutti i nodi conoscono $n$ e sanno di essere in un _anello_,
+  e supponiamo inoltre che ogni nodo $v$ abba accesso ad una fonte _privata_ e _indipendente_ di casualità \(s(v)\).
+  È possibile definire un protocollo probabilistico che risolve questo problema sotto le precedenti assunzioni (e senza l'assunzione di =Unique ID=).\\
+
+  L'idea è abbastanza semlice: ogni nodo sceglie uniformemente a caso e in maniera indipendente un numero nell'insieme \(\left[ m \right]\), il quale diventerà l'ID del nodo.
+  A questo punto basta eseguire uno dei protocolli deterministici conosciuti per la leader election su anello con l'assunzione di =Unique ID=.\\
+
+  Certamente potrebbe capitare che gli identificatori dei nodi non siano univoci, però il valore $m$ è scelto in modo tale che /w.h.p./ (/con alta probabilità/) non ci saranno due nodi
+  $x,y$ con stesso id, \(id(x) \neq id(y)\).
+  Rifacendoci alla definizione di protocollo probabilistico, in questo caso il risultato dell'esecuzione del protocollo è una /variabile aleatoria/.
+  Infatti noi vogliamo che lo stato finale sia uno stato in cui _un solo nodo_ sia nello stato di =leader=, e tutti gli altri nello stato =follower=.
+  Con questo protocollo probabilistico non abbiamo tale certezza di arrivare ad una configurazione finale accettabile, però sappiamo che arriveremo a tale configurazione desiderata con alta probabilità.\\
+
+  #+begin_src python
+    self.id = random_choice(range(m))
+    
+    self.run("stage_tecnique")
+  #+end_src  
+
+** Analisi
+   Riferiamoci al protocollo appena descritto con \(\texttt{RL}\) (/Random Leader/) e alla sua esecuzione \(\texttt{RL}(G, n, m)\), dove $n$ è il numero di nodi dell'anello $G$ ed $m$ è il parametro di scelta
+   delle etichette che vedremo alla fine di questa analisi come scegliere in modo tale che con alta probabilità il protocollo porti ad una configurazione accettabile.\\
+
+   Osserviamo che un *evento sufficiente* (ma *non necessario*) affinché il protocollo termini _correttamente_ è il seguente
+   \[
+   \mathcal{B} = \mbox{"non esistono due nodi differenti } v,w \in V \mbox{, con } v \neq w \mbox{ tali che } id(v) = id(w) \mbox{"}
+   \]
+   L'evento \(\mathcal{B}\) non è una condizione necessaria in quanto potrebbero esserci due nodi $v,w$ con stessa etichetta, ma se esiste un altro nodo $u$ con etichetta _maggiore_ \(id(u) > id(v) = id(w)\),
+   allora tutti i protocolli deterministici per la leader election già visti in questi appunti porteranno ad una configurazione finale accettabile.
+   Viceversa, se occorre l'evento \(\mathcal{B}\), ovvero se tutti i nodi hanno etichette differenti, allora certamente il protocollo porterà ad una configurazione finale accettabile.\\
+
+   Osserviamo ora che l'azione di scegliere un'etichetta uniformemente a caso in \(\left[ m \right]\), equivale all'azione di pescare una pallina in un'urna di $m$ palline enumerate da 1 ad $m$.
+   Per calcolare la probabilità dell'evento desiderato \(\mathcal{B}\) conviene calcolare la probabilità dell'evento /complementare/
+   \[
+   \overline{\mathcal{B}} = \mbox{"esistono almeno due nodi differenti } v,w \in V \mbox{, con } v \neq w \mbox{ tali che } id(v) = id(w) \mbox{"}
+   \]
+
+   Possiamo calcolare la probabilità di questo evento come l' _unione_ degli eventi *disgiunti*
+   \[
+   \overline{\mathcal{B}}_i = \mbox{"esistono almeno due nodi differenti con etichetta} i \mbox{"}
+   \]
+
+   Tale evento a sua volta può essere modellato con l' _unione_ di v.a. *binomiali*
+   \begin{align*}
+     \mathcal{P}(\overline{\mathcal{B}}_i)
+     &= \mathcal{P}(\bigcup_{k = 2}^{n} \lbrace \mbox{esistono esattamente } k \mbox{ nodi con etichetta } i  \rbrace)\\
+     \textbf{(1)}  &= \sum_{k = 2}^{n} \mathcal{P}( \lbrace \mbox{esistono esattamente } k \mbox{ nodi con etichetta } i \rbrace)\\
+     &= \sum_{k = 2}^{n} \binom{n}{k}\left( \frac{1}{m} \right)^k \left( 1 - \frac{1}{m} \right)^{m-k}\\
+     &\leq \sum_{k = 2}^{n} \binom{n}{k}\left( \frac{1}{m} \right)^k\\
+     \textbf{(2)} &\leq \sum_{k = 2}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+     &= \frac{e^2n^2}{4m^2} + \sum_{k = 3}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+     &\leq O\left(\frac{n^2}{m^2}\right) + \sum_{k = 3}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+     &= O\left(\frac{n^2}{m^2}\right) + \sum_{k = 3}^{n} O\left( \frac{n^k}{m^k} \right)\\
+     (\mbox{perché } m \geq n) &\leq O\left(\frac{n^2}{m^2}\right) + O\left( \frac{n^3}{m^3} \right)\\
+     &\leq O\left(\frac{n^2}{m^2} +  \frac{n^4}{m^3} \right)
+   \end{align*}
+   dove *(1)* perché gli eventi dell'unione sono tutti *disgiunti*, e *(2)* per l'[[https://it.wikipedia.org/wiki/Approssimazione_di_Stirling][approssimazione di Stirling]].\\
+
+   Dopodiché, possiamo calcolare la probabilità di \(\overline{\mathcal{B}}\) come l'unione di tutte le probabilità \(\overline{\mathcal{B}}_i\) per ogni \(i \in \left[ m \right]\).
+   \begin{align*}
+     \mathcal{P}(\overline{\mathcal{B}})
+     &= \mathcal{P}(\bigcup_{i = 1}^{m} \overline{\mathcal{B}}_i)\\
+     &\leq \sum_{i = 1}^{m} \mathcal{P}(\overline{\mathcal{B}}_i)\\
+     &\leq m \cdot O\left(\frac{n^2}{m^2} + \frac{n^4}{m^3} \right) = O\left(\frac{n^2}{m} + \frac{n^4}{m^2} \right)
+   \end{align*}
+
+   Ponendo ora \(m = n^3\) avremo che tale probabilità sarà al più
+   \[
+   \mathcal{P}(\overline{\mathcal{B}}) \leq O\left(\frac{1}{n} + \frac{1}{n^2} \right) \in O\left( \frac{1}{n} \right)
+   \]
+
+   Possiamo quindi concludere che per \(m \geq n^3\) l'esecuzione del protocollo \(\texttt{RL}(G, n, m)\) porterà la rete in una configurazione finale accettabile *con alta probabilità*
+   \[
+   \mathcal{P}(\mathcal{B}) \geq 1 - O\left( \frac{1}{n} \right)
+   \]
+
+-----
+
 [fn:1] ovvero l'esecuzione del protocollo \(\mathcal{A}\) sul grafo $G$ partendo dalla configurazione $x$.
-  
+

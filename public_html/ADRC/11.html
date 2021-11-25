@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-25 gio 00:29 -->
+<!-- 2021-11-25 gio 13:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 11</title>
@@ -275,7 +275,11 @@ for the JavaScript code in this tag.
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org2774f30">1. Randomized Distributed Protocols</a></li>
-<li><a href="#orgd3e7b43">2. Leader Election in a Unlabeled Ring</a></li>
+<li><a href="#orgd3e7b43">2. Leader Election in a Unlabeled Ring</a>
+<ul>
+<li><a href="#orge5a6fa4">2.1. Analisi</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -350,8 +354,115 @@ Analogamente possiamo estendere i concetti di <b>probabilità di errore</b> e <b
 <h2 id="orgd3e7b43"><span class="section-number-2">2</span> Leader Election in a Unlabeled Ring</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<b>[DA FINIRE]</b>
+Nella lezione della <a href="./08.html">leader election</a> abbiamo visto che non è possibile risolvere <i>deterministicamente</i> tale problema senza l'assunzione che tutti i nodi abbiano un <b>Unique ID</b>.<br />
 </p>
+
+<p>
+Assumiamo ora un contensto in cui abbiamo una rete \(G=(V,E)\) di \(n\) nodi <b>anonimi</b> (senza un ID unico) in cui però tutti i nodi conoscono \(n\) e sanno di essere in un <span class="underline">anello</span>,
+e supponiamo inoltre che ogni nodo \(v\) abba accesso ad una fonte <span class="underline">privata</span> e <span class="underline">indipendente</span> di casualità \(s(v)\).
+È possibile definire un protocollo probabilistico che risolve questo problema sotto le precedenti assunzioni (e senza l'assunzione di <code>Unique ID</code>).<br />
+</p>
+
+<p>
+L'idea è abbastanza semlice: ogni nodo sceglie uniformemente a caso e in maniera indipendente un numero nell'insieme \(\left[ m \right]\), il quale diventerà l'ID del nodo.
+A questo punto basta eseguire uno dei protocolli deterministici conosciuti per la leader election su anello con l'assunzione di <code>Unique ID</code>.<br />
+</p>
+
+<p>
+Certamente potrebbe capitare che gli identificatori dei nodi non siano univoci, però il valore \(m\) è scelto in modo tale che <i>w.h.p.</i> (<i>con alta probabilità</i>) non ci saranno due nodi
+\(x,y\) con stesso id, \(id(x) \neq id(y)\).
+Rifacendoci alla definizione di protocollo probabilistico, in questo caso il risultato dell'esecuzione del protocollo è una <i>variabile aleatoria</i>.
+Infatti noi vogliamo che lo stato finale sia uno stato in cui <span class="underline">un solo nodo</span> sia nello stato di <code>leader</code>, e tutti gli altri nello stato <code>follower</code>.
+Con questo protocollo probabilistico non abbiamo tale certezza di arrivare ad una configurazione finale accettabile, però sappiamo che arriveremo a tale configurazione desiderata con alta probabilità.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">self.id = random_choice(range(m))
+
+self.run("stage_tecnique")
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge5a6fa4" class="outline-3">
+<h3 id="orge5a6fa4"><span class="section-number-3">2.1</span> Analisi</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Riferiamoci al protocollo appena descritto con \(\texttt{RL}\) (<i>Random Leader</i>) e alla sua esecuzione \(\texttt{RL}(G, n, m)\), dove \(n\) è il numero di nodi dell'anello \(G\) ed \(m\) è il parametro di scelta
+delle etichette che vedremo alla fine di questa analisi come scegliere in modo tale che con alta probabilità il protocollo porti ad una configurazione accettabile.<br />
+</p>
+
+<p>
+Osserviamo che un <b>evento sufficiente</b> (ma <b>non necessario</b>) affinché il protocollo termini <span class="underline">correttamente</span> è il seguente
+\[
+   \mathcal{B} = \mbox{"non esistono due nodi differenti } v,w \in V \mbox{, con } v \neq w \mbox{ tali che } id(v) = id(w) \mbox{"}
+   \]
+L'evento \(\mathcal{B}\) non è una condizione necessaria in quanto potrebbero esserci due nodi \(v,w\) con stessa etichetta, ma se esiste un altro nodo \(u\) con etichetta <span class="underline">maggiore</span> \(id(u) > id(v) = id(w)\),
+allora tutti i protocolli deterministici per la leader election già visti in questi appunti porteranno ad una configurazione finale accettabile.
+Viceversa, se occorre l'evento \(\mathcal{B}\), ovvero se tutti i nodi hanno etichette differenti, allora certamente il protocollo porterà ad una configurazione finale accettabile.<br />
+</p>
+
+<p>
+Osserviamo ora che l'azione di scegliere un'etichetta uniformemente a caso in \(\left[ m \right]\), equivale all'azione di pescare una pallina in un'urna di \(m\) palline enumerate da 1 ad \(m\).
+Per calcolare la probabilità dell'evento desiderato \(\mathcal{B}\) conviene calcolare la probabilità dell'evento <i>complementare</i>
+\[
+   \overline{\mathcal{B}} = \mbox{"esistono almeno due nodi differenti } v,w \in V \mbox{, con } v \neq w \mbox{ tali che } id(v) = id(w) \mbox{"}
+   \]
+</p>
+
+<p>
+Possiamo calcolare la probabilità di questo evento come l' <span class="underline">unione</span> degli eventi <b>disgiunti</b>
+\[
+   \overline{\mathcal{B}}_i = \mbox{"esistono almeno due nodi differenti con etichetta} i \mbox{"}
+   \]
+</p>
+
+<p>
+Tale evento a sua volta può essere modellato con l' <span class="underline">unione</span> di v.a. <b>binomiali</b>
+</p>
+\begin{align*}
+  \mathcal{P}(\overline{\mathcal{B}}_i)
+  &= \mathcal{P}(\bigcup_{k = 2}^{n} \lbrace \mbox{esistono esattamente } k \mbox{ nodi con etichetta } i  \rbrace)\\
+  \textbf{(1)}  &= \sum_{k = 2}^{n} \mathcal{P}( \lbrace \mbox{esistono esattamente } k \mbox{ nodi con etichetta } i \rbrace)\\
+  &= \sum_{k = 2}^{n} \binom{n}{k}\left( \frac{1}{m} \right)^k \left( 1 - \frac{1}{m} \right)^{m-k}\\
+  &\leq \sum_{k = 2}^{n} \binom{n}{k}\left( \frac{1}{m} \right)^k\\
+  \textbf{(2)} &\leq \sum_{k = 2}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+  &= \frac{e^2n^2}{4m^2} + \sum_{k = 3}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+  &\leq O\left(\frac{n^2}{m^2}\right) + \sum_{k = 3}^{n} \left( \frac{en}{k} \cdot \frac{1}{m} \right)^k\\
+  &= O\left(\frac{n^2}{m^2}\right) + \sum_{k = 3}^{n} O\left( \frac{n^k}{m^k} \right)\\
+  (\mbox{perché } m \geq n) &\leq O\left(\frac{n^2}{m^2}\right) + O\left( \frac{n^3}{m^3} \right)\\
+  &\leq O\left(\frac{n^2}{m^2} +  \frac{n^4}{m^3} \right)
+\end{align*}
+<p>
+dove <b>(1)</b> perché gli eventi dell'unione sono tutti <b>disgiunti</b>, e <b>(2)</b> per l'<a href="https://it.wikipedia.org/wiki/Approssimazione_di_Stirling">approssimazione di Stirling</a>.<br />
+</p>
+
+<p>
+Dopodiché, possiamo calcolare la probabilità di \(\overline{\mathcal{B}}\) come l'unione di tutte le probabilità \(\overline{\mathcal{B}}_i\) per ogni \(i \in \left[ m \right]\).
+</p>
+\begin{align*}
+  \mathcal{P}(\overline{\mathcal{B}})
+  &= \mathcal{P}(\bigcup_{i = 1}^{m} \overline{\mathcal{B}}_i)\\
+  &\leq \sum_{i = 1}^{m} \mathcal{P}(\overline{\mathcal{B}}_i)\\
+  &\leq m \cdot O\left(\frac{n^2}{m^2} + \frac{n^4}{m^3} \right) = O\left(\frac{n^2}{m} + \frac{n^4}{m^2} \right)
+\end{align*}
+
+<p>
+Ponendo ora \(m = n^3\) avremo che tale probabilità sarà al più
+\[
+   \mathcal{P}(\overline{\mathcal{B}}) \leq O\left(\frac{1}{n} + \frac{1}{n^2} \right) \in O\left( \frac{1}{n} \right)
+   \]
+</p>
+
+<p>
+Possiamo quindi concludere che per \(m \geq n^3\) l'esecuzione del protocollo \(\texttt{RL}(G, n, m)\) porterà la rete in una configurazione finale accettabile <b>con alta probabilità</b>
+\[
+   \mathcal{P}(\mathcal{B}) \geq 1 - O\left( \frac{1}{n} \right)
+   \]
+</p>
+
+<hr />
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -359,17 +470,17 @@ Analogamente possiamo estendere i concetti di <b>probabilità di errore</b> e <b
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-ovvero l'esecuzione del protocollo \(\mathcal{A}\) sul grafo \(G\) partendo dalla configurazione \(x\).
+ovvero l'esecuzione del protocollo \(\mathcal{A}\) sul grafo \(G\) partendo dalla configurazione \(x\).  
 </p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-11-10 mer 00:00</p>
+<p class="date">Data: 2021-11-11 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-25 gio 00:29</p>
+<p class="date">Created: 2021-11-25 gio 13:01</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

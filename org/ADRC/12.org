@@ -1,0 +1,6 @@
+#+title: ADRC - Lesson 12
+#+date: <2021-11-11>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+
+* BGI Protocol

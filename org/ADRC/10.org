@@ -1,5 +1,5 @@
 #+title: ADRC - Lesson 10
-#+date: <2021-11-10 lun>
+#+date: <2021-11-10>
 #+teacher: Andrea Clementi
 #+setupfile: ../../org-template/appunti.org
 
