@@ -97,6 +97,117 @@
    b(u,v) = \frac{1}{2} \sum_{s \in V} b_s(u,v)
    \]
 
+   Osserviamo che nel punto =3= calcoliamo \(b_s(u,v)\) solo per gli archi di \(T(s)\), in quanto se \((u,v)\) non appartiene al sottografo degli shortest path \(T(s)\) allora vuol dire che non appartiene
+   nessun shortest path, e quindi non avrebbe senso calcolarlo (per definizione di betweenness).\\
+
+   Andiamo ora a vedere un esempio pratico che mostra anche come eseguire i tre passi dell'algoritmo del calcolo della betweenness
+
+*** Fase 1
+    Per calcolare \(T(s)\) basta effettuare una visita in ampiezza =BFS= opportunamente modificata.\\
+
+    Definiamo con \(L_h\) l'insieme di tutti i nodi a distanza $h$ dalla sorgente $s$.
+    Diremo che un nodo $v$ si trova al /livello/ $h$ se \(v \in L_h\).\\
+
+    Se un nodo $v$ si trova al livello $h$, allora certamente _tutti_ i cammini minimi da $s$ a $v$ termineranno con archi che partono da \(L_{h-1}\).
+    Perciò, tutti gli archi \((u,v)\) con \(u \in L_{h-1}\) e \(v \in L_h\) faranno parte di \(T(s)\).\\
+
+    Perciò possiamo calcolare \(T(s)\) nella seguente maniera:
+    1. Poniamo inizialmente \(L_0 = \lbrace s \rbrace\) e \(T(s) = \emptyset\).
+    2. Per ogni \(h \geq 0\) calcoliamo \(L_{h+1}\) come tutti quei nodi _fuori_ \(L_0 \cup L_1 \cup ... \cup L_h\) tali che hanno almeno un vicino in \(v \in L_h\), ovvero come
+       \[
+       L_{h+1} \equiv \lbrace v \in V \setminus (L_0 \cup L_1 \cup ... \cup L_h) | \exists u \in L_h : (u,v) \in E  \rbrace
+       \]
+    3. Calcolato \(L_{h+1}\) poniamo \(T(s)\) come
+       \[
+       T(s) = T(s) \cup \lbrace (u,v) \in E | u \in L_h \land v \in L_{h+1} \rbrace
+       \]
+
+    #+caption: Costruzione sottografo dei cammini minimi.
+    #+ATTR_HTML: :style max-width:400px; :width 100%
+    [[file:../images/ar-lesson08-img4.png]]
+
+
+*** Fase 2
+    Calcolato \(T(s)\), possiamo sfruttarlo per calcolare, per ogni \(v \in V\), la quantità \(\sigma_{sv}\), ovvero il numero di cammini minimi che vanno da $s$ a $v$.\\
+
+    Iniziamo osservando che per ogni nodo $v$ nel livello 1, il numero di cammini minimi sarà pari ad 1 (perché $v$ è diretto vicino di $s$).
+    Invece al livello 2, il numero di cammini minimi di un generico nodo \(v \in L_2\) è pari alla somma di tutti i \(\sigma_{su}\), tali che esiste \((u,v)\) con \(u \in L_1\).
+    Più in generale, per ogni \(v \in L_h\), possiamo calcolare \(\sigma_{sv}\) con la seguente formula ricorsiva
+    \begin{align*}
+      \sigma_{sv} &= 1  &h = 1\\
+      \sigma_{sv} &= \sum_{u \in N(v) \cap L_{h-1}} \sigma_{su}  &h > 1
+    \end{align*}
+
+    #+caption: Calcolo numero dei cammini minimi.
+    #+ATTR_HTML: :style max-width:550px; :width 100%
+    [[file:../images/ar-lesson08-img5.png]]
+
+    Notare che questa fase viene eseguita facendo una visita =top-down= del sottografo \(T(s)\).
+
+*** Fase 3
+    Nella terza fase dobbiamo calcolare per ogni arco \((u,v) \in T(s)\) la quantità di flusso che ci passa sopra rispetto a $s$, ovvero
+    \[
+    b_s(u,v) = \sum_{t \in V \setminus \lbrace s \rbrace} b_{st}(u,v)
+    \]
+    Per fare ciò in questo caso faremo una visita =bottom-up= di \(T(s)\).\\
+
+    Sia $d$ il numero di livelli in \(T(s)\), e consideriamo un arco \((y,x)\) con \(y \in L_{d-1}\) e \(x \in L_d\).
+    Osserviamo che tutti gli shortest path che partono da $s$ e passano attravero l'arco \((y,x)\) sono tutti shortest path che terminano in $x$.\\
+
+    Perciò il flusso che passa su \((y,x)\) rispetto a $s$ sarà pari al rapporto tra il numero di shortest path che vanno da $s$ a $y$ (ovvero \(\sigma_{sy}\))
+    e il numero complessivo di shortest path che vanno da $s$ ad $x$ (ovvero \(\sigma_{sx}\)).
+    \[
+    b_s(y,x) = \sum_{t \in V \setminus \lbrace s \rbrace} b_{st}(y,x) = b_{sx}(y,x) = \frac{\sigma_{sx}(y,x)}{\sigma_{sx}} = \frac{\sigma_{sy}}{\sigma_{sx}}
+    \]
+
+    Analogamente possiamo applicare questo ragionamento per tutti gli archi che collegano nodi dell'ultimo livello, come mostrato nella seguente figura.
+
+    #+caption: Calcolo di \(b_s(y, x)\).
+    #+ATTR_HTML: :style max-width:550px; :width 100%
+    [[file:../images/ar-lesson08-img6.png]]
+
+    Adesso, saliamo di un livello, e consideriamo gli archi che entrano nel livello \(L_{d-1}\).
+    Rifacendoci all'immagine in esempio, consideriamo l'arco \((z, y)\), con \(z \in L_{d-2}\) e \(y \in L_{d-1}\).
+
+    #+caption: Esempio da considerare.
+    #+ATTR_HTML: :style max-width:300px; :width 100%
+    [[file:../images/ar-lesson08-img7.png]]
+    
+    Osserviamo che tra tutti i cammini minimi che passano per l'arco \((z, y)\), una parte saranno cammini che termineranno in $y$, e una parte saranno cammini minimi che andranno ai nodi di livello inferiore.\\
+
+    Perciò la frazione di shortest path che, partendo da $s$, passano per \((z, y)\) è pari alla somma dei seguenti fattori:
+    - La frazione degli shortest path da $s$ ad $y$, ovvero \(\frac{\sigma_{sz}}{\sigma_{sy}}\).
+    - Per ogni /diretto discendente/[fn:2] $x$ di $y$, una frazione \(\frac{\sigma_{sz}}{\sigma_{sy}}\) della frazione di shortest path da $s$ ad $x$ che passano per l'arco \((y,x)\), ovvero \(\frac{\sigma_{sz}}{\sigma_{sy}} \cdot \frac{\sigma_{sy}}{\sigma_{sx}} = \frac{\sigma_{sz}}{\sigma_{sx}}\).
+
+    Quindi, rifacendoci all'esempio, avremo che
+    \[
+    b_s(z,y) = \frac{\sigma_{sz}}{\sigma_{sy}} + \frac{\sigma_{sz}}{\sigma_{sy}} \cdot \frac{\sigma_{sy}}{\sigma_{sx}} = \frac{1}{3} + \frac{1}{3}\cdot\frac{3}{5} = \frac{8}{15}
+    \]
+
+    Così facendo abbiamo definito un metodo =bottom-up= per il calcolo tutti i valori \(b_s(u,v)\).
+
+    #+caption: Calcolo di tutti i valori \(b_s(u, v)\).
+    #+ATTR_HTML: :style max-width:550px; :width 100%
+    [[file:../images/ar-lesson08-img8.png]]
+
+
+*** Fase 4 - Calcolo Betweenness
+    Concludendo, possiamo calcolare la betweennes di tutti gli archi come già descritto in precedenza
+    \[
+    b(u,v) = \frac{1}{2} \sum_{s \in V} b_s(u,v)
+    \]
+
+    Notiamo che questa procedura permette di calcolare la betweennes degli archi in tempo /polinomiale/ nella grandezza della rete (e non esponenziale).
+    Infatti la fase =1= è una semplice visita in ampiezza del grafo (e si può calcolare in tempo \(O(|V| + |E|)\)), la fase =2= è un'ulteriore visita in ampiezza di \(T(s)\) (e si può calcolare ancora in tempo \(O(|V| + |E|)\)),
+    e infine la fase =3= è nuovamente una visita in ampiezza, partendo però dal livello più basso (acnora una volta \(O(|V| + |E|)\)).\\
+
+    Dato che bisogna iterare questo procedimento per ogni nodo del grafo, e dato che nel caso peggiore abbiamo grafi molto densi con \(\Theta(n^2)\) archi, la complessità temporale dell'esecuzione di questo
+    algoritmo per il calcolo delle betweennes sarà \(O(nm) \in O(n^3)\).\\
+
+** Rilassare il modello
    *[DA FINIRE]*
-   
+
+-----
+
 [fn:1] ovvero *NP-completo*.
+[fn:2] ovvero quei nodi collegati ad $y$ da un arco e che si trovano al successivo livello più in basso.

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-24 mer 00:21 -->
+<!-- 2021-11-27 sab 00:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 08</title>
@@ -278,7 +278,15 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#org7234dd3">1.1. Edge-Betweenness</a></li>
 <li><a href="#org2017b08">1.2. Il metodo di Girvan-Newman</a></li>
-<li><a href="#org8adb2a4">1.3. Algoritmo per il calcolo della betweenness</a></li>
+<li><a href="#org8adb2a4">1.3. Algoritmo per il calcolo della betweenness</a>
+<ul>
+<li><a href="#orgc6d5191">1.3.1. Fase 1</a></li>
+<li><a href="#orgfcdace1">1.3.2. Fase 2</a></li>
+<li><a href="#org7889fc5">1.3.3. Fase 3</a></li>
+<li><a href="#org5d5c5b4">1.3.4. Fase 4 - Calcolo Betweenness</a></li>
+</ul>
+</li>
+<li><a href="#orgaa6ccfc">1.4. Rilassare il modello</a></li>
 </ul>
 </li>
 </ul>
@@ -446,8 +454,199 @@ Per concludere, una volta eseguiti i punti <code>1-2-3</code> per ogni nodo \(s 
 </p>
 
 <p>
+Osserviamo che nel punto <code>3</code> calcoliamo \(b_s(u,v)\) solo per gli archi di \(T(s)\), in quanto se \((u,v)\) non appartiene al sottografo degli shortest path \(T(s)\) allora vuol dire che non appartiene
+nessun shortest path, e quindi non avrebbe senso calcolarlo (per definizione di betweenness).<br />
+</p>
+
+<p>
+Andiamo ora a vedere un esempio pratico che mostra anche come eseguire i tre passi dell'algoritmo del calcolo della betweenness
+</p>
+</div>
+
+<div id="outline-container-orgc6d5191" class="outline-4">
+<h4 id="orgc6d5191"><span class="section-number-4">1.3.1</span> Fase 1</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Per calcolare \(T(s)\) basta effettuare una visita in ampiezza <code>BFS</code> opportunamente modificata.<br />
+</p>
+
+<p>
+Definiamo con \(L_h\) l'insieme di tutti i nodi a distanza \(h\) dalla sorgente \(s\).
+Diremo che un nodo \(v\) si trova al <i>livello</i> \(h\) se \(v \in L_h\).<br />
+</p>
+
+<p>
+Se un nodo \(v\) si trova al livello \(h\), allora certamente <span class="underline">tutti</span> i cammini minimi da \(s\) a \(v\) termineranno con archi che partono da \(L_{h-1}\).
+Perciò, tutti gli archi \((u,v)\) con \(u \in L_{h-1}\) e \(v \in L_h\) faranno parte di \(T(s)\).<br />
+</p>
+
+<p>
+Perciò possiamo calcolare \(T(s)\) nella seguente maniera:
+</p>
+<ol class="org-ol">
+<li>Poniamo inizialmente \(L_0 = \lbrace s \rbrace\) e \(T(s) = \emptyset\).</li>
+<li>Per ogni \(h \geq 0\) calcoliamo \(L_{h+1}\) come tutti quei nodi <span class="underline">fuori</span> \(L_0 \cup L_1 \cup ... \cup L_h\) tali che hanno almeno un vicino in \(v \in L_h\), ovvero come
+\[
+       L_{h+1} \equiv \lbrace v \in V \setminus (L_0 \cup L_1 \cup ... \cup L_h) | \exists u \in L_h : (u,v) \in E  \rbrace
+       \]</li>
+<li>Calcolato \(L_{h+1}\) poniamo \(T(s)\) come
+\[
+       T(s) = T(s) \cup \lbrace (u,v) \in E | u \in L_h \land v \in L_{h+1} \rbrace
+       \]</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img4.png" alt="ar-lesson08-img4.png" style="max-width:400px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Costruzione sottografo dei cammini minimi.</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfcdace1" class="outline-4">
+<h4 id="orgfcdace1"><span class="section-number-4">1.3.2</span> Fase 2</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Calcolato \(T(s)\), possiamo sfruttarlo per calcolare, per ogni \(v \in V\), la quantità \(\sigma_{sv}\), ovvero il numero di cammini minimi che vanno da \(s\) a \(v\).<br />
+</p>
+
+<p>
+Iniziamo osservando che per ogni nodo \(v\) nel livello 1, il numero di cammini minimi sarà pari ad 1 (perché \(v\) è diretto vicino di \(s\)).
+Invece al livello 2, il numero di cammini minimi di un generico nodo \(v \in L_2\) è pari alla somma di tutti i \(\sigma_{su}\), tali che esiste \((u,v)\) con \(u \in L_1\).
+Più in generale, per ogni \(v \in L_h\), possiamo calcolare \(\sigma_{sv}\) con la seguente formula ricorsiva
+</p>
+\begin{align*}
+  \sigma_{sv} &= 1  &h = 1\\
+  \sigma_{sv} &= \sum_{u \in N(v) \cap L_{h-1}} \sigma_{su}  &h > 1
+\end{align*}
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img5.png" alt="ar-lesson08-img5.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>Calcolo numero dei cammini minimi.</p>
+</div>
+
+<p>
+Notare che questa fase viene eseguita facendo una visita <code>top-down</code> del sottografo \(T(s)\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7889fc5" class="outline-4">
+<h4 id="org7889fc5"><span class="section-number-4">1.3.3</span> Fase 3</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+Nella terza fase dobbiamo calcolare per ogni arco \((u,v) \in T(s)\) la quantità di flusso che ci passa sopra rispetto a \(s\), ovvero
+\[
+    b_s(u,v) = \sum_{t \in V \setminus \lbrace s \rbrace} b_{st}(u,v)
+    \]
+Per fare ciò in questo caso faremo una visita <code>bottom-up</code> di \(T(s)\).<br />
+</p>
+
+<p>
+Sia \(d\) il numero di livelli in \(T(s)\), e consideriamo un arco \((y,x)\) con \(y \in L_{d-1}\) e \(x \in L_d\).
+Osserviamo che tutti gli shortest path che partono da \(s\) e passano attravero l'arco \((y,x)\) sono tutti shortest path che terminano in \(x\).<br />
+</p>
+
+<p>
+Perciò il flusso che passa su \((y,x)\) rispetto a \(s\) sarà pari al rapporto tra il numero di shortest path che vanno da \(s\) a \(y\) (ovvero \(\sigma_{sy}\))
+e il numero complessivo di shortest path che vanno da \(s\) ad \(x\) (ovvero \(\sigma_{sx}\)).
+\[
+    b_s(y,x) = \sum_{t \in V \setminus \lbrace s \rbrace} b_{st}(y,x) = b_{sx}(y,x) = \frac{\sigma_{sx}(y,x)}{\sigma_{sx}} = \frac{\sigma_{sy}}{\sigma_{sx}}
+    \]
+</p>
+
+<p>
+Analogamente possiamo applicare questo ragionamento per tutti gli archi che collegano nodi dell'ultimo livello, come mostrato nella seguente figura.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img6.png" alt="ar-lesson08-img6.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>Calcolo di \(b_s(y, x)\).</p>
+</div>
+
+<p>
+Adesso, saliamo di un livello, e consideriamo gli archi che entrano nel livello \(L_{d-1}\).
+Rifacendoci all'immagine in esempio, consideriamo l'arco \((z, y)\), con \(z \in L_{d-2}\) e \(y \in L_{d-1}\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img7.png" alt="ar-lesson08-img7.png" style="max-width:300px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 7: </span>Esempio da considerare.</p>
+</div>
+
+<p>
+Osserviamo che tra tutti i cammini minimi che passano per l'arco \((z, y)\), una parte saranno cammini che termineranno in \(y\), e una parte saranno cammini minimi che andranno ai nodi di livello inferiore.<br />
+</p>
+
+<p>
+Perciò la frazione di shortest path che, partendo da \(s\), passano per \((z, y)\) è pari alla somma dei seguenti fattori:
+</p>
+<ul class="org-ul">
+<li>La frazione degli shortest path da \(s\) ad \(y\), ovvero \(\frac{\sigma_{sz}}{\sigma_{sy}}\).</li>
+<li>Per ogni <i>diretto discendente</i><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> \(x\) di \(y\), una frazione \(\frac{\sigma_{sz}}{\sigma_{sy}}\) della frazione di shortest path da \(s\) ad \(x\) che passano per l'arco \((y,x)\), ovvero \(\frac{\sigma_{sz}}{\sigma_{sy}} \cdot \frac{\sigma_{sy}}{\sigma_{sx}} = \frac{\sigma_{sz}}{\sigma_{sx}}\).</li>
+</ul>
+
+<p>
+Quindi, rifacendoci all'esempio, avremo che
+\[
+    b_s(z,y) = \frac{\sigma_{sz}}{\sigma_{sy}} + \frac{\sigma_{sz}}{\sigma_{sy}} \cdot \frac{\sigma_{sy}}{\sigma_{sx}} = \frac{1}{3} + \frac{1}{3}\cdot\frac{3}{5} = \frac{8}{15}
+    \]
+</p>
+
+<p>
+Così facendo abbiamo definito un metodo <code>bottom-up</code> per il calcolo tutti i valori \(b_s(u,v)\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img8.png" alt="ar-lesson08-img8.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Calcolo di tutti i valori \(b_s(u, v)\).</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5d5c5b4" class="outline-4">
+<h4 id="org5d5c5b4"><span class="section-number-4">1.3.4</span> Fase 4 - Calcolo Betweenness</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Concludendo, possiamo calcolare la betweennes di tutti gli archi come già descritto in precedenza
+\[
+    b(u,v) = \frac{1}{2} \sum_{s \in V} b_s(u,v)
+    \]
+</p>
+
+<p>
+Notiamo che questa procedura permette di calcolare la betweennes degli archi in tempo <i>polinomiale</i> nella grandezza della rete (e non esponenziale).
+Infatti la fase <code>1</code> è una semplice visita in ampiezza del grafo (e si può calcolare in tempo \(O(|V| + |E|)\)), la fase <code>2</code> è un'ulteriore visita in ampiezza di \(T(s)\) (e si può calcolare ancora in tempo \(O(|V| + |E|)\)),
+e infine la fase <code>3</code> è nuovamente una visita in ampiezza, partendo però dal livello più basso (acnora una volta \(O(|V| + |E|)\)).<br />
+</p>
+
+<p>
+Dato che bisogna iterare questo procedimento per ogni nodo del grafo, e dato che nel caso peggiore abbiamo grafi molto densi con \(\Theta(n^2)\) archi, la complessità temporale dell'esecuzione di questo
+algoritmo per il calcolo delle betweennes sarà \(O(nm) \in O(n^3)\).<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaa6ccfc" class="outline-3">
+<h3 id="orgaa6ccfc"><span class="section-number-3">1.4</span> Rilassare il modello</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
 <b>[DA FINIRE]</b>
 </p>
+
+<hr />
 </div>
 </div>
 </div>
@@ -459,6 +658,10 @@ Per concludere, una volta eseguiti i punti <code>1-2-3</code> per ogni nodo \(s 
 ovvero <b>NP-completo</b>.
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+ovvero quei nodi collegati ad \(y\) da un arco e che si trovano al successivo livello più in basso.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -466,7 +669,7 @@ ovvero <b>NP-completo</b>.
 <p class="date">Data: 2021-11-15 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-24 mer 00:21</p>
+<p class="date">Created: 2021-11-27 sab 00:00</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
