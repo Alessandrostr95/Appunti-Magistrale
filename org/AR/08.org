@@ -126,7 +126,6 @@
     #+ATTR_HTML: :style max-width:400px; :width 100%
     [[file:../images/ar-lesson08-img4.png]]
 
-
 *** Fase 2
     Calcolato \(T(s)\), possiamo sfruttarlo per calcolare, per ogni \(v \in V\), la quantità \(\sigma_{sv}\), ovvero il numero di cammini minimi che vanno da $s$ a $v$.\\
 
@@ -190,7 +189,6 @@
     #+ATTR_HTML: :style max-width:550px; :width 100%
     [[file:../images/ar-lesson08-img8.png]]
 
-
 *** Fase 4 - Calcolo Betweenness
     Concludendo, possiamo calcolare la betweennes di tutti gli archi come già descritto in precedenza
     \[
@@ -204,10 +202,77 @@
     Dato che bisogna iterare questo procedimento per ogni nodo del grafo, e dato che nel caso peggiore abbiamo grafi molto densi con \(\Theta(n^2)\) archi, la complessità temporale dell'esecuzione di questo
     algoritmo per il calcolo delle betweennes sarà \(O(nm) \in O(n^3)\).\\
 
-** Rilassare il modello
-   *[DA FINIRE]*
 
+* Rilassare il modello
+  La definizione teorica discussa fin ora era basata su assunzioni forti: un arco poteva essere un /bridge edge/ o no, e poteva rappresentare uno /strong/ o /weak tie/.
+  Riportare i concetti di /bridge edges/ e /strong/waeak ties/ in una rete sociale reale è però un'assunzione _troppo forte_.
+  Per esempio in una rete molto grande è molto raro trovare dei /bridge edges/, inoltre le persone non classificano le proprie relazioni in maniera dicotomica =strong/weak=,
+  in genere ci sono moltissime sfumature.\\
+
+  Per rilassare i concetti di /strong/ e /waeak ties/ possiamo definire un modello in cui le relazioni tra due nodi della rete sono *pesate* in maniera numerica.
+  Quindi invece di considerare una rete \(G = (V, S \cup W)\), potremmo per esempio definire una rete \(G = (V,E,w)\) dove \(w : E \rightarrow \mathbb{N}\) è una funzione che rappresenta
+  la /forza/ delle relazioni, più è alto il valore \(w(u,v)\) più la relazione tra i nodi $u$ e $v$ è _forte_.\\
+
+  Per quanto riguarda il concetto di /bridge edge/, possiamo considerare il concetto di *neighborhood overlap*, ovvero la frazie di amicie in comune che hanno due nodi.
+  \[
+  NO(u,v) = \frac{ \vert N(u) \cap N(v) \vert }{ \vert N(u) \cup N(v) - \lbrace u,v \rbrace \vert }
+  \]
+  Osserviamo che un /local bridge/ \((u,v)\) ha un neighborhood overlap \(NO(u,v) = 0\).\\
+
+  Sappiamo che i due concetti /bridge edges/ e /strong/waeak ties/ sono correllati, ovvero sappiamo che qualora una rete $G$ soddisfa la =STCP=[fn:3] allora tutti i /local bridge/ sono /weak ties/.
+  Ciò che si può chiedere è se questo tipo di relazione persiste anche nel modello rilassato appena descritto.\\
+
+  Data la generalità del modello rilassato, è più complesso andare a fare un'analisi rigorosa.
+  In aiuto però esistono dei risultati di tipo empirico risultati da un esperimento di /Onnela et al/ del 2007.
+  Vennero presi i registri di una compagnia telefonica e costruito (in maniera anonima ?) sulla basse di essi un grafo, seguendo i seguenti criteri:
+  1. gli indirizzi telefonici vennero rappresentati dai nodi della rete.
+  2. esisteva un arco tra due nodi se essi si erano scambiati almeno una telefonata nelle ultime 18 settimane.
+  3. gli archi vennero persati in base alla durata delle chiamate effettuate, più due nodi parlano al telefono, più è alto il peso dell'arco.
+  Tale rete rappresentava una rete socialre reale, in quanto i numeri telefonici erano ad uso /comune/ (e non /commericale/ o /aziendale/), e inoltre la compagnia telefonica che ha fornito i dati
+  copriva una vasta area di una popolazione.
+  A conferma, erano presenti alcune caratteristiche fondamentali delle reti sociali, come per esempio la presenza di /componenti giganti/ (in questo caso grade l'84% della rete).\\
+
+  L'esperimento in questione consistette in due fasi:
+  1. nella prima vennero rimossi gli archi in ordine /decrescente/ di peso, e si osservò che la rete si disconnetteva molto lentamente.
+  2. nella seconda fase si fece l'opposto, ovvero vennero rimossi gli archi a partire da quelli meno pesati, osservando invece che la rete si disconnetteva molto più velocemente.
+
+  Il risultato di questo esperimento suggerisce in maniera empirica che anche nel modello più rilassato c'è una connessione tra neighborhood overlap e peso di un arco.
+  Dato che la rimozione di archi con peso basso, rendeva più difficile la comunicazione tra gruppi di nodi, è sensato pensare che tanto più il peso di un arco è basso tanto più è bassa
+  la neighborhood overlap di tale arco.\\
+
+  #+caption: Esempio di come cresce la neighborhood di un arco \(N(u,v)\) al crescere del suo peso \(w(u,v)\). 
+  #+ATTR_HTML: :style max-width:400px; :width 100%
+  [[file:../images/ar-lesson08-img9.png]]
+
+
+* Osservazioni finali
+  Ricapitolando tutto quello detto fin ora, una rete sociale è sostanzialmente un agglomerato di gruppi densamente connessi tra di loro con relazioni forti, i quali gruppi sono a loro volta connessi tramite una serie di connessioni deboli.\\
+
+  Concettualmente sappiamo che in un contesto sociale l'appartenenza ad un gruppo comporta vantaggi di vitale importanza.
+  In genere più una persona è ben inserita in un gruppo, ovvero più ha fiducia di chi gli sta intorno, più ne trae vantaggio.\\
+
+  Contrariamente, l'esperimento di Granovetter ci suggerisce che avvolte è altrettanto necessario avere contatti con gente appartenente ad altri gruppi, in quanto così facendo avremo accesso a differenti fonti di informazioni potenzialmente molto convenienti.\\
+
+  Queste due osservazioni ci permettono di inutire che i vantaggi dei nodi non dipendono solamente dall'appartenenza a comunità, bensì anche dalla posizione di tali nodi e da quanto sono ben inseriti o meno all'interno dei rispettivi gruppi.
+  Per aiutarci definiamo il concetto di *embeddedness* di un arco \((u,v)\) come la quantità di vicinato in comune ai due estremi di un arco, ovvero
+  \[
+  Emb(u,v) = \vert N(u) \cap N(v) \vert
+  \]
+  Osserviamo che un /local bridge/ è un arco con embeddedness pari a 0.\\
+
+  Più la embeddedness di un arco è alta, più i due suoi vicini sono ben integrati tra di loro.
+  Analogamente, un nodo che tani archi incidenti con embeddedness alta è un nodo che è ben integrato nel gruppo a cui appartiene.\\
+
+  #+ATTR_HTML: :style max-width:500px; :width 100%
+  [[file:../images/ar-lesson08-img10.png]]
+  
+  Nell'esempio in precedenza si può notare che il nodo =A= è ben integrato nella sua comunità, in quanto ricopre una *posizione centrale*.
+  Infatti tutti i suoi archi incidenti hanno una embeddedness alta.\\
+  Contrariamente il nodo =B= ricopre una posizione marginale nella sua comunità, e infatti ha pochi archi incidenti con embeddedness alta.
+  
 -----
 
 [fn:1] ovvero *NP-completo*.
 [fn:2] ovvero quei nodi collegati ad $y$ da un arco e che si trovano al successivo livello più in basso.
+[fn:3] =Strong Triadic Closure Property=
+[fn:4] J.-P. Onnela, J. Saramaki, J. Hyvonen, G. Szabo, D. Lazer, K. Kaski, J. Kertesz, and A.-L. Barabasi. Structure and tie strengths in mobile communication networks.

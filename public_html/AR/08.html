@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-27 sab 00:00 -->
+<!-- 2021-11-27 sab 20:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 08</title>
@@ -286,9 +286,10 @@ for the JavaScript code in this tag.
 <li><a href="#org5d5c5b4">1.3.4. Fase 4 - Calcolo Betweenness</a></li>
 </ul>
 </li>
-<li><a href="#orgaa6ccfc">1.4. Rilassare il modello</a></li>
 </ul>
 </li>
+<li><a href="#orgaa6ccfc">2. Rilassare il modello</a></li>
+<li><a href="#orgd5a6585">3. Osservazioni finali</a></li>
 </ul>
 </div>
 </div>
@@ -504,7 +505,6 @@ Perciò possiamo calcolare \(T(s)\) nella seguente maniera:
 </div>
 </div>
 
-
 <div id="outline-container-orgfcdace1" class="outline-4">
 <h4 id="orgfcdace1"><span class="section-number-4">1.3.2</span> Fase 2</h4>
 <div class="outline-text-4" id="text-1-3-2">
@@ -614,7 +614,6 @@ Così facendo abbiamo definito un metodo <code>bottom-up</code> per il calcolo t
 </div>
 </div>
 
-
 <div id="outline-container-org5d5c5b4" class="outline-4">
 <h4 id="org5d5c5b4"><span class="section-number-4">1.3.4</span> Fase 4 - Calcolo Betweenness</h4>
 <div class="outline-text-4" id="text-1-3-4">
@@ -638,16 +637,121 @@ algoritmo per il calcolo delle betweennes sarà \(O(nm) \in O(n^3)\).<br />
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgaa6ccfc" class="outline-3">
-<h3 id="orgaa6ccfc"><span class="section-number-3">1.4</span> Rilassare il modello</h3>
-<div class="outline-text-3" id="text-1-4">
+
+<div id="outline-container-orgaa6ccfc" class="outline-2">
+<h2 id="orgaa6ccfc"><span class="section-number-2">2</span> Rilassare il modello</h2>
+<div class="outline-text-2" id="text-2">
 <p>
-<b>[DA FINIRE]</b>
+La definizione teorica discussa fin ora era basata su assunzioni forti: un arco poteva essere un <i>bridge edge</i> o no, e poteva rappresentare uno <i>strong</i> o <i>weak tie</i>.
+Riportare i concetti di <i>bridge edges</i> e <i>strong/waeak ties</i> in una rete sociale reale è però un'assunzione <span class="underline">troppo forte</span>.
+Per esempio in una rete molto grande è molto raro trovare dei <i>bridge edges</i>, inoltre le persone non classificano le proprie relazioni in maniera dicotomica <code>strong/weak</code>,
+in genere ci sono moltissime sfumature.<br />
+</p>
+
+<p>
+Per rilassare i concetti di <i>strong</i> e <i>waeak ties</i> possiamo definire un modello in cui le relazioni tra due nodi della rete sono <b>pesate</b> in maniera numerica.
+Quindi invece di considerare una rete \(G = (V, S \cup W)\), potremmo per esempio definire una rete \(G = (V,E,w)\) dove \(w : E \rightarrow \mathbb{N}\) è una funzione che rappresenta
+la <i>forza</i> delle relazioni, più è alto il valore \(w(u,v)\) più la relazione tra i nodi \(u\) e \(v\) è <span class="underline">forte</span>.<br />
+</p>
+
+<p>
+Per quanto riguarda il concetto di <i>bridge edge</i>, possiamo considerare il concetto di <b>neighborhood overlap</b>, ovvero la frazie di amicie in comune che hanno due nodi.
+\[
+  NO(u,v) = \frac{ \vert N(u) \cap N(v) \vert }{ \vert N(u) \cup N(v) - \lbrace u,v \rbrace \vert }
+  \]
+Osserviamo che un <i>local bridge</i> \((u,v)\) ha un neighborhood overlap \(NO(u,v) = 0\).<br />
+</p>
+
+<p>
+Sappiamo che i due concetti <i>bridge edges</i> e <i>strong/waeak ties</i> sono correllati, ovvero sappiamo che qualora una rete \(G\) soddisfa la <code>STCP</code><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> allora tutti i <i>local bridge</i> sono <i>weak ties</i>.
+Ciò che si può chiedere è se questo tipo di relazione persiste anche nel modello rilassato appena descritto.<br />
+</p>
+
+<p>
+Data la generalità del modello rilassato, è più complesso andare a fare un'analisi rigorosa.
+In aiuto però esistono dei risultati di tipo empirico risultati da un esperimento di <i>Onnela et al</i> del 2007.
+Vennero presi i registri di una compagnia telefonica e costruito (in maniera anonima ?) sulla basse di essi un grafo, seguendo i seguenti criteri:
+</p>
+<ol class="org-ol">
+<li>gli indirizzi telefonici vennero rappresentati dai nodi della rete.</li>
+<li>esisteva un arco tra due nodi se essi si erano scambiati almeno una telefonata nelle ultime 18 settimane.</li>
+<li>gli archi vennero persati in base alla durata delle chiamate effettuate, più due nodi parlano al telefono, più è alto il peso dell'arco.</li>
+</ol>
+<p>
+Tale rete rappresentava una rete socialre reale, in quanto i numeri telefonici erano ad uso <i>comune</i> (e non <i>commericale</i> o <i>aziendale</i>), e inoltre la compagnia telefonica che ha fornito i dati
+copriva una vasta area di una popolazione.
+A conferma, erano presenti alcune caratteristiche fondamentali delle reti sociali, come per esempio la presenza di <i>componenti giganti</i> (in questo caso grade l'84% della rete).<br />
+</p>
+
+<p>
+L'esperimento in questione consistette in due fasi:
+</p>
+<ol class="org-ol">
+<li>nella prima vennero rimossi gli archi in ordine <i>decrescente</i> di peso, e si osservò che la rete si disconnetteva molto lentamente.</li>
+<li>nella seconda fase si fece l'opposto, ovvero vennero rimossi gli archi a partire da quelli meno pesati, osservando invece che la rete si disconnetteva molto più velocemente.</li>
+</ol>
+
+<p>
+Il risultato di questo esperimento suggerisce in maniera empirica che anche nel modello più rilassato c'è una connessione tra neighborhood overlap e peso di un arco.
+Dato che la rimozione di archi con peso basso, rendeva più difficile la comunicazione tra gruppi di nodi, è sensato pensare che tanto più il peso di un arco è basso tanto più è bassa
+la neighborhood overlap di tale arco.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img9.png" alt="ar-lesson08-img9.png" style="max-width:400px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 9: </span>Esempio di come cresce la neighborhood di un arco \(N(u,v)\) al crescere del suo peso \(w(u,v)\).</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd5a6585" class="outline-2">
+<h2 id="orgd5a6585"><span class="section-number-2">3</span> Osservazioni finali</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Ricapitolando tutto quello detto fin ora, una rete sociale è sostanzialmente un agglomerato di gruppi densamente connessi tra di loro con relazioni forti, i quali gruppi sono a loro volta connessi tramite una serie di connessioni deboli.<br />
+</p>
+
+<p>
+Concettualmente sappiamo che in un contesto sociale l'appartenenza ad un gruppo comporta vantaggi di vitale importanza.
+In genere più una persona è ben inserita in un gruppo, ovvero più ha fiducia di chi gli sta intorno, più ne trae vantaggio.<br />
+</p>
+
+<p>
+Contrariamente, l'esperimento di Granovetter ci suggerisce che avvolte è altrettanto necessario avere contatti con gente appartenente ad altri gruppi, in quanto così facendo avremo accesso a differenti fonti di informazioni potenzialmente molto convenienti.<br />
+</p>
+
+<p>
+Queste due osservazioni ci permettono di inutire che i vantaggi dei nodi non dipendono solamente dall'appartenenza a comunità, bensì anche dalla posizione di tali nodi e da quanto sono ben inseriti o meno all'interno dei rispettivi gruppi.
+Per aiutarci definiamo il concetto di <b>embeddedness</b> di un arco \((u,v)\) come la quantità di vicinato in comune ai due estremi di un arco, ovvero
+\[
+  Emb(u,v) = \vert N(u) \cap N(v) \vert
+  \]
+Osserviamo che un <i>local bridge</i> è un arco con embeddedness pari a 0.<br />
+</p>
+
+<p>
+Più la embeddedness di un arco è alta, più i due suoi vicini sono ben integrati tra di loro.
+Analogamente, un nodo che tani archi incidenti con embeddedness alta è un nodo che è ben integrato nel gruppo a cui appartiene.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson08-img10.png" alt="ar-lesson08-img10.png" style="max-width:500px;" width="100%" />
+</p>
+</div>
+
+<p>
+Nell'esempio in precedenza si può notare che il nodo <code>A</code> è ben integrato nella sua comunità, in quanto ricopre una <b>posizione centrale</b>.
+Infatti tutti i suoi archi incidenti hanno una embeddedness alta.<br />
+Contrariamente il nodo <code>B</code> ricopre una posizione marginale nella sua comunità, e infatti ha pochi archi incidenti con embeddedness alta.
 </p>
 
 <hr />
-</div>
 </div>
 </div>
 <div id="footnotes">
@@ -662,6 +766,10 @@ ovvero <b>NP-completo</b>.
 ovvero quei nodi collegati ad \(y\) da un arco e che si trovano al successivo livello più in basso.
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+<code>Strong Triadic Closure Property</code>
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -669,7 +777,7 @@ ovvero quei nodi collegati ad \(y\) da un arco e che si trovano al successivo li
 <p class="date">Data: 2021-11-15 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-27 sab 00:00</p>
+<p class="date">Created: 2021-11-27 sab 20:28</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

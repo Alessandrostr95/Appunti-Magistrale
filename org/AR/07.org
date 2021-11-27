@@ -78,15 +78,17 @@ Fin ora abbiamo analizzato le reti dal punto di vista /statistico/, disinteressa
    Se si osserva bene, quando una rete soddisfa la =STCP= essa si *stabilizza* secondo la regola precedentemente descritta, ovvero in futuro non si genereranno più altri archi.
 
 ** STCP e Local Bridges
+   #+begin_quote
    *THM*
-   Sia una rete \(G=(V,S\cup W)\), un nodo $u \in V$ che soddisfa la =STCP= e due suoi vicini $x,y$ tali che $(u,x) \in S$ e $(u,y)$ è un /local bridge/ (ovvero \(N(u) \cup N(y) \equiv \emptyset\) )
+   Sia una rete \(G=(V,S\cup W)\), un nodo $u \in V$ che soddisfa la =STCP= e due suoi vicini $x,y$ tali che $(u,x) \in S$ e $(u,y)$ è un /local bridge/ (ovvero \(N(u) \cap N(y) \equiv \emptyset\) )
    allora certamente $(u,y) \in W$ (è un /weak tie/).
 
    *Proof*
    Se per assurdo $(u,y) \in S$.
    Dato che $u$ soddisfa la =STCP= allora deve essere vero che esiste l'arco $(x,y)$, e quindi $x \in N(y)$.
-   Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e $x \in N(u)$, allora deve essere vero che $x \not\in N(y)$ (*assurdo*)
+   Ma poiché \(N(u) \cap N(y) \equiv \emptyset\) e $x \in N(u)$, allora deve essere vero che $x \not\in N(y)$ (*assurdo*)
    \(\implies (u,y) \in W\) $\square$.\\
+   #+end_quote
 
    Il teorema precedentemente enunciato mostra come una proprietà che ha effetti globali (ovvero essere un /local bridge/) involve in una
    proprietà strettamente locale (ovvere essere un /weak ties/).

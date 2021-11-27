@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-21 dom 20:50 -->
+<!-- 2021-11-27 sab 18:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 07</title>
@@ -426,9 +426,10 @@ Se si osserva bene, quando una rete soddisfa la <code>STCP</code> essa si <b>sta
 <div id="outline-container-org91238aa" class="outline-3">
 <h3 id="org91238aa"><span class="section-number-3">1.5</span> STCP e Local Bridges</h3>
 <div class="outline-text-3" id="text-1-5">
+<blockquote>
 <p>
 <b>THM</b>
-Sia una rete \(G=(V,S\cup W)\), un nodo \(u \in V\) che soddisfa la <code>STCP</code> e due suoi vicini \(x,y\) tali che \((u,x) \in S\) e \((u,y)\) è un <i>local bridge</i> (ovvero \(N(u) \cup N(y) \equiv \emptyset\) )
+Sia una rete \(G=(V,S\cup W)\), un nodo \(u \in V\) che soddisfa la <code>STCP</code> e due suoi vicini \(x,y\) tali che \((u,x) \in S\) e \((u,y)\) è un <i>local bridge</i> (ovvero \(N(u) \cap N(y) \equiv \emptyset\) )
 allora certamente \((u,y) \in W\) (è un <i>weak tie</i>).
 </p>
 
@@ -436,9 +437,10 @@ allora certamente \((u,y) \in W\) (è un <i>weak tie</i>).
 <b>Proof</b>
 Se per assurdo \((u,y) \in S\).
 Dato che \(u\) soddisfa la <code>STCP</code> allora deve essere vero che esiste l'arco \((x,y)\), e quindi \(x \in N(y)\).
-Ma poiché \(N(u) \cup N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve essere vero che \(x \not\in N(y)\) (<b>assurdo</b>)
+Ma poiché \(N(u) \cap N(y) \equiv \emptyset\) e \(x \in N(u)\), allora deve essere vero che \(x \not\in N(y)\) (<b>assurdo</b>)
 \(\implies (u,y) \in W\) \(\square\).<br />
 </p>
+</blockquote>
 
 <p>
 Il teorema precedentemente enunciato mostra come una proprietà che ha effetti globali (ovvero essere un <i>local bridge</i>) involve in una
@@ -845,7 +847,7 @@ un problema <code>X</code> è <b>NP-completo</b> se <span class="underline">ogni
 <p class="date">Data: 2021-11-08 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-21 dom 20:50</p>
+<p class="date">Created: 2021-11-27 sab 18:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

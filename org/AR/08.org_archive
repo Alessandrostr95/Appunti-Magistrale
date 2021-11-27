@@ -1,0 +1,25 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/alessandro/Repository/Appunti-Magistrale/org/AR/08.org
+
+
+* Osservazioni finali
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-11-27 sab 19:11
+  :ARCHIVE_FILE: ~/Repository/Appunti-Magistrale/org/AR/08.org
+  :ARCHIVE_CATEGORY: 08
+  :END:
+  Ricapitolando tutto quello detto fin ora, una rete sociale è sostanzialmente un agglomerato di gruppi densamente connessi tra di loro con relazioni forti, i quali gruppi sono a loro volta connessi tramite una serie di connessioni deboli.\\
+
+  Concettualmente sappiamo che in un contesto sociale l'appartenenza ad un gruppo comporta vantaggi di vitale importanza.
+  In genere più una persona è ben inserita in un gruppo, ovvero più ha fiducia di chi gli sta intorno, più ne trae vantaggio.\\
+
+  Contrariamente, l'esperimento di Granovetter ci suggerisce che avvolte 
+  
+-----
+
+[fn:1] ovvero *NP-completo*.
+[fn:2] ovvero quei nodi collegati ad $y$ da un arco e che si trovano al successivo livello più in basso.
+[fn:3] =Strong Triadic Closure Property=
+[fn:4] J.-P. Onnela, J. Saramaki, J. Hyvonen, G. Szabo, D. Lazer, K. Kaski, J. Kertesz, and A.-L. Barabasi. Structure and tie strengths in mobile communication networks.
