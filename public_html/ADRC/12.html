@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-25 gio 13:01 -->
+<!-- 2021-11-28 dom 21:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 12</title>
@@ -240,6 +240,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -252,20 +274,234 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb15bf1b">1. BGI Protocol</a></li>
+<li><a href="#org4bbe26d">1. Lowerbound per Protocolli Deterministici</a></li>
+<li><a href="#org1a9a50f">2. Randomized protocol for Unknown Radio Networks w/ Interferences</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org84dc6da">2.0.1. BGI protocol on \(d\)-regular layered graph</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb15bf1b" class="outline-2">
-<h2 id="orgb15bf1b"><span class="section-number-2">1</span> BGI Protocol</h2>
+
+<div id="outline-container-org4bbe26d" class="outline-2">
+<h2 id="org4bbe26d"><span class="section-number-2">1</span> Lowerbound per Protocolli Deterministici</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Nella <a href="./10.html">lezion 10</a> è stato introdotto il protocollo <code>Round-Robin</code> per il task del <i>broadcast</i> a singola sorgente su reti wireless <b>unknown</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> con presenza d'interferenza, ed è stato
+dimostrato che questo protocollo porta a termine il suo <i>task</i> in tempo \(O(Dn)\), dove \(D\) è il <span class="underline">diametro</span> della rate di \(n\) nodi considerata.<br />
+</p>
+
+<p>
+Avalendosi di altri costrutti matematici e aggiungendo conoscenza ai nodi è possibile ottenere risultati migliori.
+Per esempio, dato l'insieme \( \left[ n \right] \) e un \(k \leq n\) diremo che la famiglia di sottoinsiemi \(H = \lbrace H_1, H_2, ..., H_t \rbrace\) è \((n,k)\)-<i>selettiva</i> se per ogni
+sottoinsieme \(S \subseteq \left[ n \right]\) con \(\vert S \vert \leq k\) esiste almeno un \(H_i \in H\) tale che \(\vert S \cap H_i \vert = 1\).<br />
+Se supponiamo che tutti i nodi conoscano la stessa faminiglia \(H\) \((n,\Delta)\)-selettiva di \(V\), dove \(\Delta = \max_{v \in V}{ \lbrace d(v) \rbrace }\), allora è possibile definire un protocollo
+deterministico che termina il task in questione in tempo \(O(D \cdot \vert H \vert)\), con \(D = diam(G)\).<br />
+</p>
+
+<p>
+Nell'articolo <a href="https://art.torvergata.it/handle/2108/56112?mode=simple.2#.YaOoDLvSKV4">Round Robin is optimal for fault-tolerant broadcasting on wireless networks</a> viene dimostrato che per valori sufficientemente grandi di \(n\) esiste sempre una famigli \((n,k)\)-selettiva
+di dimensione \(O(k \log{n}\).
+Tale risultato implica che sotto queste assunzioni è possibile definire un protocollo che termina il task in tempo \(O(D \Delta \log{n})\).<br />
+</p>
+
+<p>
+Purtroppo però senza queste assunzioni non è possibile fare deterministicamente meglio.<br />
+</p>
+
+<blockquote>
+<p>
+<b>THM</b>
+Data un grafo diretto di trasmissione \(G=(V,E)\) realtivo ad una rete wireless, con diametro \(D\), grado massimo \(\Delta\) tale che \(D\Delta < n\), allora esiste sempre un modo
+di manipolare i ritardi in modo tale che non si possa risolvere il problema del broadcasting a singola sorgente in un tempo migliore di
+\[
+  \Omega\left( D \Delta \log{ \left( \frac{n}{D} \right) } \right)
+  \]
+a meno che non si assuma che tutti i nodi conoscano un famiglia \((n,\Delta)\)-selettiva di \(V\).
+</p>
+</blockquote>
+
+<p>
+Per esempio, se consideriamo un grafo con un <b>diametro costante</b>, per esempio \(D = 3\), avremo che il grado massimo dei nodi \(\Delta\) crescerà molto velocemente al crescere di \(n\), per esempio in maniera lineare (\(\Delta \in O(n)\)).
+Perciò in questo caso avremo un lowerbound di \(\Omega(n \log{n})\).<br />
+</p>
+
+<p>
+Quello che ci si chiede è se esiste un modo per abbattere il fattore \(\Delta\) dal lowerbound.
+Il teorema precedentemente enunciato ci dice che questo è <b>deterministicamente</b> impossibile, perciò è necessario occorrere alla <i>randomness</i>.
+</p>
 </div>
 </div>
+
+<div id="outline-container-org1a9a50f" class="outline-2">
+<h2 id="org1a9a50f"><span class="section-number-2">2</span> Randomized protocol for Unknown Radio Networks w/ Interferences</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Definiamo un protocollo probabilistico molto semplice, in cui ogni nodo informato trsmette ai suoi vicini con una certa probabilità \(p\) fissata e uguale per tutti.
+È facile mostrare un controesempio in cui il tampo medio di completamento del protocollo è pessimo.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson12-img1.png" alt="adrc-lesson12-img1.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Controesempio.</p>
+</div>
+
+<p>
+Sia la sorgente \(u\).
+Sicuramente esiste un tempo \(t_0\) in cui \(u\) trasmette il messagio a tutti i suoi vicini \(1, 2, ..., n-1\) senza interferenze.
+Dal time slot successivo tutti i suoi vicini inizieranno a tresmettere verso \(v\), ognuno con probabilità \(p\).
+Supponiamo per esempio che \(p = \frac{1}{2}\), e cerchiamo di stabilire entro quanto tempo ci si aspetta che \(v\) verrà informato senza alcuna interferenza.
+Per prima cosa dobbiamo calcolare con quale probabilità l'evento \(\mathcal{E} = \mbox{" } v \mbox{ vinene informato"}\) occorre, e questo si può fare
+usando la distribuzione binomiale
+\[
+  \mathcal{P}(\mathcal{E}) = \binom{n-2}{1}\frac{1}{2}\left(1 - \frac{1}{2}\right)^{n-3} = \frac{n-2}{2^{n-2}} \in \Theta\left( \frac{n}{2^n} \right)
+  \]
+Ciò implica che il tempo di completamento del task di questo protocollo nel controesempio in questione è di circa \(\Theta\left( \frac{2^n}{n} \right)\) (<b>molto male!</b>).<br />
+</p>
+
+<p>
+Anche se \(v\) avesse molti meno vicini, per esempio \(\sqrt(n)\), il tempo di completamento sarebbe pessimo (ovvero esponenziale \(\Theta\left( \frac{2^{\sqrt{n}}}{\sqrt{n}} \right)\)).<br />
+Se invece \(v\) avesse solomante 2 vicini che trasmettono, il protocollo terminerebbe in tempi brevissimi (sempre considerando questo esempio).<br />
+</p>
+
+<p>
+Ciò ci suggerisce che dobbiamo trovare un valore di \(p\) in modo tale che è <span class="underline">poco probabile</span> che avvengano interferenze, ovvero un valore per il quale <span class="underline">in media</span> trasmette un solo vicino di ogni nodo.
+Considerando sempre il precedente controesempio, il valore ottimale di \(p\) per il quale i vicini di \(v\) devono trasmettere è \(\frac{1}{d^{(in)}(v)}\), ovvero il grado entrante di \(v\).<br />
+</p>
+</div>
+
+<div id="outline-container-org84dc6da" class="outline-4">
+<h4 id="org84dc6da"><span class="section-number-4">2.0.1</span> BGI protocol on \(d\)-regular layered graph</h4>
+<div class="outline-text-4" id="text-2-0-1">
+<p>
+Come primo passo consideriamo grafi con strutture che in qualche modo ci semplificano il lavoro.
+Consideriamo grafi di tipo <b>\(d\)-regular layered</b>, ovvero grafi suddivisi in <b>strati</b> (o <b>layer</b>) \(L_1, L_2, ..., L_D\) in cui esistono archi solamente da un livello a quello successivo, e in cui ogni nodo \(v\)
+ha un grado entrante costante uguale a tutti pari a \(d^{(in)}(v) = d\).
+Inoltre esiste una sorgente \(s\) tale che \((s,v) \in E \; \forall v \in L_1\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson12-img2.png" alt="adrc-lesson12-img2.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Esempio di \(d\)-regular layered graph.</p>
+</div>
+
+<p>
+Osservare che la descrizione appena data non è propriamente precisa, in quanto i nodi in \(L_1\) hanno grado entrate pari ad 1, e quindi non necessariamente \(d\), mentre il grado entrante della sorgente \(s\) è pari a 0.<br />
+</p>
+
+<p>
+Definiamo quindi il protocollo <code>BGI</code> per tale modello di grafo col seguente pseudocodice:
+</p>
+
+<blockquote>
+<ul class="org-ul">
+<li><b>ripeti</b> per \(k = 1, 2, 3, ...\) <i>stage</i>
+<ul class="org-ul">
+<li><b>ripeti</b> per \(j = 1, 2, ..., c\log{n}\) volte
+<ul class="org-ul">
+<li>per ogni nodo \(x\), se \(x\) è stato informato allo stage \(k - 1\) allora \(x\) trasmette a tutti i suoi vicini con probabilità \(\frac{1}{d}\)</li>
+</ul></li>
+</ul></li>
+</ul>
+</blockquote>
+
+<blockquote>
+<p>
+<b>THM</b>
+il protocollo <code>BGI</code> su grafi \(d\)-regolari e \(D\) layered completa <b>w.h.p.</b> il task del broadcast dalla sorgente \(s\) in \(O(D)\) <i>stages</i> e quindi in \(O(D\log{n})\) time slots.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+la dimostrazione verrà fatta per induzione sui livelli \(j = 1, 2, ..., D\), ovvero si vuole dimostrare che al termine dello stage \(j\) con alta probabilità tutti i nodi del livello \(L_j\) saranno informati.<br />
+</p>
+
+<p>
+Il caso base per \(j = 1\) è banale, percipò assumiamo come <i>ipotesi induttiva</i> che <span class="underline">con alta probabilità</span> entro la fine dello stage \(j > 1\) tutti i nodi nel livello \(L_j\) sono già stati informati (ovveor
+entro \(O(j\log{n})\) time slots).
+Si vuole ora dimostrare che questo è vero anche per \(j+1\).<br />
+</p>
+
+<p>
+Consideriamo quindi un nodo \(v \in L_{j+1}\).
+Iniziamo col calcolare la probabilità che \(v\) viene informato in un dato <i>time slot</i> della fase \(j + 1\).
+Tale probabilità è pari alla probabilità che uno solo dei suoi \(d\) <i>inner-neighbors</i> trasmette, mentre gli altri \(d - 1\) "stanno zitti", e ciò avviene con probabilità
+\[
+    \binom{d}{1} \frac{1}{d}\left(1 - \frac{1}{d}\right)^{d - 1} = d \frac{1}{d}\left(1 - \frac{1}{d}\right)^{d - 1} = \left(1 - \frac{1}{d}\right)^{d - 1}
+    \]
+Osserviamo che per valori di \(d \geq 2\) la quantità \(\left(1 - \frac{1}{d}\right)^{d - 1} > \frac{1}{8}\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson12-img3.png" alt="adrc-lesson12-img3.png" style="max-width:400px; width:100%" />
+</p>
+</div>
+
+<p>
+Non ha senso considerare \(d = 1\) in quanto non ci sarebbe la necessità di definire un protocollo probabilistico.<br />
+</p>
+
+<p>
+Proseguendo, possiamo dire che il nodo \(v\) al livello \(j + 1\) non viene informato in un time slot con probabilità <span class="underline">al più</span> \(< 1 - \frac{1}{8}\).<br />
+Perciò la probabilità che \(v\) non venga informato in tutti i \(c \log{n}\) time slot dello stage \(j + 1\) è al più
+\[
+    < \left(1 - \frac{1}{8}\right)^{c \log{n}} < e^{- \frac{c}{8} \log{n}} = \frac{1}{n^{\frac{c}{8}}}
+    \]
+La prima disuguaglianza è vera perché ogni nodo trasmette in maniera totalmente indipendente dagli altri, mentre la seconda è data dalla seguente espressione
+\[
+    1 - x < e^{-x} \; \forall 0 < x < 1
+    \]
+</p>
+
+<p>
+Ricapitolando abbiamo dimostrato che la probabilità dell'evento \(\mathcal{E}_v = \mbox{"} v \in L_{j + 1} \mbox{ non viene informato entro la fine dello stage } j+1 \mbox{"}\) occorre con al più come
+\[
+    \mathcal{P}(\mathcal{E}_v) \leq \frac{1}{n^{\frac{c}{8}}}
+    \]
+Per <b>union bound</b>, possiamo dire che esiste <span class="underline">almeno un</span> nodo al livello \(L_{j+1}\) che non viene informato entro la fine dello stage \(j + 1\) occorre con probabilità al più
+\[
+    \mathcal{P}(\bigcup_{v \in L_{j+1}} \mathcal{E}_v) \leq \sum_{v \in L_{j+1}} \mathcal{P}(\mathcal{E}_v) < n \frac{1}{n^{\frac{c}{8}}} = \frac{1}{n^{\frac{c}{8} - 1}}
+    \]
+</p>
+
+<p>
+Perciò ponendo \(c = 16\), avremo che la probabilità di avere un cosiddetto "<i>bad stage</i>" in cui non tutti i nodi del relativo livello vengono informati è al più \(\frac{1}{n}\).
+Possiamo quindi concludere dicendo che ogni nodo \(v \in L_{j+1}\) viene informato entro la fine dello stage \(j + 1\) con probabilià <span class="underline">almeno</span> \(1 - \frac{1}{n}\),
+implicando così l'ipotesi del teorema \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+reti in cui i non hanno nessuna informazione della reta, nemmeno la dimensione oppure il proprio vicinato.
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-11-11 gio 00:00</p>
+<p class="date">Data: 2021-11-16 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-25 gio 13:01</p>
+<p class="date">Created: 2021-11-28 dom 21:46</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
