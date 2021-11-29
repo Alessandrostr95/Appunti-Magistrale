@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-11-29 lun 23:46 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AR - Lesson 09</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">AR - Lesson 09</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org025057d">1. Processi di Diffusione su Reti</a>
+<ul>
+<li><a href="#org1f5f31f">1.1. La diffusione di innovazioni</a></li>
+<li><a href="#org5b315ee">1.2. Coordination Game - Modello Lineare</a></li>
+<li><a href="#orgd17ecea">1.3. Configurazioni d'equilibrio</a>
+<ul>
+<li><a href="#org03e974d">1.3.1. Esempi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org025057d" class="outline-2">
+<h2 id="org025057d"><span class="section-number-2">1</span> Processi di Diffusione su Reti</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Uno dei quesiti principali fin ora posti è cercare di capire come le scelte dei singoli individui sono influenzate dal comportamento degli altri individui.
+Quando si fa questo tipo di analisi si può considerare la rete sottostante in due differenti livelli di <i>risoluzione</i>: un livello in cui guardiamo la rete dall'alto e osserviamo il comportamento
+di gruppi di individui, e un livello più dettagliato in cui si considera la struttura della rete come grafo e si cerca di analizzare/intuire come i singoli individui sono influenzati dal loro diretto vicinato.<br />
+</p>
+
+<p>
+In questa parte verrà analizzato il secondo punto di vista, assumendo che i singoli individui abbiano solo una visione <i>locale</i> della rete, e non <i>globale</i>, e di conseguenza che prendano decisioni in base a
+ciò che osservano (ovvero in base al comportamento dei loro vicini).
+Questo framework è abbastanza ragionevole, in quanto è ragionevole pernsare che una persona venga influenzata e cambi comportamento in base al gruppo in cui appartengono, ricevendo così benefini.
+Per esempio è conveniente che una persona adotti una nuova lingua perché la grande maggioranza delle persone con cui a che fare parlano tale lingua, fregandosene di quale sia la lingua più parlata in assoluto al livello globale.<br />
+</p>
+
+<p>
+Questi ragionamenti sono alla base del concetto di <b>omofilia</b>.
+Per <i>omofilia</i> da una parte si intende la capacità che ha un individuo di creare relazioni con altri individui che più gli assomigliano (riferendoci per esempio alla <i>chiusura triadica</i>),
+e dall'altra parte è la tendenza a cercare di assomigliare a chi li circonda in modo tale da trarne vantaggi.
+Per esempio in un contesto sociale reale le persone tendono a creare rapporti con altre persone che hanno stessi gusti e/o opinioni, d'altro canto però spesso per ridurre la tensione sociale si tende
+a scendere a compromessi adattandosi a ciò che vogliono gli altri.<br />
+</p>
+</div>
+
+<div id="outline-container-org1f5f31f" class="outline-3">
+<h3 id="org1f5f31f"><span class="section-number-3">1.1</span> La diffusione di innovazioni</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Di seguito verrà considerato come nuovi comportamenti, pratiche, opinioni e tecnologie si diffondono da persona a persona attraverso le reti sociali, ovvero come le persone influenzano i propri amici a cambiare idea.
+La comprensione di come questi fenomeni lavorano sono basati su storici studi <i>empirici/sociologici</i> noti come <b>diffusione di innovazioni</b>.
+Uno di questi studi fu quello condotto da <i>Ryan &amp; Gross</i> basato su un esperimento di adozione di nuovi semi ibridi da parte degli agricoltori dell <a href="https://www.google.com/maps/place/Iowa,+Stati+Uniti/@41.8508057,-97.8790946,6z/data=!3m1!4b1!4m5!3m4!1s0x87ee5e6ff1f86019:0xc6ef634a57c759d9!8m2!3d41.8780025!4d-93.097702">Iowa</a>,
+che mostrò come le scelte del proprio gruppo sociale forscono in maniera indiretta informazioni agli individui sulla convenienza o meno dell'adozione di una nuova innovazione.
+Ryan e Gross intervistarono gli agricoltori chiedendo loro se conoscevano i nuovi semi e se/quando li avrebbero adottati.
+Notarono che nonstante la maggior parte di loro era venuto a conoscenza dei semi da parte dei venditori, solo un piccolo numero di loro decise di addottare i semi "a scatola chiusa".
+Contrariamente riscontrarono che molti iniziarono a provare i semi solamente dopo aver osservato altri agricoltori conoscenti che li avevano già provati.
+Questo perché appunto si può trarre la seguente informazione:
+</p>
+<blockquote>
+<p>
+<i>"Se tanti usano i nuovi semi, allora posso pensare che sono buoni."</i>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org5b315ee" class="outline-3">
+<h3 id="org5b315ee"><span class="section-number-3">1.2</span> Coordination Game - Modello Lineare</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+A questo punto potremmo voler <i>modellare</i> il processo di diffusione di innovazioni su una rete, e vogliamo farlo in modo da rispettare quanto osservato in precedenza.<br />
+Vogliamo che gli individui del modello prendano decisioni in maniera del tutto <b>individuale</b>, ovvero che non si prendano decisioni mettendosi d'accordo con altri.
+Inoltre le decisioni devono essere prese sulla base di una stima <b>rischio/beneficio</b> che si ha dell'adottare una innovazione.
+Ovvero le decisioni vengono prese solamente per un <b>guadagno personale</b> senza pensare al bene degli altri, ovvero seguendo la filosofia del <i>"se mi conviene lo faccio, altrimenti no"</i>.
+Questo tipo di modello è anche noto come <b>direc-benefit</b>.<br />
+</p>
+
+<p>
+Assumiamo che tutti della rete partano con uno stato (o idea, opinione, tecnologia, &#x2026;) <code>B</code>, e che a un certo punto alcuni nodi adottino lo stato <code>A</code>.
+Assumendo che una volta adottato allo stato <code>A</code> non si può più tornare nello stato <code>B</code> ci si chiede in quali casi un nodo decide di cambiare stato ad <code>A</code>.<br />
+Per modellare questa dinamica facciamo riferimento a un <b>coordination game</b> in cui due nodi vicini ricavano un vantaggio nell'avere uno stesso stato, e devono coordinarsi nel decidere una strategia
+in modo tale da massimizzare i profitti, senza però potersi mettere d'accordo.<br />
+Più precisamente sia un arco \((v,w)\) della rete:
+</p>
+<ul class="org-ul">
+<li>se \(v\) e \(w\) sono nello stesso stato <code>A</code> avranno un guadagno pari ad un valore \(a > 0\).</li>
+<li>se \(v\) e \(w\) sono nello stesso stato <code>B</code> avranno un guadagno pari ad un valore \(b > 0\).</li>
+<li>se \(v\) e \(w\) sono in due stati discordi non ricevono alcun guadagno reciproco.</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img1.png" alt="ar-lesson09-img1.png" style="max-width:300px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span><code>A-B</code> coordination game.</p>
+</div>
+
+<p>
+Ovviamente il nodo \(v\) gioca una copia del coordination game su ognuno dei suoi archi incidenti, perciò il suo guadagno sarà la somma di tutti i guadagni su ogni arco.<br />
+</p>
+
+<p>
+Andiamo ora ad analizzare quando al nodo \(v\) conviene adottare lo stato <code>A</code> oppure no, sapendo che parte dallo stato <code>B</code>.
+Definiamo con \(n_A\) ed \(n_B\) il numero dei suoi vicini rispettivamente negli stati <code>A</code> e <code>B</code>.
+Intuitivamente viene da pensare che \(v\) agisce nei seguenti modi:
+</p>
+<ul class="org-ul">
+<li>se \(b n_B > a n_A\) allora gli conviene rimandere in <code>B</code>.</li>
+<li>se \(a n_A > b n_B\) allora gli conviene adottare <code>A</code>.</li>
+</ul>
+<p>
+Assumiamo che nel caso di parità di guadagno venga comunque preferita l'innovazione <code>A</code> anziché rimanere nello stato attuale.
+Perciò si adotta lo stato <code>A</code> se \(a n_A \geq b n_B\).<br />
+</p>
+
+
+<p>
+Supponiamo che una porzione \(p\) dei vicini di \(v\) sia nello stato <code>A</code>, e che una frazione \(1-p\) sia nello stato <code>B</code>
+</p>
+\begin{align*}
+  p &= \frac{n_A}{\vert N(v) \vert}\\
+  1-p &= \frac{n_B}{\vert N(v) \vert} = \frac{\vert N(v) \vert - n_A}{\vert N(v) \vert}
+\end{align*}
+
+<p>
+Perciò possiamo dire a \(v\) conviene cambiare stato se
+</p>
+\begin{align*}
+  n_A a &\geq n_B b\\
+  (\vert N(v) \vert \cdot p) a &\geq (\vert N(v) \vert \cdot (1-p)) b\\
+  p a &\geq (1-p)b\\
+  p &\geq \frac{b}{a+b}
+\end{align*}
+
+<p>
+Definiamo con \(q = \frac{b}{a+b}\) la frazione minima dei vicini di \(v\) che devono essere nello stato <code>A</code> per rendere l'adozione di <code>A</code> conveniente rispetto a <code>B</code>.
+D'ora in poi ci riferiremo a \(q\) con <b>soglia di adozione</b>.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img2.png" alt="ar-lesson09-img2.png" style="max-width:400px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>\(v\) deve scegliere <code>A</code> o <code>B</code> in base al suo vicinato</p>
+</div>
+
+<p>
+Osserviamo che quando il guadagno \(a\) è molto più grande di \(b\), allora la soglia di adozione \(q\) è molto bassa, ovvero servono pochi vicini nello stato <code>A</code> per convincere anche \(v\).
+Viceversa, se \(a\) è molto più piccolo di \(b\) allora la soglia cresce molto (tendendo ad 1), il che significa che servono molti vicini nello stato <code>A</code> per convincere \(v\).
+Infine, se i due guadagni sono uguali \(a = b\), allora occorrono almeno la metà dei vicini nello stato <code>A</code>.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd17ecea" class="outline-3">
+<h3 id="orgd17ecea"><span class="section-number-3">1.3</span> Configurazioni d'equilibrio</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Cerchiamo ora di capire quali sono le possibili configurazioni di equilibrio della rete, ovvero configurazioni di stati <code>A-B</code> in cui nessuno più cambia stato.
+Certamente due configurazioni banali sono la configurazione in cui nessuno adotta <code>A</code>, e quindi sono tutti nello stato <code>B</code>, oppure la configurazione in cui, una volta introdotto <code>A</code>, tutti passano
+allo stato <code>A</code>.<br />
+</p>
+
+<p>
+Quello che ci si può chiedere è:
+</p>
+<ul class="org-ul">
+<li>esistono condizioni per le quali <code>A</code> si diffonde in tutta la rete?</li>
+<li>se si, entro quanto tempo riesce a farlo?</li>
+<li>oppure esistono situazioni in cui la diffusione di <code>A</code> si blocca in configurazioni intermedie?</li>
+<li>e per quale motivo si blocca?</li>
+</ul>
+</div>
+
+<div id="outline-container-org03e974d" class="outline-4">
+<h4 id="org03e974d"><span class="section-number-4">1.3.1</span> Esempi</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Per prima cosa consideriamo alcuni esempi.<br />
+</p>
+
+<p>
+Consideriamo al seguente rete
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img3.png" alt="ar-lesson09-img3.png" style="max-width:350px;" width="100%" />
+</p>
+</div>
+
+<p>
+Forziamo poi lo stato dei nodi \(v\) e \(w\) ad <code>A</code>
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img4.png" alt="ar-lesson09-img4.png" style="max-width:350px;" width="100%" />
+</p>
+</div>
+
+<p>
+Ponendo i guadagni \(a = 3\) e \(b = 2\) otteremo una <i>soglia d'adozione</i> di \(q = \frac{2}{5}\), il che significa che almeno \(\frac{2}{5}\) dei vicini di un nodo devono avere lo stato <code>A</code> per convincere tale nodo a cambiare.
+Nell'esempio in questione, come prima cosa i nodi \(r\) e \(t\) passeranno allo stato <code>A</code> perché hanno entrambi \(\frac{2}{3} > \frac{2}{5}\) vicini nello stato <code>A</code>.
+I nodi \(u\) ed \(s\) invece rimarranno inizialmente in <code>B</code> in quanto solamente \(\frac{1}{3} < \frac{2}{5}\) dei propri vicini è in <code>A</code> (ancora non conviene cambiare).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img5.png" alt="ar-lesson09-img5.png" style="max-width:350px;" width="100%" />
+</p>
+</div>
+
+<p>
+Infine, nel secondo step, anche a \(u\) ed \(s\) converrà adottare il nuovo stato <code>A</code>
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img6.png" alt="ar-lesson09-img6.png" style="max-width:350px;" width="100%" />
+</p>
+</div>
+
+<p>
+ottenendo così una diffusione totale dello stato <code>A</code> rispetto allo stato <code>B</code>.<br />
+</p>
+
+<p>
+<b>[DA FINIRE]</b>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-11-17 mer 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-11-29 lun 23:46</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

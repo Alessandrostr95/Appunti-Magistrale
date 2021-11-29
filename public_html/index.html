@@ -99,9 +99,34 @@
 	.bold {
 	    font-weight: bold;
 	}
+
+	.intro {
+	    text-align: justify;
+	    margin: 10px;
+	}
+
+	@media screen and (min-width: 720px) {
+	    .intro {
+		width: 50%;
+	    }
+	}
+	
       </style>
     </head>
     <body>
+      <div class="intro">
+	<p>
+	  Di seguito una raccolta di <span class="bold">appunti</span> (in via di sviluppo), che in quanto tali non garantiscono la totale correttezza dei contenuti, e soprattutto non intendono sostituire il regolare processo di studio di una materia universitaria (ovvero seguire le lezioni, studiare dai libiri di testo e dal materiale offerto dai docenti).<br>
+	  Tali appunti sono uno strumento utile al mio personale processo di studio, che qeust'anno ho deciso di rendere pubblico in maniera digitale.
+	  L'intento di questa condivisione è favorire un confronto tra i miei colleghi, con la speranza di poter trarne anche io un vantaggio in termini didattici.
+	</p>
+
+	<p>
+	  Tali apuunti sono scritti in formato <a href="https://orgmode.org/">org-mode</a>, un formato <i>/markdown/</i>, e dopodiché esportati in maniera automatica in pagine web html-css.<br>
+	  Per chi volesse contribuire o continuare questo progetto per conto proprio, trova tutto liberamente su <a href="https://github.com/Alessandrostr95/Appunti-Magistrale">questo repository</a>.
+	</p>
+      </div>
+
       <div class="tree">
 	<span class="bold tree-node" style="font-family: 'Roboto Mono', monospace; line-height: 1.75; font-size: 1.2em;">/Appunti-Magistrale</span>
 	<ul style="margin-top:0px;">
@@ -115,6 +140,7 @@
 		  <li><a href="./AR/06.html">Lesson 6 - Modello Small World</a></li>
 		  <li><a href="./AR/07.html">Lesson 7 - Communities - Part 1</a></li>
 		  <li><a href="./AR/08.html">Lesson 8 - Communities - Part 2</a></li>
+		  <li><a href="./AR/09.html">Lesson 9 - Cascading Behavior in Networks - Part 1</a></li>
 		</ul>    
 	      </li>
 	      <li> <span class="bold">Logica Matematica</span>
