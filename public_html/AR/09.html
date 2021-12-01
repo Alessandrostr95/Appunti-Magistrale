@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-11-29 lun 23:46 -->
+<!-- 2021-12-02 gio 00:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 09</title>
@@ -278,11 +278,12 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#org1f5f31f">1.1. La diffusione di innovazioni</a></li>
 <li><a href="#org5b315ee">1.2. Coordination Game - Modello Lineare</a></li>
-<li><a href="#orgd17ecea">1.3. Configurazioni d'equilibrio</a>
-<ul>
-<li><a href="#org03e974d">1.3.1. Esempi</a></li>
 </ul>
 </li>
+<li><a href="#orgce678a3">2. Cascading Behavior</a>
+<ul>
+<li><a href="#orgb4e882c">2.1. Osservazioni empiriche</a></li>
+<li><a href="#orgadde7ff">2.2. Cascate e Cluster</a></li>
 </ul>
 </li>
 </ul>
@@ -394,7 +395,7 @@ Supponiamo che una porzione \(p\) dei vicini di \(v\) sia nello stato <code>A</c
 \end{align*}
 
 <p>
-Perciò possiamo dire a \(v\) conviene cambiare stato se
+Perciò possiamo dire che a \(v\) conviene cambiare stato se
 </p>
 \begin{align*}
   n_A a &\geq n_B b\\
@@ -422,14 +423,14 @@ Infine, se i due guadagni sono uguali \(a = b\), allora occorrono almeno la met�
 </p>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgd17ecea" class="outline-3">
-<h3 id="orgd17ecea"><span class="section-number-3">1.3</span> Configurazioni d'equilibrio</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-orgce678a3" class="outline-2">
+<h2 id="orgce678a3"><span class="section-number-2">2</span> Cascading Behavior</h2>
+<div class="outline-text-2" id="text-2">
 <p>
-Cerchiamo ora di capire quali sono le possibili configurazioni di equilibrio della rete, ovvero configurazioni di stati <code>A-B</code> in cui nessuno più cambia stato.
-Certamente due configurazioni banali sono la configurazione in cui nessuno adotta <code>A</code>, e quindi sono tutti nello stato <code>B</code>, oppure la configurazione in cui, una volta introdotto <code>A</code>, tutti passano
-allo stato <code>A</code>.<br />
+Iniziamo col chiederci quali sono le possibili <b>configurazioni di equilibrio</b> della rete, ovvero configurazioni di stati <code>A-B</code> in cui nessuno più cambia stato.
+Certamente due configurazioni banali sono la configurazione in cui nessuno adotta <code>A</code>, e quindi sono tutti nello stato <code>B</code>, oppure la configurazione in cui, una volta introdotto <code>A</code>, tutti passano allo stato <code>A</code>.<br />
 </p>
 
 <p>
@@ -441,16 +442,28 @@ Quello che ci si può chiedere è:
 <li>oppure esistono situazioni in cui la diffusione di <code>A</code> si blocca in configurazioni intermedie?</li>
 <li>e per quale motivo si blocca?</li>
 </ul>
+
+<p>
+Introduciamo la seguente terminologia:
+</p>
+<blockquote>
+<p>
+Consideriamo un insieme di nodi iniziali che adottano un nuovo comportamento <code>A</code>, mentre ogni altro nodo inizia col comportamento <code>B</code>.
+I nodi valutano continuamente la decisione di passare da <code>B</code> ad <code>A</code> considerando la soglia di adozione \(q\).
+Se eventualmente la <i>cascata di adozioni</i> di <code>A</code> causa un'adozione <i>globale</i> di <code>A</code> (ovvero che tutti i nodi con comportamento <code>B</code> passano ad <code>A</code>) allora diremo che l'insieme iniziale di adottatori di <code>A</code> ha causato una <b>cascata completa</b> con soglia di adozione \(q\).
+</p>
+</blockquote>
 </div>
 
-<div id="outline-container-org03e974d" class="outline-4">
-<h4 id="org03e974d"><span class="section-number-4">1.3.1</span> Esempi</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<div id="outline-container-orgb4e882c" class="outline-3">
+<h3 id="orgb4e882c"><span class="section-number-3">2.1</span> Osservazioni empiriche</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 Per prima cosa consideriamo alcuni esempi.<br />
 </p>
 
 <p>
+<b>Esempio 1</b><br />
 Consideriamo al seguente rete
 </p>
 
@@ -493,7 +506,92 @@ Infine, nel secondo step, anche a \(u\) ed \(s\) converrà adottare il nuovo sta
 </div>
 
 <p>
-ottenendo così una diffusione totale dello stato <code>A</code> rispetto allo stato <code>B</code>.<br />
+ottenendo così una diffusione totale dello stato <code>A</code> rispetto allo stato <code>B</code>.
+Se invece ponessimo come valori \(a = 1\) e \(b = 3\), avremmo una soglia di adozione pari a \(q = \frac{3}{4}\), la quale non sarebbe soffuciente per la diffusione di <code>A</code>.<br />
+</p>
+
+<p>
+<b>Esempio 2</b><br />
+Consideriamo ora l'<code>A-B</code> coordination game su un grafo più grande
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img7.png" alt="ar-lesson09-img7.png" style="max-width:500px;" width="100%" />
+</p>
+</div>
+
+<p>
+e poniamo ancora i parametri \(a = 3\), \(b = 2\) e \(q = \frac{b}{a+b} = \frac{2}{5}\).
+Se inizialmente i nodi 7 e 8 adottano lo stato <code>A</code>, avremo che al primo step passeranno i nodi 5 e 10, poi 4 e 9 e poi il nodo 6.
+A questo punto a nessun altro nodo della rete converrà adottare <code>A</code>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img8.gif" alt="ar-lesson09-img8.gif" style="max-width:550px;" width="100%" />
+</p>
+</div>
+
+<p>
+Ciò che vogliamo sapere è come possiamo fare in modo di ottenere una <b>cascata completa</b> di <code>A</code> su tutta la rete?<br />
+</p>
+
+<p>
+Come prima cosa si potrebbe <i>aumnetare il guadagno</i> di <code>A</code>, abbassando così la sua soglia d'adozione.
+Infatti, se per esempio poniamo i parametri \(a = 4\) e \(b = 2\) (ovvero con soglia di adozione di \(\frac{1}{3}\)) otteremo una <b>cascata completa</b> di <code>A</code>.
+Se in un contesto reale <code>A</code> è una nuova tecnologia, ciò che abbiamo fatto è stato per esempio abbassare il prezzo di <code>A</code> in modo convincere più gente a comprarlo.<br />
+</p>
+
+<p>
+Un altro modo è invece quello di aumentare e/o cambiare i nodi iniziali nello stato <code>A</code> (senza alterare la soglia d'adozione \(q\)).
+Per esempio consideriamo come insieme di nodi iniziali nello stato <code>A</code> i nodi \(\lbrace 2, 7, 8, 12 \rbrace\) (e ricordiamo che \(q = \frac{2}{5}\) è rimasta invariata).
+È facile osservare in questo caso che <code>A</code> si propaga su tutta la rete.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img9.gif" alt="ar-lesson09-img9.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 9: </span>Nodi iniziali \(\lbrace 2, 7, 8, 12 \rbrace\), \(a = 3\) e \(b = 2\).</p>
+</div>
+
+<p>
+Quindi, se non alteriamo \(q\), viene da pensare che se il numero di nodi iniziali supera una certa <b>soglia critica</b>, allora avviene una <b>cascata completa</b> di <code>A</code>.
+In realtà l'avvenire di una  cascata completa di <code>A</code> non dipende solamente da quanti nodi iniziali sono forzati nello stato <code>A</code>, bensì anche dalla loro posizione.
+Per esempio se consideriamo altri 4 nodi iniziali \(\lbrace 2, 7, 8, 14 \rbrace\) non otterremo una cascata completa, nonostante ci siano lo stesso 4 nodi iniziali che adottano <code>A</code>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img10.gif" alt="ar-lesson09-img10.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 10: </span>Controesempio con nodi iniziali \(\lbrace 2, 7, 8, 14 \rbrace\).</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgadde7ff" class="outline-3">
+<h3 id="orgadde7ff"><span class="section-number-3">2.2</span> Cascate e Cluster</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Cerchiamo ora di capire come mai le cascate complete non dipendono solamente dal numero di iniziatori, ma anche dalle loro posizioni nella rete.<br />
+Per prima cosa facciamo alcune definizioni formali
+</p>
+<ul class="org-ul">
+<li>indichiamo con \(V_0 \subseteq V\) l'insieme di nodi iniziatori di <code>A</code>.</li>
+<li>indichiamo con \(V_1 \subseteq V\) l'insieme di nodi vicini dei nodi che stanno in \(V_0\), che adottano <code>A</code> al tempo \(t = 1\).</li>
+<li>induttivamente indichiamo con \(V_i\) l'insieme di nodi che adottano <code>A</code> al tempo \(t = i\).</li>
+</ul>
+<p>
+Possiamo dire che la diffusione di <code>A</code> si ferma quando
+\[
+   \bigcup_{i = 0}^{t} V_i = \bigcup_{i = 0}^{t+1} V_i
+   \]
+Di conseguenza possiamo dire che avviene una <b>cascata completa</b> di <code>A</code> se siste un tempo \(t \geq 0\) tale che
+\[
+   \bigcup_{i = 0}^{t} V_i = V
+   \]
 </p>
 
 <p>
@@ -503,12 +601,11 @@ ottenendo così una diffusione totale dello stato <code>A</code> rispetto allo s
 </div>
 </div>
 </div>
-</div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-17 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-11-29 lun 23:46</p>
+<p class="date">Created: 2021-12-02 gio 00:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
