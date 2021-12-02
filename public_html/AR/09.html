@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-02 gio 00:36 -->
+<!-- 2021-12-02 gio 15:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 09</title>
@@ -286,6 +286,14 @@ for the JavaScript code in this tag.
 <li><a href="#orgadde7ff">2.2. Cascate e Cluster</a></li>
 </ul>
 </li>
+<li><a href="#org738a905">3. Cluster e Marketing Virale</a>
+<ul>
+<li><a href="#orgce85236">3.1. Capacità di Cascata</a></li>
+</ul>
+</li>
+<li><a href="#org867d680">4. Modello eterogeneo</a></li>
+<li><a href="#orgf65d64a">5. Azioni collettive</a></li>
+<li><a href="#org64ae8c6">6. Diffusione in presenza di compatibilità</a></li>
 </ul>
 </div>
 </div>
@@ -516,7 +524,7 @@ Consideriamo ora l'<code>A-B</code> coordination game su un grafo più grande
 </p>
 
 
-<div class="figure">
+<div id="org6844863" class="figure">
 <p><img src="../images/ar-lesson09-img7.png" alt="ar-lesson09-img7.png" style="max-width:500px;" width="100%" />
 </p>
 </div>
@@ -528,7 +536,7 @@ A questo punto a nessun altro nodo della rete converrà adottare <code>A</code>.
 </p>
 
 
-<div class="figure">
+<div id="orgcc9b322" class="figure">
 <p><img src="../images/ar-lesson09-img8.gif" alt="ar-lesson09-img8.gif" style="max-width:550px;" width="100%" />
 </p>
 </div>
@@ -595,17 +603,192 @@ Di conseguenza possiamo dire che avviene una <b>cascata completa</b> di <code>A<
 </p>
 
 <p>
-<b>[DA FINIRE]</b>
+Riguardando l'<a href="#org6844863">esempio 2</a>, possiamo individuare delle componenti più coese di nodi, più precisamente
+</p>
+<ul class="org-ul">
+<li>il gruppo \(\lbrace 1,2,3 \rbrace\).</li>
+<li>il gruppo \(\lbrace 4,5,6,7,8,9,10 \rbrace\).</li>
+<li>il gruppo \(\lbrace 11,12,13,14,15,16,17 \rbrace\).</li>
+</ul>
+
+<p>
+Dall'esempio si può notare che la diffusione di <code>A</code> fa <i>"fatica"</i> ad uscire dai singoli gruppi.
+In realtà esiste una relazione tra gruppi di nodi coesi tra loro e le cascate complete.
+Definiamo un modello di coesione utile ad analizzare tale relazione.
+</p>
+
+<blockquote>
+<p>
+<b>Def (Cluster di densità \(p\))</b>
+Un cluster di densità \(p\) è un sottoinsieme di nodi \(V' \subseteq V\) tale che la frazioni di vicini che ogni suo nodo ha in \(V'\) è almeno \(p\), ovvero
+\[
+   \forall u \in V' \; \left[ \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} > p \right]
+   \]
+</p>
+</blockquote>
+
+<p>
+Osservare che una <a href="./07.html">strong web community</a> è un cluster di densitatà \(p\) con \(p = \frac{1}{2}\).
+Osservare anche che se \(V',V''\) sono due cluster di densitatà \(p\), allora anche \(V' \cup V''\) è un cluster di densità \(p\).
+Questo è facilmente verificabile perché \( \vert N(u) \cap (V' \cup V'') \vert \geq \vert N(u) \cap V' \vert\) e \( \vert N(u) \cap (V' \cup V'') \vert \geq \vert N(u) \cap V'' \vert\).<br />
+</p>
+
+<blockquote>
+<p>
+<b>THM</b>
+Sia il grafo \(G=(V,E)\), l'insieme di iniziatori \(V_0 \subseteq V\) e la soglia di adozione \(q\) per l'innovazione <code>A</code>.
+L'insieme \(V_0\) <b>non</b> genera una cascata completa di <code>A</code> <span class="underline">se e solo so</span> \(G-V_0\) congiene un <i>cluster di densità</i> \(1 - q\).<br />
+</p>
+
+<p>
+<b>Proof</b>
+Iniziamo col dimostrare il primo verso dell'implicazione, ovvero che se \(V_0\) non genera una cascata completa di <code>A</code> <b>allora</b> \(G-V_0\) congiene un <i>cluster di densità</i> \(1 - q\).<br />
+Se \(V_0\) non genera una cascata completa allora esisteranno dei nodi che al termine non avranno adottato <code>A</code>, e quindi esisterà un tempo \(t+1\) nel quale la diffusione di <code>A</code> si ferma, ovvero quando
+\[
+   V_t \neq \emptyset\\
+   V_{t+1} = \emptyset
+   \]
+</p>
+
+<p>
+Definiamo con \(V_A\) l'insieme di tutti i nodi che adottano <code>A</code> nel processo di diffusione
+\[
+   V_A \equiv \bigcup_{i=0}^{t} V_i
+   \]
+Poiché stiamo ipotizzando che \(V_0\) non genera una cascata completa di <code>A</code>, avremo che \(V \setminus V_A \neq \emptyset\).<br />
+</p>
+
+<p>
+Dato che i nodi in \(V \setminus V_A\) non adottano mai <code>A</code>, ciò vuol dire che nessuno di essi ha una frazione di vicini nello stato <code>A</code> maggiore della soglia di adozione, ovvero
+\[
+   \forall u \in V \setminus V_A \; \left[ \frac{\vert N(u) \cap V_A \vert}{\vert N(u) \vert} < q \right]
+   \]
+</p>
+
+<p>
+Le precedenti osservazioni implicano la seguente espressione
+</p>
+\begin{align*}
+  1 &= \frac{\vert N(u) \vert}{\vert N(u) \vert}\\
+  &= \frac{\vert N(u) \cap V \vert}{\vert N(u) \vert}\\
+  &= \frac{\vert N(u) \cap ((V \setminus V_A) \cup V_A) \vert}{\vert N(u) \vert}\\
+  &= \frac{\vert (N(u) \cap (V \setminus V_A)) \cup (N(u) \cap V_A) \vert}{\vert N(u) \vert}\\
+  &= \frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} + \frac{\vert N(u) \cap  V_A \vert}{\vert N(u) \vert}\\
+  &< \frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} + q
+\end{align*}
+<p>
+ovvero \(\frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} > 1 - q\), il che significa che \(V \setminus V_A\) è un cluster di densità \(1 - q\).
+Inoltre dato che \(V_0 \subseteq V_A\) a maggior ragione \(V \setminus V_A\) è contenuto in \(G - V_0\).<br />
+</p>
+
+<p>
+Ora bisogna dimostrare l'altro verso della dimostrazione, ovvero che se \(G - V_0\) contiene un cluster di densità \(1-q\) \(C \subseteq V\) allora \(V_0\) non genera una cascata completa di <code>A</code>.<br />
+Supponiamo per assurdo che \(V_0\) generi una cascata completa di <code>A</code>.
+Allora certamente prima o poi tutti i nodi di \(C\) adotterano lo stato <code>A</code>.
+Sia il tempo \(t\) in cui i primi nodi di \(C\) adottano <code>A</code>, ovvero quel \(t\) tale che
+\[
+   \bigcup_{i = 0}^{t-1} V_i \cap C = \emptyset\\
+   V_t \cap C \neq \emptyset
+   \]
+</p>
+
+<p>
+Definiamo con \(V'\) tutti i nodi che al tempo \(t-1\) si trovano nello stato <code>A</code> (e che quindi non sono in \(C\)), ovvero \(V' \equiv \bigcup_{i = 0}^{t-1} V_i\).<br />
+</p>
+
+<p>
+Prendiamo uno dei nodi \(u \in C\) che passano in <code>A</code> al tempo \(t\), ovvero un \(u \in V_t\).
+Poiché \(C\) è un cluster di densità \(1-q\) avremo che
+\[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} > 1 - q
+   \]
+e siccome sappiamo che \(u\) ha adottato <code>A</code> al tempo \(t\) è vero che almeno una frazione \(q\) dei suoi vicini era nello stato <code>A</code>, ovvero
+\[
+   \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} \geq q
+   \]
+</p>
+
+<p>
+Se le precedenti ipotesi sono vere otterremo che
+</p>
+\begin{align*}
+  1 &= \frac{\vert N(u) \vert}{\vert N(u) \vert}\\
+  &\geq \frac{\vert N(u) \cap (V' \cup C) \vert}{\vert N(u) \vert}\\
+  (V' \cap C = \emptyset)  &= \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} + \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert}\\
+  &> q + 1 - q = 1
+\end{align*}
+<p>
+assurdo!\(\square\)
+</p>
+</blockquote>
+
+<p>
+Ciò che ci dice il precedente teorema è sostanzialmente che la presenza di cluster (con una certa densità) comporta un ostacolo alla diffusione di una innovazione <code>A</code>.<br />
+</p>
+
+<p>
+Ricordiamo dalle lezioni precedenti (<a href="./07.html">Communities - Part 1</a> e <a href="./08.html">Communities - Part 2</a>) che generalmente i legami che colleggano due comunità (o cluster) sono dei <b>legami deboli</b> (<b>weak ties</b>).
+Infatti la forza dei <b>weak ties</b> è basata sull'idea che le connessioni sociali deboli (per esempio con persone che vediamo di rado) spesso formano <b>bridege edges</b> in una rete sociale.
+Pertanto forniscono accesso a fonti di informazioni (per esempio nuove opportunità di lavoro<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>) che risiedono in parti della rete a cui altrimenti non avremmo accesso.<br />
+</p>
+
+<p>
+Osserviamo inoltre che c'è una sostanzile differenza tra venire a conoscenza di una nuova idea e il decidere di adottarla.
+Infatti considerando ancora l'<a href="#org6844863">esempio 2</a>, possiamo osservare che i nodi 4 e 9 vengono subito a conoscenza dell'innovazione <code>A</code> in quanto entrambi sono vicini di un nodo iniziatore,
+però attendono più tempo prima di adottarlo.
+Anche in un contesto sociale reale, sebbene la consapevolezza di una barzelletta o di un video online avanza con una velocità notevole, la mobilitazione politica si muove più lentamente,
+avendo bisogno di prendere slancio all'interno di comunità.
+La soglia di adozione \(q\) offre una possibile spiegazione: i movimenti sociali tendono ad essere imprese intrinsecamente rischiose, e quindi gli individui tendono a necessitare di soglie più elevate
+per la partecipazione.<br />
+</p>
+
+<p>
+Perciò possiamo concludere che mentre i <i>weak-ties</i> che collegano due comunità differenti sono utilissimi alla diffusione di informazioni, allo stesso tempo sono un punto di debolezza (e quindi di
+ostacolo) per la diffusione di un'innovazione.<br />
 </p>
 </div>
 </div>
 </div>
+
+<div id="outline-container-org738a905" class="outline-2">
+<h2 id="org738a905"><span class="section-number-2">3</span> Cluster e Marketing Virale</h2>
+<div class="outline-text-2" id="text-3">
 </div>
+<div id="outline-container-orgce85236" class="outline-3">
+<h3 id="orgce85236"><span class="section-number-3">3.1</span> Capacità di Cascata</h3>
+</div>
+</div>
+
+
+<div id="outline-container-org867d680" class="outline-2">
+<h2 id="org867d680"><span class="section-number-2">4</span> Modello eterogeneo</h2>
+</div>
+
+<div id="outline-container-orgf65d64a" class="outline-2">
+<h2 id="orgf65d64a"><span class="section-number-2">5</span> Azioni collettive</h2>
+</div>
+
+<div id="outline-container-org64ae8c6" class="outline-2">
+<h2 id="org64ae8c6"><span class="section-number-2">6</span> Diffusione in presenza di compatibilità</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+Esperimento di Granovetter.
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-17 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-02 gio 00:36</p>
+<p class="date">Created: 2021-12-02 gio 15:44</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

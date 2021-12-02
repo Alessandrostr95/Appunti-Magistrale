@@ -138,6 +138,7 @@
    Consideriamo ora l'=A-B= coordination game su un grafo più grande
 
    #+ATTR_HTML: :style max-width:500px; :width 100%
+   #+LABEL: fig:img7
    [[file:../images/ar-lesson09-img7.png]]
 
    e poniamo ancora i parametri \(a = 3\), \(b = 2\) e \(q = \frac{b}{a+b} = \frac{2}{5}\).
@@ -145,6 +146,7 @@
    A questo punto a nessun altro nodo della rete converrà adottare =A=.
     
    #+ATTR_HTML: :style max-width:550px; :width 100%
+   #+LABEL: fig:img8
    [[file:../images/ar-lesson09-img8.gif]]
 
    Ciò che vogliamo sapere è come possiamo fare in modo di ottenere una *cascata completa* di =A= su tutta la rete?\\
@@ -184,5 +186,119 @@
    \bigcup_{i = 0}^{t} V_i = V
    \]
 
-   *[DA FINIRE]*
+   Riguardando l'[[fig:img7][esempio 2]], possiamo individuare delle componenti più coese di nodi, più precisamente
+   - il gruppo \(\lbrace 1,2,3 \rbrace\).
+   - il gruppo \(\lbrace 4,5,6,7,8,9,10 \rbrace\).
+   - il gruppo \(\lbrace 11,12,13,14,15,16,17 \rbrace\).
+   
+   Dall'esempio si può notare che la diffusione di =A= fa /"fatica"/ ad uscire dai singoli gruppi.
+   In realtà esiste una relazione tra gruppi di nodi coesi tra loro e le cascate complete.
+   Definiamo un modello di coesione utile ad analizzare tale relazione.
 
+   #+begin_quote
+   *Def (Cluster di densità $p$)*
+   Un cluster di densità $p$ è un sottoinsieme di nodi \(V' \subseteq V\) tale che la frazioni di vicini che ogni suo nodo ha in \(V'\) è almeno $p$, ovvero
+   \[
+   \forall u \in V' \; \left[ \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} > p \right]
+   \]
+   #+end_quote
+
+   Osservare che una [[./07.html][strong web community]] è un cluster di densitatà $p$ con \(p = \frac{1}{2}\).
+   Osservare anche che se \(V',V''\) sono due cluster di densitatà $p$, allora anche \(V' \cup V''\) è un cluster di densità $p$.
+   Questo è facilmente verificabile perché \( \vert N(u) \cap (V' \cup V'') \vert \geq \vert N(u) \cap V' \vert\) e \( \vert N(u) \cap (V' \cup V'') \vert \geq \vert N(u) \cap V'' \vert\).\\
+
+   #+begin_quote
+   *THM*
+   Sia il grafo \(G=(V,E)\), l'insieme di iniziatori \(V_0 \subseteq V\) e la soglia di adozione $q$ per l'innovazione =A=.
+   L'insieme \(V_0\) *non* genera una cascata completa di =A= _se e solo so_ \(G-V_0\) congiene un /cluster di densità/ \(1 - q\).\\
+
+   *Proof*
+   Iniziamo col dimostrare il primo verso dell'implicazione, ovvero che se \(V_0\) non genera una cascata completa di =A= *allora* \(G-V_0\) congiene un /cluster di densità/ \(1 - q\).\\
+   Se \(V_0\) non genera una cascata completa allora esisteranno dei nodi che al termine non avranno adottato =A=, e quindi esisterà un tempo \(t+1\) nel quale la diffusione di =A= si ferma, ovvero quando
+   \[
+   V_t \neq \emptyset\\
+   V_{t+1} = \emptyset
+   \]
+
+   Definiamo con \(V_A\) l'insieme di tutti i nodi che adottano =A= nel processo di diffusione
+   \[
+   V_A \equiv \bigcup_{i=0}^{t} V_i
+   \]
+   Poiché stiamo ipotizzando che \(V_0\) non genera una cascata completa di =A=, avremo che \(V \setminus V_A \neq \emptyset\).\\
+
+   Dato che i nodi in \(V \setminus V_A\) non adottano mai =A=, ciò vuol dire che nessuno di essi ha una frazione di vicini nello stato =A= maggiore della soglia di adozione, ovvero
+   \[
+   \forall u \in V \setminus V_A \; \left[ \frac{\vert N(u) \cap V_A \vert}{\vert N(u) \vert} < q \right]
+   \]
+
+   Le precedenti osservazioni implicano la seguente espressione
+   \begin{align*}
+     1 &= \frac{\vert N(u) \vert}{\vert N(u) \vert}\\
+     &= \frac{\vert N(u) \cap V \vert}{\vert N(u) \vert}\\
+     &= \frac{\vert N(u) \cap ((V \setminus V_A) \cup V_A) \vert}{\vert N(u) \vert}\\
+     &= \frac{\vert (N(u) \cap (V \setminus V_A)) \cup (N(u) \cap V_A) \vert}{\vert N(u) \vert}\\
+     &= \frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} + \frac{\vert N(u) \cap  V_A \vert}{\vert N(u) \vert}\\
+     &< \frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} + q
+   \end{align*}
+   ovvero \(\frac{\vert N(u) \cap (V \setminus V_A) \vert}{\vert N(u) \vert} > 1 - q\), il che significa che \(V \setminus V_A\) è un cluster di densità \(1 - q\).
+   Inoltre dato che \(V_0 \subseteq V_A\) a maggior ragione \(V \setminus V_A\) è contenuto in \(G - V_0\).\\
+
+   Ora bisogna dimostrare l'altro verso della dimostrazione, ovvero che se \(G - V_0\) contiene un cluster di densità \(1-q\) \(C \subseteq V\) allora \(V_0\) non genera una cascata completa di =A=.\\
+   Supponiamo per assurdo che \(V_0\) generi una cascata completa di =A=.
+   Allora certamente prima o poi tutti i nodi di $C$ adotterano lo stato =A=.
+   Sia il tempo $t$ in cui i primi nodi di $C$ adottano =A=, ovvero quel $t$ tale che
+   \[
+   \bigcup_{i = 0}^{t-1} V_i \cap C = \emptyset\\
+   V_t \cap C \neq \emptyset
+   \]
+
+   Definiamo con \(V'\) tutti i nodi che al tempo \(t-1\) si trovano nello stato =A= (e che quindi non sono in $C$), ovvero \(V' \equiv \bigcup_{i = 0}^{t-1} V_i\).\\
+
+   Prendiamo uno dei nodi \(u \in C\) che passano in =A= al tempo $t$, ovvero un \(u \in V_t\).
+   Poiché $C$ è un cluster di densità \(1-q\) avremo che
+   \[
+   \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert} > 1 - q
+   \]
+   e siccome sappiamo che $u$ ha adottato =A= al tempo $t$ è vero che almeno una frazione $q$ dei suoi vicini era nello stato =A=, ovvero
+   \[
+   \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} \geq q
+   \]
+
+   Se le precedenti ipotesi sono vere otterremo che
+   \begin{align*}
+     1 &= \frac{\vert N(u) \vert}{\vert N(u) \vert}\\
+     &\geq \frac{\vert N(u) \cap (V' \cup C) \vert}{\vert N(u) \vert}\\
+     (V' \cap C = \emptyset)  &= \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} + \frac{\vert N(u) \cap C \vert}{\vert N(u) \vert}\\
+     &> q + 1 - q = 1
+   \end{align*}
+   assurdo!\(\square\)
+   #+end_quote
+
+   Ciò che ci dice il precedente teorema è sostanzialmente che la presenza di cluster (con una certa densità) comporta un ostacolo alla diffusione di una innovazione =A=.\\
+   
+   Ricordiamo dalle lezioni precedenti ([[./07.html][Communities - Part 1]] e [[./08.html][Communities - Part 2]]) che generalmente i legami che colleggano due comunità (o cluster) sono dei *legami deboli* (*weak ties*).
+   Infatti la forza dei *weak ties* è basata sull'idea che le connessioni sociali deboli (per esempio con persone che vediamo di rado) spesso formano *bridege edges* in una rete sociale.
+   Pertanto forniscono accesso a fonti di informazioni (per esempio nuove opportunità di lavoro[fn:1]) che risiedono in parti della rete a cui altrimenti non avremmo accesso.\\
+
+   Osserviamo inoltre che c'è una sostanzile differenza tra venire a conoscenza di una nuova idea e il decidere di adottarla.
+   Infatti considerando ancora l'[[fig:img7][esempio 2]], possiamo osservare che i nodi 4 e 9 vengono subito a conoscenza dell'innovazione =A= in quanto entrambi sono vicini di un nodo iniziatore,
+   però attendono più tempo prima di adottarlo.
+   Anche in un contesto sociale reale, sebbene la consapevolezza di una barzelletta o di un video online avanza con una velocità notevole, la mobilitazione politica si muove più lentamente,
+   avendo bisogno di prendere slancio all'interno di comunità.
+   La soglia di adozione $q$ offre una possibile spiegazione: i movimenti sociali tendono ad essere imprese intrinsecamente rischiose, e quindi gli individui tendono a necessitare di soglie più elevate
+   per la partecipazione.\\
+
+   Perciò possiamo concludere che mentre i /weak-ties/ che collegano due comunità differenti sono utilissimi alla diffusione di informazioni, allo stesso tempo sono un punto di debolezza (e quindi di
+   ostacolo) per la diffusione di un'innovazione.\\
+
+* Cluster e Marketing Virale
+** Capacità di Cascata
+
+
+* Modello eterogeneo
+
+* Azioni collettive
+
+* Diffusione in presenza di compatibilità
+
+[fn:1] Esperimento di Granovetter.
