@@ -1,0 +1,142 @@
+#+title: ADRC - Lesson 13
+#+date: <2021-11-18>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+
+* Opportunistics Networks - The Gossip Models
+  In questa sezione vedremo una famiglia di protocolli distribuiti noti come modelli *Gossip*.\\
+  Tali modelli lavorano in un contesto *totalmente sincronizzato*, ovvero dove le comunicazioni sono scandite da un /clock globale/.
+  Il ritmo del clock globale è *discreto*, ed faremo riferimento alle singole unità temporali col termine *time slot*.
+  Infine assumiamo che le reti distribuite sulle quali eseguire questi protocolli sono grafi _non diretti_.\\
+
+  In particolare vedremo due tipologie di protocolli del tutto *equivalenti*, noti col nome di protocolli =PUSH= e =PULL=.\\
+
+** Protocollo =PUSH=
+   Ad ogni time slot \(t = 0, 1, ...\) ogni nodo $u$ sceglie /u.a.r./[fn:1] un suo vicino \(v \in_U N(u)\) e se necessario gli trasmette un messaggio =M=.
+   Entro il termine del time slot $t$ il nodo $v$ riceverà il messagio =M=.
+
+** Protocollo =PULL=
+   In maniera del tutto analoga al protocollo =PUSH= possiamo definire la variante =PULL= nel seguente modo:
+   ad ogni time slot \(t = 0, 1, ...\) ogni nodo $u$ sceglie /u.a.r./[fn:1] un suo vicino \(v \in_U N(u)\), e se $v$ ha un'informazione che $u$ desidera allora $u$ si farà trasmettere un messaggio =M= contenente tale informazione.
+   Entro il termine del time slot $t$ il nodo $v$ riceverà il messagio =M=.
+
+** Proprietà
+   Osserviamo che ad ogni istante $t$ tutte le operazioni di /push/ o /pull/ generano un *grafo diretto delle comunicazioni* \(G_t = (V, E_t)\).
+   Considerando il protocollo =PUSH=, esiste un arco diretto \((u,v) \in E_t\) se $u$ fa un operazione di push su $v$.
+   Analogamente per il protocollo =PULL=, esiste un arco diretto \((v,u) \in E_t\) se $u$ fa un operazione di pull su $v$.
+   Osservare che il grafo \(G_t\) risulta *sparso*, ovvero con $n$ archi, perché ci sarà un arco per ogni operazione di /push/ o /pull/ fatta dai nodi.\\
+
+   Perciò possiamo vedere l'uso di protocolli di tipo =PUSH= o =PULL= come una sequenza di grafi diretti di comunicazione \(\lbrace G_t = (V,E_t) \rbrace_{t \geq 0}\).\\
+
+* Broadcast on Clique with =PULL= Protocol
+  Consideriamo il solito problema del /broadcasting/ a singola sorgente $s$ su una clique \(K_n\).
+  Definiamo dei protocolli probabilistici di tipo =PULL= che risolvono il task del broadcasting.
+
+** Trivial Protocol
+   Un protocollo banale è il seguente:
+   - ogni nodo, eccetto la sorgente $s$, inizia il protocollo nello stato =NOT-INFORMED=.
+   - ad ogni tempo \(t = 0, 1, ...\) ogni nodo \(v \neq s\) nello stato =NOT-INFORMED= fa una operazione di /pull/ su un altro nodo $u$ uniformemente a caso.
+     - se \(u \equiv s\) allora $v$ si fa inviare una copia del messaggio =M= ed entra nello stato =INFORMED=.
+   - il protocollo termina globalmente quando tutti i nodi avranno ricevuto una copia del messaggio =M=.
+   Analiziamo ora l'efficienza di tale protocollo.\\
+
+   Ciò che vogliamo sapere è in media quanto tempo ci mette un nodo $u$ a /fare pull/ sulla sorgente $s$.
+   Sia la variabile aleatoria \(X^{(time)}_u\) che indica entro quanto tempo $u$ diventa informato.
+   Abbiamo che tale v.a. è una variabile *geometrica* di parametro \(p = \frac{1}{n-1}\), ovvero
+   \begin{align*}
+     \mathcal{P}(X^{(time)}_u = 1) &= \mathcal{P}(u \mbox{ pulls } s) = \frac{1}{n-1}\\
+     \mathcal{P}(X^{(time)}_u = 2) &= (1 - \mathcal{P}(u \mbox{ pulls } s)) \cdot \mathcal{P}(u \mbox{ pulls } s) = \left(1 - \frac{1}{n-1}\right)\frac{1}{n-1}\\
+     \mathcal{P}(X^{(time)}_u = 3) &= (1 - \mathcal{P}(u \mbox{ pulls } s))^2 \cdot \mathcal{P}(u \mbox{ pulls } s) = \left(1 - \frac{1}{n-1}\right)^2\frac{1}{n-1}\\
+     &\vdots\\
+     \mathcal{P}(X^{(time)}_u = k) &= \left(1 - \frac{1}{n-1}\right)^{k-1}\frac{1}{n-1}\\
+   \end{align*}
+   con media
+   \[
+   \mathbb{E}\left[ X^{(time)}_u \right] = \frac{1}{p} = n - 1
+   \]
+   perciò _in media_ dopo \(n-1\) time slot tutti i nodi verranno informati.\\
+
+** Better Protocol
+   Un protocollo migliore del precedente è il seguente:
+   - inizialmente la sorgente $s$ è nello stato =INFORMED=, mentre il resto dei nodi parte dallo stato =NOT-INFORMED=.
+   - ad ogni tempo \(t = 0, 1, ...\) ogni nodo $v$ =NOT-INFORMED= fa una operazione di /pull/ su un altro nodo $u$ uniformemente a caso.
+     - se $u$ è un nodo =INFORMED=, allora $v$ si fa inviare una copia del messaggio =M= ed entra nello stato =INFORMED=.
+   - il protocollo termina globalmente quando tutti i nodi entrano nello stato =INFORMED=.
+   Analiziamo ora l'efficienza di tale protocollo, e perché è migliore del precedente, tramite il seguente teorema.
+   Riferiamoci a tale protocollo con al sigla =BPP= (/broadcast pull protocoll/).
+
+*** THM
+    il protocollo =BPP= termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n}\)\) *w.h.p.*\\
+
+*** Proof
+    Fissiamo un time slot \(t \geq 0\), e definiamo l'insieme
+    \begin{align*}
+      I_0 &\equiv \lbrace s \rbrace\\
+      I_t &\equiv \lbrace v \in V \vert v \mbox{ is informed at time } t \rbrace
+    \end{align*}
+
+    La dimostrazione di suddividerà in due fasi:
+    - *Fase 1* in cui si dimostrerà che /w.h.p./ il numero di nodi =INFORMED= \(\vert I_t \vert\) cresce in maniera *esponenziale* fino a \(\frac{n}{2}\).
+    - *Fase 2* in cui si dimostrerà che /w.h.p./ il numero di nodi restanti =NOT-INFORMED= decresce in maniera *esponenziale*.
+    Così facendo verrà dimostrato che in tempo logaritmico il protocollo terminerà il suo task /w.h.p./\\
+ 
+**** *Fase 1*
+     Sia \(t_{max} = \max{\lbrace t \geq 0 \vert m_t \leq \frac{n}{2} \rbrace}\).
+     Fissato un tempo \(0 \leq t \leq t_{max}\), definiamo la v.a. binaria \(Y_u\) che indica la probabilità che un nodo =NOT-INFORMED= diventa =INFORMED= al tempo \(t+1\).
+     \[
+     Y_v = \begin{cases}
+     1 &\mbox{if } v \mbox{ get informed at time } t+1\\
+     0 &\mbox{otherwise}
+     \end{cases}
+     \;\; \forall v \in V \setminus I_t
+     \]
+   
+     Sia \(\vert I_t \vert = m_t\), allora dato che ogni nodo fa /pull/ in maniera _uniformemente a caso_ avremo che
+     \[
+     \mathcal{P}(Y_v = 1 \vert I_t = m_t) = \frac{m_t}{n-1} \approx \frac{m_t}{n}\\
+     \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = \frac{m_t}{n} \leq \frac{m_{t_{max}}}{n} \leq \frac{1}{2}
+     \]
+
+     Definiamo ora l'insieme \(I^\star\) l'insieme dei soli _nuovi_ nodi informati al tempo \(t + 1\), ovvero tale che
+     \[
+     I_{t+1} = I_t \cup I^\star
+     \]
+     Poiché \(I_t\) e \(I^\star\) sono _disgiunti_ avremo che \(\vert I_{t+1} \vert = \vert I_t \vert + \vert I^\star \vert\).\\
+
+     Osserviamo che \(\vert I^\star \vert\) è una variabile aleatoria composta dalla somma delle v.a. \(Y_v\), per ogni \(v \in V \setminus I_t\).
+     Per /linearità/ del valor medio avremo che
+     \[
+     \mathbb{E}\left[ \vert I^\star \vert \right] = \sum_{v \in V \setminus I_t} \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = (n - m_t) \frac{m_t}{n} \geq \frac{n}{2} \frac{m_t}{n} = \frac{m_t}{2}
+     \]
+
+     Avremo quindi che l'insieme dei nodi informati cresce come
+     \[
+     \mathbb{E}\left[ \vert I_{t+1} \vert \; | \; \vert I_t \vert = m_t  \right] = m_t + \mathbb{E}\left[ \vert I^\star \vert \right] \geq m_t + \frac{m_t}{2} = \frac{3}{2}m_t
+     \]
+
+     Abbiamo ottenuto quindi una relazione ricorsiva chedice che il numero di nodi informati al tempo \(t + 1\) cresce di un fattore costante rispetto al tempo $t$ (finché \(m_t \leq m/2\)).
+     Perciò "srotolando" l'equazione avremo
+     \[
+     m_t \geq \frac{3}{2}m_{t-1} \geq \left( \frac{3}{2} \right)^2 m_{t-2} \geq ... \geq \left( \frac{3}{2} \right)^t
+     \]
+
+     Sia ora il tempo \(\tau = \min{\lbrace t \geq 1 \vert m_t > \frac{n}{2} \rbrace}\) il primo istante in cui il numero di nodi =INFORMED= supera la metà dei nodi.
+     Secondo l'equazione di ricorrenza precedente, avremo che
+     \[
+     \tau \approx \log_{\frac{3}{2}}{\left( \frac{n}{2} \right)} \in \Theta(\log{n})
+     \]
+     ovvero in tempo /logaritmico/ almeno la metà dei nodi verrà informata.\\
+
+     Purtroppo abbiamo solo dimostrato ciò che accade *in media*, ovvero abbiamo fatto un'analisi *mean field*.
+     Il teorema richiede invece l'alta probabilità.\\
+     
+     Per dimostrare l'alta probabilità suddividiamo la fase 1 in alrte due sottofasi, in cui verrà dimostrato l'alta probabilità della prima fase suddividendo \(1 \leq m_t \leq \alpha\log{n}\) ed \(m_t > \alpha\log{n}\) (per qualche valore di \(\alpha\)).
+
+***** *Sottofase 1.1*
+      per ogni \(\alpha > 0\) esiste un \(\gamma = \gamma(\alpha)\) sufficientemente grande tale che dopo i primi \(\tau_1 = \gamma\log{n}\) time slots, avremo almeno \(m_{\tau_1} \geq \alpha\log{n}\) nodi =INFORMED=, *w.h.p.*\\
+      *[DA FINIRE]*
+
+
+[fn:1] uniformemente a caso.

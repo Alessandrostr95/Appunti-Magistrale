@@ -1,0 +1,70 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/alessandro/Repository/Appunti-Magistrale/org/ADRC/13.org
+
+
+* Better Protocoll
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-12-02 gio 23:29
+  :ARCHIVE_FILE: ~/Repository/Appunti-Magistrale/org/ADRC/13.org
+  :ARCHIVE_OLPATH: Broadcast on Clique with =PULL= Protocol
+  :ARCHIVE_CATEGORY: 13
+  :END:
+  Un protocollo migliore del precedente è il seguente:
+  - inizialmente la sorgente $s$ è nello stato =INFORMED=, mentre il resto dei nodi parte dallo stato =NOT-INFORMED=.
+  - ad ogni tempo \(t = 0, 1, ...\) ogni nodo $v$ =NOT-INFORMED= fa una operazione di /pull/ su un altro nodo $u$ uniformemente a caso.
+    - se $u$ è un nodo =INFORMED=, allora $v$ si fa inviare una copia del messaggio =M= ed entra nello stato =INFORMED=.
+  - il protocollo termina globalmente quando tutti i nodi entrano nello stato =INFORMED=.
+  Analiziamo ora l'efficienza di tale protocollo, e perché è migliore del precedente, tramite il seguente teorema.
+  Riferiamoci a tale protocollo con al sigla =BPP= (/broadcast pull protocoll/).
+
+  #+begin_quote
+  *THM*
+  il protocollo =BPP= termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n}\)\) *w.h.p.*\\
+
+  *Proof*
+  Fissiamo un time slot \(t \geq 0\), e definiamo l'insieme
+  \begin{align*}
+    I_0 &\equiv \lbrace s \rbrace\\
+    I_t &\equiv \lbrace v \in V \vert v \mbox{ is informed at time } t \rbrace
+  \end{align*}
+
+  La dimostrazione di suddividerà in due fasi:
+  - *Fase 1* in cui si dimostrerà che /w.h.p./ il numero di nodi =INFORMED= \(\vert I_t \vert\) cresce in maniera *esponenziale* fino a \(\frac{n}{2}\).
+  - *Fase 2* in cui si dimostrerà che /w.h.p./ il numero di nodi restanti =NOT-INFORMED= decresce in maniera *esponenziale*.
+  Così facendo verrà dimostrato che in tempo logaritmico il protocollo terminerà il suo task /w.h.p./\\
+
+  *Fase 1*\\
+  Sia \(\tau = \max{\lbrace t \geq 0 \vert m_{\tau} \leq \frac{n}{2} \rbrace}\).
+  Fissato un tempo \(0 \leq t \leq \tau\), definiamo la v.a. binaria \(Y_u\) che indica la probabilità che un nodo =NOT-INFORMED= diventa =INFORMED= al tempo \(t+1\).
+  \[
+  Y_v = \begin{cases}
+        1 &\mbox{if } v \mbox{ get informed at time } t+1\\
+	0 &\mbox{otherwise}
+        \end{cases}
+	\;\; \forall v \in V \setminus I_t
+  \]
+   
+  Sia \(\vert I_t \vert = m_t\), allora dato che ogni nodo fa /pull/ in maniera _uniformemente a caso_ avremo che
+  \[
+    \mathcal{P}(Y_v = 1 \vert I_t = m_t) = \frac{m_t}{n-1} \approx \frac{m_t}{n}\\
+    \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = \frac{m_t}{n} \leq \frac{m_{\tau}}{n} \leq \frac{1}{2}
+  \]
+
+  Definiamo ora l'insieme \(I^\star\) l'insieme dei soli _nuovi_ nodi informati al tempo \(t + 1\), ovvero tale che
+  \[
+  I_{t+1} = I_t \cup I^\star
+  \]
+  Poiché \(I_t\) e \(I^\star\) sono _disgiunti_ avremo che \(\vert I_{t+1} \vert = \vert I_t \vert + \vert I^\star \vert\).\\
+
+  Osserviamo che \(\vert I^\star \vert\) è una variabile aleatoria composta dalla somma delle v.a. \(Y_v\), per ogni \(v \in V \setminus I_t\).
+  Per /linearità/ del valor medio avremo che
+  \[
+     \mathbb{E}\left[ \vert I^\star \vert \right] = \sum_{v \in V \setminus I_t} \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = (n - m_t) \frac{m_t}{n} \geq \frac{n}{2} \frac{m_t}{n} = \frac{m_t}{2}
+  \]
+  #+end_quote
+
+   
+
+[fn:1] uniformemente a caso.

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-12-03 ven 00:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 13</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 13</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org7ee9ab3">Opportunistics Networks - The Gossip Models</a>
+<ul>
+<li><a href="#org433f223">Protocollo <code>PUSH</code></a></li>
+<li><a href="#orgcecbb79">Protocollo <code>PULL</code></a></li>
+<li><a href="#org6c8ab4f">Proprietà</a></li>
+</ul>
+</li>
+<li><a href="#org20a2393">Broadcast on Clique with <code>PULL</code> Protocol</a>
+<ul>
+<li><a href="#org1c222b4">Trivial Protocol</a></li>
+<li><a href="#org86e4789">Better Protocol</a>
+<ul>
+<li><a href="#orge1ead70">THM</a></li>
+<li><a href="#org2354dda">Proof</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org7ee9ab3" class="outline-2">
+<h2 id="org7ee9ab3">Opportunistics Networks - The Gossip Models</h2>
+<div class="outline-text-2" id="text-org7ee9ab3">
+<p>
+In questa sezione vedremo una famiglia di protocolli distribuiti noti come modelli <b>Gossip</b>.<br />
+Tali modelli lavorano in un contesto <b>totalmente sincronizzato</b>, ovvero dove le comunicazioni sono scandite da un <i>clock globale</i>.
+Il ritmo del clock globale è <b>discreto</b>, ed faremo riferimento alle singole unità temporali col termine <b>time slot</b>.
+Infine assumiamo che le reti distribuite sulle quali eseguire questi protocolli sono grafi <span class="underline">non diretti</span>.<br />
+</p>
+
+<p>
+In particolare vedremo due tipologie di protocolli del tutto <b>equivalenti</b>, noti col nome di protocolli <code>PUSH</code> e <code>PULL</code>.<br />
+</p>
+</div>
+
+<div id="outline-container-org433f223" class="outline-3">
+<h3 id="org433f223">Protocollo <code>PUSH</code></h3>
+<div class="outline-text-3" id="text-org433f223">
+<p>
+Ad ogni time slot \(t = 0, 1, ...\) ogni nodo \(u\) sceglie <i>u.a.r.</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> un suo vicino \(v \in_U N(u)\) e se necessario gli trasmette un messaggio <code>M</code>.
+Entro il termine del time slot \(t\) il nodo \(v\) riceverà il messagio <code>M</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcecbb79" class="outline-3">
+<h3 id="orgcecbb79">Protocollo <code>PULL</code></h3>
+<div class="outline-text-3" id="text-orgcecbb79">
+<p>
+In maniera del tutto analoga al protocollo <code>PUSH</code> possiamo definire la variante <code>PULL</code> nel seguente modo:
+ad ogni time slot \(t = 0, 1, ...\) ogni nodo \(u\) sceglie <i>u.a.r.</i><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup> un suo vicino \(v \in_U N(u)\), e se \(v\) ha un'informazione che \(u\) desidera allora \(u\) si farà trasmettere un messaggio <code>M</code> contenente tale informazione.
+Entro il termine del time slot \(t\) il nodo \(v\) riceverà il messagio <code>M</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c8ab4f" class="outline-3">
+<h3 id="org6c8ab4f">Proprietà</h3>
+<div class="outline-text-3" id="text-org6c8ab4f">
+<p>
+Osserviamo che ad ogni istante \(t\) tutte le operazioni di <i>push</i> o <i>pull</i> generano un <b>grafo diretto delle comunicazioni</b> \(G_t = (V, E_t)\).
+Considerando il protocollo <code>PUSH</code>, esiste un arco diretto \((u,v) \in E_t\) se \(u\) fa un operazione di push su \(v\).
+Analogamente per il protocollo <code>PULL</code>, esiste un arco diretto \((v,u) \in E_t\) se \(u\) fa un operazione di pull su \(v\).
+Osservare che il grafo \(G_t\) risulta <b>sparso</b>, ovvero con \(n\) archi, perché ci sarà un arco per ogni operazione di <i>push</i> o <i>pull</i> fatta dai nodi.<br />
+</p>
+
+<p>
+Perciò possiamo vedere l'uso di protocolli di tipo <code>PUSH</code> o <code>PULL</code> come una sequenza di grafi diretti di comunicazione \(\lbrace G_t = (V,E_t) \rbrace_{t \geq 0}\).<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org20a2393" class="outline-2">
+<h2 id="org20a2393">Broadcast on Clique with <code>PULL</code> Protocol</h2>
+<div class="outline-text-2" id="text-org20a2393">
+<p>
+Consideriamo il solito problema del <i>broadcasting</i> a singola sorgente \(s\) su una clique \(K_n\).
+Definiamo dei protocolli probabilistici di tipo <code>PULL</code> che risolvono il task del broadcasting.
+</p>
+</div>
+
+<div id="outline-container-org1c222b4" class="outline-3">
+<h3 id="org1c222b4">Trivial Protocol</h3>
+<div class="outline-text-3" id="text-org1c222b4">
+<p>
+Un protocollo banale è il seguente:
+</p>
+<ul class="org-ul">
+<li>ogni nodo, eccetto la sorgente \(s\), inizia il protocollo nello stato <code>NOT-INFORMED</code>.</li>
+<li>ad ogni tempo \(t = 0, 1, ...\) ogni nodo \(v \neq s\) nello stato <code>NOT-INFORMED</code> fa una operazione di <i>pull</i> su un altro nodo \(u\) uniformemente a caso.
+<ul class="org-ul">
+<li>se \(u \equiv s\) allora \(v\) si fa inviare una copia del messaggio <code>M</code> ed entra nello stato <code>INFORMED</code>.</li>
+</ul></li>
+<li>il protocollo termina globalmente quando tutti i nodi avranno ricevuto una copia del messaggio <code>M</code>.</li>
+</ul>
+<p>
+Analiziamo ora l'efficienza di tale protocollo.<br />
+</p>
+
+<p>
+Ciò che vogliamo sapere è in media quanto tempo ci mette un nodo \(u\) a <i>fare pull</i> sulla sorgente \(s\).
+Sia la variabile aleatoria \(X^{(time)}_u\) che indica entro quanto tempo \(u\) diventa informato.
+Abbiamo che tale v.a. è una variabile <b>geometrica</b> di parametro \(p = \frac{1}{n-1}\), ovvero
+</p>
+\begin{align*}
+  \mathcal{P}(X^{(time)}_u = 1) &= \mathcal{P}(u \mbox{ pulls } s) = \frac{1}{n-1}\\
+  \mathcal{P}(X^{(time)}_u = 2) &= (1 - \mathcal{P}(u \mbox{ pulls } s)) \cdot \mathcal{P}(u \mbox{ pulls } s) = \left(1 - \frac{1}{n-1}\right)\frac{1}{n-1}\\
+  \mathcal{P}(X^{(time)}_u = 3) &= (1 - \mathcal{P}(u \mbox{ pulls } s))^2 \cdot \mathcal{P}(u \mbox{ pulls } s) = \left(1 - \frac{1}{n-1}\right)^2\frac{1}{n-1}\\
+  &\vdots\\
+  \mathcal{P}(X^{(time)}_u = k) &= \left(1 - \frac{1}{n-1}\right)^{k-1}\frac{1}{n-1}\\
+\end{align*}
+<p>
+con media
+\[
+   \mathbb{E}\left[ X^{(time)}_u \right] = \frac{1}{p} = n - 1
+   \]
+perciò <span class="underline">in media</span> dopo \(n-1\) time slot tutti i nodi verranno informati.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org86e4789" class="outline-3">
+<h3 id="org86e4789">Better Protocol</h3>
+<div class="outline-text-3" id="text-org86e4789">
+<p>
+Un protocollo migliore del precedente è il seguente:
+</p>
+<ul class="org-ul">
+<li>inizialmente la sorgente \(s\) è nello stato <code>INFORMED</code>, mentre il resto dei nodi parte dallo stato <code>NOT-INFORMED</code>.</li>
+<li>ad ogni tempo \(t = 0, 1, ...\) ogni nodo \(v\) <code>NOT-INFORMED</code> fa una operazione di <i>pull</i> su un altro nodo \(u\) uniformemente a caso.
+<ul class="org-ul">
+<li>se \(u\) è un nodo <code>INFORMED</code>, allora \(v\) si fa inviare una copia del messaggio <code>M</code> ed entra nello stato <code>INFORMED</code>.</li>
+</ul></li>
+<li>il protocollo termina globalmente quando tutti i nodi entrano nello stato <code>INFORMED</code>.</li>
+</ul>
+<p>
+Analiziamo ora l'efficienza di tale protocollo, e perché è migliore del precedente, tramite il seguente teorema.
+Riferiamoci a tale protocollo con al sigla <code>BPP</code> (<i>broadcast pull protocoll</i>).
+</p>
+</div>
+
+<div id="outline-container-orge1ead70" class="outline-4">
+<h4 id="orge1ead70">THM</h4>
+<div class="outline-text-4" id="text-orge1ead70">
+<p>
+il protocollo <code>BPP</code> termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n}\)\) <b>w.h.p.</b><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2354dda" class="outline-4">
+<h4 id="org2354dda">Proof</h4>
+<div class="outline-text-4" id="text-org2354dda">
+<p>
+Fissiamo un time slot \(t \geq 0\), e definiamo l'insieme
+</p>
+\begin{align*}
+  I_0 &\equiv \lbrace s \rbrace\\
+  I_t &\equiv \lbrace v \in V \vert v \mbox{ is informed at time } t \rbrace
+\end{align*}
+
+<p>
+La dimostrazione di suddividerà in due fasi:
+</p>
+<ul class="org-ul">
+<li><b>Fase 1</b> in cui si dimostrerà che <i>w.h.p.</i> il numero di nodi <code>INFORMED</code> \(\vert I_t \vert\) cresce in maniera <b>esponenziale</b> fino a \(\frac{n}{2}\).</li>
+<li><b>Fase 2</b> in cui si dimostrerà che <i>w.h.p.</i> il numero di nodi restanti <code>NOT-INFORMED</code> decresce in maniera <b>esponenziale</b>.</li>
+</ul>
+<p>
+Così facendo verrà dimostrato che in tempo logaritmico il protocollo terminerà il suo task <i>w.h.p.</i><br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgab4dfdf"></a><b>Fase 1</b><br />
+<div class="outline-text-5" id="text-orgab4dfdf">
+<p>
+Sia \(t_{max} = \max{\lbrace t \geq 0 \vert m_t \leq \frac{n}{2} \rbrace}\).
+Fissato un tempo \(0 \leq t \leq t_{max}\), definiamo la v.a. binaria \(Y_u\) che indica la probabilità che un nodo <code>NOT-INFORMED</code> diventa <code>INFORMED</code> al tempo \(t+1\).
+\[
+     Y_v = \begin{cases}
+     1 &\mbox{if } v \mbox{ get informed at time } t+1\\
+     0 &\mbox{otherwise}
+     \end{cases}
+     \;\; \forall v \in V \setminus I_t
+     \]
+</p>
+
+<p>
+Sia \(\vert I_t \vert = m_t\), allora dato che ogni nodo fa <i>pull</i> in maniera <span class="underline">uniformemente a caso</span> avremo che
+\[
+     \mathcal{P}(Y_v = 1 \vert I_t = m_t) = \frac{m_t}{n-1} \approx \frac{m_t}{n}\\
+     \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = \frac{m_t}{n} \leq \frac{m_{t_{max}}}{n} \leq \frac{1}{2}
+     \]
+</p>
+
+<p>
+Definiamo ora l'insieme \(I^\star\) l'insieme dei soli <span class="underline">nuovi</span> nodi informati al tempo \(t + 1\), ovvero tale che
+\[
+     I_{t+1} = I_t \cup I^\star
+     \]
+Poiché \(I_t\) e \(I^\star\) sono <span class="underline">disgiunti</span> avremo che \(\vert I_{t+1} \vert = \vert I_t \vert + \vert I^\star \vert\).<br />
+</p>
+
+<p>
+Osserviamo che \(\vert I^\star \vert\) è una variabile aleatoria composta dalla somma delle v.a. \(Y_v\), per ogni \(v \in V \setminus I_t\).
+Per <i>linearità</i> del valor medio avremo che
+\[
+     \mathbb{E}\left[ \vert I^\star \vert \right] = \sum_{v \in V \setminus I_t} \mathbb{E}\left[ Y_v \vert I_t = m_t \right] = (n - m_t) \frac{m_t}{n} \geq \frac{n}{2} \frac{m_t}{n} = \frac{m_t}{2}
+     \]
+</p>
+
+<p>
+Avremo quindi che l'insieme dei nodi informati cresce come
+\[
+     \mathbb{E}\left[ \vert I_{t+1} \vert \; | \; \vert I_t \vert = m_t  \right] = m_t + \mathbb{E}\left[ \vert I^\star \vert \right] \geq m_t + \frac{m_t}{2} = \frac{3}{2}m_t
+     \]
+</p>
+
+<p>
+Abbiamo ottenuto quindi una relazione ricorsiva chedice che il numero di nodi informati al tempo \(t + 1\) cresce di un fattore costante rispetto al tempo \(t\) (finché \(m_t \leq m/2\)).
+Perciò "srotolando" l'equazione avremo
+\[
+     m_t \geq \frac{3}{2}m_{t-1} \geq \left( \frac{3}{2} \right)^2 m_{t-2} \geq ... \geq \left( \frac{3}{2} \right)^t
+     \]
+</p>
+
+<p>
+Sia ora il tempo \(\tau = \min{\lbrace t \geq 1 \vert m_t > \frac{n}{2} \rbrace}\) il primo istante in cui il numero di nodi <code>INFORMED</code> supera la metà dei nodi.
+Secondo l'equazione di ricorrenza precedente, avremo che
+\[
+     \tau \approx \log_{\frac{3}{2}}{\left( \frac{n}{2} \right)} \in \Theta(\log{n})
+     \]
+ovvero in tempo <i>logaritmico</i> almeno la metà dei nodi verrà informata.<br />
+</p>
+
+<p>
+Purtroppo abbiamo solo dimostrato ciò che accade <b>in media</b>, ovvero abbiamo fatto un'analisi <b>mean field</b>.
+Il teorema richiede invece l'alta probabilità.<br />
+</p>
+
+<p>
+Per dimostrare l'alta probabilità suddividiamo la fase 1 in alrte due sottofasi, in cui verrà dimostrato l'alta probabilità della prima fase suddividendo \(1 \leq m_t \leq \alpha\log{n}\) ed \(m_t > \alpha\log{n}\) (per qualche valore di \(\alpha\)).
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orga07fbc4"></a><b>Sottofase 1.1</b><br />
+<div class="outline-text-6" id="text-orga07fbc4">
+<p>
+per ogni \(\alpha > 0\) esiste un \(\gamma = \gamma(\alpha)\) sufficientemente grande tale che dopo i primi \(\tau_1 = \gamma\log{n}\) time slots, avremo almeno \(m_{\tau_1} \geq \alpha\log{n}\) nodi <code>INFORMED</code>, <b>w.h.p.</b><br />
+<b>[DA FINIRE]</b>
+</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+uniformemente a caso.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-11-18 gio 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-12-03 ven 00:33</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
