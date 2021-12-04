@@ -1,0 +1,52 @@
+#+title: ADRC - Lesson 14
+#+date: <2021-11-23>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Expanders
+  Generalmente si fanno studi /epidemici/ su modelli *modelli omogenei*, ovvero modelli in cui ogni individuo può entrare in contatto con un altro in maniera *omogenea*, ovvero *uniformemente a caso*.
+  Questi modelli in realtà non sono per niente realistici, in quanto il grafo delle relazioni è una clique.\\
+  
+  In un contesto reale invece, il grafo delle relazioni che ci sono tra gli individui è molto più sparso di una clicque.
+  Perciò quello che ci si può chiedere, esistono modelli di grafi più sparsi che però _non_ impediscono le diffusioni?
+  In termini più precisi, esistono modelli di grafo con densità \(o(n^2)\) nei quali però il broadcasting di un'informazione o la diffusione di un'infezione tramite protocolli di gossip termina in tempo \(\Theta(\texttt{POLY}(\log{n}))\)?
+
+  Una caratteristica necessaria che un grafo di questo tipo dovrebbe avere è un *perimetro basso*, perché in un grafo con perimetro massimo (ovvero \(n - 1\)) non c'è modo di diffondere un'formazione in tempo poli-logaritmico.
+  Ancora, dovrebbe avere una buona connettività tra i nodi, ovvero una *fault-tollertant*[fn:1].
+  Descriviamo quindi una famiglia di grafi che hanno tali caratteristiche.
+
+  #+begin_quote
+  *Def (node-expansion)*
+  Dato un grafo \(G=(V,E)\) \(\Delta\)-regolare, ovvero con grado massimo \(\Delta\), per ogni sottoinsieme \(S \subset V\) la sua /node-expansion/ è definita come
+  \[
+  \vert N(S) \vert \;\; where \;\; N(S) \equiv \lbrace v \in V \setminus S \vert (u,v) \in E \land u \in S \rbrace
+  \]
+  #+end_quote
+
+  #+begin_quote
+  *Def (\(\alpha\)-expander)*
+  Per ogni costante fissata \(\alpha \geq 0\), diremo che un grafo $G$ è un \(\alpha\)-expander se ogni sottoinsieme \(S \subset V\) t.c \(\vert S \vert \leq \frac{n}{2}\),
+  ha espansione _almeno_ \(\vert N(S) \vert \geq \min{\lbrace n, \alpha \vert S \vert \rbrace}\).
+  #+end_quote
+
+  L'interesse nei \(\Omega(1)\)-expanders è motivato del seguente teorema
+
+  #+begin_quote
+  *THM*
+  Consideriamo la famiglia infinita di grafi al crescere della loro dimensione
+  \[
+  \lbrace G_n = (V_n, E_n) \vert V = \left[ n \right] \land n \geq 1 \rbrace
+  \]
+  Se esiste una costante assoluta \(\alpha > 0\) tale che, per $n$ sufficiente grande, ogni grafo \(G_n\) è un \(\alpha\)-expander, allora il diametro di \(G_n\) è \(O(\log{n})\).\\
+
+  Inoltre, sotto le stesse assunzioni, per disconnettere totalmente ogni sottoinsieme \(S \subset V_n\), con \(\vert S \vert \leq \frac{n}{2}\), bisogna rimuovere un numero _lineare_ di archi.
+  #+end_quote
+
+  #+begin_quote
+  *Proof* ...
+  #+end_quote
+
+  
+[fn:1] Anche togliere alcuni archi non compromette la connettività delle parti.
+  
