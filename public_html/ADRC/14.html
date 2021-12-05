@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-04 sab 19:21 -->
+<!-- 2021-12-05 dom 16:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 14</title>
@@ -274,14 +274,23 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdca886f">Expanders</a></li>
+<li><a href="#orgdca886f">1. Expanders</a>
+<ul>
+<li><a href="#org16507a5">1.1. The Existence of Sparse Expanders</a></li>
+</ul>
+</li>
+<li><a href="#org036bbc7">2. The PULL Protocol over ∆-regular expanders</a>
+<ul>
+<li><a href="#orga3579ed">2.1. Analisi Mean-Field</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-orgdca886f" class="outline-2">
-<h2 id="orgdca886f">Expanders</h2>
-<div class="outline-text-2" id="text-orgdca886f">
+<h2 id="orgdca886f"><span class="section-number-2">1</span> Expanders</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 Generalmente si fanno studi <i>epidemici</i> su modelli <b>modelli omogenei</b>, ovvero modelli in cui ogni individuo può entrare in contatto con un altro in maniera <b>omogenea</b>, ovvero <b>uniformemente a caso</b>.
 Questi modelli in realtà non sono per niente realistici, in quanto il grafo delle relazioni è una clique.<br />
@@ -321,7 +330,7 @@ ha espansione <span class="underline">almeno</span> \(\vert N(S) \vert \geq \min
 L'interesse nei \(\Omega(1)\)-expanders è motivato del seguente teorema
 </p>
 
-<blockquote>
+<blockquote id="thm:thm1">
 <p>
 <b>THM</b>
 Consideriamo la famiglia infinita di grafi al crescere della loro dimensione
@@ -332,15 +341,204 @@ Se esiste una costante assoluta \(\alpha > 0\) tale che, per \(n\) sufficiente g
 </p>
 
 <p>
-Inoltre, sotto le stesse assunzioni, per disconnettere totalmente ogni sottoinsieme \(S \subset V_n\), con \(\vert S \vert \leq \frac{n}{2}\), bisogna rimuovere un numero <span class="underline">lineare</span> di archi.
+Inoltre, sotto le stesse assunzioni, per disconnettere totalmente ogni sottoinsieme \(S \subset V_n\), con \(\vert S \vert \leq \frac{n}{2}\), bisogna rimuovere un numero <span class="underline">lineare</span> in \(\vert S \vert\) di archi.
 </p>
 </blockquote>
 
 <blockquote>
 <p>
-<b>Proof</b> &#x2026;
+<b>Proof</b> per dimostrare il primo enunciato verrà fatta una visita <code>BFS</code> in ampiezza.
+Consideriamo una qualsiasi sorgente \(s \in V\), ed applichiamo la visita in ampiezza su \(s\) che però si ferma non appena visita più di \(\frac{n}{2}\).
+Più precisamente, sia \(L_t\) l'insieme dei nodi al livello \(t \geq 0\) dell'albero <code>BFS</code> risultante, e sia \(I_t = \bigcup_{i=0}^{t} L_i\) l'insieme di tutti i nodi che appartengono ad un livello al più \(t\),
+la visita <code>BFS</code> si fermerà quando si arriverà ad un livello \(L_\tau\) tale che
+\[
+  \tau = \min{\lbrace t \geq 1 : \vert I_t \vert > \frac{n}{2} \rbrace}
+  \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson14-img1.png" alt="adrc-lesson14-img1.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Risultato della visita <code>BFS</code> a metà.</p>
+</div>
+
+<p>
+Quello che ci interessa dimostrare è che \(\vert I_t \vert\) cresce in maniera esponenziale.<br />
+</p>
+
+<p>
+Per prima cosa vediamo come cresce \(\vert L_t \vert\) in funzione di \(\vert I_{t-1} \vert\).
+Per \(t = 1\) avremo che
+\[
+  L_1 = N(s) \implies \vert L_1 \vert \geq 1
+  \]
+</p>
+
+<p>
+Osservando che
+\[
+  L_t = N(I_{t-1})
+  \]
+possiamo definire la relazione più generale
+\[
+  \vert I_t \vert = \vert I_{t-1} \vert + \vert L_t \vert = \vert I_{t-1} \vert + \vert N(I_{t-1}) \vert \geq \vert I_{t-1} \vert + \alpha \vert I_{t-1} \vert = (1 + \alpha)\vert I_{t-1} \vert
+  \]
+</p>
+
+<p>
+"Srotolando" questa relazione avremo che
+\[
+  \vert I_t \vert \geq (1 + \alpha)\vert I_{t-1} \vert \geq (1 + \alpha)^2\vert I_{t-2} \vert \geq ... \geq (1 + \alpha)^{t-1}\vert I_1 \vert \geq (1 + \alpha)^{t-1}
+  \]
+</p>
+
+<p>
+Infine ponendo \(\tau \approx \log_{(1+\alpha)}{\left(\frac{n}{2}\right)} \in \Theta(\log{n})\), otterremo che \(\vert I_\tau \vert > \frac{n}{2}\).
+Ciò implica che il numero di nodi a distanza \(\tau\) da \(s\) sono <span class="underline">almeno</span> \(\frac{n}{2}\).<br />
+</p>
+
+<p>
+Consideriamo ora un altro nodo \(w \in V \setminus I_\tau\) e ripetiamo lo stesso tipo di visita <code>BFS</code> partendo da \(w\).
+Grazie ancora al fatto che \(G\) è un \(\alpha\)-expander, avremo che dopo \(\tau' \in \Theta(\log{n})\) livello dell'albero <code>BFS</code> \(w\) può raggiungere almeno \(\frac{n}{2}\) con distanze logaritmiche.
+Dato che entrambe le visite, quella che parte da \(s\) e quella che parte da \(w\), raggiungono almeno la metà dei nodi, avremo che i due almberi <code>BFS</code> si intersecano.
+Perciò avremo che \(s\) e \(w\) sono distanti <span class="underline">al più</span> \(\tau + \tau' \in \Theta(\log{n})\), implicando così che il grafo \(G\) \(\alpha\)-expander ha diametro <b>logaritmico</b> (per un \(n\) sufficientemente grande).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson14-img2.png" alt="adrc-lesson14-img2.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Le due visite <code>BFS</code> che si incrociano.</p>
+</div>
+
+<p>
+Infine per dimostrare la robustezza di \(G\) basta offervare che dato che ogni \(S\) in questione ha una \(\alpha\)-espansione, perciò per disconnettere \(S\) bisogna rimuovere \(\Omega(\alpha \vert S \vert )\) archi \(\square\).
 </p>
 </blockquote>
+</div>
+
+<div id="outline-container-org16507a5" class="outline-3">
+<h3 id="org16507a5"><span class="section-number-3">1.1</span> The Existence of Sparse Expanders</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+<b>[da approfondire &#x2026;]</b>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org036bbc7" class="outline-2">
+<h2 id="org036bbc7"><span class="section-number-2">2</span> The PULL Protocol over ∆-regular expanders</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Consideriamo una versione del protocollo probabilistico <code>PULL</code> per il broadcasting.
+Le assunzione sono che il grafo in questione \(G=(V,E)\) è un \(\alpha\)-expander \(\Delta\)-regoalre, con \(\Delta \in O(1)\).
+Cio implica che \(G\) è molto sparso.<br />
+Data una sorgente \(s\) dal quale far partire il broadcast di un messaggio <code>M</code>, il protocollo \(\mathcal{PULL}(G,s)\) segue il seguente comportamento:
+</p>
+<ul class="org-ul">
+<li>al tempo \(t_0 = 0\) la sorgente \(s\) è nello stato <code>INFORMED</code>, mentre ogni altro nodo è nello stato <code>ACTIVE</code>.</li>
+<li>ad un generico tempo \(t \geq 1\) ogni nodo \(u\) nello stato <code>ACTIVE</code> sceglie <i>u.a.r.</i> un suo vicino \(v \in_U N(u)\) ed esegue un'azione di <code>pull</code>:
+<ul class="org-ul">
+<li>se \(v\) è nello stato <code>INFORMED</code>, allora \(u\) si fa inviare una copia del messaggio da \(v\) e passa nello stato <code>INFORMED</code></li>
+<li>altrimenti rimane nello stato <code>ACTIVE</code></li>
+</ul></li>
+<li>i nodi nello stato <code>INFORMED</code> non fanno nessuna azione volontaria, perciò rispondono solamente alle richieste di <code>pull</code>.</li>
+<li>il protocollo termina quando tutti i nodi sono nello stato <code>INFORMED</code>.</li>
+</ul>
+</div>
+
+<div id="outline-container-orga3579ed" class="outline-3">
+<h3 id="orga3579ed"><span class="section-number-3">2.1</span> Analisi Mean-Field</h3>
+<div class="outline-text-3" id="text-2-1">
+<blockquote>
+<p>
+<b>THM</b>
+Sia \(G=(V,E)\) un grafo \(\Delta\)-regolare con \(\alpha\)-espansione, dove \(\alpha\) è una qualsiasi costante positiva fissata.
+Applicando il protocollo \(\mathcal{PULL}(G,s)\), per una qualsiasi sorgente \(s\), verrà terminato il task del prodcast in tempo \(O(\log{n})\) <i>w.h.p.</i>
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Per semplicità verrà fatta un'analisi di tipo <b>mean field</b><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> del protocollo \(\mathcal{PULL}(G,s)\), tralasciando l'alta probabilità.<br />
+</p>
+
+<p>
+Definiamo la seguente <i>sequenza di variabili aleatorie</i>
+</p>
+\begin{align*}
+I_0 &= \lbrace s \rbrace\\
+I_t &= \lbrace v \in V \; | \; v \mbox{ is informed in some round } t' \leq t \rbrace
+\end{align*}
+<p>
+L'obiettivo è dimostrare che la dimensione di \(I_t\) cresce esponenzialmente veloce al crescere di \(t\).<br />
+</p>
+
+<p>
+Fissato un \(t \geq 1\), definiamo con \(N(I_t)\) l'insieme dei nodi al di fuori di \(I_t\) che però hanno almeno un vicino in \(I_t\), ovvero
+\[
+   N(I_t) \equiv \lbrace v \in V \setminus I_t \; | \; \exists (u,v) \in E : u \in I_t \rbrace
+   \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson14-img3.png" alt="adrc-lesson14-img3.png" style="max-width:500px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>\(I_t\) e \(N(I_t)\).</p>
+</div>
+
+<p>
+Ora per ogni \(v \in N(I_t)\) definiamo la v.a. binaria \(Y_v\) che vale 1 se \(v\) fa pull su un nodo \(u \in I_t\) e quindi diventa <code>INFORMED</code> al tempo \(t + 1\),
+e vale 0 altrimenti.
+\[
+   Y_v = \begin{cases}
+         1 &\mbox{if } v \mbox{ get informed at time } t + 1\\
+	 0 &\mbox{otherwise}
+         \end{cases}
+   \]
+con probabilità
+\[
+   \mathcal{P}(Y_v = 1) = \frac{\vert I_t \cap N(v) \vert}{\Delta} \geq \frac{1}{\Delta}
+   \]
+e di conseguenza con media
+\[
+   \mathbb{E}\left[ Y_v \right] \geq \frac{1}{\Delta}
+   \]
+</p>
+
+<p>
+Considerando \(\vert I_t \vert \leq \frac{n}{2}\), possiamo dare un <i>lowerbound</i> al numero di nodi \(v \in N(I_t)\) sfruttando l'\(\alpha\)-esapndibilità di \(G\)
+\[
+   \vert N(I_t) \vert \geq \alpha \vert I_t \vert
+   \]
+</p>
+
+<p>
+Applicando queste due disuguaglianze possiamo minorare il numero medio di nodi informati al tempo \(t + 1\) come segue
+</p>
+\begin{align*}
+  \mathbb{E}\left[ \vert I_{t+1} \vert \right] &= \vert I_t \vert + \sum_{v \in N(I_t)}\mathbb{E}\left[ Y_v \right]\\
+  &\geq  \vert I_t \vert + \alpha \vert I_t \vert \frac{1}{\Delta}\\
+  &= \left( 1 + \frac{\alpha}{\Delta}\right) \vert I_t \vert\\
+  &= (1 + \Omega(1))\vert I_t \vert
+\end{align*}
+
+<p>
+Ciò implica che in tempo <i>logaritmico</i> il broadcasting del messaggio <code>M</code> informera <span class="underline">almeno</span> la metà dei nodi (in media).<br />
+</p>
+
+<p>
+Infine, come nella dimostrazione del <a href="#orgfa610be">primo teorema</a> di questa lezione, si può applicare lo stesso ragionamento per la restante metà di grafo e dimostrare ancora che
+in tempo logaritmico verranno informati i restanti nodi \(\square\).
+</p>
+</blockquote>
+
+<hr />
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -351,6 +549,10 @@ Inoltre, sotto le stesse assunzioni, per disconnettere totalmente ogni sottoinsi
 Anche togliere alcuni archi non compromette la connettività delle parti.
 </p></div></div>
 
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+ovvero in comportamento medio.
+</p></div></div>
+
 
 </div>
 </div></div>
@@ -358,7 +560,7 @@ Anche togliere alcuni archi non compromette la connettività delle parti.
 <p class="date">Data: 2021-11-23 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-04 sab 19:21</p>
+<p class="date">Created: 2021-12-05 dom 16:18</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
