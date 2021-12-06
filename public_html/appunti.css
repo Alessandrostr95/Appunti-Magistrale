@@ -138,3 +138,11 @@ pre.src {
 pre.src::before {
     top: 10px !important;
 }
+
+/*
+div.theorem::before {
+    content: "THM";
+    font-weight: bold;
+    display: inline;
+}
+*/
