@@ -1,0 +1,30 @@
+#+title: ADRC - Lesson 17
+#+date: <2021-12-02>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Distributed Graph Coloring
+  In questa sezione vedremo dei metodi per il calcolo distribuito di una /\(\alpha\)-colorazione/ di una rete $G$.
+  In maniera formale, un'/\(\alpha\)-colorazione/ di un grafo è una funzione
+  \[
+  \phi : V \rightarrow \lbrace 1, 2, ..., \rbrace
+  \]
+  tale che
+  \[
+  \forall (u,v) \in E \;\; \phi(v) \neq \phi(u)
+  \]
+
+  Più precisamente tratteremo grafi /\(\Delta\)-regolari/, ovvero grafi con grado massimo al più \(\Delta\).
+  Osservare (e convincersi del fatto) che ogni grafo \(\Delta\)-regolare accetta una \((\Delta + 1)\)-colorazione.
+  
+** Message-Passing \(\mathcal{LOCAL}\) Model
+   Nel modello /Message-Passing \(\mathcal{LOCAL}\) Model/ consideriamo una rete distribuita di $n$ nodi, tutti identificati da un *Unique Id*, e che si possono scambiare
+   dei messaggi (di dimensioni illimitate) in maniera del tutto *sincrona*.
+   Inizialmente ogni nodo $v$ possiede come sola conoscenza personale il suo identificatore \(id(v)\).
+   Il nodo \(v\) è abilitato a inviare e ricevere messaggi da tutti i suoi vicini, procedendo per /time slots/ *discreti* e *sincroni*.
+   Inoltre ogni nodo può anche eseguire una serie potenzialmente illimitata di computazioni in ogni /time slots/.
+   Infine tutti i nodi iniziano il protocollo ad uno stesso istante \(t_0 = 0\).\\
+
+** Basic Color Reduction Tecnique
+   *[DA FINIRE]*
