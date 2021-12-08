@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-06 lun 23:41 -->
+<!-- 2021-12-08 mer 14:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 15</title>
@@ -277,12 +277,6 @@ for the JavaScript code in this tag.
 <li><a href="#orgb375221">Majority Consensus</a>
 <ul>
 <li><a href="#org63a9fda">Simple Sampling</a></li>
-<li><a href="#org72da395">Swarm Intelligence - k-Majority Protocol</a>
-<ul>
-<li><a href="#orgf350aa7">1-MAJ</a></li>
-<li><a href="#org6402d37">3-MAJ</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -350,11 +344,12 @@ Indichiamo con \(R\) il numero di sampling che fa un nodo \(v\), e con \(R_a,R_b
 </p>
 
 <p>
-Diremo che l'evento <i>"\(v\) ha successo"</i> occorre se alla fine dei \(R\) campionamenti \(v\) deciderà di passare al colore di maggioranza, ovvero se \(R_b > R_a\).<br />
+Diremo che l'evento <i>"\(v\) ha successo"</i> occorre se alla fine degli \(R\) campionamenti \(v\) deciderà di passare al colore di maggioranza.
+Osservare che ciò accade sse almeno la metà delle volte \(v\) campiona il colore di maggioranza 1, ovvero se \(R_b \geq R/2\).<br />
 </p>
 
 <p>
-Sia la v.a. binaria \(Y_i^v\) che vale 1 se \(v\) campiona un nodo con colore 1 al tempo \(i\), e 0 se ne campiona uno con colore 0.
+Sia la v.a. binaria \(Y_i^v\) che vale 1 se \(v\) campiona un nodo con colore 1 al <i>campionamento</i> \(i\)-esimo, e 0 se ne campiona uno col colore di minoranza 0.
 Tale v.a. avrà probabilità
 \[
    \mathcal{P}(Y_i^v = 1) = \frac{b_0}{n}
@@ -367,7 +362,7 @@ per ogni \(i = 1, 2, ..., R\).<br />
 </p>
 
 <p>
-Per lineraità, la media del numero di volte che campiona un nodo con colore 1 (ovvero \(R_b\)) sarà
+Per lineraità, la media del numero di volte che \(v\) campiona un nodo con colore 1 (ovvero la media di \(R_b\)) sarà
 \[
    \mathbb{E}\left[ Y^v \right] = \mathbb{E}\left[ R_b \right] = \sum_{i=1}^{R}\mathbb{E}\left[ Y_i^v \right] = R\frac{b_0}{n} \geq \frac{3}{4}R
    \]
@@ -375,18 +370,18 @@ Per lineraità, la media del numero di volte che campiona un nodo con colore 1 (
 
 <p>
 Si vuole calcolare in funzione di \(R\) con quale probabilità \(v\) ha successo, ovvero qual è la probabilità che \(\mathcal{P}(R_b \geq \frac{R}{2}) = \mathcal{P}(R_a < \frac{R}{2})\).
-Ovviamente, dato che vogliamo che vogliamo che il sampling dia un risultato  correttamente con <span class="underline">alta probabilità</span>, si vuole trovare un valore di \(R\) per il quale
+Ovviamente, dato che vogliamo che il sampling dia un risultato correttamente con <span class="underline">alta probabilità</span>, si vuole trovare un valore di \(R\) per il quale
 \[
    \mathcal{P}(R_b \geq \frac{R}{2}) \geq 1 - \frac{1}{n^{\Omega(1)}}
    \]
-Per fare ciò, calcoliamo la probabilità dell'evento inverso.
+Per fare ciò, iniziamo col calcolare la probabilità dell'evento inverso.
 </p>
 \begin{align*}
   \mathcal{P}\left( R_b < \frac{R}{2} \right)
   &= \mathcal{P}\left(R_b < \left(\frac{3}{4} - \frac{1}{4}\right) R \right)\\
   &= \mathcal{P}\left(R_b < \left(1 - \frac{1}{3}\right) \frac{3}{4}R \right)\\
   &= \mathcal{P}\left(R_b < \left(1 - \delta \right) \mathbb{E}\left[ R_b \right] \right)\\
-  &\leq e^{-\beta R}
+  (Chernoff \; bound)&\leq e^{-\beta R}
 \end{align*}
 
 <p>
@@ -397,97 +392,25 @@ Ponendo \(R = c\log{n}\), per un certo \(c > 0\) tale che \(c \beta > 1\), avrem
 </p>
 
 <p>
-Se invece volessimo che questo risultato rimanga con alta probabilità per <span class="underline">tutti</span> gli \(n\) nodi e necessario scegleire un \(c\) tale che \(c\beta > 2\), infatti
-\[
-   \mathcal{P}(\mbox{"insuccesso"}) = \mathcal{P}(\bigcup_{v \in V} Y^v < \frac{c\log{n}}{2}) \leq \sum_{v \in V} \mathcal{P}(Y^b < \frac{c\log{n}}{2}) \leq \frac{1}{n}
-   \]
+Infine per ottere che questo risultato rimanga con alta probabilità per <span class="underline">tutti</span> gli \(n\) nodi, è necessario scegleire un \(c\) tale che \(c\beta > 2\) e applicare lo <b>Union Bound</b>, infatti
+</p>
+\begin{align*}
+  \mathcal{P}(\mbox{"insuccesso"}) &= \mathcal{P}(\exists v \mbox{ che ha insuccesso})\\
+  &= \mathcal{P}(\bigcup_{v \in V} Y^v < \frac{c\log{n}}{2})\\
+  &\leq \sum_{v \in V} \mathcal{P}(Y^b < \frac{c\log{n}}{2})\\
+  &= n \cdot \mathcal{P}(Y^b < \frac{c\log{n}}{2})\\
+  &\leq \frac{1}{n}
+\end{align*}
+
+<p>
+Perciò, se il <i>bias</i> è molto grande \(s \in \Theta(n)\), con un numero <b>logaritmico</b> di campionamenti è possibile fare una buona stima con alta probabilità.<br />
 </p>
 
 <p>
-Perciò, se il <i>bias</i> è molto grande \(s \in \Theta(n)\), con un numero <b>logaritmico</b> di campionamenti è possibile fare una buona stima con alta probabilità.
-Però non è vero il contrario.<br />
+Prutroppo però non è vero il contrario.<br />
+Se per esempio consideriamo un <i>bias</i> decisamente più piccolo, per esempio \(s \in \Theta(\sqrt{n\log{n}}) \in o(n)\), non basta un numero logaritmico di <i>samples</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> per avere l'alta probabilità.
+In questo caso è possibile dimostrare che si necessitano \(\Theta(\sqrt{n\log{n}})\) <i>sample</i>, il quale numero è <b>esponenzialmente</b> più grande di \(\Theta(\log{n})\).    
 </p>
-
-<p>
-Se per esempio consideriamo un <i>bias</i> di \(s \in \Theta(\sqrt{n\log{n}}) \in o(n)\), non basta un numero logaritmico di <i>sample</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, per avere l'alta probabilità.
-In questo caso è possibile dimostrare che si necessitano \(\Theta(\sqrt{n\log{n}})\) <i>sample</i>, il quale numero è <b>esponenzialmente</b> puù grande di \(\Theta(\log{n})\).
-</p>
-</div>
-</div>
-
-<div id="outline-container-org72da395" class="outline-3">
-<h3 id="org72da395">Swarm Intelligence - k-Majority Protocol</h3>
-<div class="outline-text-3" id="text-org72da395">
-<p>
-Un modo più efficiente per fare una statistica precisa della maggioranza è quello di sfruttare la <i>conoscenza</i> degli altri nodi (<b>intelligenza di massa</b>, o <b>swarm intelligence</b>).
-L'idea è quella di campionare un certo numero di nodi <i>u.a.r.</i>, e invece di cambiare colore in accordo alla loro colorazione iniziale, bisogna cambiare colore in base a ciò che la maggior parte dei nodi
-cambionati ritengono il colore di maggioranza.<br />
-</p>
-
-<p>
-In poche parole, ad ogni tempo \(t \geq 0\), ogni nodo campio \(k\) nodi <i>u.a.r.</i>, ed aggiorna il suo colore in base al colore di maggioranza che ha campionato.<br />
-</p>
-
-<p>
-La differenza col <code>Simple Sampling</code> sta nel fatto che mentre prima ogni nodo vaceva \(R\) campionamenti sulla colorazione iniziale e poi prendeva una decisione finale, adesso invece ogni nodo <span class="underline">cambia</span> stato ad ogni tempo \(t\)
-e quindi il campionamento è fatto in base alla colorazione del grafo al tempo \(t - 1\).<br />
-</p>
-
-<p>
-Campionare i colori al tempo precedente sostanzialmente consiste nello sfruttare le conoscenze pregresse dei campionamenti fatti dagli altri nodi.
-Tale protocollo è noto come (<i>\(k\)-Majority Protocol</i>)
-</p>
-
-<blockquote>
-<p>
-<b>Def.</b> (<i>\(k\)-Majority Protocol</i>)
-Nel <i>\(k\)-Majority Protocol</i>, in breve \(k\)-MAJ, ad ogni <i>time slot</i> ogni nodo <span class="underline">campiona</span> <i>u.a.r.</i> \(k\) tra i suoi vicini (compreso se stesso) e si colora del colore di maggioranza che osserva.
-Il protocollo termina quando tutti i nodi sono dello stesso colore.
-</p>
-</blockquote>
-</div>
-
-<div id="outline-container-orgf350aa7" class="outline-4">
-<h4 id="orgf350aa7">1-MAJ</h4>
-<div class="outline-text-4" id="text-orgf350aa7">
-<p>
-È faciel dimostrare che la versione del \(k\)-MAJ con \(k = 1\) è molto poco efficiente, ovvero convergerà molto lentamente nello stato finale desiderato.
-Per dimostrarlo, basta dimostrare che mediamente ad ogni time slot il <i>bias</i> s rimane uguale al <i>bias</i> al tempo precedente.<br />
-</p>
-
-<p>
-Sia \(s_t = b_t - \frac{n}{2}\) il valore del <i>bias</i> al tempo \(t\), e sia la v.a. \(s_{t+1}\) che indica il valore del <i>bias</i> a tempo \(t + 1\).
-Siano inoltre le v.a. binarie \(X_1, ..., X_n\) tali che \(X_i = 1\) se il nodo \(v_i\) campiona un nodo colorato di 1 al tempo \(t\) e quindi al tempo \(t + 1\) si colore di 1, 0 altrimenti, per ogni \(v_i \in V\).
-<span class="underline">Sapendo</span> che \(b_t = n/2 + s_t\), tali variabili avranno probabilità
-\[
-    \mathcal{P}(X_i = 1 | s_t) = \frac{b_t}{n}
-    \]
-e media
-\[
-    \mathbb{E}\left[ X_i | s_t \right] = \frac{b_t}{n} = \frac{\frac{n}{2} + s_t}{n} = \frac{1}{2} + \frac{s_t}{n}
-    \]
-</p>
-
-<p>
-Sia quindi \(b_{t+1} = X_1 + ... + X_t\) il numero di nodi che hanno colore 1 al tempo \(t + 1\), con media
-\[
-    \mathbb{E}\left[ b_{t+1} | s_t \right] = \sum_{i = 1}^{n} \mathbb{E}\left[ X_i | s_t \right] = \frac{n}{2} + s_t
-    \]
-Ciò implica che \(s_{t+1}\) in madia varrà
-\[
-    \mathbb{E}\left[ s_{t+1} | s_t \right] = \mathbb{E}\left[ b_{t+1} | s_t \right] - \frac{n}{2} = s_t
-    \]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org6402d37" class="outline-4">
-<h4 id="org6402d37">3-MAJ</h4>
-<div class="outline-text-4" id="text-org6402d37">
-<p>
-<b>[DA FINIRE]</b>
-</p>
-</div>
 </div>
 </div>
 </div>
@@ -506,7 +429,7 @@ campionamenti.
 <p class="date">Data: 2021-11-25 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-06 lun 23:41</p>
+<p class="date">Created: 2021-12-08 mer 14:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
