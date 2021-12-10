@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-10 ven 01:10 -->
+<!-- 2021-12-10 ven 21:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 10</title>
@@ -318,9 +318,94 @@ Per ogni grafo infinito \(G=(\mathbb{N},E)\) i cui nodi hanno grado finito, la c
 </p>
 </blockquote>
 
+<blockquote>
 <p>
-<b>[DA FINIRE]</b>
+<b>Proof</b>
+Supponiamo <span class="underline">per assurdo</span> che esista un insieme <span class="underline">finito</span> di iniziatori \(V_0\), che nonostante ci sia una soglia di adozione \(q > \frac{1}{2}\), genera comunque una cascata completa dell'innovazione <code>A</code>.
+Definiamo con \(V_t\) l'insieme di nodi che adottano <code>A</code> al tempo \(t \geq 0\), con l'insieme
+\[
+  S_t \equiv \bigcup_{i = 0}^{t} V_t
+  \]
+l'insieme di tutti i nodi che al tempo \(t\) si trovano nello stato <code>A</code>.<br />
 </p>
+
+<p>
+Definiamo con \(I_t\) l'insieme di archi del <b>taglio</b> \((S_t, V \setminus S_t)\), ovvero
+\[
+  I_t \equiv \lbrace (u,v) : u \in S_t \land v \in V \setminus S_t \rbrace
+  \]
+</p>
+
+<p>
+Si vuole dimostrare che per ogni \(t \geq 0\), allora è vero che
+\[
+  \vert I_t > \geq \vert I_{t+1} \vert\\
+  \mbox{oppure}\\
+  \vert I_t \vert = \vert I_{t+1} \vert
+  \]
+<b>DISCUTERE IMPLICAZIONI</b><br />
+</p>
+
+
+<p>
+Per dimostrarlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(\vert I_t \vert \neq \vert I_{t+1} \vert\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
+(e implicando quindi che non può nemmeno mai accadere che \(\vert I_t \vert < \vert I_{t+1} \vert\)).<br />
+</p>
+
+<p>
+Se per ipotesi abbiamo che \(\vert I_t \vert \neq \vert I_{t+1} \vert\), ciò implica che esiste <span class="underline">almeno</span> un nodo \(v\) che ha adottato <code>A</code> al tempo \(t + 1\), e che quindi \(V_{t+1} = \emptyset\).
+Affinché ciò sia vero, è necessario che \(v\) abbia <span class="underline">almeno</span> un vicino \(u \in N(v)\) che è anche nello stato <code>A</code>, ovvero \(u \in N(v) \cap S_t\).<br />
+</p>
+
+<p>
+Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco di tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
+Contrariamente, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img1.png" alt="ar-lesson10-img1.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>\(v \in V_{t+1}\): \(v\) adotta <code>A</code> al tempo \(t + 1\).</p>
+</div>
+
+<p>
+Perciò in base a quanto osservato (e anche osservando la figura) avremo che
+\[
+  I_{t+1} \equiv \left( I_t \; \setminus \; \left[ \bigcup_{v \in V_{t+1}} \lbrace (u,v) \in E : u \in S_t \rbrace \right] \right) \cup \left[ \bigcup_{v \in V_{t+1}} \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \right]
+  \]
+</p>
+
+<p>
+È anche facile verificare che
+\[
+  \forall v,w \in V_{t+1}\\
+  \lbrace (u,v) \in E : u \in S_t \rbrace \cap \lbrace (u,w) \in E : u \in S_t \rbrace = \emptyset\\
+  \land\\
+  \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \cap \lbrace (w,z) \in E : z \in V \setminus S_{t+1} \rbrace = \emptyset
+  \]
+Per comprendere meglio la precedente conclusione, osservare la seguente immagine
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img2.png" alt="ar-lesson10-img2.png" style="max-width:400px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Esempio.</p>
+</div>
+
+<p>
+Tutto ciò implica che
+</p>
+\begin{align*}
+  \vert I_{t+1} \vert = \vert I_t \vert &- \sum_{v \in V_{t+1}} \vert \lbrace (u,v) \in E : u \in S_t \rbrace \vert\\
+  &+ \sum_{v \in V_{t+1}} \vert \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \vert
+\end{align*}
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</blockquote>
 </div>
 </div>
 
@@ -341,7 +426,7 @@ Per ogni grafo infinito \(G=(\mathbb{N},E)\) i cui nodi hanno grado finito, la c
 <p class="date">Data: 2021-11-22 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-10 ven 01:10</p>
+<p class="date">Created: 2021-12-10 ven 21:58</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

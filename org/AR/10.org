@@ -25,7 +25,68 @@
   Per ogni grafo infinito \(G=(\mathbb{N},E)\) i cui nodi hanno grado finito, la capacità di cascata di $G$ è al più \(q_G \leq \frac{1}{2}\).
   #+end_quote
 
-  *[DA FINIRE]*
+  #+begin_quote
+  *Proof*
+  Supponiamo _per assurdo_ che esista un insieme _finito_ di iniziatori \(V_0\), che nonostante ci sia una soglia di adozione \(q > \frac{1}{2}\), genera comunque una cascata completa dell'innovazione =A=.
+  Definiamo con \(V_t\) l'insieme di nodi che adottano =A= al tempo \(t \geq 0\), con l'insieme
+  \[
+  S_t \equiv \bigcup_{i = 0}^{t} V_t
+  \]
+  l'insieme di tutti i nodi che al tempo $t$ si trovano nello stato =A=.\\
+
+  Definiamo con \(I_t\) l'insieme di archi del *taglio* \((S_t, V \setminus S_t)\), ovvero
+  \[
+  I_t \equiv \lbrace (u,v) : u \in S_t \land v \in V \setminus S_t \rbrace
+  \]
+
+  Si vuole dimostrare che per ogni \(t \geq 0\), allora è vero che
+  \[
+  \vert I_t > \geq \vert I_{t+1} \vert\\
+  \mbox{oppure}\\
+  \vert I_t \vert = \vert I_{t+1} \vert
+  \]
+  *DISCUTERE IMPLICAZIONI*\\
+
+
+  Per dimostrarlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(\vert I_t \vert \neq \vert I_{t+1} \vert\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
+  (e implicando quindi che non può nemmeno mai accadere che \(\vert I_t \vert < \vert I_{t+1} \vert\)).\\
+
+  Se per ipotesi abbiamo che \(\vert I_t \vert \neq \vert I_{t+1} \vert\), ciò implica che esiste _almeno_ un nodo $v$ che ha adottato =A= al tempo \(t + 1\), e che quindi \(V_{t+1} = \emptyset\).
+  Affinché ciò sia vero, è necessario che $v$ abbia _almeno_ un vicino \(u \in N(v)\) che è anche nello stato =A=, ovvero \(u \in N(v) \cap S_t\).\\
+
+  Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco di tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
+  Contrariamente, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
+
+  #+caption: \(v \in V_{t+1}\): $v$ adotta =A= al tempo \(t + 1\).
+  #+ATTR_HTML: :style max-width:550px; :width 100%
+  [[file:../images/ar-lesson10-img1.png]]
+
+  Perciò in base a quanto osservato (e anche osservando la figura) avremo che
+  \[
+  I_{t+1} \equiv \left( I_t \; \setminus \; \left[ \bigcup_{v \in V_{t+1}} \lbrace (u,v) \in E : u \in S_t \rbrace \right] \right) \cup \left[ \bigcup_{v \in V_{t+1}} \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \right]
+  \]
+
+  È anche facile verificare che
+  \[
+  \forall v,w \in V_{t+1}\\
+  \lbrace (u,v) \in E : u \in S_t \rbrace \cap \lbrace (u,w) \in E : u \in S_t \rbrace = \emptyset\\
+  \land\\
+  \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \cap \lbrace (w,z) \in E : z \in V \setminus S_{t+1} \rbrace = \emptyset
+  \]
+  Per comprendere meglio la precedente conclusione, osservare la seguente immagine
+
+  #+caption: Esempio.
+  #+ATTR_HTML: :style max-width:400px; :width 100%
+  [[file:../images/ar-lesson10-img2.png]]
+
+  Tutto ciò implica che
+  \begin{align*}
+    \vert I_{t+1} \vert = \vert I_t \vert &- \sum_{v \in V_{t+1}} \vert \lbrace (u,v) \in E : u \in S_t \rbrace \vert\\
+    &+ \sum_{v \in V_{t+1}} \vert \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \vert
+  \end{align*}
+
+  *[DA FINIRE...]*
+  #+end_quote
 
   
 * Modello eterogeneo
