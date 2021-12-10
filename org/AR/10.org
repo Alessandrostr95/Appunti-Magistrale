@@ -1,0 +1,35 @@
+#+title: AR - Lesson 10
+#+date: <2021-11-22>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+
+
+* [[./09.html][←]] The Cascade Capacity on Infinite Network with bounded Degree
+  Questa lezione è il continuo della [[./09.html][precedente ←]]\\
+
+  Dagli esempi precedenti è facile notare che la soglia di adozione massima nella griglia infinita è minore di quella della catena infinita, per via di una struttura più ricca è densa.
+  Comunque, in entrambi i casi, non si può *mai* avere una soglia di adozione maggiore di \(\frac{1}{2}\).
+  Quindi viene da pensare che, almeno in questi due modelli, l'innovazione =A= deve essere appettibile *almeno* quanto lo stato dominante =B=.
+  In effetti questo è un ragionamento abbastanza ragionevole anche applicato in un contesto reale.\\
+
+  Sorge però la domanda:
+  #+begin_quote
+  Esiste una conformazione di una rete infinita in cui si può ottenere una capacita di cascata maggiore di \(\frac{1}{2}\)?
+  Ovvero, è possibile fare in modo che si adotti =A=, nonostante =B= sia più conveniente?
+  #+end_quote
+
+  Per fortuna la risposta è *no*, e questo verrà dimostrato nel seguente teorema
+
+  #+begin_quote
+  *THM*
+  Per ogni grafo infinito \(G=(\mathbb{N},E)\) i cui nodi hanno grado finito, la capacità di cascata di $G$ è al più \(q_G \leq \frac{1}{2}\).
+  #+end_quote
+
+  *[DA FINIRE]*
+
+  
+* Modello eterogeneo
+
+* Azioni collettive
+
+* Diffusione in presenza di compatibilità

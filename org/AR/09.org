@@ -283,22 +283,108 @@
    Osserviamo inoltre che c'è una sostanzile differenza tra venire a conoscenza di una nuova idea e il decidere di adottarla.
    Infatti considerando ancora l'[[fig:img7][esempio 2]], possiamo osservare che i nodi 4 e 9 vengono subito a conoscenza dell'innovazione =A= in quanto entrambi sono vicini di un nodo iniziatore,
    però attendono più tempo prima di adottarlo.
-   Anche in un contesto sociale reale, sebbene la consapevolezza di una barzelletta o di un video online avanza con una velocità notevole, la mobilitazione politica si muove più lentamente,
+   Anche in un contesto sociale reale, sebbene una barzelletta o un video divertente online avanzano con una velocità notevole, la mobilitazione politica si muove più lentamente,
    avendo bisogno di prendere slancio all'interno di comunità.
    La soglia di adozione $q$ offre una possibile spiegazione: i movimenti sociali tendono ad essere imprese intrinsecamente rischiose, e quindi gli individui tendono a necessitare di soglie più elevate
    per la partecipazione.\\
 
    Perciò possiamo concludere che mentre i /weak-ties/ che collegano due comunità differenti sono utilissimi alla diffusione di informazioni, allo stesso tempo sono un punto di debolezza (e quindi di
    ostacolo) per la diffusione di un'innovazione.\\
+   
+** Cluster e Marketing Virale
+   Ciò che è stato discusso nella sezione precedente sostanzilmente arriva alla conclusione che la presenza di cluster di individui fortemente coesi può essere un impedimento alla diffusione di una nuova innovazione.
+   Per esempio, se una comunità è eccessivamente densa, i suoi individui potrebbero usare una tecnologia =X= totalmente differente da quella che usata il resto del mondo.\\
 
-* Cluster e Marketing Virale
-** Capacità di Cascata
+   Se un venditore vuole che molta gente adotti un suo prodotto =X= (ovvero se vuole creare una cascata di tale prodotto), può optare per due strategie:
+   - aumentare il guadagno ricavato dall'adottare =X= aumentando il rapporto /qualità/prezzo/, o abbassando il prezzo o aumentando la qualità.
+     In genere però non è sempre possibile abbassare troppo i prezzi di un prodotto.
+     Da un lato perché il venditore andrebbe a prendere, dall'altro perché in un contesto sociale un prodotto con prezzo troppo basso è spesso sinonimo di scarsa qualità.
+   - scegliere in maniera strategica delle *persone chiave* a cui dare il prodotto, in modo da scatenare una cascata nelle rispettive comunità.
+
+   In un contesto reale si tende di più ad applicare la sconda opzione, cercando di mantenere la soglia di adozine di una innovazione il più bassa possibile.
+   Perciò una domanda che ci si pone è: scegliendo appositamente gli iniziatori, quanto alta posso mantenere la soglia di adozine di una innovazione?
+   Ovverso, se voglio che l'innovazione =A= crei una cascata completa, quanto basso posso tenere il suo /payoff/?
+
+* The Cascade Capacity on Infinite Network with bounded Degree
+  In questa sezione analizzeremo in maniera più formale, tramite l'aiuto di alcuni esempi, se esiste e qual è la /threshold/ (per una soglia di adozione) che scatena una cascata completa,
+  anche con un insieme "piccolo" di nodi /iniziatori/.\\
+  Più in particolare analizzeremo il caso di reti con *infiniti nodi*, ma ognuno con *grado finito*.
+  In questa maniera il concetto di /"insieme piccolo di iniziatori"/ è definito da qualsiasi *finito*.\\
+
+  #+begin_quote
+  *Problem*
+  Dato un grafo *infinito* \(G = (\mathbb{N}, E)\), dove tutti i nodi hanno un *grado finito*, trovare la /soglia di adozione massima/ \(q_{MAX}\) di $G$ tale che _esiste_ un sottoinsieme
+  finito \(V_0 \subset \mathbb{N}\) di iniziatori che genera una cascata completa.
+  #+end_quote
+
+  D'ora in poi ci riferiremo alla soglia di adozione massima \(q_{MAX}\) con il termine *capacità di cascata* di $G$.\\
+
+** Esempio 1 - Catena infinita
+   Consideriamo una catena infinita di nodi, dove ogni nodo $i$ ha grado esattamente due ed incidente ai due archi \((i-1, i), (i, i+1)\).
+   Seppur tale insieme di nodi è equivalente all'insieme \(\mathbb{Z}\), sappiamo che esiste una biezione con \(\mathbb{N}\).\\
+
+   Come primo caso consideriamo il più piccolo sottoinsieme di nodi iniziatori, composti da un solo nodo, diciamo \(V_0 = \lbrace x \rbrace\).
+   Se poniamo come soglia di adozione \(q = \frac{1}{2}\) otteremo una cascata completa.
+
+   #+caption: Cascata completa con \(V_0 = \lbrace x \rbrace\) e \(q = \frac{1}{2}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img11.gif]]
+
+   Ovviamente si può ottenere una cascata completa anche per \(q \leq \frac{1}{2}\).\\
+   Se invece \(q > \frac{1}{2}\) non si riesce ad ottenere una cascata completa col solo nodo $x$ come iniziatore.
+   Peciò ci si può chiedere, esiste un sottoinsieme finito di nodi \(V_0\) tale che si riesce ad ottenere una cascata completa?\\
+   In questo caso la risposta è *no*.
+   Infatti affinché un generico nodo adotti la nuova tecnologia, è necessario che abbia entrambi i vicini di tale tecnologia.
+   Però non esiste un sottoinsieme *finito* di nodi tali che tutti i nodi =rossi= abbiamo entrambi i vicini =blu=.
+   In tal caso si necessita di un sottoinsieme infinito di nodi iniziatori.
+   Anche se qualche nodo =rosso= riesce a passare allo stato =blu=, comunque esisteranno dei nodi =rossi= con al più un vicino =blu=, e quindi non si innesterebbe la cascata.
+
+   #+caption: Blocco della cascata completa per \(V_0 = \lbrace w,y,z \rbrace\) e \(q > \frac{1}{2}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img12.gif]]
 
 
-* Modello eterogeneo
+** Esempio 2 - Griglia
+   Consideriamo ora una *griglia* infinta \(\mathbb{Z} \times \mathbb{Z}\), dove ogni nodo è collegato coi nodi nelle rispettive posizione =UP=, =DOWN=, =LEFT=, =RIGHT=, =NE=, =NW=, =SE= e =SW=,
+   come nella seguente figura
+   
+   #+caption: Griglia infita, dove ogni nodo ha grado esattamente 8.
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img13.png]]
 
-* Azioni collettive
+   Consideriamo il caso base in cui \(\vert V_0 \vert = 1\).
+   In tal caso la soglia di adozione deve essere _al più_ \(q \leq \frac{1}{8}\).
+   Con una soglia maggiore non si riuscirebbe altrimenti a creare una cascata completa.
+   
+   #+caption: Cascata completa con \(\vert V_0 \vert = 1\) e soglia d'adozione \(q \leq \frac{1}{8}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img14.gif]]
 
-* Diffusione in presenza di compatibilità
+   Aumentando \(\vert V_0 \vert = 2\) si riesce ad aumentare la soglia di adozione a \(q = \frac{1}{4}\).
+   Per fare ciò, basta prendere come nodi iniziatori due nodi /adiacenti/.
 
+   #+caption: Cascata completa con \(\vert V_0 \vert = 2\) e soglia d'adozione \(q = \frac{1}{4}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img15.gif]]
+
+
+   Anche con \(\vert V_0 \vert = 3\) si riesce ad aumentare la soglia di adozione del colore blu a \(q = \frac{3}{8}\).
+   Basta ancora una volta scegliere come iniziatori tre nodi adiacenti.
+
+   #+caption: Cascata completa con \(\vert V_0 \vert = 3\) e soglia d'adozione \(q = \frac{3}{8}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img16.gif]]
+
+   Purtroppo però per \(\vert V_0 \vert > 3\) non si riesce ad aumentare in nessun modo la sogia di adozione al di sopra di \(\frac{3}{8}\).
+   Infatti è facile convincersi che, qualsiasi sottoinsieme finito di iniziatori prendiamo, si arriverà prima o poi ad una situazione in cui si sarà /quasi/ o del tutto colorata di blu un'area rettangolare,
+   dalla quale non si può uscire a meno che non si ha \(q \leq \frac{3}{8}\).
+   
+   #+caption: Controesempio con \(\vert V_0 \vert > 3\) e soglia d'adozione \(q = \frac{1}{2}\).
+   #+ATTR_HTML: :style max-width:550px; :width 100%
+   [[file:../images/ar-lesson09-img17.gif]]
+
+   È infatti possibile dimostrare che per questa griglia infinita la /capacità di cascata/  \(q_{MAX}\) è proprio \(\frac{3}{8}\).
+   
+   Continuo nella [[./10.html][lezione successiva →]]
+   
 [fn:1] Esperimento di Granovetter.

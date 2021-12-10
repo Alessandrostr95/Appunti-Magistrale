@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-02 gio 15:44 -->
+<!-- 2021-12-10 ven 01:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 09</title>
@@ -284,16 +284,15 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#orgb4e882c">2.1. Osservazioni empiriche</a></li>
 <li><a href="#orgadde7ff">2.2. Cascate e Cluster</a></li>
+<li><a href="#org738a905">2.3. Cluster e Marketing Virale</a></li>
 </ul>
 </li>
-<li><a href="#org738a905">3. Cluster e Marketing Virale</a>
+<li><a href="#orgcf88fcb">3. The Cascade Capacity on Infinite Network with bounded Degree</a>
 <ul>
-<li><a href="#orgce85236">3.1. Capacità di Cascata</a></li>
+<li><a href="#orgd7e7a07">3.1. Esempio 1 - Catena infinita</a></li>
+<li><a href="#orgfec5dc0">3.2. Esempio 2 - Griglia</a></li>
 </ul>
 </li>
-<li><a href="#org867d680">4. Modello eterogeneo</a></li>
-<li><a href="#orgf65d64a">5. Azioni collettive</a></li>
-<li><a href="#org64ae8c6">6. Diffusione in presenza di compatibilità</a></li>
 </ul>
 </div>
 </div>
@@ -736,7 +735,7 @@ Pertanto forniscono accesso a fonti di informazioni (per esempio nuove opportuni
 Osserviamo inoltre che c'è una sostanzile differenza tra venire a conoscenza di una nuova idea e il decidere di adottarla.
 Infatti considerando ancora l'<a href="#org6844863">esempio 2</a>, possiamo osservare che i nodi 4 e 9 vengono subito a conoscenza dell'innovazione <code>A</code> in quanto entrambi sono vicini di un nodo iniziatore,
 però attendono più tempo prima di adottarlo.
-Anche in un contesto sociale reale, sebbene la consapevolezza di una barzelletta o di un video online avanza con una velocità notevole, la mobilitazione politica si muove più lentamente,
+Anche in un contesto sociale reale, sebbene una barzelletta o un video divertente online avanzano con una velocità notevole, la mobilitazione politica si muove più lentamente,
 avendo bisogno di prendere slancio all'interno di comunità.
 La soglia di adozione \(q\) offre una possibile spiegazione: i movimenti sociali tendono ad essere imprese intrinsecamente rischiose, e quindi gli individui tendono a necessitare di soglie più elevate
 per la partecipazione.<br />
@@ -748,29 +747,172 @@ ostacolo) per la diffusione di un'innovazione.<br />
 </p>
 </div>
 </div>
+
+<div id="outline-container-org738a905" class="outline-3">
+<h3 id="org738a905"><span class="section-number-3">2.3</span> Cluster e Marketing Virale</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Ciò che è stato discusso nella sezione precedente sostanzilmente arriva alla conclusione che la presenza di cluster di individui fortemente coesi può essere un impedimento alla diffusione di una nuova innovazione.
+Per esempio, se una comunità è eccessivamente densa, i suoi individui potrebbero usare una tecnologia <code>X</code> totalmente differente da quella che usata il resto del mondo.<br />
+</p>
+
+<p>
+Se un venditore vuole che molta gente adotti un suo prodotto <code>X</code> (ovvero se vuole creare una cascata di tale prodotto), può optare per due strategie:
+</p>
+<ul class="org-ul">
+<li>aumentare il guadagno ricavato dall'adottare <code>X</code> aumentando il rapporto <i>qualità/prezzo</i>, o abbassando il prezzo o aumentando la qualità.
+In genere però non è sempre possibile abbassare troppo i prezzi di un prodotto.
+Da un lato perché il venditore andrebbe a prendere, dall'altro perché in un contesto sociale un prodotto con prezzo troppo basso è spesso sinonimo di scarsa qualità.</li>
+<li>scegliere in maniera strategica delle <b>persone chiave</b> a cui dare il prodotto, in modo da scatenare una cascata nelle rispettive comunità.</li>
+</ul>
+
+<p>
+In un contesto reale si tende di più ad applicare la sconda opzione, cercando di mantenere la soglia di adozine di una innovazione il più bassa possibile.
+Perciò una domanda che ci si pone è: scegliendo appositamente gli iniziatori, quanto alta posso mantenere la soglia di adozine di una innovazione?
+Ovverso, se voglio che l'innovazione <code>A</code> crei una cascata completa, quanto basso posso tenere il suo <i>payoff</i>?
+</p>
+</div>
+</div>
 </div>
 
-<div id="outline-container-org738a905" class="outline-2">
-<h2 id="org738a905"><span class="section-number-2">3</span> Cluster e Marketing Virale</h2>
+<div id="outline-container-orgcf88fcb" class="outline-2">
+<h2 id="orgcf88fcb"><span class="section-number-2">3</span> The Cascade Capacity on Infinite Network with bounded Degree</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+In questa sezione analizzeremo in maniera più formale, tramite l'aiuto di alcuni esempi, se esiste e qual è la <i>threshold</i> (per una soglia di adozione) che scatena una cascata completa,
+anche con un insieme "piccolo" di nodi <i>iniziatori</i>.<br />
+Più in particolare analizzeremo il caso di reti con <b>infiniti nodi</b>, ma ognuno con <b>grado finito</b>.
+In questa maniera il concetto di <i>"insieme piccolo di iniziatori"</i> è definito da qualsiasi <b>finito</b>.<br />
+</p>
+
+<blockquote>
+<p>
+<b>Problem</b>
+Dato un grafo <b>infinito</b> \(G = (\mathbb{N}, E)\), dove tutti i nodi hanno un <b>grado finito</b>, trovare la <i>soglia di adozione massima</i> \(q_{MAX}\) di \(G\) tale che <span class="underline">esiste</span> un sottoinsieme
+finito \(V_0 \subset \mathbb{N}\) di iniziatori che genera una cascata completa.
+</p>
+</blockquote>
+
+<p>
+D'ora in poi ci riferiremo alla soglia di adozione massima \(q_{MAX}\) con il termine <b>capacità di cascata</b> di \(G\).<br />
+</p>
 </div>
-<div id="outline-container-orgce85236" class="outline-3">
-<h3 id="orgce85236"><span class="section-number-3">3.1</span> Capacità di Cascata</h3>
+
+<div id="outline-container-orgd7e7a07" class="outline-3">
+<h3 id="orgd7e7a07"><span class="section-number-3">3.1</span> Esempio 1 - Catena infinita</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Consideriamo una catena infinita di nodi, dove ogni nodo \(i\) ha grado esattamente due ed incidente ai due archi \((i-1, i), (i, i+1)\).
+Seppur tale insieme di nodi è equivalente all'insieme \(\mathbb{Z}\), sappiamo che esiste una biezione con \(\mathbb{N}\).<br />
+</p>
+
+<p>
+Come primo caso consideriamo il più piccolo sottoinsieme di nodi iniziatori, composti da un solo nodo, diciamo \(V_0 = \lbrace x \rbrace\).
+Se poniamo come soglia di adozione \(q = \frac{1}{2}\) otteremo una cascata completa.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img11.gif" alt="ar-lesson09-img11.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 11: </span>Cascata completa con \(V_0 = \lbrace x \rbrace\) e \(q = \frac{1}{2}\).</p>
+</div>
+
+<p>
+Ovviamente si può ottenere una cascata completa anche per \(q \leq \frac{1}{2}\).<br />
+Se invece \(q > \frac{1}{2}\) non si riesce ad ottenere una cascata completa col solo nodo \(x\) come iniziatore.
+Peciò ci si può chiedere, esiste un sottoinsieme finito di nodi \(V_0\) tale che si riesce ad ottenere una cascata completa?<br />
+In questo caso la risposta è <b>no</b>.
+Infatti affinché un generico nodo adotti la nuova tecnologia, è necessario che abbia entrambi i vicini di tale tecnologia.
+Però non esiste un sottoinsieme <b>finito</b> di nodi tali che tutti i nodi <code>rossi</code> abbiamo entrambi i vicini <code>blu</code>.
+In tal caso si necessita di un sottoinsieme infinito di nodi iniziatori.
+Anche se qualche nodo <code>rosso</code> riesce a passare allo stato <code>blu</code>, comunque esisteranno dei nodi <code>rossi</code> con al più un vicino <code>blu</code>, e quindi non si innesterebbe la cascata.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img12.gif" alt="ar-lesson09-img12.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 12: </span>Blocco della cascata completa per \(V_0 = \lbrace w,y,z \rbrace\) e \(q > \frac{1}{2}\).</p>
+</div>
 </div>
 </div>
 
 
-<div id="outline-container-org867d680" class="outline-2">
-<h2 id="org867d680"><span class="section-number-2">4</span> Modello eterogeneo</h2>
+<div id="outline-container-orgfec5dc0" class="outline-3">
+<h3 id="orgfec5dc0"><span class="section-number-3">3.2</span> Esempio 2 - Griglia</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Consideriamo ora una <b>griglia</b> infinta \(\mathbb{Z} \times \mathbb{Z}\), dove ogni nodo è collegato coi nodi nelle rispettive posizione <code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, <code>RIGHT</code>, <code>NE</code>, <code>NW</code>, <code>SE</code> e <code>SW</code>,
+come nella seguente figura
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img13.png" alt="ar-lesson09-img13.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 13: </span>Griglia infita, dove ogni nodo ha grado esattamente 8.</p>
 </div>
 
-<div id="outline-container-orgf65d64a" class="outline-2">
-<h2 id="orgf65d64a"><span class="section-number-2">5</span> Azioni collettive</h2>
+<p>
+Consideriamo il caso base in cui \(\vert V_0 \vert = 1\).
+In tal caso la soglia di adozione deve essere <span class="underline">al più</span> \(q \leq \frac{1}{8}\).
+Con una soglia maggiore non si riuscirebbe altrimenti a creare una cascata completa.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img14.gif" alt="ar-lesson09-img14.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 14: </span>Cascata completa con \(\vert V_0 \vert = 1\) e soglia d'adozione \(q \leq \frac{1}{8}\).</p>
 </div>
 
-<div id="outline-container-org64ae8c6" class="outline-2">
-<h2 id="org64ae8c6"><span class="section-number-2">6</span> Diffusione in presenza di compatibilità</h2>
-<div class="outline-text-2" id="text-6">
+<p>
+Aumentando \(\vert V_0 \vert = 2\) si riesce ad aumentare la soglia di adozione a \(q = \frac{1}{4}\).
+Per fare ciò, basta prendere come nodi iniziatori due nodi <i>adiacenti</i>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img15.gif" alt="ar-lesson09-img15.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 15: </span>Cascata completa con \(\vert V_0 \vert = 2\) e soglia d'adozione \(q = \frac{1}{4}\).</p>
+</div>
+
+
+<p>
+Anche con \(\vert V_0 \vert = 3\) si riesce ad aumentare la soglia di adozione del colore blu a \(q = \frac{3}{8}\).
+Basta ancora una volta scegliere come iniziatori tre nodi adiacenti.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img16.gif" alt="ar-lesson09-img16.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 16: </span>Cascata completa con \(\vert V_0 \vert = 3\) e soglia d'adozione \(q = \frac{3}{8}\).</p>
+</div>
+
+<p>
+Purtroppo però per \(\vert V_0 \vert > 3\) non si riesce ad aumentare in nessun modo la sogia di adozione al di sopra di \(\frac{3}{8}\).
+Infatti è facile convincersi che, qualsiasi sottoinsieme finito di iniziatori prendiamo, si arriverà prima o poi ad una situazione in cui si sarà <i>quasi</i> o del tutto colorata di blu un'area rettangolare,
+dalla quale non si può uscire a meno che non si ha \(q \leq \frac{3}{8}\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson09-img17.gif" alt="ar-lesson09-img17.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 17: </span>Controesempio con \(\vert V_0 \vert > 3\) e soglia d'adozione \(q = \frac{1}{2}\).</p>
+</div>
+
+<p>
+È infatti possibile dimostrare che per questa griglia infinita la <i>capacità di cascata</i>  \(q_{MAX}\) è proprio \(\frac{3}{8}\).
+</p>
+
+<p>
+Continuo nella <a href="./10.html">lezione successiva →</a>
+</p>
+</div>
 </div>
 </div>
 <div id="footnotes">
@@ -788,7 +930,7 @@ Esperimento di Granovetter.
 <p class="date">Data: 2021-11-17 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-02 gio 15:44</p>
+<p class="date">Created: 2021-12-10 ven 01:00</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
