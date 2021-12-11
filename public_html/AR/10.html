@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-10 ven 21:58 -->
+<!-- 2021-12-11 sab 17:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 10</title>
@@ -337,29 +337,33 @@ Definiamo con \(I_t\) l'insieme di archi del <b>taglio</b> \((S_t, V \setminus S
 </p>
 
 <p>
-Si vuole dimostrare che per ogni \(t \geq 0\), allora è vero che
+Dato che \(V_0\) genera una <i>cascata completa</i> di <code>A</code> con soglia di adozione \(q > 0.5\), si può dimostrare che per ogni \(t \geq 0\), allora è vero che
 \[
-  \vert I_t > \geq \vert I_{t+1} \vert\\
+  \vert I_t \vert > \vert I_{t+1} \vert\\
   \mbox{oppure}\\
-  \vert I_t \vert = \vert I_{t+1} \vert
+  I_t \equiv I_{t+1}
   \]
-<b>DISCUTERE IMPLICAZIONI</b><br />
+Dato che il grado massimo di \(G\) è <span class="underline">limitato</span>, allora \(\vert I_0 \vert\) sarà una quantità finita \(k > 0\).
+Inoltre, è facile convincersi che il processo termina quando abbiamo che \(I_t \equiv I_{t+1}\).
+Però visto che \(V_0\) genera un processo <i>infinito</i> di cascata di <code>A</code>, allora per ogni \(t \geq 0\), non deve mai accadere che \(I_t \equiv I_{t+1}\), ovvero accade sempre che \(\vert I_t \vert > \vert I_{t+1} \vert\).
+Ma ciò è assurdo, perché per via della dimensione finita di \(I_0\), può accadere <span class="underline">al più</span> \(k\) volte consecutive che il processo procedi.
+Perciò deve esistere necessariamente un tempo \(\tau \geq k\), tale che \(I_\tau \equiv I_{\tau + 1}\) (<b>assurdo</b>).<br />
 </p>
 
-
 <p>
-Per dimostrarlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(\vert I_t \vert \neq \vert I_{t+1} \vert\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
+Procediamo quindi con la dimostrazione dei due eventi.
+Per farlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(I_t \not\equiv I_{t+1}\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
 (e implicando quindi che non può nemmeno mai accadere che \(\vert I_t \vert < \vert I_{t+1} \vert\)).<br />
 </p>
 
 <p>
-Se per ipotesi abbiamo che \(\vert I_t \vert \neq \vert I_{t+1} \vert\), ciò implica che esiste <span class="underline">almeno</span> un nodo \(v\) che ha adottato <code>A</code> al tempo \(t + 1\), e che quindi \(V_{t+1} = \emptyset\).
+Se per ipotesi abbiamo che \(I_t \not\equiv I_{t+1}\), ciò implica che esiste <span class="underline">almeno</span> un nodo \(v\) che ha adottato <code>A</code> al tempo \(t + 1\), e che quindi \(V_{t+1} \neq \emptyset\).
 Affinché ciò sia vero, è necessario che \(v\) abbia <span class="underline">almeno</span> un vicino \(u \in N(v)\) che è anche nello stato <code>A</code>, ovvero \(u \in N(v) \cap S_t\).<br />
 </p>
 
 <p>
-Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco di tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
-Contrariamente, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
+Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco del tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
+Viceversa, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
 </p>
 
 
@@ -403,7 +407,39 @@ Tutto ciò implica che
 \end{align*}
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Per semplificare la precedente formula, possiamo definire i seguenti insiemi come:
+</p>
+<ul class="org-ul">
+<li>\(\lbrace (u,v) \in E : u \in S_t \rbrace = N(v) \cap S_t\)</li>
+<li>\(\lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace = N(u) \setminus S_{t+1}\)</li>
+</ul>
+<p>
+perciò la formula per \(\vert I_{t+1} \vert\) risulterà essere:
+</p>
+\begin{align*}
+  \vert I_{t+1} \vert &= \vert I_t \vert - \sum_{v \in V_{t+1}} \vert N(v) \cap S_t \vert + \sum_{v \in V_{t+1}} \vert N(u) \setminus S_{t+1} \vert\\
+  &= \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_{t+1} \vert \right)
+\end{align*}
+
+<p>
+Osserviamo adesso che, dato che un \(v \in V_{t+1}\) ha adottato il nuovo stato <code>A</code>, e dato che la soglia di adozione è \(q > \frac{1}{2}\), allora più della metà dei suoi vicini era in \(S_t\),
+ovvero
+\[
+  \frac{\vert N(v) \cap S_t \vert}{\vert N(v) \vert} \geq q > \frac{1}{2}
+  \]
+oppure, visto in altri termini
+\[
+  \vert N(v) \cap S_t \vert > \vert N(v) \setminus S_t \vert \geq \vert N(v) \setminus S_{t+1} \vert
+  \]
+Perciò avremo che
+</p>
+\begin{align*}
+  \vert I_{t+1} \vert &= \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_{t+1} \vert \right)\\
+  &\leq \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_t \vert \right)\\
+  &= \vert I_t \vert - \sum_{v \in V_{t+1}} 1 = \vert I_t \vert - \vert V_{t+1} \vert < \vert I_t \vert
+\end{align*}
+<p>
+dove l'ultima disuguaglianza viene dall'assunzione che \(V_{t+1} \neq \emptyset\) \(\square\).
 </p>
 </blockquote>
 </div>
@@ -426,7 +462,7 @@ Tutto ciò implica che
 <p class="date">Data: 2021-11-22 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-10 ven 21:58</p>
+<p class="date">Created: 2021-12-11 sab 17:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

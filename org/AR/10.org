@@ -39,23 +39,27 @@
   I_t \equiv \lbrace (u,v) : u \in S_t \land v \in V \setminus S_t \rbrace
   \]
 
-  Si vuole dimostrare che per ogni \(t \geq 0\), allora è vero che
+  Dato che \(V_0\) genera una /cascata completa/ di =A= con soglia di adozione \(q > 0.5\), si può dimostrare che per ogni \(t \geq 0\), allora è vero che
   \[
-  \vert I_t > \geq \vert I_{t+1} \vert\\
+  \vert I_t \vert > \vert I_{t+1} \vert\\
   \mbox{oppure}\\
-  \vert I_t \vert = \vert I_{t+1} \vert
+  I_t \equiv I_{t+1}
   \]
-  *DISCUTERE IMPLICAZIONI*\\
+  Dato che il grado massimo di $G$ è _limitato_, allora \(\vert I_0 \vert\) sarà una quantità finita \(k > 0\).
+  Inoltre, è facile convincersi che il processo termina quando abbiamo che \(I_t \equiv I_{t+1}\).
+  Però visto che \(V_0\) genera un processo /infinito/ di cascata di =A=, allora per ogni \(t \geq 0\), non deve mai accadere che \(I_t \equiv I_{t+1}\), ovvero accade sempre che \(\vert I_t \vert > \vert I_{t+1} \vert\).
+  Ma ciò è assurdo, perché per via della dimensione finita di \(I_0\), può accadere _al più_ $k$ volte consecutive che il processo procedi.
+  Perciò deve esistere necessariamente un tempo \(\tau \geq k\), tale che \(I_\tau \equiv I_{\tau + 1}\) (*assurdo*).\\
 
-
-  Per dimostrarlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(\vert I_t \vert \neq \vert I_{t+1} \vert\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
+  Procediamo quindi con la dimostrazione dei due eventi.
+  Per farlo, basta dimostrare la mutua esclusione degli eventi, ovvero che se \(I_t \not\equiv I_{t+1}\) allora necessariamente \(\vert I_t \vert > \vert I_{t+1} \vert\)
   (e implicando quindi che non può nemmeno mai accadere che \(\vert I_t \vert < \vert I_{t+1} \vert\)).\\
 
-  Se per ipotesi abbiamo che \(\vert I_t \vert \neq \vert I_{t+1} \vert\), ciò implica che esiste _almeno_ un nodo $v$ che ha adottato =A= al tempo \(t + 1\), e che quindi \(V_{t+1} = \emptyset\).
+  Se per ipotesi abbiamo che \(I_t \not\equiv I_{t+1}\), ciò implica che esiste _almeno_ un nodo $v$ che ha adottato =A= al tempo \(t + 1\), e che quindi \(V_{t+1} \neq \emptyset\).
   Affinché ciò sia vero, è necessario che $v$ abbia _almeno_ un vicino \(u \in N(v)\) che è anche nello stato =A=, ovvero \(u \in N(v) \cap S_t\).\\
 
-  Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco di tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
-  Contrariamente, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
+  Più in generale, per ogni nodo \(v \in V_{t+1}\) esiste alemno un arco del tipo \((u,v) \in I_t\), inoltre tale arco non apparterrà a \(I_{t+1}\).
+  Viceversa, tutti gli archi che apparterranno a \(I_{t+1}\) certamente non erano in \(I_t\).
 
   #+caption: \(v \in V_{t+1}\): $v$ adotta =A= al tempo \(t + 1\).
   #+ATTR_HTML: :style max-width:550px; :width 100%
@@ -85,7 +89,31 @@
     &+ \sum_{v \in V_{t+1}} \vert \lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace \vert
   \end{align*}
 
-  *[DA FINIRE...]*
+  Per semplificare la precedente formula, possiamo definire i seguenti insiemi come:
+  - \(\lbrace (u,v) \in E : u \in S_t \rbrace = N(v) \cap S_t\)
+  - \(\lbrace (v,z) \in E : z \in V \setminus S_{t+1} \rbrace = N(u) \setminus S_{t+1}\)
+  perciò la formula per \(\vert I_{t+1} \vert\) risulterà essere:
+  \begin{align*}
+    \vert I_{t+1} \vert &= \vert I_t \vert - \sum_{v \in V_{t+1}} \vert N(v) \cap S_t \vert + \sum_{v \in V_{t+1}} \vert N(u) \setminus S_{t+1} \vert\\
+    &= \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_{t+1} \vert \right)
+  \end{align*}
+
+  Osserviamo adesso che, dato che un \(v \in V_{t+1}\) ha adottato il nuovo stato =A=, e dato che la soglia di adozione è \(q > \frac{1}{2}\), allora più della metà dei suoi vicini era in \(S_t\),
+  ovvero
+  \[
+  \frac{\vert N(v) \cap S_t \vert}{\vert N(v) \vert} \geq q > \frac{1}{2}
+  \]
+  oppure, visto in altri termini
+  \[
+  \vert N(v) \cap S_t \vert > \vert N(v) \setminus S_t \vert \geq \vert N(v) \setminus S_{t+1} \vert
+  \]
+  Perciò avremo che
+  \begin{align*}
+    \vert I_{t+1} \vert &= \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_{t+1} \vert \right)\\
+    &\leq \vert I_t \vert - \sum_{v \in V_{t+1}} \left ( \vert N(v) \cap S_t \vert - \vert N(u) \setminus S_t \vert \right)\\
+    &= \vert I_t \vert - \sum_{v \in V_{t+1}} 1 = \vert I_t \vert - \vert V_{t+1} \vert < \vert I_t \vert
+  \end{align*}
+  dove l'ultima disuguaglianza viene dall'assunzione che \(V_{t+1} \neq \emptyset\) \(\square\).
   #+end_quote
 
   
