@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-11 sab 17:54 -->
+<!-- 2021-12-11 sab 22:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 10</title>
@@ -277,7 +277,6 @@ for the JavaScript code in this tag.
 <li><a href="#orged8c592">1. ← The Cascade Capacity on Infinite Network with bounded Degree</a></li>
 <li><a href="#org3811b9c">2. Modello eterogeneo</a></li>
 <li><a href="#org2fe450b">3. Azioni collettive</a></li>
-<li><a href="#orgd431258">4. Diffusione in presenza di compatibilità</a></li>
 </ul>
 </div>
 </div>
@@ -445,24 +444,195 @@ dove l'ultima disuguaglianza viene dall'assunzione che \(V_{t+1} \neq \emptyset\
 </div>
 </div>
 
-
 <div id="outline-container-org3811b9c" class="outline-2">
 <h2 id="org3811b9c"><span class="section-number-2">2</span> Modello eterogeneo</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Il modello studiato in precedenza era un modello <b>uniforme</b> (o <b>omogeneo</b>), nel quale si assume che tutti i nodi abbiano lo stesso vantaggio nell'usare la tecnologia <code>A</code> o <code>B</code>.
+Sarebbe più reale invece considerare un modello <b>eterogeneo</b>, in cui ogni individuo ricava un proprio profitto personale dall'adottare una nuova tecnologia.
+In questo caso possiamo modellare i vantaggi tra le coppie di invidui con un <code>A-B</code> <i>heterogeneous coordination game</i>
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img3.png" alt="ar-lesson10-img3.png" style="max-width:300px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span><code>A-B</code> <i>heterogeneous coordination game</i> table.</p>
 </div>
+
+<p>
+Perciò, se un nodo \(v\) ha una frazione \(p\) di vicini nello stato <code>A</code> e una frazione \((1-p)\) nello stato <code>B</code>, il guadagno scegliendo <code>A</code> sarà \(pa_v\) e quello rimanendo in <code>B</code> sarà \((1-p)b_v\).
+Perciò possiamo affermare che <code>A</code> è una scelta migliore se
+\[
+  p \geq \frac{b_v}{a_v + b_v}
+  \]
+Definiamo con \(q_v = \frac{b_v}{a_v + b_v}\) la personale <i>soglia di adozione</i> dell'individuo \(v\).
+</p>
+
+<p>
+Consideriamo il seguente esempio, con insieme di nodi iniziatori \(V_0 = \lbrace 1 \rbrace\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img4.png" alt="ar-lesson10-img4.png" style="max-width:450px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Esempio giocattolo, con \(V_0 = \lbrace 1 \rbrace\).</p>
+</div>
+
+<p>
+Osservare che il nodo 1 è una elemento abbastanza centrale nella comunità \(\lbrace 1,2,3,4,5,6 \rbrace\).
+Purtroppo, nonostante la sua posizione strategica, è dificcile che riesca a convincere i suoi vicini ad adottare <code>A</code>.
+Per fortuna c'è il vicino 3 che è <b>facilmente influenzabile</b>, il quale ha una soglia di adozione \(q_3 = 0.1\) parecchio più bassa degli altri.
+Perciò, se 1 riesce a convincere il nodo 3 ad adottare <code>A</code>, allora si scatenerebbe una cascata su tutta la comunità \(\lbrace 1,2,3,4,5,6 \rbrace\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img5.png" alt="ar-lesson10-img5.png" style="max-width:450px;" width="100%" />
+</p>
+</div>
+
+<p>
+Ciò ci suggerisce che scegliere un iniziatore in un posto strategico non è più una <b>condizione sufficiente</b> a garantire la diffusione di <code>A</code>, quantomeno all'interno di una comunità.
+Invece, è necessario che gli iniziatori abbiano anche la possibilità di avere accesso a individui <b>facilmente influenzabili</b>.<br />
+</p>
+
+<p>
+Ricordiamo che nel modello omogeneo ciò che impediva una cascata completa era la presenza di <b>cluster di densita</b> \(1 - q\), ovvero un sottoinsieme di nodi \(V'\) tale che
+\[
+  \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} \geq 1 - q \;\; \forall u \in V'
+  \]
+Analogamente per il modello eterogeneo, definiamo i <b>blocking cluster</b> quei sottoinsiemi di nodi \(V'\) tali che
+\[
+  \frac{\vert N(u) \cap V' \vert}{\vert N(u) \vert} \geq 1 - q_u \;\; \forall u \in V'
+  \]
+Anche per il modello eterogeno, la presenza di tali strutture è un ostacolo alle cascate complete!<br />
+</p>
+
+<p>
+Tale osservazione è formalmente espressa dal seguente teorema
+</p>
+<blockquote>
+<p>
+<b>THM</b>
+Sia il grafo \(G=(V,E)\) e l'insieme di iniziatori \(V_0 \subseteq V\).
+L'insieme \(V_0\) <b>non</b> genera una cascata completa di <code>A</code> <span class="underline">se e solo so</span> \(G-V_0\) congiene un <i>blocking cluster</i>.<br />
+</p>
+</blockquote>
+</div>
+</div>
+
 
 <div id="outline-container-org2fe450b" class="outline-2">
 <h2 id="org2fe450b"><span class="section-number-2">3</span> Azioni collettive</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+I processi di diffusione sono utili anche per modellare situazioni in cui bisogna prendere decisione collettive.<br />
+</p>
+
+<p>
+Consideriamo come esempio una situazione in cui è presente un regime totalitario su una popolazione.
+Il popolo ha organizzato una grande manifestazione/rivolta.
+Ovviamente solo se un numero considerevole di individui aderirà si riusciranno ad ottenere dei reali benefici.
+Viceversa, se non partecipa molta gente, tutti coloro che avranno aderito verranno arrestati.
+Secondo questo scenario è ragionevole pensare che ogni individuo vada se <span class="underline">sa</span> che un certo numero di altri individui partecipi.
+(Il gioco deve valerne la candela).
+Assumiamo inoltre che tale regime ostacola le comunicazioni, cosiché un individuo può sapere solo cosa faranno i suoi diretti conoscenti (e non l'intera popolazione).<br />
+</p>
+
+<p>
+Tale esempio è facilmente modellabile col modello di adozione di una nuova innovazione visto in precedenza.
+Per ogni individuo \(v\), definiamo con \(k_v\) la sua <b>soglia di confidenza</b>, ovvero il numero minimo di persone che devono partecipare alla protesta affinché il nodo \(v\) si convinca a partecipare.
+Più precisamente, \(v\) partecila alla protesta se sa che altre \(k_v - 1\) persone partecipano<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.<br />
+</p>
+
+<p>
+Dato che però \(v\) non può sapere l'afflusso globale (per via delle comunicazioni ristrette), possiamo dire che \(v\) parteciperà alla protesta solamente se se sa che altri \(k_v - 1\) <span class="underline">suoi vicini</span> partecipano.
+Purtroppo però, per via della natura rischiosa dell'informazione, \(v\) non può sapere se i suoi parteciperanno o meno, ma solamente la loro <i>soglia di confidenza</i>.<br />
+</p>
+
+<p>
+Ricapitolando, ogni individuo \(v\) conosce solamente le soglie di confidenza \(k_u\) dei suoi vicini \(u \in N(v)\) e la rete di conoscenza della comunità.<br />
+</p>
+
+<p>
+Consideriamo il seguente esempio
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img6.png" alt="ar-lesson10-img6.png" style="max-width:200px;" width="100%" />
+</p>
 </div>
 
-<div id="outline-container-orgd431258" class="outline-2">
-<h2 id="orgd431258"><span class="section-number-2">4</span> Diffusione in presenza di compatibilità</h2>
+<p>
+Certamente \(w\) non parteciperà perché non ha abbastanza vicini per rientrare nella sua soglia di confidenza.
+Il nodo \(v\) per partecipare richiede che entrambi i suoi vicini, \(u\) e \(w\), aderiscano.
+Però, dato che non può dire nulla sulla partecipazione di \(w\), può solamente assumere che lui non partecipi per via della sua soglia di confidenza \(k_w\) troppo alta.
+Infine \(u\) per partecipare richiede che solo un suo vicino partecipi.
+Però, dato che per lo stesso ragionamento può dedurre che \(w\) non aderisce, rimane col dubbio rispetto all'adesione di \(v\).
+Perciò ad \(u\) conviene realmente parteciapre e rischiare di essere l'unico a farlo?
+In realtà non gli conviene, in quanto può intuire che anche \(v\) abbia fatto lo stesso ragionamento in merito a \(w\), e che quindi molto probabilmente \(v\) non parteciperà.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img7.png" alt="ar-lesson10-img7.png" style="max-width:200px;" width="100%" />
+</p>
+</div>
+
+<p>
+Il secondo esempio è più simmetrico, perciò consideriamo solamente la prospettiva del nodo \(u\).
+Lui sa che entrambi i suoi vicini \(v\) e \(w\) hanno soglia di confidenza 3, perciò tutti e tre \(u,v,w\) potrebbero tranquillamente aderire alla protesta.
+Però \(u\) sa anche che \(v\) non ha informazioni riguardo la confidenza di \(w\), e viceversa \(w\) non ne ha riguardo \(v\), perciò non può dare per scontato che entrambi partecipino.
+Infatti \(u\) non ha idea di quale sia la soglia di confidenza di \(x\).
+Nel caso \(k_x\) fosse molto alta, allora potrebbe intuire che sia \(v\) che \(w\) non siano confidenti nel partecipare.
+Applicando questo ragionamento in maniera simmetrica su tutti i noi, possiamo dedurre che nessuno parteciperà alla protesta.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson10-img8.png" alt="ar-lesson10-img8.png" style="max-width:200px;" width="100%" />
+</p>
+</div>
+
+<p>
+Consideriamo in fine quest'ultimo esempio meno simmetrico del precedente.
+Tutti i nodi hanno bisogno di sapere che almeno altri due parteciperanno alla manifestazione per essere confidenti e aderire a loro volta.
+Partendo dal punto di vista del nodo \(u\), esso sa benissimo che la soglia di adozione del triangolo formato con \(w\) e \(v\) è 3.
+Sa anche molto bene che sia \(w\) che \(v\) sanno le stesse cose che sa \(u\).
+Ovvero tutti e tre i nodi del triangolo sanno tutto riguardo loro stessi (tranne la decisione di partecipare ovviamente).
+Dato che siamo in una situazione del tipo <i>"io so che tu sai che io so"</i> tra \(u,v,w\), tutti e tre i nodi possono ben pensare di partecipare tranquillamente alla protesta.
+Notare che \(w\) riesce a prendere la decisione di parteciapre senza nemmeno considerare il nodo \(x\), il quale certamente non parteciperà perché ha una soglia di confidenza troppo alta rispetto al suo numero di vicini.<br />
+</p>
+
+<p>
+In maniera intuitiva possiamo dire che in assenza di informazioni è molto difficile riuscire a prendere una decisione collettiva, persino quando la maggior parte degli individui è d'accordo su un pensiero comune.
+Infatti per questo comune le dittature spingono molto sul controllo delle informazioni e tendono a chiudere al mondo esterno le conoscenze.
+Questo fenomeno è conosciuto come <b>ignoranza pluralistica</b>.
+A conferma di quanto detto, nell'ultimo esempio si riesce a prendere una decisione collettiva proprio perché i nodi \(u,v,w\) disponevano di una stessa <b>base d'informazioni comune</b>.
+</p>
+
+<hr />
 </div>
 </div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+\(v\) è il \(k_v\)-esimo partecipante.
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-22 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-11 sab 17:54</p>
+<p class="date">Created: 2021-12-11 sab 22:01</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
