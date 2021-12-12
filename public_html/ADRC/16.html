@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-08 mer 20:45 -->
+<!-- 2021-12-12 dom 18:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 16</title>
@@ -274,10 +274,10 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org546e47c">Swarm Intelligence - k-Majority Protocol</a>
+<li><a href="#orgb17500e">Swarm Intelligence - k-Majority Protocol</a>
 <ul>
-<li><a href="#org6643b92">1-MAJ</a></li>
-<li><a href="#org6845262">3-MAJ</a></li>
+<li><a href="#orgd91d622">1-MAJ</a></li>
+<li><a href="#org8c30a0e">3-MAJ</a></li>
 </ul>
 </li>
 </ul>
@@ -285,9 +285,9 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org546e47c" class="outline-2">
-<h2 id="org546e47c">Swarm Intelligence - k-Majority Protocol</h2>
-<div class="outline-text-2" id="text-org546e47c">
+<div id="outline-container-orgb17500e" class="outline-2">
+<h2 id="orgb17500e">Swarm Intelligence - k-Majority Protocol</h2>
+<div class="outline-text-2" id="text-orgb17500e">
 <p>
 Nella <a href="./15.html">lezione precedente</a> abbiamo visto che fare un semplice <i>campionamento uniforme</i> non è un metodo molto efficiente per risolvere il problema del <i>2-majority consensus</i>, in quanto per ottenere
 l'alta probabilità è necessario fare un numero di campionamenti inversamente proporzionale alla grandezza del <i>bias</i>.<br />
@@ -334,9 +334,9 @@ Il protocollo termina quando tutti i nodi sono dello stesso colore.
 </blockquote>
 </div>
 
-<div id="outline-container-org6643b92" class="outline-3">
-<h3 id="org6643b92">1-MAJ</h3>
-<div class="outline-text-3" id="text-org6643b92">
+<div id="outline-container-orgd91d622" class="outline-3">
+<h3 id="orgd91d622">1-MAJ</h3>
+<div class="outline-text-3" id="text-orgd91d622">
 <p>
 È faciel dimostrare che la versione del \(k\)-MAJ con \(k = 1\) è molto poco efficiente, ovvero convergerà molto lentamente nello stato finale desiderato.
 Per dimostrarlo, basta dimostrare che mediamente ad ogni time slot il <i>bias</i> s rimane uguale al <i>bias</i> al tempo precedente.<br />
@@ -369,9 +369,9 @@ Ciò implica che \(s_{t+1}\) in madia varrà
 </div>
 </div>
 
-<div id="outline-container-org6845262" class="outline-3">
-<h3 id="org6845262">3-MAJ</h3>
-<div class="outline-text-3" id="text-org6845262">
+<div id="outline-container-org8c30a0e" class="outline-3">
+<h3 id="org8c30a0e">3-MAJ</h3>
+<div class="outline-text-3" id="text-org8c30a0e">
 <p>
 Purtroppo è possibile dimostrare che anche con la varsione 2-MAJ del protocollo è possibile ottenere alta probabilità in tempi brevi.
 Pericò è necessario considerare una versione con un valore di \(k\) di avlore <span class="underline">almeno</span> 3.
@@ -558,7 +558,7 @@ implicando che si passerà da \(O(\log{n})\) nodi colorati di 0 a nessuno con al
 <p class="date">Data: 2021-11-30 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-08 mer 20:45</p>
+<p class="date">Created: 2021-12-12 dom 18:34</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

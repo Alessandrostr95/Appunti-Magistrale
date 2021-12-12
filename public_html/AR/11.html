@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-12 dom 18:34 -->
+<!-- 2021-12-12 dom 22:08 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 15</title>
+<title>AR - Lesson 11</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,147 +269,193 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 15</h1>
+<h1 class="title">AR - Lesson 11</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfe9a38f">Majority Consensus</a>
+<li><a href="#org8df7084">1. Processi di diffusione in presenza di Compatibilità</a>
 <ul>
-<li><a href="#orge88afe1">Simple Sampling</a></li>
+<li><a href="#orgc6d0a82">1.1. Analisi</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgfe9a38f" class="outline-2">
-<h2 id="orgfe9a38f">Majority Consensus</h2>
-<div class="outline-text-2" id="text-orgfe9a38f">
 <p>
-Sia un grafo \(G = (\left[ n \right], E)\) ed una sua <i>colorazione iniziale</i> \(\mathbb{x} : \left[ n \right] \rightarrow C \equiv \lbrace 0, 1 \rbrace\).
-Si vuole progettare un protocollo efficiente per il problema del <code>Majority Consensus</code>.
-Partendo dall'assunzione che la configurazione iniziale abbia un certo sbilanciamento \(s\) (<i>bias</i>), l'obiettivo è quello di convergere ad una configurazione monocromatica dove ogni nodo
-è colorato col colore più popolare inizialmente.<br />
-</p>
-
-<p>
-Più precisamente indichiamo con
+Lezioni predenti collegate:
 </p>
 <ul class="org-ul">
-<li>\(x_v^t\) il colore del nodo \(v\) al tempo \(t\).</li>
-<li>\(x^t(0) = \vert \lbrace v \in V | x_v^t = 0 \rbrace \vert = a_t\), ovvero il numero di nodi che al tempo \(t\) sono nel colore 0.</li>
-<li>\(x^t(1) = \vert \lbrace v \in V | x_v^t = 1 \rbrace \vert = b_t\), ovvero il numero di nodi che al tempo \(t\) sono nel colore 1.</li>
-<li>\(C_t \in \lbrace 0,1 \rbrace^n\) la colorazione di \(G\) al tempo \(t\).</li>
-<li>assumendo che all'inizio la maggioranza ha colore 1 (\(x^0(1) > x^0(0)\)) definiamo il <i>bias</i> (<i>sbilanciamento</i>) inizale la quantità
-\[
-    x^0(1) = \frac{n}{2} + s_0 \implies s_0 = x^0(1) - \frac{n}{2}
-    \]</li>
+<li><a href="./09.html">← Lezione 9</a></li>
+<li><a href="./10.html">← Lezione 10</a></li>
 </ul>
+
+<div id="outline-container-org8df7084" class="outline-2">
+<h2 id="org8df7084"><span class="section-number-2">1</span> Processi di diffusione in presenza di Compatibilità</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-D'ora in poi faremo riferimento semplicemente ad \(s\) come al <i>bias</i> che dipende dal corrente contesto \(C_t\).<br />
+Nelle lezioni precedenti abbiamo visto come un gioco di coordinazione molto semplice possa portare ad una vasta quantità di domande e relative analisi non banali.
+Una prima generalizzazione è stata passare da un modello <i>omogeneo</i>, in cui tutti i nodi traevano uno stesso vantaggio dall'adottare una nuova tecnologia <code>A</code>,
+ad uno <i>eterogeneo</i>, in cui ciascuno individuo ricava un personale guadagno dall'adottare l'innovazione.<br />
 </p>
 
 <p>
-Definiamo ora formalmente il problema del <i>\(\ell\)-Majority-Consenus Problem</i>
+In tutti i modelli analizzati però si assumeva la <b>mutua esclusione</b> degli stati <code>A-B</code>.
+In un contesto reale però succede spesso che due stati coesistono in un individuo.
+Ad esempio, <code>A</code> e <code>B</code> potrebbero essere lingue diverse che coesistono lungo un confine nazionale,
+oppure <code>A</code> e <code>B</code> potrebbero essere due applicazioni di messaggistica differenti.<br />
+Infatti gli individui che si trovano al confine tra un'area in cui prevale <code>A</code> ed una in cui prevale <code>B</code>, conviene adottare entrambi gli stati essere "bilingua".<br />
 </p>
+
+<p>
+Adottare però due stati contemporaneamente può comportare un costo aggiuntivo non trascurabile.
+Un individuo sceglie di utilizzare entrambi i comportamenti disponibili, barattando la maggiore facilità di interazione con persone di più tipi,
+contro il costo di dover acquisire e mantenere entrambe le forme di comportamento (cioè i costi di dover imparare una lingua aggiuntiva, mantenere due diverse versioni di una tecnologia e così via &#x2026;).<br />
+</p>
+
+<p>
+Un'oservazione da fare riguardo il costo del "bilinguismo", è che tale <i>effort</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> viene pagato <span class="underline">una sola volta</span>.
+Perciò, se si è in contatto con tanta gente nello stato <code>A</code> ed altrettanta nello stato <code>B</code>, potrebbe convenire adottare il doppio stato <code>AB</code>,
+in qunato il guadagno ricavato sarebbe molto maggiore dell'unico costo che pago nell'avere il doppio stato:
+<i>il gioco ne vale la candela</i>.
+</p>
+
+<p>
+Modellando in maniera più formale, possiamo definire un nuovo <i>coordination game</i> in accordo alla seguente tabella
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img1.png" alt="ar-lesson11-img1.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Nuovo coordination game con opzione di doppio stato (bilingua).</p>
+</div>
+
+<p>
+dove con \((a,b)^+\) si indica il massimo tra \(a\) e \(b\).<br />
+</p>
+
+<p>
+Indichiamo ora con \(V_A, V_B, V_{AB}\) l'insieme dei nodi negli stati <code>A</code>, <code>B</code> e <code>AB</code> rispettivamente, i quali compongono una <i>partizione</i> dell'insieme \(V\) di tutti gli individui.
+Perciò, fissando con \(c \geq 0\) il costo di adozione del <i>doppio stato</i> <code>AB</code>, possiamo dire che il guadagno complessivo del nodo \(u\) che adotta <code>AB</code> è pari a
+\[
+  \Big(\sum_{v \in N(u) \cap V_A} a\Big) + \Big(\sum_{v \in N(u) \cap V_B} b\Big) + \Big(\sum_{v \in N(u) \cap V_{AB}} (a,b)^+\Big) - c
+  \]
+</p>
+
+<p>
+Indichiamo quindi con \(p_A(u), p_B(u), p_{AB}(u)\) i rispettivi guadagni che ha il nodo \(u\) nell'assumere gli stati <code>A</code>, <code>B</code> o <code>AB</code> come segue
+</p>
+\begin{align*}
+  p_A(u) &= \sum_{v \in N(u) \cap V_A} a\\
+  p_B(u) &= \sum_{v \in N(u) \cap V_B} b\\
+  p_{AB}(u) &= p_A(u) + p_B(u) + \Big(\sum_{v \in N(u) \cap V_{AB}} (a,b)^+\Big) - c
+\end{align*}
+
+<p>
+Analizzeremo ora il processo di diffusione nel nuovo modello con compatibilità, e cercheremo di capire in quali situazioni si ha una cascata completa dei diversi stati.
+</p>
+
 <blockquote>
 <p>
-<b>Def.</b> (<i>\(\ell\)-Majority-Consenus Problem</i>)
-Dato un sistema distribuito \(G = (\left[ n \right], E)\), l'<i>\(\ell\)-Majority-Consenus Problem</i> è definito tramite le seguenti proprità.
-Iniziando da una colorazione iniziale \(C_0\) con <i>bias</i> \(s > \ell\), il sistema deve convergere ad uno stato stabile in cui tutti i nodi hanno adotatto il colore di maggioranza iniziale, ovvero
-arrivare a un tempo \(\tau\) tale che
-\[
-  C_\tau = \lbrace \max{(a_0, b_0)} \rbrace^n
-  \]
+<b>[FARE ESEMPIO SU CATENA]</b>
 </p>
 </blockquote>
 </div>
 
-<div id="outline-container-orge88afe1" class="outline-3">
-<h3 id="orge88afe1">Simple Sampling</h3>
-<div class="outline-text-3" id="text-orge88afe1">
+<div id="outline-container-orgc6d0a82" class="outline-3">
+<h3 id="orgc6d0a82"><span class="section-number-3">1.1</span> Analisi</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-Consideraimo il problema del \(\ell\)-Majority-Consenus su un <b>grafo completo</b> \(G = K_n\), e senza perdita di generalità assumiamo che il colore di maggioranza iniziale sia 1, perciò avremo che \(b_0 > a_0\).<br />
-Un protocollo abbastanza semplice è il <b>Simple Sampling</b>, nel quale ogni nodo campiona <i>u.a.r.</i> \(R > 1\) vicini (compreso se stesso) e decide che colore assumere in base alla maggioranza dei nodi che ha campionato.<br />
+Dalle precedenti lezioni sappiamo che nel modello omogeneo, <code>A</code> <span class="underline">non</span> si diffonde su reti infinite di grado finito se la sua soglia d'adozione è \(q > \frac{1}{2}\),
+ovvero se \(a\) non è <b>almeno</b> pari al valore di \(b\).<br />
+Uno studio di <i>Kleinberg</i> del 2007 ha invece dimostrato uno strano comportamento riguardo il modello con compatibilità, ovvero che:
+</p>
+<ul class="org-ul">
+<li><code>A</code> si diffonde facilmente se \(a\) è parecchio più grande di \(c\) (<b>ragionevole</b>)</li>
+<li><code>A</code> fa fatica a diffondersi se \(c\) è parecchio grande rispetto ad \(a\) (<b>ragionevole</b>)</li>
+<li><code>A</code> fa fatica a diffondersi anche se \(c\) non è molto grande rispetto ad \(a\) (<b>strano</b>)</li>
+</ul>
+<p>
+Analizziamo cosa succede nella rete infinita più semplice, la catena infinita \(\mathbb{Z}\).<br />
 </p>
 
 <p>
-Per prima cosa consideriamo un caso in cui il <i>bias</i> sia <b>molto grande</b>, del tipo \(s \geq \frac{n}{4}\).
-In questo caso avremo che \(b_0 \geq \frac{3}{4}n\).<br />
-</p>
-
-<p>
-Indichiamo con \(R\) il numero di sampling che fa un nodo \(v\), e con \(R_a,R_b\) il numero di volte che campiona un nodo colorato di 0 e 1 rispettivamente.<br />
-</p>
-
-<p>
-Diremo che l'evento <i>"\(v\) ha successo"</i> occorre se alla fine degli \(R\) campionamenti \(v\) deciderà di passare al colore di maggioranza.
-Osservare che ciò accade sse almeno la metà delle volte \(v\) campiona il colore di maggioranza 1, ovvero se \(R_b \geq R/2\).<br />
-</p>
-
-<p>
-Sia la v.a. binaria \(Y_i^v\) che vale 1 se \(v\) campiona un nodo con colore 1 al <i>campionamento</i> \(i\)-esimo, e 0 se ne campiona uno col colore di minoranza 0.
-Tale v.a. avrà probabilità
+Dato che fare un'analisi su tre parametri \(a,b,c\) risulta molto complessa, conviene <b>normalizzare</b> \(b\) ad 1, e quindi descrivere il processo
+solo in funzione di \(a(b) = a\) e \(c\).
+Perciò, in questo modello semplificato (ma non meno espressivo) la soglia d'adozione di <code>A</code> sarà
 \[
-   \mathcal{P}(Y_i^v = 1) = \frac{b_0}{n}
-   \]
-e media
-\[
-   \mathbb{E}\left[ Y_i^v \right] = \frac{b_0}{n}
-   \]
-per ogni \(i = 1, 2, ..., R\).<br />
-</p>
-
-<p>
-Per lineraità, la media del numero di volte che \(v\) campiona un nodo con colore 1 (ovvero la media di \(R_b\)) sarà
-\[
-   \mathbb{E}\left[ Y^v \right] = \mathbb{E}\left[ R_b \right] = \sum_{i=1}^{R}\mathbb{E}\left[ Y_i^v \right] = R\frac{b_0}{n} \geq \frac{3}{4}R
+   q(b) = q = \frac{1}{a+1}
    \]
 </p>
 
 <p>
-Si vuole calcolare in funzione di \(R\) con quale probabilità \(v\) ha successo, ovvero qual è la probabilità che \(\mathcal{P}(R_b \geq \frac{R}{2}) = \mathcal{P}(R_a < \frac{R}{2})\).
-Ovviamente, dato che vogliamo che il sampling dia un risultato correttamente con <span class="underline">alta probabilità</span>, si vuole trovare un valore di \(R\) per il quale
-\[
-   \mathcal{P}(R_b \geq \frac{R}{2}) \geq 1 - \frac{1}{n^{\Omega(1)}}
-   \]
-Per fare ciò, iniziamo col calcolare la probabilità dell'evento inverso.
+Consideriamo un generico nodo \(u\) come nell'esempio in figura succesiva, il quale ha un vicino in \(V_A\) e l'altro in \(V_B\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-imgX.png" alt="ar-lesson11-imgX.png" style="max-width:350px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Il nodo \(u\) deve scegliere quale stato conviene adottare.</p>
+</div>
+
+<p>
+Avremo che guadagni nell'adottare uno stato sono
 </p>
 \begin{align*}
-  \mathcal{P}\left( R_b < \frac{R}{2} \right)
-  &= \mathcal{P}\left(R_b < \left(\frac{3}{4} - \frac{1}{4}\right) R \right)\\
-  &= \mathcal{P}\left(R_b < \left(1 - \frac{1}{3}\right) \frac{3}{4}R \right)\\
-  &= \mathcal{P}\left(R_b < \left(1 - \delta \right) \mathbb{E}\left[ R_b \right] \right)\\
-  (Chernoff \; bound)&\leq e^{-\beta R}
+  p_A(u) &= a\\
+  p_B(u) &= 1\\
+  p_{AB}(u) &= a + 1 - c
 \end{align*}
 
 <p>
-Ponendo \(R = c\log{n}\), per un certo \(c > 0\) tale che \(c \beta > 1\), avremo ottenuto l'alta probabilità
-\[
-   \mathcal{P}\left( R_b \geq \frac{c \log{n}}{2} \right) \geq 1 - \frac{1}{n}
-   \]
+Sicuramente \(u\) assume <code>A</code> se \(p_A(u) \geq p_B(u)\) e se \(p_A(u) \geq p_{AB}(u)\)
 </p>
+\begin{equation}
+\begin{cases}
+  p_A(u) \geq p_B(u)\\
+  p_A(u) \geq p_{AB}(u)
+\end{cases}
+\implies
+\begin{cases}
+  a \geq 1\\
+  c \geq 1
+\end{cases}
+\end{equation}
 
 <p>
-Infine per ottere che questo risultato rimanga con alta probabilità per <span class="underline">tutti</span> gli \(n\) nodi, è necessario scegleire un \(c\) tale che \(c\beta > 2\) e applicare lo <b>Union Bound</b>, infatti
+Invece, \(u\) rimane nello stato <code>B</code> se \(p_B(u) > p_A(u)\) e se \(p_B(u) > p_{AB}(u)\)
 </p>
-\begin{align*}
-  \mathcal{P}(\mbox{"insuccesso"}) &= \mathcal{P}(\exists v \mbox{ che ha insuccesso})\\
-  &= \mathcal{P}(\bigcup_{v \in V} Y^v < \frac{c\log{n}}{2})\\
-  &\leq \sum_{v \in V} \mathcal{P}(Y^b < \frac{c\log{n}}{2})\\
-  &= n \cdot \mathcal{P}(Y^b < \frac{c\log{n}}{2})\\
-  &\leq \frac{1}{n}
-\end{align*}
+\begin{equation}
+\begin{cases}
+  p_b(u) \geq p_A(u)\\
+  p_b(u) \geq p_{AB}(u)
+\end{cases}
+\implies
+\begin{cases}
+  a < 1\\
+  a < c
+\end{cases}
+\end{equation}
 
 <p>
-Perciò, se il <i>bias</i> è molto grande \(s \in \Theta(n)\), con un numero <b>logaritmico</b> di campionamenti è possibile fare una buona stima con alta probabilità.<br />
+Infine, \(u\) adotta il bilinguismo <code>AB</code> se \(p_{AB}(u) > p_A(u)\) e se \(p_{AB}(u) \geq p_B(u)\)
 </p>
+\begin{equation}
+\begin{cases}
+  p_{AB}(u) > p_A(u)\\
+  p_{AB}(u) \geq p_B(u)
+\end{cases}
+\implies
+\begin{cases}
+  c < 1\\
+  c \leq a
+\end{cases}
+\end{equation}
 
 <p>
-Prutroppo però non è vero il contrario.<br />
-Se per esempio consideriamo un <i>bias</i> decisamente più piccolo, per esempio \(s \in \Theta(\sqrt{n\log{n}}) \in o(n)\), non basta un numero logaritmico di <i>samples</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> per avere l'alta probabilità.
-In questo caso è possibile dimostrare che si necessitano \(\Theta(\sqrt{n\log{n}})\) <i>sample</i>, il quale numero è <b>esponenzialmente</b> più grande di \(\Theta(\log{n})\).    
+<b>[DA FINIRE&#x2026;]</b>
 </p>
 </div>
 </div>
@@ -419,17 +465,17 @@ In questo caso è possibile dimostrare che si necessitano \(\Theta(\sqrt{n\log{n
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-campionamenti.
+sforzo.
 </p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-11-25 gio 00:00</p>
+<p class="date">Data: 2021-11-24 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-12 dom 18:34</p>
+<p class="date">Created: 2021-12-12 dom 22:08</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

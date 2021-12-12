@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-04 sab 00:46 -->
+<!-- 2021-12-12 dom 18:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 13</title>
@@ -274,20 +274,20 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7ee9ab3">Opportunistics Networks - The Gossip Models</a>
+<li><a href="#org8791ebf">Opportunistics Networks - The Gossip Models</a>
 <ul>
-<li><a href="#org433f223">Protocollo <code>PUSH</code></a></li>
-<li><a href="#orgcecbb79">Protocollo <code>PULL</code></a></li>
-<li><a href="#org6c8ab4f">Proprietà</a></li>
+<li><a href="#orga16f868">Protocollo <code>PUSH</code></a></li>
+<li><a href="#org6cd759d">Protocollo <code>PULL</code></a></li>
+<li><a href="#orgbca71e5">Proprietà</a></li>
 </ul>
 </li>
-<li><a href="#org20a2393">Broadcast on Clique with <code>PULL</code> Protocol</a>
+<li><a href="#org8536f7f">Broadcast on Clique with <code>PULL</code> Protocol</a>
 <ul>
-<li><a href="#org1c222b4">Trivial Protocol</a></li>
-<li><a href="#org86e4789">Better Protocol</a>
+<li><a href="#orgcb46785">Trivial Protocol</a></li>
+<li><a href="#orgf74a1af">Better Protocol</a>
 <ul>
-<li><a href="#orge1ead70">THM</a></li>
-<li><a href="#org2354dda">Proof</a></li>
+<li><a href="#orgbaacb72">THM</a></li>
+<li><a href="#org792c59d">Proof</a></li>
 </ul>
 </li>
 </ul>
@@ -297,9 +297,9 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org7ee9ab3" class="outline-2">
-<h2 id="org7ee9ab3">Opportunistics Networks - The Gossip Models</h2>
-<div class="outline-text-2" id="text-org7ee9ab3">
+<div id="outline-container-org8791ebf" class="outline-2">
+<h2 id="org8791ebf">Opportunistics Networks - The Gossip Models</h2>
+<div class="outline-text-2" id="text-org8791ebf">
 <p>
 In questa sezione vedremo una famiglia di protocolli distribuiti noti come modelli <b>Gossip</b>.<br />
 Tali modelli lavorano in un contesto <b>totalmente sincronizzato</b>, ovvero dove le comunicazioni sono scandite da un <i>clock globale</i>.
@@ -312,9 +312,9 @@ In particolare vedremo due tipologie di protocolli del tutto <b>equivalenti</b>,
 </p>
 </div>
 
-<div id="outline-container-org433f223" class="outline-3">
-<h3 id="org433f223">Protocollo <code>PUSH</code></h3>
-<div class="outline-text-3" id="text-org433f223">
+<div id="outline-container-orga16f868" class="outline-3">
+<h3 id="orga16f868">Protocollo <code>PUSH</code></h3>
+<div class="outline-text-3" id="text-orga16f868">
 <p>
 Ad ogni time slot \(t = 0, 1, ...\) ogni nodo \(u\) sceglie <i>u.a.r.</i><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> un suo vicino \(v \in_U N(u)\) e se necessario gli trasmette un messaggio <code>M</code>.
 Entro il termine del time slot \(t\) il nodo \(v\) riceverà il messagio <code>M</code>.
@@ -322,9 +322,9 @@ Entro il termine del time slot \(t\) il nodo \(v\) riceverà il messagio <code>M
 </div>
 </div>
 
-<div id="outline-container-orgcecbb79" class="outline-3">
-<h3 id="orgcecbb79">Protocollo <code>PULL</code></h3>
-<div class="outline-text-3" id="text-orgcecbb79">
+<div id="outline-container-org6cd759d" class="outline-3">
+<h3 id="org6cd759d">Protocollo <code>PULL</code></h3>
+<div class="outline-text-3" id="text-org6cd759d">
 <p>
 In maniera del tutto analoga al protocollo <code>PUSH</code> possiamo definire la variante <code>PULL</code> nel seguente modo:
 ad ogni time slot \(t = 0, 1, ...\) ogni nodo \(u\) sceglie <i>u.a.r.</i><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup> un suo vicino \(v \in_U N(u)\), e se \(v\) ha un'informazione che \(u\) desidera allora \(u\) si farà trasmettere un messaggio <code>M</code> contenente tale informazione.
@@ -333,9 +333,9 @@ Entro il termine del time slot \(t\) il nodo \(v\) riceverà il messagio <code>M
 </div>
 </div>
 
-<div id="outline-container-org6c8ab4f" class="outline-3">
-<h3 id="org6c8ab4f">Proprietà</h3>
-<div class="outline-text-3" id="text-org6c8ab4f">
+<div id="outline-container-orgbca71e5" class="outline-3">
+<h3 id="orgbca71e5">Proprietà</h3>
+<div class="outline-text-3" id="text-orgbca71e5">
 <p>
 Osserviamo che ad ogni istante \(t\) tutte le operazioni di <i>push</i> o <i>pull</i> generano un <b>grafo diretto delle comunicazioni</b> \(G_t = (V, E_t)\).
 Considerando il protocollo <code>PUSH</code>, esiste un arco diretto \((u,v) \in E_t\) se \(u\) fa un operazione di push su \(v\).
@@ -350,18 +350,18 @@ Perciò possiamo vedere l'uso di protocolli di tipo <code>PUSH</code> o <code>PU
 </div>
 </div>
 
-<div id="outline-container-org20a2393" class="outline-2">
-<h2 id="org20a2393">Broadcast on Clique with <code>PULL</code> Protocol</h2>
-<div class="outline-text-2" id="text-org20a2393">
+<div id="outline-container-org8536f7f" class="outline-2">
+<h2 id="org8536f7f">Broadcast on Clique with <code>PULL</code> Protocol</h2>
+<div class="outline-text-2" id="text-org8536f7f">
 <p>
 Consideriamo il solito problema del <i>broadcasting</i> a singola sorgente \(s\) su una clique \(K_n\).
 Definiamo dei protocolli probabilistici di tipo <code>PULL</code> che risolvono il task del broadcasting.
 </p>
 </div>
 
-<div id="outline-container-org1c222b4" class="outline-3">
-<h3 id="org1c222b4">Trivial Protocol</h3>
-<div class="outline-text-3" id="text-org1c222b4">
+<div id="outline-container-orgcb46785" class="outline-3">
+<h3 id="orgcb46785">Trivial Protocol</h3>
+<div class="outline-text-3" id="text-orgcb46785">
 <p>
 Un protocollo banale è il seguente:
 </p>
@@ -399,9 +399,9 @@ perciò <span class="underline">in media</span> dopo \(n-1\) time slot tutti i n
 </div>
 </div>
 
-<div id="outline-container-org86e4789" class="outline-3">
-<h3 id="org86e4789">Better Protocol</h3>
-<div class="outline-text-3" id="text-org86e4789">
+<div id="outline-container-orgf74a1af" class="outline-3">
+<h3 id="orgf74a1af">Better Protocol</h3>
+<div class="outline-text-3" id="text-orgf74a1af">
 <p>
 Un protocollo migliore del precedente è il seguente:
 </p>
@@ -419,18 +419,18 @@ Riferiamoci a tale protocollo con al sigla <code>BPP</code> (<i>broadcast pull p
 </p>
 </div>
 
-<div id="outline-container-orge1ead70" class="outline-4">
-<h4 id="orge1ead70">THM</h4>
-<div class="outline-text-4" id="text-orge1ead70">
+<div id="outline-container-orgbaacb72" class="outline-4">
+<h4 id="orgbaacb72">THM</h4>
+<div class="outline-text-4" id="text-orgbaacb72">
 <p>
 il protocollo <code>BPP</code> termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n}\)\) <b>w.h.p.</b><br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2354dda" class="outline-4">
-<h4 id="org2354dda">Proof</h4>
-<div class="outline-text-4" id="text-org2354dda">
+<div id="outline-container-org792c59d" class="outline-4">
+<h4 id="org792c59d">Proof</h4>
+<div class="outline-text-4" id="text-org792c59d">
 <p>
 Fissiamo un time slot \(t \geq 0\), e definiamo l'insieme
 </p>
@@ -452,8 +452,8 @@ Così facendo verrà dimostrato che in tempo logaritmico il protocollo terminer�
 </div>
 
 <ul class="org-ul">
-<li><a id="orgab4dfdf"></a><b>Fase 1</b><br />
-<div class="outline-text-5" id="text-orgab4dfdf">
+<li><a id="org407a232"></a><b>Fase 1</b><br />
+<div class="outline-text-5" id="text-org407a232">
 <p>
 Sia \(t_{max} = \max{\lbrace t \geq 0 \vert m_t \leq \frac{n}{2} \rbrace}\).
 Fissato un tempo \(0 \leq t \leq t_{max}\), definiamo la v.a. binaria \(Y_u\) che indica la probabilità che un nodo <code>NOT-INFORMED</code> diventa <code>INFORMED</code> al tempo \(t+1\).
@@ -526,8 +526,8 @@ della prima fase suddividendo per \(1 \leq m_t \leq \alpha\log{n}\) ed \(\alpha\
 </div>
 
 <ul class="org-ul">
-<li><a id="orgbd75cbc"></a><b>Sottofase 1.1:</b> \(1 \leq m_t \leq \alpha\log{n}\)<br />
-<div class="outline-text-6" id="text-orgbd75cbc">
+<li><a id="orgdc1c818"></a><b>Sottofase 1.1:</b> \(1 \leq m_t \leq \alpha\log{n}\)<br />
+<div class="outline-text-6" id="text-orgdc1c818">
 <p>
 per ogni \(\alpha > 0\) esiste un \(\gamma = \gamma(\alpha)\) sufficientemente grande tale che dopo i primi \(\tau_1 = \gamma\log{n}\) time slots, avremo almeno \(m_{\tau_1} \geq \alpha\log{n}\) nodi <code>INFORMED</code>, <b>w.h.p.</b><br />
 </p>
@@ -589,8 +589,8 @@ Ponendo un \(\gamma = \gamma(\alpha)\) sufficientemente grnade tale che \(\frac{
 </div>
 </li>
 
-<li><a id="orgde764f5"></a><b>Sottofase 1.2:</b> \(\alpha\log{n} < m_t \leq \frac{n}{2}\)<br />
-<div class="outline-text-6" id="text-orgde764f5">
+<li><a id="orgdd022a5"></a><b>Sottofase 1.2:</b> \(\alpha\log{n} < m_t \leq \frac{n}{2}\)<br />
+<div class="outline-text-6" id="text-orgdd022a5">
 <p>
 Esiste un certo \(\beta\) sufficientemente grande tale che dopo \(\tau_2 \beta\log{n}\) time slots avremo che \(m_{\tau_2} \geq n/2\) <b>w.h.p</b><br />
 </p>
@@ -633,8 +633,8 @@ Quest'ultimo bound implica l'alta probabilità della crescita esponenziale di \(
 </ul>
 </li>
 
-<li><a id="orgd5d2ecf"></a><b>Fase 2</b><br />
-<div class="outline-text-5" id="text-orgd5d2ecf">
+<li><a id="orgcf6c95c"></a><b>Fase 2</b><br />
+<div class="outline-text-5" id="text-orgcf6c95c">
 <p>
 La fase 2 è del tutto analoga alla prima, con la differenza che basta dimostrare che la descrescita dei nodi non informati è esponenziale nel tempo.<br />
 </p>
@@ -675,8 +675,8 @@ Certamente se \(\frac{n}{2^{t - \tau_2 + 1}} \leq c\log{n}\) allora anche \(z_t 
 </div>
 </li>
 
-<li><a id="org9689a1a"></a><b>Ultimo step</b><br />
-<div class="outline-text-5" id="text-org9689a1a">
+<li><a id="org56dae6a"></a><b>Ultimo step</b><br />
+<div class="outline-text-5" id="text-org56dae6a">
 <p>
 Infine, calcoliamo la probabilità che una volta rimasti \(O(\log{n})\) nodi <code>NOT-INFORMED</code>, in un solo time slot tutti diventano informaiti, e vediamo che ciò accade con alta probabilità.<br />
 </p>
@@ -715,7 +715,7 @@ uniformemente a caso.
 <p class="date">Data: 2021-11-18 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-04 sab 00:46</p>
+<p class="date">Created: 2021-12-12 dom 18:34</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
