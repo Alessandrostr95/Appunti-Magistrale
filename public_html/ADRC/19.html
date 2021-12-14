@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-14 mar 17:23 -->
+<!-- 2021-12-14 mar 17:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 19</title>
@@ -274,34 +274,34 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgef20f96">Algorithmic Game Theory</a></li>
-<li><a href="#orgd40f939">Games and Equilibrium</a>
+<li><a href="#orgc2aebf1">Algorithmic Game Theory</a></li>
+<li><a href="#orge20afea">Games and Equilibrium</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org06118b7">Esempio 1: Prisoner's Dilemma</a></li>
-<li><a href="#org08d42c4">Esempio 2: ISPRouting Game</a></li>
+<li><a href="#orgaaedffb">Esempio 1: Prisoner's Dilemma</a></li>
+<li><a href="#org5500df9">Esempio 2: ISPRouting Game</a></li>
 </ul>
 </li>
-<li><a href="#org6ca161b">Definizione di Strategia</a></li>
-<li><a href="#orgf227c82">Dominating Strategy</a></li>
-<li><a href="#org3340009">Dominating Strategy Equilibrium</a></li>
-<li><a href="#orgc9b5943">Nash Equilibrium in Strategie Pure</a>
+<li><a href="#org98f2952">Definizione di Strategia</a></li>
+<li><a href="#orged301e9">Dominating Strategy</a></li>
+<li><a href="#org4bd357c">Dominating Strategy Equilibrium</a></li>
+<li><a href="#org65823b7">Nash Equilibrium in Strategie Pure</a>
 <ul>
-<li><a href="#orgf300014">Esempio 3: Battle of sexes</a></li>
-<li><a href="#org5f64939">Esempio 4: Routing Congestion Game</a></li>
-<li><a href="#orge504a1b">Esempio 5: Matching Pennies Game</a></li>
+<li><a href="#org82d7592">Esempio 3: Battle of sexes</a></li>
+<li><a href="#orgf0d283f">Esempio 4: Routing Congestion Game</a></li>
+<li><a href="#orga7eedb4">Esempio 5: Matching Pennies Game</a></li>
 </ul>
 </li>
-<li><a href="#orgbfb6816">Mixed Strategy Nash Equilibria</a></li>
+<li><a href="#org0c0f33b">Mixed Strategy Nash Equilibria</a></li>
 </ul>
 </li>
-<li><a href="#org8cfc240">Quality of Nash Equilibrium</a>
+<li><a href="#org2ad7f58">Quality of Nash Equilibrium</a>
 <ul>
-<li><a href="#org7b0a6ad">The Price of Anarchy and the Price of Stability</a>
+<li><a href="#orge7c0290">The Price of Anarchy and the Price of Stability</a>
 <ul>
-<li><a href="#org5bce999">Esempio 6: Pigou's Game</a></li>
-<li><a href="#org54cf2d7">The Braess’s paradox</a></li>
+<li><a href="#org8498ceb">Esempio 6: Pigou's Game</a></li>
+<li><a href="#org49ec369">The Braess’s paradox</a></li>
 </ul>
 </li>
 </ul>
@@ -310,17 +310,17 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgef20f96" class="outline-2">
-<h2 id="orgef20f96">Algorithmic Game Theory</h2>
-<div class="outline-text-2" id="text-orgef20f96">
+<div id="outline-container-orgc2aebf1" class="outline-2">
+<h2 id="orgc2aebf1">Algorithmic Game Theory</h2>
+<div class="outline-text-2" id="text-orgc2aebf1">
 <p>
 <b>[INTRODUZIONE DISCORSIVA SU Algorithmic Game Theory: DA FARE&#x2026;]</b>
 </p>
 </div>
 </div>
-<div id="outline-container-orgd40f939" class="outline-2">
-<h2 id="orgd40f939">Games and Equilibrium</h2>
-<div class="outline-text-2" id="text-orgd40f939">
+<div id="outline-container-orge20afea" class="outline-2">
+<h2 id="orge20afea">Games and Equilibrium</h2>
+<div class="outline-text-2" id="text-orge20afea">
 <p>
 La <i>Teoria dei Giochi</i> consente di modellare situazioni in cui molteplici partecipanti interagiscono tra di loro
 e le loro azioni sono influenzate da ciò che fanno gli altri.
@@ -328,9 +328,9 @@ Consideriamo alcuni esempi, in cui ogni individuo (o <b>player</b>) sceglie simu
 </p>
 </div>
 
-<div id="outline-container-org06118b7" class="outline-4">
-<h4 id="org06118b7">Esempio 1: Prisoner's Dilemma</h4>
-<div class="outline-text-4" id="text-org06118b7">
+<div id="outline-container-orgaaedffb" class="outline-4">
+<h4 id="orgaaedffb">Esempio 1: Prisoner's Dilemma</h4>
+<div class="outline-text-4" id="text-orgaaedffb">
 <p>
 Due criminali sono incolpati di due crimini, uno meno grave del quale se ne hanno le prove, e uno molto grave
 del quale però c'è solo il sospetto.
@@ -381,9 +381,9 @@ si dice che tale strategia è una <b>strategia dominante</b>.
 </div>
 </div>
 
-<div id="outline-container-org08d42c4" class="outline-4">
-<h4 id="org08d42c4">Esempio 2: ISP<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> Routing Game</h4>
-<div class="outline-text-4" id="text-org08d42c4">
+<div id="outline-container-org5500df9" class="outline-4">
+<h4 id="org5500df9">Esempio 2: ISP<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> Routing Game</h4>
+<div class="outline-text-4" id="text-org5500df9">
 <p>
 In questo gioco ci sono due <i>Internet Service Providers</i> che devono decidere dove redirigere il flusso di informazioni, da una srogente \(s\) ad una destinazione \(t\).
 Per ogni messaggio che passa lungo le proprie connessioni, l'<code>ISP</code> in questione pagherà un costo simbolico di 1.
@@ -420,9 +420,9 @@ perciò anche in questo caso confiene a entrambi i player essere "scorretti" ed 
 </div>
 </div>
 
-<div id="outline-container-org6ca161b" class="outline-3">
-<h3 id="org6ca161b">Definizione di Strategia</h3>
-<div class="outline-text-3" id="text-org6ca161b">
+<div id="outline-container-org98f2952" class="outline-3">
+<h3 id="org98f2952">Definizione di Strategia</h3>
+<div class="outline-text-3" id="text-org98f2952">
 <p>
 Più formalmente, in ogni <i>gioco</i> esiste un insieme di \(n\) <b>giocatori</b> (o <b>player</b>) \(\lbrace 1, 2, ..., n \rbrace\).
 Ogni giocatore \(i\) ha un suo <b>insieme di strategie possibili</b> \(S_i\).
@@ -457,9 +457,9 @@ in base al contesto in cui ci si trova.<br />
 </div>
 </div>
 
-<div id="outline-container-orgf227c82" class="outline-3">
-<h3 id="orgf227c82">Dominating Strategy</h3>
-<div class="outline-text-3" id="text-orgf227c82">
+<div id="outline-container-orged301e9" class="outline-3">
+<h3 id="orged301e9">Dominating Strategy</h3>
+<div class="outline-text-3" id="text-orged301e9">
 <p>
 Una strategia \(s_i^* \in S_i\) è una <b>strategia dominante</b> per un player \(i\) se \(s_i\) è la scelta migliore che \(i\) può fare indipendentemente da quello che scelgono di fare gli altri player.
 Più formalmente sia un <i>vettore di strategie</i> \(s \in S\), definiamo con \(s_{-i}\) il vettore \((n-1)\)-dimensionale contenente tutte le strategie dei giocatori eccetto \(i\), ovvero
@@ -475,9 +475,9 @@ minore o uguale se consideriamo problemi di minimizzazione.<br />
 </div>
 </div>
 
-<div id="outline-container-org3340009" class="outline-3">
-<h3 id="org3340009">Dominating Strategy Equilibrium</h3>
-<div class="outline-text-3" id="text-org3340009">
+<div id="outline-container-org4bd357c" class="outline-3">
+<h3 id="org4bd357c">Dominating Strategy Equilibrium</h3>
+<div class="outline-text-3" id="text-org4bd357c">
 <p>
 Una <b>combinazione di strategie</b> \(s^* = (s_1^*, s_2^*, ..., s_n^*)\) è una <b>Dominating Strategy Equilibrium</b> (<code>DSE</code>) se per ogni \(i\), \(s_i^*\) è una strategia dominante,
 ovvero se \(\forall s \in S\)
@@ -490,9 +490,9 @@ Per questo motivo necessitiamo di trovare una condizione meno stringente, che pu
 </div>
 </div>
 
-<div id="outline-container-orgc9b5943" class="outline-3">
-<h3 id="orgc9b5943">Nash Equilibrium in Strategie Pure</h3>
-<div class="outline-text-3" id="text-orgc9b5943">
+<div id="outline-container-org65823b7" class="outline-3">
+<h3 id="org65823b7">Nash Equilibrium in Strategie Pure</h3>
+<div class="outline-text-3" id="text-org65823b7">
 <p>
 Un <b>Equilibrio di Nash</b> (o <b>Nash Equilibrium</b>) <b>in strategie pure</b> è una strategia \(s \in S\) nella qualle a nessun player conviene cambiare strategia personale.
 Più formalmente \(s\) è un <code>NE</code><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> se, data un'altra generica strategia \(s' \in S\), è vero che per ogni player \(i\)
@@ -505,9 +505,9 @@ In un <code>DSE</code> invece ad ogni player non conviene mai cambiare strategia
 </p>
 </div>
 
-<div id="outline-container-orgf300014" class="outline-4">
-<h4 id="orgf300014">Esempio 3: Battle of sexes</h4>
-<div class="outline-text-4" id="text-orgf300014">
+<div id="outline-container-org82d7592" class="outline-4">
+<h4 id="org82d7592">Esempio 3: Battle of sexes</h4>
+<div class="outline-text-4" id="text-org82d7592">
 <p>
 Consideriamo un gioco in cui due giocatori, un <code>ragazzo</code> (<code>Boy</code>) e una <code>ragazza</code> (<code>Girl</code>), devono decidere come trascorrere la serata.
 Le due possibilità sono: andare a una <code>partita di calcio</code> o al <code>cinema</code>.
@@ -534,9 +534,9 @@ In una strategia dominante invece, ci dovrebbe essere una scelta sempre migliore
 </div>
 </div>
 
-<div id="outline-container-org5f64939" class="outline-4">
-<h4 id="org5f64939">Esempio 4: Routing Congestion Game</h4>
-<div class="outline-text-4" id="text-org5f64939">
+<div id="outline-container-orgf0d283f" class="outline-4">
+<h4 id="orgf0d283f">Esempio 4: Routing Congestion Game</h4>
+<div class="outline-text-4" id="text-orgf0d283f">
 <p>
 Supponiamo che il <i>proxy</i> <code>O</code> sia la sorgente di due flussi di dati che devono essere instradati nel resto della rete.
 Supponiamo inoltre che il nodo <code>O</code> sia connesso al resto della rete tramite gli <i>access point</i> <code>A</code> e <code>B</code>, dove <code>A</code> è un po' più vicino ad <code>O</code> rispetto a <code>B</code>.
@@ -567,9 +567,9 @@ Infatti, in tali situazioni, a nessun player conviene cambiare strategia, inoltr
 </div>
 </div>
 
-<div id="outline-container-orge504a1b" class="outline-4">
-<h4 id="orge504a1b">Esempio 5: Matching Pennies Game</h4>
-<div class="outline-text-4" id="text-orge504a1b">
+<div id="outline-container-orga7eedb4" class="outline-4">
+<h4 id="orga7eedb4">Esempio 5: Matching Pennies Game</h4>
+<div class="outline-text-4" id="text-orga7eedb4">
 <p>
 Guardiamo ora un esempio di gioco in cui non esiste alcuna situazione di equilibrio.<br />
 </p>
@@ -593,9 +593,9 @@ Il giocatore <code>1</code> vince se i due centesimi corrispondono, mentre il gi
 </div>
 </div>
 
-<div id="outline-container-orgbfb6816" class="outline-3">
-<h3 id="orgbfb6816">Mixed Strategy Nash Equilibria</h3>
-<div class="outline-text-3" id="text-orgbfb6816">
+<div id="outline-container-org0c0f33b" class="outline-3">
+<h3 id="org0c0f33b">Mixed Strategy Nash Equilibria</h3>
+<div class="outline-text-3" id="text-org0c0f33b">
 <p>
 Gli equilibri di Nash considerato finora sono chiamati <b>equilibri a strategia pura</b>, poiché ogni giocatore gioca <span class="underline">deterministicamente</span> la sua strategia.
 Come illustrato dal gioco precedente gioco <i>Matching Pennies</i>, esistono giochi che non hanno <code>NE</code> a strategia pura.
@@ -633,9 +633,9 @@ Any game with a finite set of players and finite set of strategies has a Nash eq
 </div>
 </div>
 
-<div id="outline-container-org8cfc240" class="outline-2">
-<h2 id="org8cfc240">Quality of Nash Equilibrium</h2>
-<div class="outline-text-2" id="text-org8cfc240">
+<div id="outline-container-org2ad7f58" class="outline-2">
+<h2 id="org2ad7f58">Quality of Nash Equilibrium</h2>
+<div class="outline-text-2" id="text-org2ad7f58">
 <p>
 Richiamando l'esempio del <i>Prisoner's Dilemma</i> osserviamo che l'unico equilibrio conduce alla situazione in cui entrambi i prigionieri fanno 4 anni di carcere.
 Ciò che ci si chiede è:
@@ -661,9 +661,9 @@ non è necessariamente un equilibrio di Nash.
 </p>
 </div>
 
-<div id="outline-container-org7b0a6ad" class="outline-3">
-<h3 id="org7b0a6ad">The Price of Anarchy and the Price of Stability</h3>
-<div class="outline-text-3" id="text-org7b0a6ad">
+<div id="outline-container-orge7c0290" class="outline-3">
+<h3 id="orge7c0290">The Price of Anarchy and the Price of Stability</h3>
+<div class="outline-text-3" id="text-orge7c0290">
 <p>
 Il <b>prezzo dell'anarchia</b> (in breve <code>PoA</code>) di un gioco è una delle misure più importanti per quantificare l'infficienza di un equilibrio.
 Sia <code>NEs</code> l'insieme di tutti gli equilibri di Nash e sia <code>OPT</code> il profilo di strategie ottimo per un gioco.
@@ -691,9 +691,9 @@ mentre nel caso di <i>massimizzazione dei profitti</i>
 </p>
 </div>
 
-<div id="outline-container-org5bce999" class="outline-4">
-<h4 id="org5bce999">Esempio 6: Pigou's Game</h4>
-<div class="outline-text-4" id="text-org5bce999">
+<div id="outline-container-org8498ceb" class="outline-4">
+<h4 id="org8498ceb">Esempio 6: Pigou's Game</h4>
+<div class="outline-text-4" id="text-org8498ceb">
 <p>
 Consideriamo un gioco in cui abbiamo \(n\) quantità di flusso di dati, i quali devono scegliere quale connessione utilizzare.
 Ogni flusso \(i\) consuma una frazione di banda \(1/n\) uguale agli altri.
@@ -730,9 +730,9 @@ Perciò in questo avremo che <code>PoA</code> e <code>PoS</code> valgono entramb
 </div>
 </div>
 
-<div id="outline-container-org54cf2d7" class="outline-4">
-<h4 id="org54cf2d7">The Braess’s paradox</h4>
-<div class="outline-text-4" id="text-org54cf2d7">
+<div id="outline-container-org49ec369" class="outline-4">
+<h4 id="org49ec369">The Braess’s paradox</h4>
+<div class="outline-text-4" id="text-org49ec369">
 <p>
 Consideriamo un gioco simile al precedente in cui ogni giocatore vuole redirigere la propria unità di traffico in modo da minimizzare la propria la tenza.
 Tale gioco è descritto dalla seguente immagine
@@ -807,7 +807,7 @@ vedi <a href="https://it.wikipedia.org/wiki/Valore_atteso">valore atteso</a>.
 <p class="date">Data: 2021-12-09 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-14 mar 17:23</p>
+<p class="date">Created: 2021-12-14 mar 17:37</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

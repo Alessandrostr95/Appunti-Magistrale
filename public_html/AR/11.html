@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-12 dom 22:08 -->
+<!-- 2021-12-14 mar 22:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 11</title>
@@ -274,9 +274,9 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8df7084">1. Processi di diffusione in presenza di Compatibilità</a>
+<li><a href="#orgfdfd397">1. Processi di diffusione in presenza di Compatibilità</a>
 <ul>
-<li><a href="#orgc6d0a82">1.1. Analisi</a></li>
+<li><a href="#org0885611">1.1. Analisi</a></li>
 </ul>
 </li>
 </ul>
@@ -290,13 +290,13 @@ Lezioni predenti collegate:
 <li><a href="./10.html">← Lezione 10</a></li>
 </ul>
 
-<div id="outline-container-org8df7084" class="outline-2">
-<h2 id="org8df7084"><span class="section-number-2">1</span> Processi di diffusione in presenza di Compatibilità</h2>
+<div id="outline-container-orgfdfd397" class="outline-2">
+<h2 id="orgfdfd397"><span class="section-number-2">1</span> Processi di diffusione in presenza di Compatibilità</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Nelle lezioni precedenti abbiamo visto come un gioco di coordinazione molto semplice possa portare ad una vasta quantità di domande e relative analisi non banali.
 Una prima generalizzazione è stata passare da un modello <i>omogeneo</i>, in cui tutti i nodi traevano uno stesso vantaggio dall'adottare una nuova tecnologia <code>A</code>,
-ad uno <i>eterogeneo</i>, in cui ciascuno individuo ricava un personale guadagno dall'adottare l'innovazione.<br />
+ad uno <i>eterogeneo</i>, in cui ciascun individuo ricava un personale guadagno dall'adottare l'innovazione.<br />
 </p>
 
 <p>
@@ -304,7 +304,7 @@ In tutti i modelli analizzati però si assumeva la <b>mutua esclusione</b> degli
 In un contesto reale però succede spesso che due stati coesistono in un individuo.
 Ad esempio, <code>A</code> e <code>B</code> potrebbero essere lingue diverse che coesistono lungo un confine nazionale,
 oppure <code>A</code> e <code>B</code> potrebbero essere due applicazioni di messaggistica differenti.<br />
-Infatti gli individui che si trovano al confine tra un'area in cui prevale <code>A</code> ed una in cui prevale <code>B</code>, conviene adottare entrambi gli stati essere "bilingua".<br />
+Infatti gli individui che si trovano al confine tra un'area in cui prevale <code>A</code> ed una in cui prevale <code>B</code>, conviene adottare entrambi gli stati: ovvero essere in qualche modo "bilingua".<br />
 </p>
 
 <p>
@@ -347,24 +347,74 @@ Perciò, fissando con \(c \geq 0\) il costo di adozione del <i>doppio stato</i> 
 Indichiamo quindi con \(p_A(u), p_B(u), p_{AB}(u)\) i rispettivi guadagni che ha il nodo \(u\) nell'assumere gli stati <code>A</code>, <code>B</code> o <code>AB</code> come segue
 </p>
 \begin{align*}
-  p_A(u) &= \sum_{v \in N(u) \cap V_A} a\\
-  p_B(u) &= \sum_{v \in N(u) \cap V_B} b\\
-  p_{AB}(u) &= p_A(u) + p_B(u) + \Big(\sum_{v \in N(u) \cap V_{AB}} (a,b)^+\Big) - c
+  p_A(u) &= \sum_{v \in N(u) \cap V_A} a + \sum_{v \in N(u) \cap V_{AB}} a \\
+  p_B(u) &= \sum_{v \in N(u) \cap V_B} b + \sum_{v \in N(u) \cap V_{AB}} b\\
+  p_{AB}(u) &= \Big(\sum_{v \in N(u) \cap V_A} a\Big) + \Big(\sum_{v \in N(u) \cap V_B} b\Big) + \Big(\sum_{v \in N(u) \cap V_{AB}} (a,b)^+\Big) - c
 \end{align*}
 
 <p>
-Analizzeremo ora il processo di diffusione nel nuovo modello con compatibilità, e cercheremo di capire in quali situazioni si ha una cascata completa dei diversi stati.
+Per rendere meglio le idee consideriamo un esempio.
+Consideriamo ancora una volta la catenta infinita \(\mathbb{Z}\), e poniamo come parametri \((a,b,c) = (5,3,1)\).
+Supponiamo di partire da un solo nodo iniziatore \(u\), e senza perdita di generalità consideriamo solamente lo sviluppo del porcesso alla sua destra (tanto a sinistra è simmetrico).<br />
 </p>
 
-<blockquote>
 <p>
-<b>[FARE ESEMPIO SU CATENA]</b>
+Prendiamo il nodo \(v\) alla usa destra.
+I suoi guadagni nell'essere negli stati <code>A</code>, <code>B</code> e <code>AB</code> saranno
 </p>
-</blockquote>
+\begin{align*}
+  p_A(v) &= 5\\
+  p_B(v) &= 3\\
+  p_{AB}(v) &= 5+3-1 = 7
+\end{align*}
+<p>
+Perciò a \(v\) converrà diventare <i>bilingua</i> e adottare il doppio stato <code>AB</code>.<br />
+</p>
+
+<p>
+Consideriamo ora il succesivo nodo \(w\) sulla destra.
+I suoi guadagni saranno
+</p>
+\begin{align*}
+  p_A(w) &= 5\\
+  p_B(w) &= 3+3 = 6\\
+  p_{AB}(w) &= 5+3-1 = 7
+\end{align*}
+<p>
+Perciò anche a \(w\) converrà passare ad <code>AB</code>.<br />
+</p>
+
+<p>
+Adesso, la situazione rispetto a \(v\) è cambiata, in quanto ora ha un vicino nello stato <code>A</code> ed uno nello stato <code>AB</code>.
+Infatti anche i suoi guadagni sono ora cambiati, e risultano essere
+</p>
+\begin{align*}
+  p_A(v) &= 10\\
+  p_B(v) &= 3\\
+  p_{AB}(v) &= 5+5-1 = 9
+\end{align*}
+<p>
+perciò ora \(v\) passa nello stato <code>A</code>.
+</p>
+
+<p>
+È facile convincersi che si genera una cascata completa di <code>A</code>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img2.gif" alt="ar-lesson11-img2.gif" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>\((a,b,c) = (5,3,1)\) e \(V_0 = \lbrace u \rbrace\).</p>
 </div>
 
-<div id="outline-container-orgc6d0a82" class="outline-3">
-<h3 id="orgc6d0a82"><span class="section-number-3">1.1</span> Analisi</h3>
+<p>
+Analizzeremo ora il processo di diffusione nel nuovo modello con compatibilità, e cercheremo di capire in quali situazioni si ha una cascata completa.
+</p>
+</div>
+
+<div id="outline-container-org0885611" class="outline-3">
+<h3 id="org0885611"><span class="section-number-3">1.1</span> Analisi</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Dalle precedenti lezioni sappiamo che nel modello omogeneo, <code>A</code> <span class="underline">non</span> si diffonde su reti infinite di grado finito se la sua soglia d'adozione è \(q > \frac{1}{2}\),
@@ -390,18 +440,19 @@ Perciò, in questo modello semplificato (ma non meno espressivo) la soglia d'ado
 </p>
 
 <p>
-Consideriamo un generico nodo \(u\) come nell'esempio in figura succesiva, il quale ha un vicino in \(V_A\) e l'altro in \(V_B\).
+Consideriamo la situazione in cui c'è un unico nodo iniziatore \(x\).
+Il suo vicino \(u\) avrà un vicino in \(V_A\) e l'altro in \(V_B\).
 </p>
 
 
 <div class="figure">
-<p><img src="../images/ar-lesson11-imgX.png" alt="ar-lesson11-imgX.png" style="max-width:350px;" width="100%" />
+<p><img src="../images/ar-lesson11-img3.png" alt="ar-lesson11-img3.png" style="max-width:350px;" width="100%" />
 </p>
-<p><span class="figure-number">Figura 2: </span>Il nodo \(u\) deve scegliere quale stato conviene adottare.</p>
+<p><span class="figure-number">Figura 3: </span>Il nodo \(u\) deve scegliere quale stato conviene adottare.</p>
 </div>
 
 <p>
-Avremo che guadagni nell'adottare uno stato sono
+Avremo che i guadagni nell'adottare uno stato sono
 </p>
 \begin{align*}
   p_A(u) &= a\\
@@ -455,8 +506,153 @@ Infine, \(u\) adotta il bilinguismo <code>AB</code> se \(p_{AB}(u) > p_A(u)\) e 
 \end{equation}
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Possiamo riassumere tutto in un grafico con assi \(a\)-\(c\).
 </p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img4.png" alt="ar-lesson11-img4.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Grafico \(a\)-\(c\).</p>
+</div>
+
+<p>
+Dalle precedenti osservazioni possiamo trarre due prime conclusioni:
+</p>
+<ul class="org-ul">
+<li>se il nodo \(u\) rimane nello stato <code>B</code>, allora la diffusione di <code>A</code> è bloccata e non potrà mai più procedere in alcun modo.</li>
+<li>se \(u\) invece passa <span class="underline">direttamente</span> allo stato <code>A</code>, allora certamente avverrà una cascata completa di <code>A</code> in maniera diretta, senza transitare mai per <code>AB</code>.</li>
+</ul>
+<p>
+Resta ora da capire che succede se \(u\) passa allo stato <code>AB</code>.
+In tal caso, avremo che il nodo \(v\) avrà un nodo vicino nello stato <code>AB</code> e uno nello stato <code>B</code>, come nella seguente immagine
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img5.png" alt="ar-lesson11-img5.png" style="max-width:350px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>Il nodo \(v\) deve scegliere quale stato conviene adottare.</p>
+</div>
+
+<p>
+Dato che stiamo assumendo che \(u\) è ricaduto nella zone verde del grafico, fissiamo le relazioni \(c < 1\) e \(c \leq a\).
+Ci chiediamo ora:
+</p>
+<ul class="org-ul">
+<li>Per quali valori la diffusione di <code>A</code> si blocca?</li>
+<li>Oppure, per quali valori si genera una cascata completa di <code>A</code>?</li>
+<li>Oppure ancora, è possibile che si generi una cascata completa di <code>AB</code>?</li>
+</ul>
+
+<p>
+Iniziamo col calcolare i vantaggi che avrebbe \(v\) ad adottare uno stato
+</p>
+\begin{align*}
+  p_A(v) &= a\\
+  p_B(v) &= 2\\
+  p_{AB}(v) &= \max{\lbrace a, 1 \rbrace} + 1 - c
+\end{align*}
+
+<p>
+A questo punto possiamo dividere l'analisi in due casi:
+</p>
+<ol class="org-ol">
+<li>\(a < 1\), ovvero quando la coppia \((a,c)\) cade all'interno del triangolo verde \((0,0), (1,0), (1,1)\).</li>
+<li>\(a \geq 1\), ovvero quando la coppia \((a,c)\) cade all'interno della restante area verde.</li>
+</ol>
+
+<p>
+Consideriamo il caso <code>(1)</code>.
+In tale situazione avremo che i rispettivi guadagni sono
+</p>
+\begin{align*}
+  p_A(v) &< 1\\
+  p_B(v) &= 2\\
+  p_{AB}(v) &= 2 - c
+\end{align*}
+<p>
+ovvero avremo che \(p_A(v) < p_B(v)\) e \(p_{AB}(v) < p_B(v)\).
+In tal csaso accadrà che \(v\) adotta <code>B</code>, e quindi la diffusione di <code>A</code> si blocca dopo un'altro passo.
+Possiamo quindi estendere la parte blu del grafico come nell'immagine seguente
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img6.png" alt="ar-lesson11-img6.png" style="max-width:550px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>Estensione area blu.</p>
+</div>
+
+<p>
+Non resta che considerare il caso <code>(2)</code>, quando \(a \geq 1\).<br />
+</p>
+
+<p>
+Anche in questo caso conviene dividere l'analisi in due casi disgiunti: il caso \(1 \leq a < 2\) e il caso \(a > 2\).
+Nel \(a > 2\) avremo che i guadagni di \(v\) sono
+</p>
+\begin{align*}
+  p_A(v) &= a > 2\\
+  p_B(v) &= 2\\
+  p_{AB}(v) &= a + 1 - c > a
+\end{align*}
+<p>
+Possiamo dire \(v\) adotterà <code>AB</code>, perché abbiamo la catena di disuguaglianze \(p_{AB}(v) > p_A(v) > p_B(v)\).
+Dopo un passo osserviamo che il nodo \(u\) passa dalla stato <code>AB</code> allo stato <code>A</code>.
+Possiamo quindi concludere che quando quando sono vere le seguenti condizioni, dopo una fase transitoria allo stato <code>AB</code>, avviene una cascata completa di <code>A</code>.
+\[
+</p>
+\begin{cases}
+  c < 1\\
+  a > 2
+\end{cases}
+<p>
+\]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img7.png" alt="ar-lesson11-img7.png" style="max-width:550px;" width="100%" />
+</p>
+</div>
+
+<p>
+Infine, consideriamo l'ultimo caso \(1 \leq a < 2\).
+In queste condizioni, i valori di guadagno di \(v\) risultano essere
+</p>
+\begin{align*}
+  p_A(v) &= a < 2\\
+  p_B(v) &= 2\\
+  p_{AB}(v) &= a + 1 - c
+\end{align*}
+<p>
+Dato che \(p_A(v) < p_B(v)\), sappiamo che in qeull'area il processo di diffusione di <code>A</code> si ferma, e quindi non avremo mai una cascata completa di <code>A</code>.
+Poi, \(p_B(v) > p_{AB}(v)\) se e solo se \(2 > a + 1 - c\), ovvero se \(a < c + 1\). In tal caso \(v\) adotterà lo stato <code>B</code>, e in un altro passo verrà bloccato il processo di diffusione di <code>A</code>.
+Viceversa, se \(a > c + 1\), allora avremo che \(p_{AB}(v) > p_B(v)\), e quindi \(v\) adotterà lo stato <code>AB</code>.
+Come prima, dopo un passo il nodo \(u\) adotterà <code>A</code>, e così via dopo il nodo \(v\), scatenando una cascata completa di <code>A</code>, dove però tutti i nodi transitano prima per <code>AB</code>.<br />
+</p>
+
+<p>
+Il grafico risultante finale è il seguente
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson11-img8.png" alt="ar-lesson11-img8.png" style="max-width:550px;" width="100%" />
+</p>
+</div>
+
+<p>
+Riassumendo:
+</p>
+<ul class="org-ul">
+<li>quando la coppia \((a,c)\) cade nell'area blu, allora il processo di diffusione di <code>A</code> si blocca definitivamente in un passo.</li>
+<li>quando la coppia \((a,c)\) cade nell'area gialla, si scatena una cascata completa di <code>A</code>, senza che nessun nodo transiti mai attraverso lo stato <code>AB</code>.</li>
+<li>quando la coppia \((a,c)\) cade nell'area verde, tutti i nodi passeranno allo stato <code>A</code> dopo però essere prima transitati attraverso lo stato <code>AB</code>.</li>
+</ul>
+
+<hr />
 </div>
 </div>
 </div>
@@ -475,7 +671,7 @@ sforzo.
 <p class="date">Data: 2021-11-24 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-12 dom 22:08</p>
+<p class="date">Created: 2021-12-14 mar 22:46</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
