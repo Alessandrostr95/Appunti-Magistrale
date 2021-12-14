@@ -1,0 +1,7 @@
+#+title: ADRC - Lesson 18
+#+date: <2021-12-07>
+#+teacher: Andrea Clementi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Maximal Independent Set

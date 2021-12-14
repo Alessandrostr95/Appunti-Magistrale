@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2021-12-14 mar 01:27 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 19</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 19</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgef20f96">Algorithmic Game Theory</a></li>
+<li><a href="#orgf94b697">Coordination Games</a>
+<ul>
+<li><a href="#org06118b7">Esempio 1: Prisoner's Dilemma</a></li>
+<li><a href="#org08d42c4">Esempio 2: ISPRouting Game</a></li>
+<li><a href="#org6ca161b">Definizione di Strategia</a></li>
+<li><a href="#orgf227c82">Dominating Strategy</a></li>
+<li><a href="#org3340009">Dominating Strategy Equilibrium</a></li>
+<li><a href="#orga7ae76c">Nash Equilibrium</a></li>
+<li><a href="#orgf300014">Esempio 3: Battle of sexes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgef20f96" class="outline-2">
+<h2 id="orgef20f96">Algorithmic Game Theory</h2>
+<div class="outline-text-2" id="text-orgef20f96">
+<p>
+<b>[INTRODUZIONE DISCORSIVA SU Algorithmic Game Theory&#x2026;]</b>
+</p>
+</div>
+</div>
+<div id="outline-container-orgf94b697" class="outline-2">
+<h2 id="orgf94b697">Coordination Games</h2>
+<div class="outline-text-2" id="text-orgf94b697">
+<p>
+La <i>Teoria dei Giochi</i> consente di modellare situazioni in cui molteplici partecipanti interagiscono tra di loro
+e le loro azioni sono influenzate da ciò che fanno gli altri.
+Consideriamo alcuni esempi, in cui ogni individuo (o <b>player</b>) sceglie simultaneamente agli altri un'azione da un'insieme di possibili <b>strategie</b>.
+</p>
+</div>
+
+<div id="outline-container-org06118b7" class="outline-3">
+<h3 id="org06118b7">Esempio 1: Prisoner's Dilemma</h3>
+<div class="outline-text-3" id="text-org06118b7">
+<p>
+Due criminali sono incolpati di due crimini, uno meno grave del quale se ne hanno le prove, e uno molto grave
+del quale però c'è solo il sospetto.
+La pena per il reato meno grave è di 2 anni, mentre la pena per quello grave è di 5 anni.
+I due criminali vengono separati ed interrogati.
+In questa maniera non possono mettersi d'accordo sulla versione dei fatti.
+Ai due criminali viene proposto un accordo:
+chi confessa che l'altro complice è responsabile del reato più grave, riceverà una riduzione della pena di 1 anno.
+In base a tutte le possibili <b>strategie</b> che i due criminali possono adottare, è possibile modellare il <i>guadagno</i> che ne ricavano
+con una tabella, che chiameremo <b>matrice dei costi</b>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson19-img1.png" alt="adrc-lesson19-img1.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span><b>Cost Matrix</b>.</p>
+</div>
+
+<p>
+Dato che i due non possono in alcun modo mettersi d'accordo su cosa fare, allora un buon approccio è quello di considerare tutte le situazioni
+possibili, ovvero la situazione in cui il complice confessa e la stiuazione in cui non confessa.<br />
+</p>
+
+<p>
+Supponiamo di essere il "giocatore" (o criminale) <code>P1</code>.
+Se il nostro complice <code>P2</code> dovesse confessare, la strategia che ci consente di attenuare la nostra pena sarebbe quella di confessare a nostra volta.
+Infatti, non confessare ci farebbe fare il massimo della pensa, 5 anni.
+Viceversa, se confessassimo avremmo uno sconto di 1 anno, per un totale di 4 anni.<br />
+</p>
+
+<p>
+Se invece il nostro complice <code>P2</code> decidesse di essere fedele e di non parlare, in ogni caso ci converrebbe confessare la sua colpevolezza (trandendolo).
+Infatti, se non confessiamo, entrambi otteremmo una pena di 2 anni.
+Possiamo però abbassare la nostra pena ad 1 solo anno confessando la colpevolezza di <code>P2</code>, che poveraccio dovrà farsi 5 anni di carcere.<br />
+</p>
+
+<p>
+Osservare che la situazione migliore in generale è quella in cui nessuno confessa.
+Dato che però <code>P1</code> non può dare per scontata la fedeltà di <code>P2</code>, è ragionevole pensare che l'unica situazione di <b>stabilità</b> possibile è quando entrambi confessano.
+Infatti, qual'ora un giocatore non confessasse, potrebbe comunque migliorare la sua situazione confessando, riducendo la propria pena di un anno.<br />
+</p>
+
+<p>
+In questi tipi di casi, ovvero quando una strategia migliora sempre la propria situazione personale indipendentemente dalle azioni degli altri, 
+si dice che tale strategia è una <b>strategia dominante</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org08d42c4" class="outline-3">
+<h3 id="org08d42c4">Esempio 2: ISP<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> Routing Game</h3>
+<div class="outline-text-3" id="text-org08d42c4">
+<p>
+In questo gioco ci sono due <i>Internet Service Providers</i> che devono decidere dove redirigere il flusso di informazioni, da una srogente \(s\) ad una destinazione \(t\).
+Per ogni messaggio che passa lungo le proprie connessioni, l'<code>ISP</code> in questione pagherà un costo simbolico di 1.
+Esistono due nodi di confine tra i due <code>ISP</code>, i nodi \(C\) ed \(S\).
+Ogni player (<code>ISP1</code> e <code>ISP2</code>) deve decidere se mandare il flusso attraverso \(C\) (e quindi far pagare parte del traggitto all'ISP avversario), oppure attraverso
+il nodo \(S\), e pagare tutto l'intero tragitto.<br />
+</p>
+
+<p>
+L'immagine successiva rappresenta la stiuazione appena descritta
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson19-img2.png" alt="adrc-lesson19-img2.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>The <code>ISP</code> routing problem.</p>
+</div>
+
+<p>
+In questo caso la <i>matrice dei costi</i> è esattamente quella del dilemma dei prigionieri
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson19-img3.png" alt="adrc-lesson19-img3.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span><i>Cost Matrix</i>.</p>
+</div>
+
+<p>
+perciò anche in questo caso confiene a entrambi i player essere "scorretti" ed "egoisti", trasmettendo verso il nodo \(C\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6ca161b" class="outline-3">
+<h3 id="org6ca161b">Definizione di Strategia</h3>
+<div class="outline-text-3" id="text-org6ca161b">
+<p>
+Più formalmente, in ogni <i>gioco</i> esiste un insieme di \(n\) <b>giocatori</b> (o <b>player</b>) \(\lbrace 1, 2, ..., n \rbrace\).
+Ogni giocatore \(i\) ha un suo <b>insieme di strategie possibili</b> \(S_i\).
+Per giocare, ogni giocatore \(i\) deve scegliere una strategia tra le sue possibili \(s_i \in S_i\).
+Indichiamo con
+\[
+   s = (s_1, s_2, ..., s_n) \in S \equiv S_1 \times S_2 \times ... \times S_n
+   \]
+il <b>vettore delle strategie</b> o <b>combinazione di strategie</b> scelte da tutti gli \(n\) giocatori.<br />
+</p>
+
+<p>
+Ogni vettore di strategie \(s \in S\) definisce anche una <b>ricompensa</b> (o <b>payoff</b>) per ogni player che ne descrive il guadagno che ne ottiene in seguito alle strategie applicate in \(s\).
+Più precisamente
+</p>
+\begin{align*}
+  &p_1 : S \rightarrow \mathbb{R}\\
+  &p_2 : S \rightarrow \mathbb{R}\\
+  &\vdots\\
+  &p_n : S \rightarrow \mathbb{R}
+\end{align*}
+<p>
+dove \(p_i(s)\) è il guadagno che ricava il giocatore \(i\) dall'insieme di strategie \(s \in S\).<br />
+</p>
+
+<p>
+Ovviamente si sta assumendo che tale gioco prevede solo dei "premi" (payoffs) da voler massimizzare, ma in realtà potrebbero capitare giochi
+in cui si vuole <b>minimizzare</b> una perdita.
+In tal caso la notazione è la medemisa, con la differenza che \(p_i(s_1) \geq p_i(s_2)\) può star ad indicare che \(s_1\) è migliore o peggiore rispetto a \(s_2\) per il player \(i\),
+in base al contesto in cui ci si trova.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf227c82" class="outline-3">
+<h3 id="orgf227c82">Dominating Strategy</h3>
+<div class="outline-text-3" id="text-orgf227c82">
+<p>
+Una strategia \(s_i^* \in S_i\) è una <b>strategia dominante</b> per un player \(i\) se \(s_i\) è la scelta migliore che \(i\) può fare indipendentemente da quello che scelgono di fare gli altri player.
+Più formalmente sia un <i>vettore di strategie</i> \(s \in S\), definiamo con \(s_{-i}\) il vettore \((n-1)\)-dimensionale contenente tutte le strategie dei giocatori eccetto \(i\), ovvero
+\[
+   s_{-i} = (s_1, s_2, ..., s_{i-1}, s_{i+1}, ..., s_n)
+   \]
+La strategia \(s_i^*\) è dominante per \(i\) se presa un'altra qualsiasi strategia \(s_i \in S_i\) vale che
+\[
+   p_i(s_i^*, s_{-i}) \geq p_i(s_i, s_{-i})
+   \]
+minore o uguale se consideriamo problemi di minimizzazione.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3340009" class="outline-3">
+<h3 id="org3340009">Dominating Strategy Equilibrium</h3>
+<div class="outline-text-3" id="text-org3340009">
+<p>
+Una <b>combinazione di strategie</b> \(s^* = (s_1^*, s_2^*, ..., s_n^*)\) è una <b>Dominating Strategy Equilibrium</b> (<code>DSE</code>) se per ogni \(i\), \(s_i^*\) è una strategia dominante,
+ovvero se \(\forall s \in S\)
+\[
+   p_i(s_i^*, s_{-i}) \geq p_i(s_i, s_{-i})
+   \]
+Avere una strategia dominante per ogni singolo player è un requisito troppo stringente, infatti i giochi che accettano un <code>DSE</code> sono davvero rari.
+Per questo motivo necessitiamo di trovare una condizione meno stringente, che può essere quindi applicata su una grande vastità di giochi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga7ae76c" class="outline-3">
+<h3 id="orga7ae76c">Nash Equilibrium</h3>
+<div class="outline-text-3" id="text-orga7ae76c">
+<p>
+Un <b>Equilibrio di Nash</b> (o <b>Nash Equilibrium</b>) è una strategia \(s \in S\) nella qualle a nessun player conviene cambiare strategia personale.
+Più formalmente \(s\) è un <code>NE</code><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> se, data un'altra generica strategia \(s' \in S\), è vero che per ogni player \(i\)
+\[
+   p_i(s_i, s_{-i}) \geq p_i(s_i', s_{-i})
+   \]
+ovvero al player \(i\) scegleire \(s_i'\) non migliora la situazione rispetto ad \(s_i\).<br />
+La differenza col <code>DSE</code>, e che in un <code>NE</code> ad ogni nodo non conviene cambiare strategie <span class="underline">dipendentemente</span> dalle strategia scelte dagli altri.
+In un <code>DSE</code> invece ad ogni player non conviene mai cambiare strategia, <span class="underline">indipendentemente</span> dalle strategie degli altri.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf300014" class="outline-3">
+<h3 id="orgf300014">Esempio 3: Battle of sexes</h3>
+<div class="outline-text-3" id="text-orgf300014">
+<p>
+Consideriamo un gioco in cui due giocatori, un <code>ragazzo</code> (<code>Boy</code>) e una <code>ragazza</code> (<code>Girl</code>), devono decidere come trascorrere la serata.
+Le due possibilità sono: andare a una <code>partita di calcio</code> o al <code>cinema</code>.
+Il ragazzo preferisce il calcio (opzione <code>B</code>) e la ragazza preferisce cinema (opzione <code>S</code>), ma entrambi vorrebbero trascorrere la serata insieme piuttosto che separatamente.
+Esprimiamo nuovamente le preferenze dei giocatori tramite payoff (benefici) come segue
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson19-img4.png" alt="adrc-lesson19-img4.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>La strategia <code>B</code> indica andare alla partita di calcio, mentre <code>S</code> indica il cinema.</p>
+</div>
+
+<p>
+Le due situazioni in cui entrambi i giocatori scelgono le stesse strategie sono delle <b>situazioni stabili</b>.
+Inoltre a nessuno dei due conviene cambiare strategia, perciò le combinazioni di strategie \((B,B)\) e \((S,S)\) sono entrambi <b>equilibri di Nash</b>.<br />
+</p>
+
+<p>
+Notare infine che non ci sono <b>strategie dominanti</b>, perché al player <code>Boy</code> conviene scegleire \(B\) se <code>Girl</code> sceglie \(B\), ed \(S\) se <code>Girl</code> sceglie \(S\).
+In una strategia dominante invece, ci dovrebbe essere una scelta sempre migliore per <code>Boy</code>, indipendentemente da ciò che scelgie <code>Girl</code>.
+</p>
+
+<p>
+<b>[DA FINIRE]</b>
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<i>Internet Service Provider</i>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<i>Nash Equilibrium</i>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-09 gio 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2021-12-14 mar 01:27</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
