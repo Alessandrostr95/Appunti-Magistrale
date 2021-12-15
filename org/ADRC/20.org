@@ -1,0 +1,45 @@
+#+title: ADRC - Lesson 20
+#+date: <2021-12-13>
+#+teacher: Luciano Gualà
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Network Formation Games
+  /Network Formation Games/ (in breve =NFG=) sono dei giochi che modellano come un insieme di /player egoistici/ costruiscono una rete.
+  Questi gioco possono essere usati nel mondo reale per modellare i fenomeni che generano le reti sociali dei social-network, oppure una rete P2P dinamica.\\
+
+  L'obbiettivo dei partecipanto al gioco è sostanzialmente quello di:
+  - *minimizzare* il costo di costruizione della propria porzione di rete.
+  - *massimizzare* la qualità dei servizi che la rete riesce ad offrire ai nodi.
+    
+  Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misereremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
+
+** Global Connection Game
+   In questo gioco abbiamo un grafo diretto \(G(V,E)\) con dei costi \(c_e\) non negativi per ogni arco \(e \in E\).
+   Ci sono $k$ giocatori, e ad ogni giocatore $i$ è associata una coppia di nodi \((s_i,t_i)\) di nodi sorgente e destinazione.
+   L'obiettivo del giocatore \(i\)-esimo è quello di ottenere una rete in cui la destinazione \(t_i\) è raggiungibile da \(s_i\), pagando il meno possibile il proprio costo di costruzione.
+   In altri termini, la strategia del giocatore $i$ è un percorso \(P_i\) da \(s_i\) a \(t_i\), in $G$.\\
+
+   Date quindi tutte le strategie dei partecipanti \(S = (P_1, P_2, ..., P_k)\), definiamo la rete risultante come
+   \[
+   NET(S) = \bigcup_{i=1}^{k} P_i
+   \]
+   Dato che un arco $e$ può essere utilizzato da più di un player, indichiamo con \(k_e(S)\) il numero di player che usano l'arco $e$ nella loro strategia \(P_i \in S\), ovvero
+   \[
+   k_e(S) = \vert \lbrace P_i \in S : e \in P_i \rbrace \vert
+   \]
+   
+   A questo punto possiamo definire il costo del signolo player $i$ come la quantità
+   \[
+   COST_i(S) = \sum_{e \in P_i} \frac{c_e}{k_e(S)}
+   \]
+   Alcune volte ci riferiremo a \(k_e(S)\) semplicemente con \(k_e\).\\
+
+   Questa unità di costo dei singoli player è nota come *Shapley cost-sharing mechanism*, o semplicemente *fair mechanism*.
+   Il costo sociale della configurazione di strategie $S$ sarà quindi la somma di tutti costi simboli
+   \[
+   COST(S) = \sum_{i = 1}^{k} COST_i(S)
+   \]
+   
+
+   *[DA FINIRE...]*
