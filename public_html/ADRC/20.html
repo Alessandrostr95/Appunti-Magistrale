@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-16 gio 00:45 -->
+<!-- 2021-12-18 sab 23:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 20</title>
@@ -274,9 +274,11 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org63357fd">Network Formation Games</a>
+<li><a href="#org63357fd">Network Formation Games</a></li>
+<li><a href="#org6af3472">Global Connection Game</a>
 <ul>
-<li><a href="#org6af3472">Global Connection Game</a></li>
+<li><a href="#org5d48da8">Price of Anarchy</a></li>
+<li><a href="#org483ddfa">Price of Stability and Potential Function Method</a></li>
 </ul>
 </li>
 </ul>
@@ -303,10 +305,11 @@ L'obbiettivo dei partecipanto al gioco è sostanzialmente quello di:
 Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misereremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
 </p>
 </div>
+</div>
 
-<div id="outline-container-org6af3472" class="outline-3">
-<h3 id="org6af3472">Global Connection Game</h3>
-<div class="outline-text-3" id="text-org6af3472">
+<div id="outline-container-org6af3472" class="outline-2">
+<h2 id="org6af3472">Global Connection Game</h2>
+<div class="outline-text-2" id="text-org6af3472">
 <p>
 In questo gioco abbiamo un grafo diretto \(G(V,E)\) con dei costi \(c_e\) non negativi per ogni arco \(e \in E\).
 Ci sono \(k\) giocatori, e ad ogni giocatore \(i\) è associata una coppia di nodi \((s_i,t_i)\) di nodi sorgente e destinazione.
@@ -317,19 +320,19 @@ In altri termini, la strategia del giocatore \(i\) è un percorso \(P_i\) da \(s
 <p>
 Date quindi tutte le strategie dei partecipanti \(S = (P_1, P_2, ..., P_k)\), definiamo la rete risultante come
 \[
-   NET(S) = \bigcup_{i=1}^{k} P_i
-   \]
+  NET(S) = \bigcup_{i=1}^{k} P_i
+  \]
 Dato che un arco \(e\) può essere utilizzato da più di un player, indichiamo con \(k_e(S)\) il numero di player che usano l'arco \(e\) nella loro strategia \(P_i \in S\), ovvero
 \[
-   k_e(S) = \vert \lbrace P_i \in S : e \in P_i \rbrace \vert
-   \]
+  k_e(S) = \vert \lbrace P_i \in S : e \in P_i \rbrace \vert
+  \]
 </p>
 
 <p>
 A questo punto possiamo definire il costo del signolo player \(i\) come la quantità
 \[
-   COST_i(S) = \sum_{e \in P_i} \frac{c_e}{k_e(S)}
-   \]
+  COST_i(S) = \sum_{e \in P_i} \frac{c_e}{k_e(S)}
+  \]
 Alcune volte ci riferiremo a \(k_e(S)\) semplicemente con \(k_e\).<br />
 </p>
 
@@ -337,13 +340,426 @@ Alcune volte ci riferiremo a \(k_e(S)\) semplicemente con \(k_e\).<br />
 Questa unità di costo dei singoli player è nota come <b>Shapley cost-sharing mechanism</b>, o semplicemente <b>fair mechanism</b>.
 Il costo sociale della configurazione di strategie \(S\) sarà quindi la somma di tutti costi simboli
 \[
-   COST(S) = \sum_{i = 1}^{k} COST_i(S)
-   \]
+  COST(S) = \sum_{i = 1}^{k} COST_i(S)
+  \]
+</p>
+
+<p>
+Infine consideriamo un equilibrio di Nash <code>NE</code> come <i>soluzione</i> del problema.
+Inoltre una rete è considerata <i>ottima</i> o <i>socialmente ottima</i> se <span class="underline">minimizza</span> il costo costo sociale \(COST(S)\).<br />
+</p>
+
+<p>
+Consideriamo la seguente rete in figura.
+È facile verificare che quella composta dagli archi rossi è la rete con <i>social cost</i> minimo.
 </p>
 
 
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img1.png" alt="adrc-lesson20-img1.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Esempio di rete ottima \(S\) con \(COST(S) = 13\).</p>
+</div>
+
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Purtroppo però questa non è una rete stabile, in quanto il <code>Player1</code> può decidere di cambiare strategia ed abbassare il suo costo complessivo da 7 a 6.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img2.png" alt="adrc-lesson20-img2.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Il <code>PLayer1</code> cambia strategia.</p>
+</div>
+
+<p>
+La rete risultate non è ancora stabile, e inoltre il costo del <code>Player2</code> è aumentato da 6 a 1.
+Perciò anche <code>Player2</code> decide di cambiare strategia, abbassando il suo costo a 10.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img3.png" alt="adrc-lesson20-img3.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Il <code>PLayer2</code> cambia strategia.</p>
+</div>
+
+<p>
+A questo punto la rete risulta stabile, con un costo sociale di 16, maggiore di quello ottimo.<br />
+</p>
+
+<p>
+Alcune domande che ci possiamo porre in merito a questo gioco sono:
+</p>
+<ol class="org-ol">
+<li>Esiste sempre una rete stabile per ogni istanza di gioco?</li>
+<li>Possiamo dare un bound al prezzo dell'anarchia <code>PoA</code> e al prezzo della stabilità <code>PoS</code>?</li>
+<li>Se eseguiamo il gioco in maniera iterativa, è sempre possibile convergere ad un equilibrio, qualsiasi sia la configurazione iniziale?</li>
+</ol>
+</div>
+
+<div id="outline-container-org5d48da8" class="outline-3">
+<h3 id="org5d48da8">Price of Anarchy</h3>
+<div class="outline-text-3" id="text-org5d48da8">
+<p>
+Consideriamo il gioco nella seguente figura
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img4.png" alt="adrc-lesson20-img4.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Esempio</p>
+</div>
+
+<p>
+Certamente la soluzione ottima è quella in cui tutti scelgono l'arco di costo 1, con un costo sociale complessivo di 1.
+Questo è anche una situazione di equilibrio, in cui a nessuno conviene cambiare strategia, perciò possiamo dire anche che il prezzo della stabilità <code>PoS</code> è 1.<br />
+</p>
+
+<p>
+Un'altra situazione di equilibrio è quella in cui tutti scelgono l'arco di costo \(k\).
+In tal caso, ognuno pagherà 1, e anche cambiando arco il costo non migliora.
+Tale situazione è la peggiore situazione di equilibrio, perciò il costo dell'anarchia <code>PoA</code> sarà pari a \(k\).<br />
+</p>
+
+<p>
+Trovata quindi un'istanza in cui <code>PoA</code> è \(k\), possiamo dare come <i>lowerbound</i> generale a <code>PoA</code> \(k\).
+Il seguente teorema ci dice (e dimostra) che \(k\) è anche un upperbound alla <code>PoA</code>.<br />
+</p>
+
+<blockquote>
+<p>
+<b>THM</b>
+The <code>PoA</code> in the global connection game with \(k\) players is <b>at most</b> \(k\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Sia \(S \in NEs\) una soluzione generica del problema, ovvero un <code>NE</code>, e sia \(S^*\) una soluzione ottima che minimizza il costo sociale.
+Per ogni player \(i\), indichiamo con \(\pi_i\) un <b>cammino minimo</b> in \(G\) tra \(s_i\) e \(t_i\).
+</p>
+
+<p>
+Sicuramente \(COST_i(S) \leq COST_i(S_{-i}, \pi_i)\), in quanto per definizione \(S\) è un equilibrio di Nash, perciò a nessuno conviene cambiare strategie (tantomeno ad \(i\)).<br />
+</p>
+
+<p>
+Inoltre per definizione abbiamo che 
+</p>
+\begin{align*}
+  COST_i(S_{-i}, \pi_i) = \sum_{e \in \pi_i} \frac{c_e}{k_e} \leq \sum_{e \in \pi_i} c_e = d_G(s_i, t_i)
+\end{align*}
+
+<p>
+Osserviamo ora che il costo sociale di una qualsiasi soluzione è pari alla somma del costo di tutti gli archi che lo compongono
+\[
+   COST(S^*) = \sum_{i=1}^{k} COST_i(S^*) = \sum_{i=1}^{k} \sum_{e \in P_i} \frac{c_e}{k_e(S^*)} = \sum_{e \in NET(S^*)} c_e 
+   \]
+Perciò, dato che \(S^*\) contiene almeno un cammino per ogni coppia di \(s_i,t_i\), e dato che tali cammini non è detto che siano ottimi, avremo che
+\[
+   COST_i(S) \leq COST_i(S_{-i}, \pi_i) \leq d_G(s_i, t_i) \leq COST(S^*)
+   \]
+</p>
+
+<p>
+Applicando questa disuguaglianza per tutti e \(k\) i player otteremo che
+\[
+   COST(S) = \sum_{i=1}^{k} COST_i(S) \leq k \cdot COST(S^*)\\
+   \implies PoA = \max_{S \in NEs}{\frac{COST(S)}{COST(S^*)}} \leq \frac{k \cdot COST(S^*)}{COST(S^*)} = k
+   \]
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org483ddfa" class="outline-3">
+<h3 id="org483ddfa">Price of Stability and Potential Function Method</h3>
+<div class="outline-text-3" id="text-org483ddfa">
+<p>
+Fissiamo un valore \(\varepsilon > 0\) anche molto piccolo, e consideriamo la seguente istanza di gioco
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img5.png" alt="adrc-lesson20-img5.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>Esempio, con \(\varepsilon > 0\) molto piccolo.</p>
+</div>
+
+<p>
+Certamente la strateggia ottima sarebbe che tutti scelgano la strada che passa per l'arco di costo 0 e poi per quello di costo \(1 + \varepsilon\).
+In tal caso il costo sociale sarebbe \(\frac{1 + \varepsilon}{k}\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img6.png" alt="adrc-lesson20-img6.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>Strategia di costo sociale ottimo.</p>
+</div>
+
+<p>
+Purtroppo questa non è una situazione di equilibrio, in quanto il giocatore \(k\) può scegliere di adottare una strategia migliore, ovvero quella di usare l'arco di costo \(1/k\),
+risparmiano un fattore \(\varepsilon/k > 0\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img7.png" alt="adrc-lesson20-img7.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 7: </span>Il player \(k\) migliora la sua strategia.</p>
+</div>
+
+<p>
+A questo punto anche al player \(k - 1\) conviene cambiare strategia, usando l'arco diretto \((s_{k-1},t_{k-1})\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img8.png" alt="adrc-lesson20-img8.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Anche il player \(k - 1\) migliora la sua strategia.</p>
+</div>
+
+<p>
+A questo punto è facile convincersi che l'unica configurazione di strategie \(S\) che comporta al stabilità della rete è quella in ogni player \(i\) adotta l'arco diretto \((s_i,t_i)\).
+In tal caso il costo sociale sarebbe
+\[
+   COST(S) = \sum_{i=1}^{k} \frac{1}{i} = H_k \leq \ln{k} + 1
+   \]
+</p>
+
+<p>
+Dato che la soluzione ottima aveva costo \(1 + \varepsilon\), avremo come il prezzo della stabilità sarà all'incirca di \(H_k\).<br />
+</p>
+
+<p>
+In questa lezione verranno dimostrati due teoremi fondamentali riguardo il global connection game
+</p>
+
+<blockquote>
+<p>
+<b>THM1</b><br />
+Any instance of the global connection game has a pure Nash equilibrium, and best response dynamics always converges.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>THM2</b><br />
+The price of stability in the global connection game with \(k\) players is <span class="underline">at most</span> \(H_k\), the \(k\)-th <i>harmonic number</i>.
+</p>
+</blockquote>
+
+<p>
+Per dimostrare entrambi i teoremi è necessario introdurre ed analizzare un nuovo strumenti, le <b>funzioni potenziali</b> (<b>potential functions</b>).<br />
+</p>
+
+<blockquote>
+<p>
+<b>Def</b> (<i>Exact Potential Function</i>)<br />
+Per ogni gioco <i>finito</i> \(G\), una <b>funzione potenziale esatta</b> è una funzione \(\Phi\) che ad ogni configurazione di strategie \(S\) associa
+un valore reale che soddisfa la seguente condizione:<br />
+Sia \(S = (S_1, ..., S_k)\), \(S_i' \neq S_i\) una strategia alternativa per il player \(i\), ed \(S' = (S_{-i}, S_i')\), allora
+\[
+   \Phi(S) - \Phi(S') = COST_i(S) - COST_i(S')
+   \]
+In poche parole, date due profili di strategia \(S,S'\) che differiscono per una sola strategia \(i\), avremo che la differenza delle due
+funzioni potenziali equivale alla differenza dei due costi relativi al player \(i\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Def</b> (<i>Potential Game</i>)<br />
+Qualsiasi gioco per il quale è possibile definire una funzione potenziale esatta, è detto <b>gioco potenziale</b>.
+</p>
+</blockquote>
+
+<p>
+È possibile dimostrare che il <i>global connection game</i> è un gioco potenziale
+</p>
+<blockquote>
+<p>
+<b>Lemma1</b> Il global connection game è un gioco potenziale
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b> data una configurazione di strategie \(S = (P_1, ..., P_k)\), una funzione potenziale per il global connection game è
+\[
+   \Phi(S) = \sum_{e \in E} \psi_e(S)
+   \]
+dove
+\[
+   \psi_e(S) = c_e \cdot H_{k_e(S)}
+   \]
+e \(H_0 = 0\).<br />
+</p>
+
+<p>
+Sia \(S'\) una configurazione di strategie che differisce da \(S\) per una sola strategi \(P_i\).
+\(\Phi\) è ua funzione potenziale per il global connection game se
+\[
+   \Phi(S) - \Phi(S') = COST_i(S) - COST_i(S')
+   \]
+</p>
+
+<p>
+Supponiamo che \(S\) ed \(S'\) differiscono per le sole strategie \(P_i \neq P'_i\).
+Se consideriamo solamente gli archi \(e\) che sono in entrambe le strategie o in nessuna delle due, il valore di \(\psi_e(\cdot)\) non cambia.
+</p>
+\begin{align*}
+  \psi_e(S) &= \psi_e(S') \;\; \forall e \in P_i \cap P'_i\\
+  \psi_e(S) &= \psi_e(S') \;\; \forall e \notin P_i \cup P'_i
+\end{align*}
+<p>
+perciò necessairamente la differenza tra \(\Phi(S)\) e \(\Phi(S')\) deve dipendere dai soli archi \(e\) che sono in una sola delle strategia tra \(P_i\) e \(P'_i\).<br />
+</p>
+
+<p>
+Consideriamo l'arco \(e \in P'_i \setminus P_i\).
+Se in \(S\) sull'arco \(e\) passano \(k_e(S)\) percorsi, in \(S'\) sicuramente ne passerà uno in più, ovvero \(P'_i\).
+Perciò \(\psi_e(S') = c_e \cdot H_{(k_e(S) + 1)}\).
+Quindi
+\[
+   \psi_e(S') - \psi_e(S) = c_e \cdot (H_{(k_e(S) + 1)} - H_{k_e(S)}) = \frac{c_e}{k_e(S) + 1} = \frac{c_e}{k_e(S')}
+   \]
+</p>
+
+<p>
+Simmetricamente, consideriamo un arco \(e \in P_i \setminus P'_i\).
+Se in \(S'\) sull'arco \(e\) passavano \(k_e(S')\) percorsi, in \(S\) ne passerà sicuramente uno in più, ovvero \(P_i\).
+Perciò \(\psi_e(S') = c_e \cdot H_{(k_e(S) - 1)}\).
+Quindi
+\[
+   \psi_e(S') - \psi_e(S) = c_e \cdot (H_{(k_e(S) - 1)} - H_{k_e(S)}) = - \frac{c_e}{k_e(S)}
+   \]
+</p>
+
+<p>
+In conclusione
+</p>
+\begin{align*}
+  \Phi(S) - \Phi(S') &= \sum_{e \in P_i \setminus  P'_i} \psi_e(S) - \psi_e(S') - \sum_{e \in P'_i \setminus  P_i} \psi_e(S') - \psi_e(S)\\
+  &= \sum_{e \in P_i \setminus  P'_i} \frac{c_e}{k_e(S)} - \sum_{e \in P'_i \setminus  P_i} \frac{c_e}{k_e(S')} = COST_i(S) - COST_i(S')
+\end{align*}
+</blockquote>
+
+<p>
+Assodato che il global connection game è un gioco potenziale, possiamo implicare il <b>THM1</b> dimostrando i prossimi due teoremi.
+</p>
+
+<blockquote>
+<p>
+<b>THM3</b>
+Ogni gioco potenziale ha almeno un equilibrio di Nash a strategie pure, ovvero il profilo di strategie \(S\) che minimizza \(\Phi(S)\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Sia \(\Phi\) la funzione potenziale di tale gioco, ed un suo profilo di strategie \(S\) che minimizza \(\Phi(S)\).
+Consideriamo ora un'altra soluzione \(S'\) che differisce da \(S\) di una sola strategia \(i\), ovvero \(S' = (S_{-i}, P'_i)\) (per qualche player \(i\)).
+Per ipotesi sappiamo che \(\Phi(S) \leq \Phi(S')\), ovvero che \(\Phi(S) - \Phi(S') \leq 0\).
+Per definizione invece sappiamo che \(\Phi(S) - \Phi(S') = COST_i(S) - COST_i(S')\), perciò se \(S\) minimizza \(\Phi(S)\) allora \(COST_i(S) \leq COST_i(S')\), qualunque \(i\) scegliamo \(\square\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>THM4</b> In any finite potential game, best response dynamics always converge to a Nash equilibrium.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Nella <i>best response dynamics</i>, ogni player \(i\) sceglie a turno una nuova strategia <i>migliore</i>, tale che fa diminuire la funzione potenziale \(\Phi\).
+Perciò questa dinamica simula una ricerca locale in \(\Phi\), che sappiamo dal teorema <b>THM3</b> termina in un equilibrio di Nash \(\square\).
+</p>
+</blockquote>
+
+<p>
+Abbiamo quindi dimostrato che:
+</p>
+<ul class="org-ul">
+<li>il global connection game è un gioco potenziale</li>
+<li>che ha sempre un equilibrio di Nash</li>
+<li>che la strategia better response converge sempre ad un equilibrio</li>
+</ul>
+
+<p>
+Ora serve dimostrare il teorema <b>THM2</b>, ovvero che il prezzo della stabilità <code>PoS</code> ha un upperbound di \(H_k\).
+Per farlo basta dimostrare il seguente teorema
+</p>
+
+<blockquote>
+<p>
+<b>THM5</b>
+Sia un gioco potenziale \(G\) con funzione potenziale \(\Phi\), e supponiamo che per ogni profilo di strategie \(S\) è vero che
+\[
+   \frac{COST(S)}{A} \leq \Phi(S) \leq B \cdot COST(S)
+   \]
+per qualche \(A,B > 0\).<br />
+Allora il prezzo della stabilità <code>PoS</code> è <span class="underline">al più</span> \(AB\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Sia \(S\) una qualsia strategia che minimizza \(\Phi\) (ovvero un equilibrio di Nash), e sia \(S^*\) una strategia che minimizza il <i>costo sociale</i>.
+Per ipotesi del teorema abbiamo che \(\frac{COST(S)}{A} \leq \Phi(S)\), mentre per definizione di \(S\) che \(\Phi(S) \leq \Phi(S^*)\).
+Ancora, per ipotesi del teorema (dato che anche \(S^*\) è una combinazione di strategie), è vero che \(\Phi(S^*) \leq B \cdot COST(S^*)\).
+In conlusione, concatenando le disuguaglianze
+\[
+   \frac{COST(S)}{A} \leq \Phi(S) \leq \Phi(S^*) \leq B \cdot COST(S^*)\\
+   \implies COST(S) \leq AB \cdot COST(S^*)\\
+   \implies PoS \leq AB \;\; \square
+   \]
+</p>
+</blockquote>
+
+<p>
+Grazie al precedente teorema, possiamo dimostrare l'upperbound di \(H_k\) al prezzo della stabilità (<b>THM2</b>), come segue
+</p>
+
+<blockquote>
+<p>
+<b>Lemma</b>
+Per ogni configurazione di strategie \(S\) al global connection game con \(k\) giocatori, è vero che
+\[
+   COST(S) \leq \Phi(S) \leq H_k \cdot COST(S)
+   \]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Grazie al <b>Lemma1</b> sappiamo che il global connection game è un gioco potenziale con funzione potenziale
+\[
+   \Phi(S) = \sum_{e \in E} \psi_e(S) = \sum_{e \in E} c_e \cdot H_{k_e(S)}
+   \]
+Inoltre sappiamo che il costo sociale di una configurazione di strategie \(S\) è pari alla somma dei costi degli archi in \(NET(S)\).
+Perciò
+</p>
+\begin{align*}
+  COST(S) \leq \Phi(S) &= \sum_{e \in E} c_e \cdot H_{k_e(S)}\\
+  &= \sum_{e \in NET(S)} c_e \cdot H_{k_e(S)}\\
+  &\leq \sum_{e \in NET(S)} c_e \cdot H_k\\
+  &= H_k \cdot \sum_{e \in NET(S)} c_e = H_k \cdot COST(S)
+\end{align*}
+</blockquote>
+
+<p>
+<b>[TODO: dimostrare NP-completezza]</b>
 </p>
 </div>
 </div>
@@ -353,7 +769,7 @@ Il costo sociale della configurazione di strategie \(S\) sarà quindi la somma d
 <p class="date">Data: 2021-12-13 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-16 gio 00:45</p>
+<p class="date">Created: 2021-12-18 sab 23:17</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
