@@ -1,0 +1,32 @@
+#+title: AR - Lesson 12
+#+date: <2021-11-29>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+
+* Herding - Seguire il Gregge
+  Abbiamo visto che quando degli individui sono connessi tra di loro in una /rete/, le loro decisioni e comportamenti possono essere influenzati (ed influenzare) da quello degli altri individui vicini.\\
+
+  Nello studio dei [[./09.html][processi di diffusione]] abbiamo visto come il comportamento dei singoli individui veniva influenzato dalla /diretta comunicazione/ col proprio viciano.
+  In questa sezione vedremo come le decisioni dei singoli individui possono essere influenzate dalle osservazioni fatte sul comportamento degli altri, senza lo scambio di alcuna informaione.
+  In sostanza come è possibile /estrapolare informazioni/ dal comportamento della massa.\\
+
+  Come primo esempio supponiamo di essere in vacanza in un nuovo posto e di dover scegliere un ristorante in cui mangiare.
+  In base alle nostre recerche _personali_ scopriamo che il ristorante =A= è il migliore che ci sia in zona, e quindi decidiamo di andarci.
+  Poco prima di entrare vediamo che nel ristorante accanto, il ristorante =B=, c'è moltissima clientela, mentre il ristorante =A= è praticamente vuoto.
+  Non è del tutto irrazionale pensare che tutte le persone che vanno al ristorante =B= abbiano *informazioni private* che noi non abbiamo, e supporre che in realtà il ristorante è il migliore.
+  In effetti il fatto che il ristorante =A= sia quasi vuoto non aiuta: verrebbe da pensare che siamo in possesso di informazioni non del tutto esatte o complete.
+  Perciò decidiamo anche noi di andare al ristorante =B=.\\
+
+  In questo caso diremo che è avvenuta una *cascata informativa* (o *herding*).
+  In poche parole, una cascata informativa occorre quando gli individui prendono decisioni in maniera sequenziale, osservando ciò che hanno fatto gli altri prima e cercando di inferire qualche informazione aggiuntiva che ha spinto gli altri ad agire in tale maniera.\\
+
+  La cosa più interessante è che gli individui che /"imitano"/ gli altri non lo fanno del tutto stupida, bensì facendo una serie di ragionamenti ed inferenze più che sensate.
+  Naturalmente, l'imitazione può verificarsi anche a causa della pressione sociale all'esigienza di volersi conformare, senza alcuna causa informativa sottostante, e non è sempre facile distinguere questi due fenomeni.
+  Consideriamo infatti l'esperimento di /Milgram/, /Bickman/ e /Berkowitz/ del 1960, in cui venivano poste agli angoli delle strade dei gruppi di persone (da un minimo di 1 a un massimo di 15) a guardare il cielo senza alcun motivo.
+  Si è osservato quanti passanti si sono fermati e hanno volto lo sguardo al cielo.
+  Come prima osservazione si è visto che con una sola persona, pochissimi passanti si fermavano.
+  Se invece cinque persone fissavano il cielo, alcuni passanti si fermavanom a imitare, ma la maggior parte li ignorava.
+  Infine, con un gruppo di 15 persone che guardano verso l'alto, hanno scoperto che il 45% dei passanti imitava, fermandosi e guardare il cielo cercando di capire.\\
+
+  
+  
