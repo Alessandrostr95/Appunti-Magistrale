@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-22 mer 21:33 -->
+<!-- 2021-12-24 ven 17:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 12</title>
@@ -240,6 +240,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -252,13 +274,18 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8d5b448">1. Herding - Seguire il Gregge</a></li>
+<li><a href="#orge2a7bf3">1. Herding - Seguire il Gregge</a>
+<ul>
+<li><a href="#orga14b25b">1.1. A Simple Herding Experiment: Il Gioco delle Urne</a></li>
+<li><a href="#orge9ba485">1.2. Teorema di Bayes</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8d5b448" class="outline-2">
-<h2 id="org8d5b448"><span class="section-number-2">1</span> Herding - Seguire il Gregge</h2>
+<div id="outline-container-orge2a7bf3" class="outline-2">
+<h2 id="orge2a7bf3"><span class="section-number-2">1</span> Herding - Seguire il Gregge</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Abbiamo visto che quando degli individui sono connessi tra di loro in una <i>rete</i>, le loro decisioni e comportamenti possono essere influenzati (ed influenzare) da quello degli altri individui vicini.<br />
@@ -290,9 +317,206 @@ Naturalmente, l'imitazione può verificarsi anche a causa della pressione social
 Consideriamo infatti l'esperimento di <i>Milgram</i>, <i>Bickman</i> e <i>Berkowitz</i> del 1960, in cui venivano poste agli angoli delle strade dei gruppi di persone (da un minimo di 1 a un massimo di 15) a guardare il cielo senza alcun motivo.
 Si è osservato quanti passanti si sono fermati e hanno volto lo sguardo al cielo.
 Come prima osservazione si è visto che con una sola persona, pochissimi passanti si fermavano.
-Se invece cinque persone fissavano il cielo, alcuni passanti si fermavanom a imitare, ma la maggior parte li ignorava.
+Se invece 5 persone fissavano il cielo, alcuni passanti si fermavanom a imitare, ma la maggior parte li ignorava.
 Infine, con un gruppo di 15 persone che guardano verso l'alto, hanno scoperto che il 45% dei passanti imitava, fermandosi e guardare il cielo cercando di capire.<br />
 </p>
+
+<p>
+Quest'ultimo esperimento lascia pensare che esiste una <b>soglia critica</b> oltre la quale si scatena l'<i>herding</i> su una considerevole porzione di popolazione.
+Infatti, se camminando per strada vediamo due persone che fissano il cielo, è naturale pensare che i due individui non siano proprio sani mentalmente.
+Se invece ne vediamo 15, molto propbabilmente guarderemo anche noi verso l'alto, per cercare di capire cosa c'è di interessante.<br />
+</p>
+
+<p>
+Alcune domande nascono spontanee:
+</p>
+<ul class="org-ul">
+<li>esiste sempre una soglia critica che scatena l'herding di massa?</li>
+<li>e se esiste, come fare a trovarla?</li>
+</ul>
+</div>
+
+<div id="outline-container-orga14b25b" class="outline-3">
+<h3 id="orga14b25b"><span class="section-number-3">1.1</span> A Simple Herding Experiment: Il Gioco delle Urne</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Consideriamo un genere di gioco con la seguente tipologia di regole
+a. C'è una decisione da prendere
+b. I giocatori prendono le proprie decisioni in sequenza (uno dopo l'altro), e ogni persona può osservare le scelte fatte da coloro che hanno agito prima.
+c. Ogni giocatore ha alcune <i>informazioni private</i> che aiutano a guidare la propria decisione.
+d. Un giocatore non può osservare direttamente le informazioni private che gli altri giocatori hanno, ma può trarre deduzioni su queste informazioni private da ciò che fanno.
+</p>
+
+<p>
+Secondo queste indicazioni, instanziamo un gioco con le seguenti regole:
+</p>
+<ul class="org-ul">
+<li>C'è uno <b>scommettitore</b> in una stanza chiusa, e una serie di <b>giocatori</b> all'esterno.</li>
+<li>Lo scommettitore inserisce due palline rosse ed una blu in un'urna (che chiameremo <code>MR</code>, a <i>Maggioranza Rossa</i>), e due palline blu e una rossa in un'altra urna (che chiameremo <code>MB</code>, a <i>Maggioranza Blu</i>).</li>
+<li>Lo scommettitore poi mischia le due urne e ne sceglie una a caso (senza avere la possibilità di vederne il contenuto).</li>
+<li>Un giocatore alla volta entra nella stanza ed estrae una pallina dall'urna, e poi la reinserisce.</li>
+<li>Il giocatore comunica a tutti quanti se ritiene che l'urna sia <code>MR</code> o <code>MB</code> (sulla base delle sue informazioni).
+<b>Importante:</b> il giocatore non deve comunicare il colore della pallina pescata.</li>
+<li>Al termine vinceranno solo i giocatori che hanno indovinato quale urna è stata scelta inizialmente (<code>MR</code> o <code>MB</code>).</li>
+</ul>
+
+<p>
+Per definizione di questo gioco, l'informazione privata dei singoli giocatori è l'esito dell'estrazione (pallina blu o pallina rossa), e questa non viene mai condivisa con gli altri.
+Un giocatore però può inferire quale urna è meglio scegliere in base alle scelte fatte dagli altri prima (come vedremo adesso).<br />
+</p>
+
+<ul class="org-ul">
+<li><b>Primo giocatore:</b> prima di estrarre la pallina, il primo giocatore è in possesso della sola informazione <i>"l'urna è <code>MR</code> o <code>MB</code>"</i>.
+Non avnedo altre informazioni, a prescindere da cosa pescherà il primo giocatore, la probabilità che l'urna sia <code>MR</code> o <code>MB</code> è la stessa.
+Perciò gli conviene scomettere sul colore della pallina estratta: se pesca una pallina blu gli conviene scommettere su <code>MB</code> (stesso discorso per <code>MR</code>).</li>
+<li><b>Secondo giocatore:</b> a questo punto il secondo giocatore può dedurre l'esito dell'estrazione del primo giocatore sulla base della sua scommessa.
+Senza perdita di generalità, supponiamo che il primo giocatore abbia scommesso <code>MB</code> (e che quindi abbia estratto una pallina blu).
+Se il secondo estrae una pallina blu, allora sa che sono state esatratte due palline blu consecutive, e che quindi è più conveniente scommettere su <code>MB</code>.
+Se invece estrae una pallina rossa, si ritrova nella stessa situazione inizale del primo giocatore (senza alcuna informazione rilevante), perciò gli conviene scommettere <code>MR</code> in accordo alla sua estrazione.</li>
+<li><b>Terzo giocatore:</b> anche il terzo giocatore è in grado di dedurre le estrazioni dei giocatori precedenti: se sono discordi allora sono avvenute due estrazioni discorde, se sono concorde allora sono avvenute due estrazioni di palline dello stesso colore.
+Consideriamo il caso in cui le prime due estrazioni siano discordi, in questo caso al terzo giocatore conviene rispondere in accordo a ciò che pesca (se pesca una pallina blu gli conviene votare <code>MB</code>, se ne pesca una rossa gli conviene votare <code>MR</code>).
+Consideriamo ora il caso in cui i primi due giocatori abbiamo voti condori, e senza perdita di generalità supponiamo che abbiano entrambi votato <code>MB</code>.
+Se il terzo giocatore pesca una pallina blu, allora vuol dire che sono state estratte tre palline blu di seguito, rafforzando la propbailità che <code>MB</code> sia la risposta esatta.
+Se invece estrae una rossa, comunque è più probabile che la risposta esatta sia <code>MB</code>, perché sono state estratte due palline blu di seguito e poi una rossa.
+Quindi in ogni caso gli conviene votare <code>MB</code>.</li>
+<li><b>Quarto giocatore:</b> a questo punto il quarto giocatore può dedurre ciò che hanno fatto <span class="underline">tutti</span> i giocatori precedenti solamente se ci sono 2 voti concordi ed uno discorde (2 a 1).
+Perché se ci fossero 3 voti concordi, sappiamo che il terzo giocatore avrebbe votato in accordo ai primi due in ogni caso a prescindere dall'esito della sua estrazione.
+Supponiamo di essere nella situazione di <i>"3 a 0"</i> per <code>MB</code>.
+Al quarto giocatore conviene votare <code>MB</code> in ogni caso (esattamente come per il terzo giocatore).</li>
+</ul>
+
+<p>
+A questo punto, dal quinto giocatore in poi, si genera una <i>cascata informativa</i> a favore di <code>MB</code>, a prescindere dalle singole estrazioni.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge9ba485" class="outline-3">
+<h3 id="orge9ba485"><span class="section-number-3">1.2</span> Teorema di Bayes</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Per formalizzare meglio la meccanica precedentemente descritta è necessario enunciare il <b>Teorema di Bayes</b>.<br />
+</p>
+
+<blockquote>
+<p>
+<b>Teorema di Bayes</b>
+siano i due eventi \(A,B \in \Omega\) di probabilità <span class="underline">non nulla</span>, allora
+\[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{ \mathcal{P}(B) }
+   \]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+per definizione di probabilità condizionata abbiamo che
+</p>
+\begin{align*}
+  \mathcal{P}(A | B) &= \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(B)}\\
+  \mathcal{P}(B | A) &= \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(A)}
+\end{align*}
+<p>
+ciò implica che
+\[
+   \mathcal{P}(A \cap B) = \mathcal{P}(A | B) \cdot \mathcal{P}(B) = \mathcal{P}(B | A) \cdot \mathcal{P}(A)
+   \]
+Sostituendo opportunamente otteniamo l'enunciato del teorema
+\[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(B)} = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{\mathcal{P}(B)} \;\; \square
+   \]
+</p>
+</blockquote>
+
+<p>
+Facendo qualche opportuna sostituzione, possiamo riscrivere \(\mathcal{P}(B)\) come segue
+</p>
+\begin{align*}
+  \mathcal{P}(B) &= \mathcal{P}(B \cap \Omega)\\
+  &= \mathcal{P}(B \cap (A \cup A^{\mathcal{C}}))\\
+  &= \mathcal{P}((B \cap A) \cup (B \cap A^{\mathcal{C}}))\\
+  &= \mathcal{P}(B \cap A) + \mathcal{P}(B \cap A^{\mathcal{C}})\\
+  &= \mathcal{P}(B | A) \cdot \mathcal{P}(A) + \mathcal{P}(B | A^{\mathcal{C}}) \cdot \mathcal{P}(A^{\mathcal{C}})
+\end{align*}   
+<p>
+perciò
+\[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{ \mathcal{P}(B | A) \cdot \mathcal{P}(A) + \mathcal{P}(B | A^{\mathcal{C}}) \cdot \mathcal{P}(A^{\mathcal{C}}) }
+   \]
+</p>
+
+<p>
+Siano gli eventi:
+</p>
+<ul class="org-ul">
+<li>\(MR\) : <i>"l'urna è a maggioranza rossa"</i></li>
+<li>\(MB\) : <i>"l'urna è a maggioranza blu"</i></li>
+<li>\(r\) : <i>"è stata estratta una pallina rossa"</i></li>
+<li>\(b\) : <i>"è stata estratta una pallina blu"</i></li>
+</ul>
+
+<p>
+Osserviamo inoltre che i precedenti eventi sono mutualmente complementari
+\[
+   MR = MB^{\mathcal{C}}\\
+   MB = MA^{\mathcal{C}}\\
+   b = r^{\mathcal{C}}\\
+   r = b^{\mathcal{C}}
+   \]
+</p>
+
+<p>
+Secondo le regole del gioco sappiamo che
+\[
+   \mathcal{P}(MR) = \mathcal{P}(MB) = \frac{1}{2}\\
+   \mathcal{P}(r | MR) = \frac{2}{3}; \;\; \mathcal{P}(b | MR) = \frac{1}{3}\\
+   \mathcal{P}(r | MB) = \frac{1}{3}; \;\; \mathcal{P}(b | MB) = \frac{2}{3}
+   \]
+</p>
+
+<p>
+Supponiamo senza perdita di generalità che il primo giocatore estrae una pallina blu, essi dovrà calcolare la probabilità che l'urna sia a maggioranza blu o rossa,
+e questo si può fare grazie al teorema di Bayes
+</p>
+\begin{align*}
+  \mathcal{P}(MB | b) &= \frac{\mathcal{P}(b | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(b | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(b | MR) \cdot \mathcal{P}(MR)} = \frac{2}{3}\\
+  \\
+  \mathcal{P}(MR | b) &= \frac{\mathcal{P}(b | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(b | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(b | MB) \cdot \mathcal{P}(MB)} = \frac{1}{3}
+\end{align*}
+<p>
+perciò al primo giocatore conviene votare in accordo alla sua estrazione.<br />
+</p>
+
+<p>
+Vediamo ora quale strategia è migliore per il secondo giocatore.
+Consideriamo come prima situazione quella in cui esso estrae una pallina rossa, ed indichiamo con \(br\) l'evento <i>"sono state estratte in ordine una pallina blu e poi una rossa"</i>.
+Dato che il secondo giocatore sa esasttamente cosa ha pescato il primo (dato che lo può inferire con certezza assumendo che il primo giocaotre giochi correttamente),
+si può affermare che il secondo giocatore si trova a dover calcolare le seguenti probabilità
+</p>
+\begin{align*}
+  \mathcal{P}(MB | br) &= \frac{\mathcal{P}(br | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(br | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(br | MR) \cdot \mathcal{P}(MR)} = \frac{1}{2}\\
+  \\
+  \mathcal{P}(MR | br) &= \frac{\mathcal{P}(br | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(br | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(br | MB) \cdot \mathcal{P}(MB)} = \frac{1}{2}
+\end{align*}
+<p>
+perciò il secondo giocatore non può estrarre alcuna informazione utile dall'estrazione del primo, e quindi gli conviene scommettere in accordo a ciò che estrae.<br />
+</p>
+
+<p>
+Consideriamo ora il caso in cui il secondo giocate estrae una pallina blu.
+In questo l'informazione riguardo la prima estrazione è realmente utile, in quanto possiamo dire che la probabilità è nettamente più sbilanciata verso <code>MB</code>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bb) &= \frac{\mathcal{P}(bb | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(bb | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(bb | MR) \cdot \mathcal{P}(MR)} = \frac{4}{5}\\
+  \\
+  \mathcal{P}(MR | bb) &= \frac{\mathcal{P}(bb | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(bb | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(bb | MB) \cdot \mathcal{P}(MB)} = \frac{1}{5}
+\end{align*}
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</div>
 </div>
 </div>
 </div>
@@ -300,7 +524,7 @@ Infine, con un gruppo di 15 persone che guardano verso l'alto, hanno scoperto ch
 <p class="date">Data: 2021-11-29 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-22 mer 21:33</p>
+<p class="date">Created: 2021-12-24 ven 17:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

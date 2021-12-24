@@ -25,8 +25,144 @@
   Consideriamo infatti l'esperimento di /Milgram/, /Bickman/ e /Berkowitz/ del 1960, in cui venivano poste agli angoli delle strade dei gruppi di persone (da un minimo di 1 a un massimo di 15) a guardare il cielo senza alcun motivo.
   Si è osservato quanti passanti si sono fermati e hanno volto lo sguardo al cielo.
   Come prima osservazione si è visto che con una sola persona, pochissimi passanti si fermavano.
-  Se invece cinque persone fissavano il cielo, alcuni passanti si fermavanom a imitare, ma la maggior parte li ignorava.
+  Se invece 5 persone fissavano il cielo, alcuni passanti si fermavanom a imitare, ma la maggior parte li ignorava.
   Infine, con un gruppo di 15 persone che guardano verso l'alto, hanno scoperto che il 45% dei passanti imitava, fermandosi e guardare il cielo cercando di capire.\\
 
-  
-  
+  Quest'ultimo esperimento lascia pensare che esiste una *soglia critica* oltre la quale si scatena l'/herding/ su una considerevole porzione di popolazione.
+  Infatti, se camminando per strada vediamo due persone che fissano il cielo, è naturale pensare che i due individui non siano proprio sani mentalmente.
+  Se invece ne vediamo 15, molto propbabilmente guarderemo anche noi verso l'alto, per cercare di capire cosa c'è di interessante.\\
+
+  Alcune domande nascono spontanee:
+  - esiste sempre una soglia critica che scatena l'herding di massa?
+  - e se esiste, come fare a trovarla?
+
+** A Simple Herding Experiment: Il Gioco delle Urne
+   Consideriamo un genere di gioco con la seguente tipologia di regole
+   a. C'è una decisione da prendere
+   b. I giocatori prendono le proprie decisioni in sequenza (uno dopo l'altro), e ogni persona può osservare le scelte fatte da coloro che hanno agito prima.
+   c. Ogni giocatore ha alcune /informazioni private/ che aiutano a guidare la propria decisione.
+   d. Un giocatore non può osservare direttamente le informazioni private che gli altri giocatori hanno, ma può trarre deduzioni su queste informazioni private da ciò che fanno.
+
+   Secondo queste indicazioni, instanziamo un gioco con le seguenti regole:
+   - C'è uno *scommettitore* in una stanza chiusa, e una serie di *giocatori* all'esterno.
+   - Lo scommettitore inserisce due palline rosse ed una blu in un'urna (che chiameremo =MR=, a /Maggioranza Rossa/), e due palline blu e una rossa in un'altra urna (che chiameremo =MB=, a /Maggioranza Blu/).
+   - Lo scommettitore poi mischia le due urne e ne sceglie una a caso (senza avere la possibilità di vederne il contenuto).
+   - Un giocatore alla volta entra nella stanza ed estrae una pallina dall'urna, e poi la reinserisce.
+   - Il giocatore comunica a tutti quanti se ritiene che l'urna sia =MR= o =MB= (sulla base delle sue informazioni).
+     *Importante:* il giocatore non deve comunicare il colore della pallina pescata.
+   - Al termine vinceranno solo i giocatori che hanno indovinato quale urna è stata scelta inizialmente (=MR= o =MB=).
+     
+   Per definizione di questo gioco, l'informazione privata dei singoli giocatori è l'esito dell'estrazione (pallina blu o pallina rossa), e questa non viene mai condivisa con gli altri.
+   Un giocatore però può inferire quale urna è meglio scegliere in base alle scelte fatte dagli altri prima (come vedremo adesso).\\
+
+   - *Primo giocatore:* prima di estrarre la pallina, il primo giocatore è in possesso della sola informazione /"l'urna è =MR= o =MB="/.
+     Non avnedo altre informazioni, a prescindere da cosa pescherà il primo giocatore, la probabilità che l'urna sia =MR= o =MB= è la stessa.
+     Perciò gli conviene scomettere sul colore della pallina estratta: se pesca una pallina blu gli conviene scommettere su =MB= (stesso discorso per =MR=).
+   - *Secondo giocatore:* a questo punto il secondo giocatore può dedurre l'esito dell'estrazione del primo giocatore sulla base della sua scommessa.
+     Senza perdita di generalità, supponiamo che il primo giocatore abbia scommesso =MB= (e che quindi abbia estratto una pallina blu).
+     Se il secondo estrae una pallina blu, allora sa che sono state esatratte due palline blu consecutive, e che quindi è più conveniente scommettere su =MB=.
+     Se invece estrae una pallina rossa, si ritrova nella stessa situazione inizale del primo giocatore (senza alcuna informazione rilevante), perciò gli conviene scommettere =MR= in accordo alla sua estrazione.
+   - *Terzo giocatore:* anche il terzo giocatore è in grado di dedurre le estrazioni dei giocatori precedenti: se sono discordi allora sono avvenute due estrazioni discorde, se sono concorde allora sono avvenute due estrazioni di palline dello stesso colore.
+     Consideriamo il caso in cui le prime due estrazioni siano discordi, in questo caso al terzo giocatore conviene rispondere in accordo a ciò che pesca (se pesca una pallina blu gli conviene votare =MB=, se ne pesca una rossa gli conviene votare =MR=).
+     Consideriamo ora il caso in cui i primi due giocatori abbiamo voti condori, e senza perdita di generalità supponiamo che abbiano entrambi votato =MB=.
+     Se il terzo giocatore pesca una pallina blu, allora vuol dire che sono state estratte tre palline blu di seguito, rafforzando la propbailità che =MB= sia la risposta esatta.
+     Se invece estrae una rossa, comunque è più probabile che la risposta esatta sia =MB=, perché sono state estratte due palline blu di seguito e poi una rossa.
+     Quindi in ogni caso gli conviene votare =MB=.
+   - *Quarto giocatore:* a questo punto il quarto giocatore può dedurre ciò che hanno fatto _tutti_ i giocatori precedenti solamente se ci sono 2 voti concordi ed uno discorde (2 a 1).
+     Perché se ci fossero 3 voti concordi, sappiamo che il terzo giocatore avrebbe votato in accordo ai primi due in ogni caso a prescindere dall'esito della sua estrazione.
+     Supponiamo di essere nella situazione di /"3 a 0"/ per =MB=.
+     Al quarto giocatore conviene votare =MB= in ogni caso (esattamente come per il terzo giocatore).
+   
+   A questo punto, dal quinto giocatore in poi, si genera una /cascata informativa/ a favore di =MB=, a prescindere dalle singole estrazioni.
+
+** Teorema di Bayes
+   Per formalizzare meglio la meccanica precedentemente descritta è necessario enunciare il *Teorema di Bayes*.\\
+   
+   #+begin_quote
+   *Teorema di Bayes*
+   siano i due eventi \(A,B \in \Omega\) di probabilità _non nulla_, allora
+   \[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{ \mathcal{P}(B) }
+   \]
+   #+end_quote
+
+   #+begin_quote
+   *Proof*
+   per definizione di probabilità condizionata abbiamo che
+   \begin{align*}
+     \mathcal{P}(A | B) &= \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(B)}\\
+     \mathcal{P}(B | A) &= \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(A)}
+   \end{align*}
+   ciò implica che
+   \[
+   \mathcal{P}(A \cap B) = \mathcal{P}(A | B) \cdot \mathcal{P}(B) = \mathcal{P}(B | A) \cdot \mathcal{P}(A)
+   \]
+   Sostituendo opportunamente otteniamo l'enunciato del teorema
+   \[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(A \cap B)}{\mathcal{P}(B)} = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{\mathcal{P}(B)} \;\; \square
+   \]
+   #+end_quote
+
+   Facendo qualche opportuna sostituzione, possiamo riscrivere \(\mathcal{P}(B)\) come segue
+   \begin{align*}
+     \mathcal{P}(B) &= \mathcal{P}(B \cap \Omega)\\
+     &= \mathcal{P}(B \cap (A \cup A^{\mathcal{C}}))\\
+     &= \mathcal{P}((B \cap A) \cup (B \cap A^{\mathcal{C}}))\\
+     &= \mathcal{P}(B \cap A) + \mathcal{P}(B \cap A^{\mathcal{C}})\\
+     &= \mathcal{P}(B | A) \cdot \mathcal{P}(A) + \mathcal{P}(B | A^{\mathcal{C}}) \cdot \mathcal{P}(A^{\mathcal{C}})
+   \end{align*}   
+   perciò
+   \[
+   \mathcal{P}(A | B) = \frac{\mathcal{P}(B | A) \cdot \mathcal{P}(A)}{ \mathcal{P}(B | A) \cdot \mathcal{P}(A) + \mathcal{P}(B | A^{\mathcal{C}}) \cdot \mathcal{P}(A^{\mathcal{C}}) }
+   \]
+
+   Siano gli eventi:
+   - \(MR\) : /"l'urna è a maggioranza rossa"/
+   - \(MB\) : /"l'urna è a maggioranza blu"/
+   - \(r\) : /"è stata estratta una pallina rossa"/
+   - \(b\) : /"è stata estratta una pallina blu"/
+
+   Osserviamo inoltre che i precedenti eventi sono mutualmente complementari
+   \[
+   MR = MB^{\mathcal{C}}\\
+   MB = MA^{\mathcal{C}}\\
+   b = r^{\mathcal{C}}\\
+   r = b^{\mathcal{C}}
+   \]
+
+   Secondo le regole del gioco sappiamo che
+   \[
+   \mathcal{P}(MR) = \mathcal{P}(MB) = \frac{1}{2}\\
+   \mathcal{P}(r | MR) = \frac{2}{3}; \;\; \mathcal{P}(b | MR) = \frac{1}{3}\\
+   \mathcal{P}(r | MB) = \frac{1}{3}; \;\; \mathcal{P}(b | MB) = \frac{2}{3}
+   \]
+
+   Supponiamo senza perdita di generalità che il primo giocatore estrae una pallina blu, essi dovrà calcolare la probabilità che l'urna sia a maggioranza blu o rossa,
+   e questo si può fare grazie al teorema di Bayes
+   \begin{align*}
+     \mathcal{P}(MB | b) &= \frac{\mathcal{P}(b | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(b | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(b | MR) \cdot \mathcal{P}(MR)} = \frac{2}{3}\\
+     \\
+     \mathcal{P}(MR | b) &= \frac{\mathcal{P}(b | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(b | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(b | MB) \cdot \mathcal{P}(MB)} = \frac{1}{3}
+   \end{align*}
+   perciò al primo giocatore conviene votare in accordo alla sua estrazione.\\
+
+   Vediamo ora quale strategia è migliore per il secondo giocatore.
+   Consideriamo come prima situazione quella in cui esso estrae una pallina rossa, ed indichiamo con $br$ l'evento /"sono state estratte in ordine una pallina blu e poi una rossa"/.
+   Dato che il secondo giocatore sa esasttamente cosa ha pescato il primo (dato che lo può inferire con certezza assumendo che il primo giocaotre giochi correttamente),
+   si può affermare che il secondo giocatore si trova a dover calcolare le seguenti probabilità
+   \begin{align*}
+     \mathcal{P}(MB | br) &= \frac{\mathcal{P}(br | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(br | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(br | MR) \cdot \mathcal{P}(MR)} = \frac{1}{2}\\
+     \\
+     \mathcal{P}(MR | br) &= \frac{\mathcal{P}(br | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(br | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(br | MB) \cdot \mathcal{P}(MB)} = \frac{1}{2}
+   \end{align*}
+   perciò il secondo giocatore non può estrarre alcuna informazione utile dall'estrazione del primo, e quindi gli conviene scommettere in accordo a ciò che estrae.\\
+
+   Consideriamo ora il caso in cui il secondo giocate estrae una pallina blu.
+   In questo l'informazione riguardo la prima estrazione è realmente utile, in quanto possiamo dire che la probabilità è nettamente più sbilanciata verso =MB=
+   \begin{align*}
+     \mathcal{P}(MB | bb) &= \frac{\mathcal{P}(bb | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(bb | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(bb | MR) \cdot \mathcal{P}(MR)} = \frac{4}{5}\\
+     \\
+     \mathcal{P}(MR | bb) &= \frac{\mathcal{P}(bb | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(bb | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(bb | MB) \cdot \mathcal{P}(MB)} = \frac{1}{5}
+   \end{align*}
+   
+   *[DA FINIRE...]*
