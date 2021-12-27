@@ -1,0 +1,5 @@
+#+title: AR - Lesson 13
+#+date: <2021-12-1>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-24 ven 17:22 -->
+<!-- 2021-12-27 lun 13:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 12</title>
@@ -476,7 +476,7 @@ Secondo le regole del gioco sappiamo che
 </p>
 
 <p>
-Supponiamo senza perdita di generalità che il primo giocatore estrae una pallina blu, essi dovrà calcolare la probabilità che l'urna sia a maggioranza blu o rossa,
+<b>Giocatore 1:</b> Supponiamo senza perdita di generalità che il primo giocatore estrae una pallina blu, essi dovrà calcolare la probabilità che l'urna sia a maggioranza blu o rossa,
 e questo si può fare grazie al teorema di Bayes
 </p>
 \begin{align*}
@@ -489,7 +489,7 @@ perciò al primo giocatore conviene votare in accordo alla sua estrazione.<br />
 </p>
 
 <p>
-Vediamo ora quale strategia è migliore per il secondo giocatore.
+<b>Giocatore 2:</b> Vediamo ora quale strategia è migliore per il secondo giocatore.
 Consideriamo come prima situazione quella in cui esso estrae una pallina rossa, ed indichiamo con \(br\) l'evento <i>"sono state estratte in ordine una pallina blu e poi una rossa"</i>.
 Dato che il secondo giocatore sa esasttamente cosa ha pescato il primo (dato che lo può inferire con certezza assumendo che il primo giocaotre giochi correttamente),
 si può affermare che il secondo giocatore si trova a dover calcolare le seguenti probabilità
@@ -514,7 +514,128 @@ In questo l'informazione riguardo la prima estrazione è realmente utile, in qua
 \end{align*}
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+<b>Giocatore 3:</b> A questo punto (sempre supponendo che la prima estrazione sia stata una pallina blu) possiamo essere in due situazioni differenti
+</p>
+<ul class="org-ul">
+<li>\(br\): sono avvenute in sequenza le estrazioni <i>blu-rossa</i></li>
+<li>\(bb\): sono avvenute in sequenza le estrazioni <i>blu-blu</i></li>
+</ul>
+
+<p>
+Partendo dalla prima, vediamo quale è la strategia migliore per il terzo giocatore.<br />
+</p>
+
+<p>
+<b>Caso \(brb\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | brb) &= \frac{\mathcal{P}(brb | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(brb | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(brb | MR) \cdot \mathcal{P}(MR)} = \frac{2}{3}\\
+  \\
+  \mathcal{P}(MR | brb) &= \frac{\mathcal{P}(brb | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(brb | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(brb | MB) \cdot \mathcal{P}(MB)} = \frac{1}{3}
+\end{align*}
+
+<p>
+<b>Caso \(brr\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | brr) &= \frac{\mathcal{P}(brr | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(brr | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(brr | MR) \cdot \mathcal{P}(MR)} = \frac{1}{3}\\
+  \\
+  \mathcal{P}(MR | brr) &= \frac{\mathcal{P}(brr | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(brr | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(brr | MB) \cdot \mathcal{P}(MB)} = \frac{2}{3}
+\end{align*}
+
+<p>
+Perciò se i pirmi due voti sono discordi al terzo giocatore conviene votare in accordo alla sua estrazione (come già intuito in precedenza).
+Vediamo ora cosa accade se i primi due giocatori hanno voti concordi.<br />
+</p>
+
+<p>
+<b>Caso \(bbb\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbb) &= \frac{\mathcal{P}(bbb | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(bbb | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(bbb | MR) \cdot \mathcal{P}(MR)} = \frac{8}{9}\\
+  \\
+  \mathcal{P}(MR | bbb) &= \frac{\mathcal{P}(bbb | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(bbb | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(bbb | MB) \cdot \mathcal{P}(MB)} = \frac{1}{9}
+\end{align*}
+
+<p>
+<b>Caso \(bbr\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbr) &= \frac{\mathcal{P}(bbr | MB) \cdot \mathcal{P}(MB)}{\mathcal{P}(bbr | MB) \cdot \mathcal{P}(MB) + \mathcal{P}(bbr | MR) \cdot \mathcal{P}(MR)} = \frac{2}{3}\\
+  \\
+  \mathcal{P}(MR | bbr) &= \frac{\mathcal{P}(bbr | MR) \cdot \mathcal{P}(MR)}{\mathcal{P}(bbr | MR) \cdot \mathcal{P}(MR) + \mathcal{P}(bbr | MB) \cdot \mathcal{P}(MB)} = \frac{1}{3}
+\end{align*}
+
+<p>
+In questo caso al giocatore 3 conviene votare in accordo a ciò che hanno votato i primi due giocatori, a prescindere da quale sarà l'esito della sua estrazione.<br />
+</p>
+
+<p>
+<b>Giocatore 4:</b> Senza perdita di generalità consideriamo il caso in cui le prime due estrazioni sono entrambe <i>blu</i>.
+Il giocatore 4 non può essere certo di cosa ha estratto il giocatore 3, perciò gli conviene sempre calcolare due probabilità differenti, quella in cui il terzo ha estratto una pallina <i>rossa</i> e quella in cui ne ha estratta una <i>blu</i>.
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbbb) = \frac{16}{17}; \;\; &\mathcal{P}(MR | bbbb) = \frac{1}{17}\\
+  \mathcal{P}(MB | bbbr) = \frac{8}{9}; \;\; &\mathcal{P}(MR | bbbr) = \frac{1}{9}\\
+  \mathcal{P}(MB | bbrb) = \frac{8}{9}; \;\; &\mathcal{P}(MR | bbrb) = \frac{1}{9}\\
+  \mathcal{P}(MB | bbrr) = \frac{1}{2}; \;\; &\mathcal{P}(MR | bbrr) = \frac{1}{2}
+\end{align*}
+
+<p>
+Perciò votando <code>MB</code> il giocatore 4 non ricade mai nella strategia che minimizza la probabilità di sucesso.
+Al più può ritrovarsi nel caso in cui le probabilità di successo e insuccesso equivalgono, ovvero quando giocatori 3 e 4 estraggono entrambi una pallina <i>rossa</i>.
+Putroppo però il giocatore 4 non può sapere cosa ha estratto il terzo giocatore, perciò gli conviene votare comunque <code>MB</code> a prescindere dalla sua estrazione.<br />
+</p>
+
+<p>
+<b>Giocatore 5:</b> sapendo che le prime due estrazioni sono state <i>blu-blu</i>, il giocatore 5 (come il giocatore 4) deve calcolare tutte le probabilità rispetto alle possibili 
+combinazioni di estrazioni dei giocatori 3 e 4.<br />
+</p>
+
+<p>
+<b>Caso \(bbbb\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbbbb) = \frac{32}{33}; \;\; &\mathcal{P}(MR | bbbbb) = \frac{1}{33}\\
+  \mathcal{P}(MB | bbbbr) = \frac{8}{9}; \;\; &\mathcal{P}(MR | bbbbr) = \frac{1}{9}
+\end{align*}
+
+<p>
+<b>Caso \(bbbr\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbbrb) = \frac{8}{9}; \;\; &\mathcal{P}(MR | bbbrb) = \frac{1}{9}\\
+  \mathcal{P}(MB | bbbrr) = \frac{2}{3}; \;\; &\mathcal{P}(MR | bbbrr) = \frac{1}{3}
+\end{align*}
+
+<p>
+<b>Caso \(bbrb\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbrbb) = \frac{8}{9}; \;\; &\mathcal{P}(MR | bbrbb) = \frac{1}{9}\\
+  \mathcal{P}(MB | bbrbr) = \frac{2}{3}; \;\; &\mathcal{P}(MR | bbrbr) = \frac{1}{3}
+\end{align*}
+
+<p>
+<b>Caso \(bbrr\):</b>
+</p>
+\begin{align*}
+  \mathcal{P}(MB | bbrrb) = \frac{2}{3}; \;\; &\mathcal{P}(MR | bbrrb) = \frac{1}{3}\\
+  \bigstar \mathcal{P}(MB | bbrrr) = \frac{1}{3}; \;\; &\mathcal{P}(MR | bbrrr) = \frac{2}{3}
+\end{align*}
+
+<p>
+Al giocatore 5 conviene sempre scommettere su <code>MB</code> a meno che il terzo e il quarto giocatore non abbiano estratto due palline <i>rosse</i>.
+Questo purtroppo il giocatore 5 non può saperlo, in quanto i giocatori 3 e 4 voteranno <code>MB</code> a prescindere dall'esito delle proprie estrazioni.<br />
+</p>
+
+<p>
+Perciò possiamo dire che se le prime due estrazioni sono <i>blu-blu</i> si genera una cascata imitativa in cui tutti i giocatori voteranno <code>MB</code>,
+a prescindere dalle proprie informazioni private!<br />
+</p>
+
+<p>
+Continuo nella <a href="./13.html">lezione successiva →</a>
 </p>
 </div>
 </div>
@@ -524,7 +645,7 @@ In questo l'informazione riguardo la prima estrazione è realmente utile, in qua
 <p class="date">Data: 2021-11-29 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-24 ven 17:22</p>
+<p class="date">Created: 2021-12-27 lun 13:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
