@@ -1,3 +1,4 @@
+/*
 @font-face {
     font-family: 'Century';
     src: url('/fonts/CenturySchoolbook-Bold-webfont.eot');
@@ -50,16 +51,19 @@
 
 }
 
+*/
+
 /**/
 
 body {
     width: 95%;
     margin: auto;
 
-    font-size: 17px;
+    /*font-size: 17px;*/
+    font-size: 18px;
     line-height: 1.6em;
-    font-family: 'Century';
-    color: #5D6063;
+    font-family: "Times New Roman", Times, serif;
+    /* color: #5D6063; */
 
     background-color: #FFFFFF;
 
@@ -90,21 +94,18 @@ a:visited:active {
 /* --- Heading --- */
 
 h1.title {
-    font-family: 'Harman Retro';
     font-weight: normal;
     font-size: 37px;
     line-height: 40px;
 }
 
 h2 {
-    font-family: 'Harman Retro';
     font-size: 31px;
     line-height: 41px;
     width: fit-content;
 }
 
-h2, h3, h4, h5, h6 {
-    text-align: center;
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Harman Retro';
 }
 

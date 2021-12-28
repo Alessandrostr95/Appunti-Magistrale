@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-27 lun 13:04 -->
+<!-- 2021-12-28 mar 18:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 12</title>
@@ -274,19 +274,30 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge2a7bf3">1. Herding - Seguire il Gregge</a>
+<li><a href="#orge2a7bf3">Herding - Seguire il Gregge</a>
 <ul>
-<li><a href="#orga14b25b">1.1. A Simple Herding Experiment: Il Gioco delle Urne</a></li>
-<li><a href="#orge9ba485">1.2. Teorema di Bayes</a></li>
+<li><a href="#orga14b25b">A Simple Herding Experiment: Il Gioco delle Urne</a></li>
+<li><a href="#orge9ba485">Teorema di Bayes</a></li>
+<li><a href="#org5d2bba0">Un Modello Generale di Sequential Decision Making</a>
+<ul>
+<li><a href="#orga81b859">Punto 1: Decisioni Individuali</a></li>
+<li><a href="#orge12af70">Punto 2: Informazioni Private</a></li>
+<li><a href="#orgabe3c44">Punto 3: Osservazioni</a></li>
+<li><a href="#orgb79a27b">Punto 4: Decisioni Sequenzali</a></li>
+<li><a href="#orgecaf3fd">Punto 5: Decisioni Razionali</a></li>
+<li><a href="#orgcfd0a0b">Punto 6: Massa Critica</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
+
 <div id="outline-container-orge2a7bf3" class="outline-2">
-<h2 id="orge2a7bf3"><span class="section-number-2">1</span> Herding - Seguire il Gregge</h2>
-<div class="outline-text-2" id="text-1">
+<h2 id="orge2a7bf3">Herding - Seguire il Gregge</h2>
+<div class="outline-text-2" id="text-orge2a7bf3">
 <p>
 Abbiamo visto che quando degli individui sono connessi tra di loro in una <i>rete</i>, le loro decisioni e comportamenti possono essere influenzati (ed influenzare) da quello degli altri individui vicini.<br />
 </p>
@@ -337,15 +348,18 @@ Alcune domande nascono spontanee:
 </div>
 
 <div id="outline-container-orga14b25b" class="outline-3">
-<h3 id="orga14b25b"><span class="section-number-3">1.1</span> A Simple Herding Experiment: Il Gioco delle Urne</h3>
-<div class="outline-text-3" id="text-1-1">
+<h3 id="orga14b25b">A Simple Herding Experiment: Il Gioco delle Urne</h3>
+<div class="outline-text-3" id="text-orga14b25b">
 <p>
 Consideriamo un genere di gioco con la seguente tipologia di regole
-a. C'è una decisione da prendere
-b. I giocatori prendono le proprie decisioni in sequenza (uno dopo l'altro), e ogni persona può osservare le scelte fatte da coloro che hanno agito prima.
-c. Ogni giocatore ha alcune <i>informazioni private</i> che aiutano a guidare la propria decisione.
-d. Un giocatore non può osservare direttamente le informazioni private che gli altri giocatori hanno, ma può trarre deduzioni su queste informazioni private da ciò che fanno.
 </p>
+
+<ol class="org-ol">
+<li>C'è una decisione da prendere</li>
+<li>I giocatori prendono le proprie decisioni in sequenza (uno dopo l'altro), e ogni persona può osservare le scelte fatte da coloro che hanno agito prima.</li>
+<li>Ogni giocatore ha alcune <i>informazioni private</i> che aiutano a guidare la propria decisione.</li>
+<li>Un giocatore non può osservare direttamente le informazioni private che gli altri giocatori hanno, ma può trarre deduzioni su queste informazioni private da ciò che fanno.</li>
+</ol>
 
 <p>
 Secondo queste indicazioni, instanziamo un gioco con le seguenti regole:
@@ -365,25 +379,25 @@ Per definizione di questo gioco, l'informazione privata dei singoli giocatori è
 Un giocatore però può inferire quale urna è meglio scegliere in base alle scelte fatte dagli altri prima (come vedremo adesso).<br />
 </p>
 
-<ul class="org-ul">
-<li><b>Primo giocatore:</b> prima di estrarre la pallina, il primo giocatore è in possesso della sola informazione <i>"l'urna è <code>MR</code> o <code>MB</code>"</i>.
+<dl class="org-dl">
+<dt>Primo giocatore</dt><dd>prima di estrarre la pallina, il primo giocatore è in possesso della sola informazione <i>"l'urna è <code>MR</code> o <code>MB</code>"</i>.
 Non avnedo altre informazioni, a prescindere da cosa pescherà il primo giocatore, la probabilità che l'urna sia <code>MR</code> o <code>MB</code> è la stessa.
-Perciò gli conviene scomettere sul colore della pallina estratta: se pesca una pallina blu gli conviene scommettere su <code>MB</code> (stesso discorso per <code>MR</code>).</li>
-<li><b>Secondo giocatore:</b> a questo punto il secondo giocatore può dedurre l'esito dell'estrazione del primo giocatore sulla base della sua scommessa.
+Perciò gli conviene scomettere sul colore della pallina estratta: se pesca una pallina blu gli conviene scommettere su <code>MB</code> (stesso discorso per <code>MR</code>).</dd>
+<dt>Secondo giocatore</dt><dd>a questo punto il secondo giocatore può dedurre l'esito dell'estrazione del primo giocatore sulla base della sua scommessa.
 Senza perdita di generalità, supponiamo che il primo giocatore abbia scommesso <code>MB</code> (e che quindi abbia estratto una pallina blu).
 Se il secondo estrae una pallina blu, allora sa che sono state esatratte due palline blu consecutive, e che quindi è più conveniente scommettere su <code>MB</code>.
-Se invece estrae una pallina rossa, si ritrova nella stessa situazione inizale del primo giocatore (senza alcuna informazione rilevante), perciò gli conviene scommettere <code>MR</code> in accordo alla sua estrazione.</li>
-<li><b>Terzo giocatore:</b> anche il terzo giocatore è in grado di dedurre le estrazioni dei giocatori precedenti: se sono discordi allora sono avvenute due estrazioni discorde, se sono concorde allora sono avvenute due estrazioni di palline dello stesso colore.
+Se invece estrae una pallina rossa, si ritrova nella stessa situazione inizale del primo giocatore (senza alcuna informazione rilevante), perciò gli conviene scommettere <code>MR</code> in accordo alla sua estrazione.</dd>
+<dt>Terzo giocatore</dt><dd>anche il terzo giocatore è in grado di dedurre le estrazioni dei giocatori precedenti: se sono discordi allora sono avvenute due estrazioni discorde, se sono concorde allora sono avvenute due estrazioni di palline dello stesso colore.
 Consideriamo il caso in cui le prime due estrazioni siano discordi, in questo caso al terzo giocatore conviene rispondere in accordo a ciò che pesca (se pesca una pallina blu gli conviene votare <code>MB</code>, se ne pesca una rossa gli conviene votare <code>MR</code>).
 Consideriamo ora il caso in cui i primi due giocatori abbiamo voti condori, e senza perdita di generalità supponiamo che abbiano entrambi votato <code>MB</code>.
 Se il terzo giocatore pesca una pallina blu, allora vuol dire che sono state estratte tre palline blu di seguito, rafforzando la propbailità che <code>MB</code> sia la risposta esatta.
 Se invece estrae una rossa, comunque è più probabile che la risposta esatta sia <code>MB</code>, perché sono state estratte due palline blu di seguito e poi una rossa.
-Quindi in ogni caso gli conviene votare <code>MB</code>.</li>
-<li><b>Quarto giocatore:</b> a questo punto il quarto giocatore può dedurre ciò che hanno fatto <span class="underline">tutti</span> i giocatori precedenti solamente se ci sono 2 voti concordi ed uno discorde (2 a 1).
+Quindi in ogni caso gli conviene votare <code>MB</code>.</dd>
+<dt>Quarto giocatore</dt><dd>a questo punto il quarto giocatore può dedurre ciò che hanno fatto <span class="underline">tutti</span> i giocatori precedenti solamente se ci sono 2 voti concordi ed uno discorde (2 a 1).
 Perché se ci fossero 3 voti concordi, sappiamo che il terzo giocatore avrebbe votato in accordo ai primi due in ogni caso a prescindere dall'esito della sua estrazione.
 Supponiamo di essere nella situazione di <i>"3 a 0"</i> per <code>MB</code>.
-Al quarto giocatore conviene votare <code>MB</code> in ogni caso (esattamente come per il terzo giocatore).</li>
-</ul>
+Al quarto giocatore conviene votare <code>MB</code> in ogni caso (esattamente come per il terzo giocatore).</dd>
+</dl>
 
 <p>
 A questo punto, dal quinto giocatore in poi, si genera una <i>cascata informativa</i> a favore di <code>MB</code>, a prescindere dalle singole estrazioni.
@@ -392,8 +406,8 @@ A questo punto, dal quinto giocatore in poi, si genera una <i>cascata informativ
 </div>
 
 <div id="outline-container-orge9ba485" class="outline-3">
-<h3 id="orge9ba485"><span class="section-number-3">1.2</span> Teorema di Bayes</h3>
-<div class="outline-text-3" id="text-1-2">
+<h3 id="orge9ba485">Teorema di Bayes</h3>
+<div class="outline-text-3" id="text-orge9ba485">
 <p>
 Per formalizzare meglio la meccanica precedentemente descritta è necessario enunciare il <b>Teorema di Bayes</b>.<br />
 </p>
@@ -633,19 +647,356 @@ Questo purtroppo il giocatore 5 non può saperlo, in quanto i giocatori 3 e 4 vo
 Perciò possiamo dire che se le prime due estrazioni sono <i>blu-blu</i> si genera una cascata imitativa in cui tutti i giocatori voteranno <code>MB</code>,
 a prescindere dalle proprie informazioni private!<br />
 </p>
+</div>
+</div>
+
+<div id="outline-container-org5d2bba0" class="outline-3">
+<h3 id="org5d2bba0">Un Modello Generale di Sequential Decision Making</h3>
+<div class="outline-text-3" id="text-org5d2bba0">
+<p>
+Come visto negli esperimenti precedenti o nel gioco delle due urne, il fenomeno dell'<i>Herding</i> si presenta in situazioni che hanno delle caratteristiche in comune, ovvero:
+</p>
+<ol class="org-ol">
+<li>Ogni individuo deve prendere una decisione.</li>
+<li>Ogni individuo ha una propria informazione <b>privata</b>.</li>
+<li>Ogni individuo riceve dalla rete un'informazione incompleta, ovvero sa le scelte degli altri individui ma non l'informazione che li ha spinti a prendere tali decisioni.</li>
+<li>Le decisioni vengono prese in sequenza, dopo aver osservato quello che hanno fatto gli altri in precedenza.</li>
+<li>Ogni individuo prende la propria decisione in maniera <b>puramente razionale</b>: inferisce dalle proprie osservazioni quale è la strategia migliore da adottare, senza alcuna influenza o pressione sociale.</li>
+<li>Si scatena una <b>cascata informativa</b> (<b>herding</b>), quando una certa <b>massa critica</b> prende una medesima decisione.</li>
+</ol>
 
 <p>
-Continuo nella <a href="./13.html">lezione successiva →</a>
+Descriviamo ora in maniera formale un modello che cattura tutte queste caratteristiche
+</p>
+</div>
+
+<div id="outline-container-orga81b859" class="outline-4">
+<h4 id="orga81b859">Punto 1: Decisioni Individuali</h4>
+<div class="outline-text-4" id="text-orga81b859">
+<p>
+Per semplicità assumiamo che le decisioni da prendere sono <b>decisioni binarie</b>.
+Senza perdita di generalità assumiamo che le uniche due alternative sono
+</p>
+<ul class="org-ul">
+<li><code>Y</code>: l'individuo <i>accetta</i> una proposta.</li>
+<li><code>N</code>: l'individuo <i>rifiuta</i> una proposta.</li>
+</ul>
+
+<p>
+Solo una delle due alternative è quella giusta.
+La probabilità che <code>Y</code> sia l'alternativa giusta è \(\mathcal{P}(Y) = p\), mentre la probabilità che quella giusta sia <code>N</code> è \(\mathcal{P}(N) = 1-p\).<br />
+</p>
+
+<p>
+Se un individuo <b>accetta</b> (<code>Y</code>) una proposta avrà un <i>profitto</i> \(v_g > 0\)<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> se <code>Y</code> era la risposta corretta, o una <i>perdita</i> \(v_b \leq 0\)<sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup> se la risposta <code>Y</code> era errata.
+Contrariamente, se l'individuo <b>non accetta</b> (<code>N</code>) non otterrà nessun profitto e nessuna perdita.<br />
+</p>
+
+<p>
+Affinché sia <i>equivalente</i> per undividuo accettare (<code>Y</code>) o rifiutare (<code>N</code>), deve essere che
+\[
+    v_g p + v_b(1-p) = 0
+    \]
 </p>
 </div>
 </div>
+
+<div id="outline-container-orge12af70" class="outline-4">
+<h4 id="orge12af70">Punto 2: Informazioni Private</h4>
+<div class="outline-text-4" id="text-orge12af70">
+<p>
+Ongi individuo possiede un'<b>informazione privata</b>, che possiamo assumere ricevere sottoforma di <b>segnale privato</b>.
+I due possibili segnali possono essere <code>A</code> (<code>Accetta</code>) ed <code>R</code> (<code>Rifiuta</code>).<br />
+</p>
+
+<p>
+Se la scelta giusta è <code>Y</code>, allora la probabilità di ricevere come segnale privato <code>A</code> è \(q > \frac{1}{2}\).
+Viceversa se la scelta giusta è <code>N</code>, allora la probabilità di ricevere come segnale privato <code>A</code> è \(1 - q\).
+Simmetricamente per <code>R</code>.
+Più formalmente possiamo esprimere queste proprietà con probabilità condizionate
+</p>
+\begin{align*}
+  \mathcal{P}(A | Y) = q \;\; &\mathcal{P}(A | N) = 1 - q\\
+  \\
+  \mathcal{P}(R | Y) = 1 - q \;\; &\mathcal{P}(R | N) = q
+\end{align*}
 </div>
 </div>
+
+<div id="outline-container-orgabe3c44" class="outline-4">
+<h4 id="orgabe3c44">Punto 3: Osservazioni</h4>
+<div class="outline-text-4" id="text-orgabe3c44">
+<p>
+L'individuo \(i\)-esimo che deve prendere una decisione ricava dalla rete la sequenza \( (X_1, ..., X_{i-1}) \in \lbrace Y, N \rbrace^{i-1} \)
+delle decisioni prese dai precedenti \(i-1\) individui.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb79a27b" class="outline-4">
+<h4 id="orgb79a27b">Punto 4: Decisioni Sequenzali</h4>
+<div class="outline-text-4" id="text-orgb79a27b">
+<p>
+L'individuo \(i\)-esimo prende una decisione dopo che i precedenti \(i-1\) individui hanno preso la loro.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgecaf3fd" class="outline-4">
+<h4 id="orgecaf3fd">Punto 5: Decisioni Razionali</h4>
+<div class="outline-text-4" id="text-orgecaf3fd">
+<p>
+Supponiamo che per l'individui \(i\) inizialmente <code>Y</code> ed <code>N</code> sono alternative equivalenti, ovvero che \(v_g p + v_b(1-p) = 0\).
+Se dopo le decisioni dei primi \(i - 1\) individui la probabilità che <code>Y</code> sia corretta diventa una certa quantità \(p'\),
+all'individui \(i\) converrà accettare se e soltanto se 
+\[
+    v_gp' + v_b(1 - p') \geq 0 
+    \]
+e questo accade se \(p' \geq p\), ovvero se non peggiora la probabilità che accettare sia la strategia corretta.
+</p>
+</div>
+</div>
+<div id="outline-container-orgcfd0a0b" class="outline-4">
+<h4 id="orgcfd0a0b">Punto 6: Massa Critica</h4>
+<div class="outline-text-4" id="text-orgcfd0a0b">
+<p>
+Cerchiamo ora di individuare quanto deve essere grande una massa critica che scatena l'<i>herding</i>.<br />
+</p>
+
+<p>
+Indichiamo con \(S \in \lbrace A, R \rbrace^*\) la sequenza dei <i>segnali privati</i> ricevuti dagli individui.
+Consideriamo la scelta del primo individuo, ovvero quando \(\vert S \vert = 1\).
+Se \(S = (A)\), allora la probabilità che la scelta corretta sia <code>Y</code> è
+</p>
+\begin{align*}
+  \mathcal{P}(Y \vert A)
+  &= \frac{ \mathcal{P}(A \vert Y) \cdot \mathcal{P}(Y) }{ \mathcal{P}(A \vert Y) \cdot \mathcal{P}(Y) + \mathcal{P}(A \vert N) \cdot \mathcal{P}(N)}\\
+  &= \frac{qp}{qp + (1-q)(1-p)}\\
+(\bigstar q > 1/2) &> \frac{qp}{qp + q(1-p)} = \frac{qp}{qp + q - qp} = p
+\end{align*}
+<p>
+viceversa la probabilità che la scelta corretta sia <code>N</code> ricevendo il segnale <code>A</code> è
+\[
+    \mathcal{P}(N \vert A) = 1 - \mathcal{P}(Y \vert A) < p 
+    \]
+</p>
+
+<p>
+In maniera simmetrica, se riceviamo come primo segnale privato <code>R</code> avremo che
+\[
+    \mathcal{P}(Y \vert R) < p\\
+    \mathcal{P}(N \vert R) > p
+    \]
+</p>
+
+<p>
+Segue quindi che in assenza di ulteriori informazioni, quando un individuo ha solamente la propria informazione privata, conviene rispondere in accordo ad essa:
+se riceve <code>A</code> conviene rispondere <code>Y</code>, se riceve <code>R</code> conviene rispondere <code>N</code>.<br />
+</p>
+
+<p>
+Consideriamo ora il caso in cui \(\vert S \vert > 1\).
+Supponiamo che in qualche maniera l'individuo che deve fare la scelta sia riuscito ad inferire tutta la sequanza di \(S\) (come in alcuni casi del gioco delle due urne).
+Diciamo che nella sequenza \(S\) è presente \(a\) volte l'elemento <code>A</code> ed \(r\) volte l'elemento <code>R</code>.
+Perciò la probabilità <code>Y</code> sia la risposta esatta, sapendo la sequenza \(S\) di segnali privati sarà
+</p>
+\begin{align*}
+  \mathcal{P}(Y \vert S)
+  &= \frac{ \mathcal{P}(S \vert Y) \cdot \mathcal{P}(Y) }{ \mathcal{P}(S \vert Y) \cdot \mathcal{P}(Y) + \mathcal{P}(S \vert N) \cdot \mathcal{P}(N)}\\
+  &= \frac{q^a (1-q)^r p}{q^a (1-q)^r p + (1-q)^a q^r (1-p)}
+\end{align*}    
+
+<p>
+Se \(a > r\), e dato che \(q > 1/2\), avremo al <span class="underline">secondo addendo al denominatore</span> che
+\[
+    (1-q)^a q^r = (1-q)^{a-r+r} q^r < q^{a-r} (1-q)^r q^r = q^a (1-q)^r
+    \]
+e quindi
+</p>
+\begin{align*}
+  \mathcal{P}(Y \vert S)
+  &= \frac{q^a (1-q)^r p}{q^a (1-q)^r p + (1-q)^a q^r (1-p)}\\
+  &> \frac{q^a (1-q)^r p}{q^a (1-q)^r p + q^a (1-q)^r (1-p)} = p
+\end{align*}
+
+<p>
+Viceversa, se \(a < r\), accade che
+\[
+    (1-q)^a q^r = (1-q)^a q^a q^{r-a} > (1-q)^a q^a (1-q)^{r-a} = q^a (1-q)^r
+    \]
+e quindi
+</p>
+\begin{align*}
+  \mathcal{P}(Y \vert S)
+  &= \frac{q^a (1-q)^r p}{q^a (1-q)^r p + (1-q)^a q^r (1-p)}\\
+  &< \frac{q^a (1-q)^r p}{q^a (1-q)^r p + q^a (1-q)^r (1-p)} = p
+\end{align*}
+
+<p>
+Infine, se \(a = r\) allora \(q^a (1-q)^r = (1-q)^a q^r\), e quindi \(\mathcal{P}(Y \vert S) = p\).<br />
+</p>
+
+<p>
+Ricapitolando
+\[
+    \mathcal{P}(Y \vert S) = \begin{cases}
+      > p &\mbox{se } a > r\\
+      < p &\mbox{se } a < r\\
+      = p &\mbox{se } a = r
+    \end{cases}
+    \]
+Perciò se un individuo conosce l'intera sequenza di segnali privati dei giocatori precedenti, riesce a prendere la scelta che massimizza
+la probabilità di vincita in base alla maggioranza:
+se ci sono stati più segnali <code>A</code> conviene votare <code>Y</code>, se ce ne sono stati più <code>R</code> conviene votare <code>N</code>.<br />
+</p>
+
+<p>
+Osservare che il caso in cui \(a = r\) equivale sostanzialmente al caso in cui non si ha alcuna informazione aggiuntiva riguardo la
+decisione da prendere (\(\mathcal{P}(Y \vert S) = \mathcal{P}(Y)\)), e quindi bisogna rifarsi solamente al proprio segnale privato.<br />
+</p>
+
+<p>
+Senza perdita di generalità supponiamo che l'\(n\)-esimo individuo riesca ad inferire tutta la sequenza \(S\) degli \(n-1\) precedenti segnali, e che \(a = r\).
+Sia \(\sigma_n \in \lbrace A, R \rbrace\) il segnale privato che riceve l'\(n\)-esimo individuo.
+Dato che stiamo assumendo che \(a = r\) avremo che
+\[
+    \sigma_n = A \implies \mathcal{P}(Y \vert S \cup \lbrace \sigma_n \rbrace) = \mathcal{P}(Y \vert \sigma_n) > p\\
+    \sigma_n = R \implies \mathcal{P}(Y \vert S \cup \lbrace \sigma_n \rbrace) = \mathcal{P}(Y \vert \sigma_n) < p
+    \]
+perciò l’individuo segue il suo segnale privato, qualunque esso sia.<br />
+</p>
+
+<p>
+Se invece \(a = r+1\) avremo che
+\[
+    \sigma_n = A \implies \mathcal{P}(Y \vert S \cup \lbrace \sigma_n \rbrace) > p\\
+    \sigma_n = R \implies \mathcal{P}(Y \vert S \cup \lbrace \sigma_n \rbrace) = p
+    \]
+e anche in questo caso l'individuo \(n\) segue il suo segnale privato.<br />
+</p>
+
+<p>
+Invece se \(a \geq r+2\) all'individuo \(n\) conviene sempre scommettere su <code>Y</code>, qualunque sia il suo segnale, scatenando così una cascata imitativa.
+Simmetricamente per <code>N</code> quando \(r \geq a+2\).<br />
+</p>
+
+<p>
+Quindi, individuato la condizione per la quale scatta la cascata, ci si chiede in che situazione si arriva ad avere \(a \geq r+2\) (o \(r \geq a+2\))?<br />
+</p>
+
+<p>
+Fin quando i due segnali <code>A</code> ed <code>R</code> si alternano non può scattare l'herding, perché \(\vert a - r \vert \leq 1\).
+Allora verrebbe da dire che quando si ottengono <span class="underline">due segnali consecutivi</span> può scattare l'herding.
+Questa condizione è necessaria, ma non sufficiente.
+Infatti, in una sequenza del tipo <code>ARAR...ARAA</code> due <code>A</code> consecutive bastano per scatenare la cascata imitativa per <code>Y</code>, ovvero bastano per avere \(a \geq r+2\).
+Purtroppo però, nella stessa sequenza, se abbiamo due <code>R</code> consecutive non è sufficiente per far scattare una cascata imitativa di <code>N</code>.
+Infatti nella sequenza <code>ARAR...ARR</code> abbiamo che \(a - r= 1\).<br />
+</p>
+
+<p>
+Perciò, per essere completamente certi di ottenere una cascata imitativa, si necessita di <b>almeno 3 segnali identici consecutivi</b>!<br />
+</p>
+
+<p>
+Calcoliamo ora la probabilità che una cascata si scateni entro il passo \(n\).<br />
+Indichiamo sempre con \(\sigma_i \in \lbrace A, R \rbrace\) il segnale privato dell'\(i\)-esimo individuo, e siano gli eventi
+</p>
+\begin{align*}
+  \mathcal{A} &= (\sigma_1 = \sigma_2 = \sigma_3) \vee (\sigma_2 = \sigma_3 = \sigma_4) \vee ... \vee (\sigma_{n-3} = \sigma_{n-2} = \sigma_{n-1}) \vee (\sigma_{n-2} = \sigma_{n-1} = \sigma_n)\\
+      	      &= \bigvee_{1 \leq i \leq n-2} (\sigma_i = \sigma_{i+1} = \sigma_{i+2})\\
+	      \\
+  \mathcal{B} &= (\sigma_1 = \sigma_2 = \sigma_3) \vee (\sigma_4 = \sigma_5 = \sigma_6) \vee ... \vee (\sigma_{n-5} = \sigma_{n-4} = \sigma_{n-3}) \vee (\sigma_{n-2} = \sigma_{n-1} = \sigma_n)\\
+      	      &= \bigvee_{1 \leq i \leq n/3} (\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i})
+\end{align*}
+<p>
+Osserviamo che \(\mathcal{B} \subseteq \mathcal{A}\), perciò \(\mathcal{P}(\mathcal{B}) \leq \mathcal{P}(\mathcal{A})\).<br />
+</p>
+
+<p>
+Indichiamo ora con \(\mathcal{H}_n\) l'evento <i>"la cascata imitativa si innesca entro il passo \(n\)"</i>.
+La sua probabilità sarà
+\[
+    \mathcal{P}(\mathcal{H}_n) \geq \mathcal{P}(\mathcal{A}) \geq \mathcal{P}(\mathcal{B})
+    \]
+Per la legge di De Morgan avremo che
+\[
+    \mathcal{P}(\lnot \mathcal{H}_n) \leq \mathcal{P}(\lnot \mathcal{B}) = \mathcal{P}(\bigwedge_{1 \leq i \leq n/3} \lnot (\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i}))
+    \]
+Dato che gli eventi in \(\mathcal{B}\) sono tutti indipendenti tra di loro, abbiamo che
+\[
+    \mathcal{P}(\lnot \mathcal{H}_n) \leq \prod_{1 \leq i \leq n/3} \mathcal{P}(\lnot (\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i}))
+    \]
+</p>
+
+<p>
+Per ogni \(i \leq n/3\) abbiamo che la probabilità dell'evento \((\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i})\) sarà
+</p>
+\begin{align*} 
+  \mathcal{P}(\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i}) &= \mathcal{P}((\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i} = A) \vee (\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i} = R))\\
+  &= \mathcal{P}(\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i} = A) +  \mathcal{P}(\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i} = R)\\
+  &= \mathcal{P}(AAA) +  \mathcal{P}(RRR)\\
+  &= \mathcal{P}(AAA) +  \mathcal{P}(RRR)\\
+  &= \left[ \mathcal{P}(AAA \vert Y)\mathcal{P}(Y) + \mathcal{P}(AAA \vert N)\mathcal{P}(N)\right] + \left[ \mathcal{P}(RRR \vert Y)\mathcal{P}(Y) + \mathcal{P}(RRR \vert N)\mathcal{P}(N)\right]\\
+  &= \left[ q^3p + (1-q)^3(1-p) \right] + \left[ (1-q)^3p + q^3(1-p) \right]\\
+  &= 1 - 3q + 3q^2
+\end{align*}
+
+<p>
+Perciò il complemento sarà
+\[
+    \mathcal{P}(\lnot (\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i})) = 1 - \mathcal{P}(\sigma_{3i-2} = \sigma_{3i-1} = \sigma_{3i}) = 3q - 3q^2
+    \]
+</p>
+
+<p>
+Applicando questa uguaglianza per ogni \(i\) avremo che
+\[
+    \mathcal{P}(\lnot \mathcal{H}_n) \leq (3q - 3q^2)^{n/3}
+    \]
+</p>
+
+<p>
+Osserviamo in fine che \((3q - 3q^2) < 1\) per ogni \(q \in \left[0,1\right]\).
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson12-img1.png" alt="ar-lesson12-img1.png" style="max-width:450px;" width="100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>\((3q - 3q^2) < 1\) per ogni \(q \in \left[0,1\right]\).</p>
+</div>
+
+<p>
+Perciò possiamo concludere che la cascata imitativa si inneschera <b>quasi sicuramente</b> al crescere degli individui.
+\[
+    \mathcal{P}(\mathcal{H}_n) \geq 1 - (3q - 3q^2)^{n/3} \implies \lim_{n \rightarrow \infty} \mathcal{P}(\mathcal{H}_n) = 1
+    \]
+</p>
+
+<p>
+<b>[DISCUTERE OSSERVAZIONI FINALI&#x2026;]</b>
+</p>
+
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+i pedici \(g,b\) per \(v_g, v_b\) stanno ad indicare <i>good</i>, <i>bad</i> rispettivamente.
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-11-29 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-27 lun 13:04</p>
+<p class="date">Created: 2021-12-28 mar 18:26</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
