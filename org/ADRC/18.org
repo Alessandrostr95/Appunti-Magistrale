@@ -4,4 +4,86 @@
 #+setupfile: ../../org-template/appunti.org
 #+options: num:nil
 
+# Un protocollo randomizzato RP per il DGC: analisi della correttezza e del tempo di convergenza.
+# Un protocollo randomizzato per il Maximal Independent Set: analisi della correttezza e del tempo di convergenza.
+
+Nella [[./17.html][precedente lezione]] sono stati descritti dei protocolli totalmente *deterministici* per il problema della colorazione distribuita di grafi.
+In questa lezione verranno introdotti ed analizzati dei protocolli probabilistici.
+
+* Randomized Distributed Graph Coloring
+  Un approccio probabilistico molto usato per risolvere questa tipologia di problemi distribuiti (non solo il /Graph Coloring/, ma per esempio anche il /Maximal Independent Set/) è il seguente:
+  il protocollo procede per *fasi*, dove in ciascuna di esse ogni nodo sceglie *casualmente* un valore da un insieme appropriato di colori.
+  In base al colore scelto, e a quello scelto dai propri vicini, ogni nodo deve prendere la decisione finale di adottare il colore scelto e terminare il protocollo, oppure di continuare alla fase successiva.
+  Osservare che tutti i nodi che prendono una decisione finale formano un sottoinsieme della soluzione finale.
+  Perciò basta rimuovere i nodi che hanno terminato il protocollo, e procedere alla stessa maniera però sul *grafo residuo*.
+  Un requisito importante che una soluzione parziale deve necessariamente avere è che essa non solo deve essere corretta nel relativo sottoinsieme di vertici, ma anche rispetto
+  all'/unione di tutti i sottoinsiemi/ rimossi nelle fasi successive.
+  Il protocollo termina quando verranno rimossi tutti i nodi dal grafo, ovvero quando tutti i nodi avranno scelto definitivamente il proprio colore.\\
+  
+  Entriamo ora nel merito del protocollo /Rand-\(2\Delta\)/ che calcola in maniera distribuita una \(2\Delta\) colorazione di un grafo $G$ in accordo all'approccio precedente, dove \(\Delta\) è il /grado massimo/ di $G$.
+  Ad ogni fase, ogni nodo $v$ campiona /u.a.r./ un colore \(c_v\) dall'insieme \(\left[2\Delta\right] = \lbrace 1, 2, ..., 2\Delta \rbrace\).
+  Indichiamo con \(F_v\) l'insieme dei colori scleti definitivamente dai vicini di $v$, e con \(T_v\) l'insieme dei colori scelti (temporaneamente) dai vicini di $v$ nel corrente round.
+  Se \(c_v \notin F_v \cup T_v\), allora \(c_v\) diventa il colore definitivo di $v$, e in tal caso il nodo termina il protocollo.
+  Altrimenti $v$ scarta \(c_v\) e continua alla fase successiva.\\
+
+  #+caption: Protocollo /Rand-\(2\Delta\)/.
+  #+ATTR_HTML: :style max-width:600px; width:100%
+  [[file:../images/adrc-lesson18-img1.png]]
+
+  
+  #+begin_quote
+  *Lemma 1* (/Correttezza/)\\
+  Se tutti i nodi /terminano/, allora il protocollo /Rand-\(2\Delta\)/ calcola una /\(2\Delta\)-colorazione/ del grafo $G$ in input.
+  #+end_quote
+
+  #+begin_quote
+  *Proof:* sappiamo con certezza che la colorazione finale \(\varphi\) è una /\(2\Delta\)-colorazione/, perché per costruzione tutti i colori scelti dai nodi
+  sono nell'insieme \(\left[2\Delta\right]\), perciò serve solamente dimostrare che la colorazione \(\varphi\) è una colorazione valida.\\
+
+  Consideriamo una coppia di nodi vicini \(u,v\), e supponiamo per assurdo che alla fine \(\varphi(u) = \varphi(v)\).
+  Certamente i nodi \(u,v\) non possono aver terminato il protocollo nello stesso round, in quanto sarebbe accaduto che \(c_u \in T_u\) e \(c_v \in T_v\) (vedi algoritmo =riga 8=).
+  Allora siano \(i,j\) i round in cui i nodi \(u,v\) terminano il protocollo rispettivamente, ed assumiamo senza perdita di generalità che \(i < j\) (ovvero $u$ termina prima di $v$).
+  Allora dal round $i$ in poi, il colore definitivo \(varphi(u)\) sarà presente nell'insieme \(F_v\).
+  Perciò, per costruzione dell'algoritmo, il colore definitivo \(\varphi(v)\) scleto al tempo $j$ certamente non appartiene a \(F_v\), e quindi \(\varphi(u) \neq \varphi(v)\),
+  contraddicendo l'ipotesi iniziale \(\square\).
+  #+end_quote
+
+
+  #+begin_quote
+  *Lemma 2* (/Time/)\\
+  Durante l'esecuzione del protocollo /Rand-\(2\Delta\)/ tutti i nodi terminano la loro esecuzione entro \(O(\log{n})\) rounds con alta probabilità \(1 - \frac{1}{n^c}\), per un \(c > 0\) sufficientemente grande.
+  #+end_quote
+
+  #+begin_quote
+  *Proof:*
+  consideriamo un qualsiasi nodo \(v \in V\) è calcoliamo la probabilità che $v$ termini nel round $i$ condizionato al fatto che non ha terminato prima, per ogni \(i > 0\).
+  Osserviamo che \(\vert T_v \cup F_v \vert \leq \Delta\) perché ogni vicino di $v$ contribuisce con al più un colore a questo insieme, e inoltre \(\vert N(v) \vert \leq \Delta\).
+  Di conseguenza $v$ ha a disposizione _almeno_ \(\Delta\) colori validi per la colorazione finale nell'insieme \(\left[ 2\Delta \right] \setminus (T_v \cup F_v)\).
+  Perciò la probabilità che $v$ scelga un colore valido per la colorazione finale sarà almeno
+  \[
+  \mathcal{P}(c_v \notin T_v \cup F_v) = \frac{\vert \left[ 2\Delta \right] \setminus (T_v \cup F_v) \vert}{\vert \left[ 2\Delta \right] \vert} \geq \frac{\Delta}{2\Delta} = \frac{1}{2}
+  \]
+  
+  Quindi, assumiamo che $v$ non termina _prima_ del round $i$, la probabilità che termini al round $i$ è almeno \(1/2\), *indipendentemente* dagli altri nodi.
+  \[
+  \mathcal{P}(v \mbox{ termina al tempo  } i \vert v \mbox{ non termina prima di  } i) \geq \frac{1}{2}
+  \]
+  
+  Viceversa, la probabilità che un dato nodo $v$ _non_ termina entro il passo $i$ sarà *al più* \(2^{-i}\).
+  Perciò facendo /union bound/ possiamo calcolare la probabilità che /esista/ un nodo $v$ che entro il tempo $i$ non ha ancora finito come segue
+  \begin{align*}
+    \mathcal{P}(\exists v : v \mbox{ non ha finito al tempo } i)
+    &= \mathcal{P}(\bigcup_{v \in V} \lbrace v \mbox{ non ha finito al tempo } i \rbrace)\\
+    &\leq \sum_{v \in V} \mathcal{P}(v \mbox{ non ha finito al tempo } i)\\
+    &\leq \frac{n}{2^i}
+  \end{align*}
+  
+  Per \(i = (c+1)\cdot\log_2{n}\) avremo che dopo $i$ round tutti i nodi terminano con probabilità
+  \begin{align*}
+    &\mathcal{P}(\forall v : v \mbox{ termina entro il tempo } (c+1)\cdot\log_2{n})\\
+    = &\mathcal{P}(\not\exists v : v \mbox{ non ha finito al tempo } (c+1)\cdot\log_2{n})\\
+    \geq &1 - \frac{n}{2^{(c+1)\cdot\log_2{n}}} =  1 - \frac{n}{n^{c+1}} = 1 - \frac{1}{n^c} \;\;\; \square
+  \end{align*}
+  #+end_quote
+
 * Maximal Independent Set
