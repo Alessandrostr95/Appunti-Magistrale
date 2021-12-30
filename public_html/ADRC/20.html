@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2021-12-22 mer 21:33 -->
+<!-- 2021-12-30 gio 18:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 20</title>
@@ -274,27 +274,28 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgce2685b">Network Formation Games</a></li>
-<li><a href="#org833532f">Global Connection Game</a>
+<li><a href="#org63357fd">Network Formation Games</a></li>
+<li><a href="#org6af3472">Global Connection Game</a>
 <ul>
-<li><a href="#org5ebeca2">Price of Anarchy</a></li>
-<li><a href="#org5e6dd03">Price of Stability and Potential Function Method</a></li>
+<li><a href="#org5d48da8">Price of Anarchy</a></li>
+<li><a href="#org483ddfa">Price of Stability and Potential Function Method</a></li>
+<li><a href="#org9610034">NP-completeness of Global Connection Game</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgce2685b" class="outline-2">
-<h2 id="orgce2685b">Network Formation Games</h2>
-<div class="outline-text-2" id="text-orgce2685b">
+<div id="outline-container-org63357fd" class="outline-2">
+<h2 id="org63357fd">Network Formation Games</h2>
+<div class="outline-text-2" id="text-org63357fd">
 <p>
-<i>Network Formation Games</i> (in breve <code>NFG</code>) sono dei giochi che modellano come un insieme di <i>player egoistici</i> costruiscono una rete.
-Questi gioco possono essere usati nel mondo reale per modellare i fenomeni che generano le reti sociali dei social-network, oppure una rete P2P dinamica.<br />
+I <i>Network Formation Games</i> (in breve <code>NFG</code>) sono dei giochi che modellano come un insieme di <i>player egoistici</i> costruiscono una rete.
+Questi giochi possono essere usati nel mondo reale per modellare i fenomeni che generano le reti sociali dei social-network, oppure una rete P2P dinamica.<br />
 </p>
 
 <p>
-L'obbiettivo dei partecipanto al gioco è sostanzialmente quello di:
+L'obbiettivo dei partecipanti al gioco è sostanzialmente quello di:
 </p>
 <ul class="org-ul">
 <li><b>minimizzare</b> il costo di costruizione della propria porzione di rete.</li>
@@ -302,14 +303,22 @@ L'obbiettivo dei partecipanto al gioco è sostanzialmente quello di:
 </ul>
 
 <p>
-Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misereremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
+Vedremo due tipologie di giochi che risolvono questo problema:
+</p>
+<ul class="org-ul">
+<li>i <b>Global Connection Games</b></li>
+<li>i <b>Local Connection Games</b></li>
+</ul>
+
+<p>
+Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misureremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org833532f" class="outline-2">
-<h2 id="org833532f">Global Connection Game</h2>
-<div class="outline-text-2" id="text-org833532f">
+<div id="outline-container-org6af3472" class="outline-2">
+<h2 id="org6af3472">Global Connection Game</h2>
+<div class="outline-text-2" id="text-org6af3472">
 <p>
 In questo gioco abbiamo un grafo diretto \(G(V,E)\) con dei costi \(c_e\) non negativi per ogni arco \(e \in E\).
 Ci sono \(k\) giocatori, e ad ogni giocatore \(i\) è associata una coppia di nodi \((s_i,t_i)\) di nodi sorgente e destinazione.
@@ -398,9 +407,9 @@ Alcune domande che ci possiamo porre in merito a questo gioco sono:
 </ol>
 </div>
 
-<div id="outline-container-org5ebeca2" class="outline-3">
-<h3 id="org5ebeca2">Price of Anarchy</h3>
-<div class="outline-text-3" id="text-org5ebeca2">
+<div id="outline-container-org5d48da8" class="outline-3">
+<h3 id="org5d48da8">Price of Anarchy</h3>
+<div class="outline-text-3" id="text-org5d48da8">
 <p>
 Consideriamo il gioco nella seguente figura
 </p>
@@ -475,9 +484,9 @@ Applicando questa disuguaglianza per tutti e \(k\) i player otteremo che
 </div>
 </div>
 
-<div id="outline-container-org5e6dd03" class="outline-3">
-<h3 id="org5e6dd03">Price of Stability and Potential Function Method</h3>
-<div class="outline-text-3" id="text-org5e6dd03">
+<div id="outline-container-org483ddfa" class="outline-3">
+<h3 id="org483ddfa">Price of Stability and Potential Function Method</h3>
+<div class="outline-text-3" id="text-org483ddfa">
 <p>
 Fissiamo un valore \(\varepsilon > 0\) anche molto piccolo, e consideriamo la seguente istanza di gioco
 </p>
@@ -757,10 +766,102 @@ Perciò
   &= H_k \cdot \sum_{e \in NET(S)} c_e = H_k \cdot COST(S)
 \end{align*}
 </blockquote>
+</div>
+</div>
+
+<div id="outline-container-org9610034" class="outline-3">
+<h3 id="org9610034">NP-completeness of Global Connection Game</h3>
+<div class="outline-text-3" id="text-org9610034">
+<blockquote>
+<p>
+<b>THM</b>
+Data un'instanza di un Global Connection Game (<code>GCG</code>) e una costante \(C > 0\), determinare se tale gioco ha un <i>Equilibrio di Nash</i> di costo sociale
+<span class="underline">al più</span> \(C\) è un problema <i>NP-completo</i>.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> per dimostrare la NP-completezza di tale porblema verrà mostrata una riduzione polinomiale da un porblema già noto essere NP-completo, il <i>3-dimensional matching problem</i> (<code>3D-Match</code>).
+\[
+   \texttt{3D-Match} \preccurlyeq_P \texttt{GCG}
+   \]
+</p>
 
 <p>
-<b>[TODO: dimostrare NP-completezza]</b>
+È doveroso almeno descrivere il problema <code>3D-Match</code>:
+l'istanza del problema è una <i>tripla d'insiemi disgiunti</i> \(X,Y,Z\) tutti di dimensione \(n > 0\) e un insieme di triple ordinate \(T \subseteq X \cup Y \cup Z\).
+Possiamo vedere a \(T\) come un insieme di /iper-archi 3-dimensionali\), ovvero archi che non hanno due estremi bensì tre, uno in ogni insieme \(X,Y,Z\).
 </p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img9.png" alt="adrc-lesson20-img9.png" style="max-width:350px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 9: </span>Istanza di <code>3D-Match</code>, ovvero un ipergrafo 3-dimensionale tripartito.</p>
+</div>
+
+<p>
+Il problema decisionale <code>3D-Match</code> consiste nel determinare se esiste un sottoinsieme di \(n\) tripe \(M \subseteq T\) tale che ogni elemento di \(X \cup Y \cup Z\)
+è contenuto in <span class="underline">una sola</span> delle triple di \(M\).
+Più formalmente
+\[
+   M \subseteq T : \forall v \in X \cup Y \cup Z \; \exists! \; e \in M \left[ v \in e \right]
+   \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img10.png" alt="adrc-lesson20-img10.png" style="max-width:350px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 10: </span>Una 3-dimensional matching per l'istanza d'esempio.</p>
+</div>
+
+<p>
+Di seguito verrà costruita un'istanza di <code>GCG</code> tale che esiste un 3-dimensional matching per la relativa istanza di <code>3D-Match</code> <i>se e solo se</i> esiste un 
+<code>NE</code> di costo <span class="underline">al più</span> \(C = 3n\).<br />
+</p>
+
+<p>
+Come prima cosa la rete ha \(3n\) sorgenti numerate come \(s_{x_1}, ..., s_{x_n}\), \(s_{y_1}, ..., s_{y_n}\), \(s_{z_1}, ..., s_{z_n}\).<br />
+Dopodiché per ogni tripla \((x_i, y_j, z_k) \in T\) aggiungiamo il nodo \(e\) e gli archi diretti \((s_{x_i}, e), (s_{y_j}, e), (s_{z_k}, e)\), tutti di costo pari a 0.<br />
+Infine aggiungiamo l'unica destinazione \(t\) e gli archi diretti del tipo \((e,t)\), tutti di costo pari a 3.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img11.png" alt="adrc-lesson20-img11.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 11: </span>Istanza di <code>GCG</code> relativa all'esempio precedente</p>
+</div>
+
+<p>
+Come prima cosa assumiamo che esista un 3-dimensional matching \(M\), e vediamo come da esso è possibile ricavare un profilo di strategie \(S\) che è anche un <code>NE</code>.
+Il matching \(M\) è composto dalle tripe \(e_1, e_2, ..., e_n\), perciò il profilo di strategie \(S\) sarà composto dai path formati da dagli archi entri nei rispettivi nodi \(e_1, ..., e_n\)
+e dagli archi verso la destinazione \(t\).
+Dato che ci saranno esattamente \(n\) archi del tipo \((e,t)\) (tutti di costo 3), e dato che tutti quelli del tipo \((s,e)\) hanno costo 0, il costo totale di \(S\) è esattamente \(C = 3n\).
+Inoltre dato che per definizione il matching \(M\) "tocca" tutte i nodi di \(X,Y,Z\), allora il relativo profilo \(S\) ha un cammino per ogni coppia <code>sorgente-destinazione</code> \((s,t)\).
+Infine è facile verificare che \(S\) è un <code>NE</code>.
+Infatti, supponiamo che un player \(i\) vuole cambiare strategia ed adottare un nuovo nodo intermedio \(e\) diverso dal suo.
+Certamente tale nodo non sarà occupato da nessun altro, in quanto tutti gli altri player passano attraverso nodi intermedi condivisi con altri due player.
+Perciò il player \(i\) passerà dal pagare 1 unità di costo, a pagarne 3.
+Perciò \(S\) è un <i>Equilibrio di Nash</i>.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson20-img12.png" alt="adrc-lesson20-img12.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 12: </span>Una possibile soluzione.</p>
+</div>
+
+<p>
+Viceversa, supponiamo che esista almeno una configurazione di strategie \(S\) che è un <code>NE</code> di costo <span class="underline">al più</span> \(3n\).
+Certamente la rete indotta \(NET(S)\) da <span class="underline">al più</span> \(n\) archi di costo 3, in quanto se ce ne fossero di più di \(n\) il costo di \(S\) sarebbe maggiore di \(3n\).
+Inoltre, dato che ogni arco di costo 3 può "servire" al più 3 sorgenti, e dato che <i>tutte</i> le sorgenti devono essere servite, allora gli archi di costo 3 sono <span class="underline">esattamente</span> \(n\).
+Tali triple formano il matching \(M\) \(\square\).
+</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -769,7 +870,7 @@ Perciò
 <p class="date">Data: 2021-12-13 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2021-12-22 mer 21:33</p>
+<p class="date">Created: 2021-12-30 gio 18:31</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

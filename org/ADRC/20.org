@@ -5,14 +5,18 @@
 #+options: num:nil
 
 * Network Formation Games
-  /Network Formation Games/ (in breve =NFG=) sono dei giochi che modellano come un insieme di /player egoistici/ costruiscono una rete.
-  Questi gioco possono essere usati nel mondo reale per modellare i fenomeni che generano le reti sociali dei social-network, oppure una rete P2P dinamica.\\
+  I /Network Formation Games/ (in breve =NFG=) sono dei giochi che modellano come un insieme di /player egoistici/ costruiscono una rete.
+  Questi giochi possono essere usati nel mondo reale per modellare i fenomeni che generano le reti sociali dei social-network, oppure una rete P2P dinamica.\\
 
-  L'obbiettivo dei partecipanto al gioco è sostanzialmente quello di:
+  L'obbiettivo dei partecipanti al gioco è sostanzialmente quello di:
   - *minimizzare* il costo di costruizione della propria porzione di rete.
   - *massimizzare* la qualità dei servizi che la rete riesce ad offrire ai nodi.
     
-  Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misereremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
+  Vedremo due tipologie di giochi che risolvono questo problema:
+  - i *Global Connection Games*
+  - i *Local Connection Games*
+
+  Useremo gli equilibri di Nash come qualità che garantiscono la stabilità della rete, e inoltre misureremo il costo sociale come la somma di tutte le spese fatte dai singoli giocatori.
 
 * Global Connection Game
   In questo gioco abbiamo un grafo diretto \(G(V,E)\) con dei costi \(c_e\) non negativi per ogni arco \(e \in E\).
@@ -322,4 +326,66 @@
    \end{align*}
    #+end_quote
 
-   *[TODO: dimostrare NP-completezza]*
+** NP-completeness of Global Connection Game
+   #+begin_quote
+   *THM*
+   Data un'instanza di un Global Connection Game (=GCG=) e una costante \(C > 0\), determinare se tale gioco ha un /Equilibrio di Nash/ di costo sociale
+   _al più_ $C$ è un problema /NP-completo/.
+   #+end_quote
+
+   #+begin_quote
+   *Proof:* per dimostrare la NP-completezza di tale porblema verrà mostrata una riduzione polinomiale da un porblema già noto essere NP-completo, il /3-dimensional matching problem/ (=3D-Match=).
+   \[
+   \texttt{3D-Match} \preccurlyeq_P \texttt{GCG}
+   \]
+
+   È doveroso almeno descrivere il problema =3D-Match=:
+   l'istanza del problema è una /tripla d'insiemi disgiunti/ \(X,Y,Z\) tutti di dimensione \(n > 0\) e un insieme di triple ordinate \(T \subseteq X \cup Y \cup Z\).
+   Possiamo vedere a $T$ come un insieme di /iper-archi 3-dimensionali\), ovvero archi che non hanno due estremi bensì tre, uno in ogni insieme \(X,Y,Z\).
+   
+   #+caption: Istanza di =3D-Match=, ovvero un ipergrafo 3-dimensionale tripartito.
+   #+ATTR_HTML: :style max-width:350px; width:100%
+   [[file:../images/adrc-lesson20-img9.png]]
+   
+   Il problema decisionale =3D-Match= consiste nel determinare se esiste un sottoinsieme di $n$ tripe \(M \subseteq T\) tale che ogni elemento di \(X \cup Y \cup Z\)
+   è contenuto in _una sola_ delle triple di $M$.
+   Più formalmente
+   \[
+   M \subseteq T : \forall v \in X \cup Y \cup Z \; \exists! \; e \in M \left[ v \in e \right]
+   \]
+
+   #+caption: Una 3-dimensional matching per l'istanza d'esempio.
+   #+ATTR_HTML: :style max-width:350px; width:100%
+   [[file:../images/adrc-lesson20-img10.png]]
+   
+   Di seguito verrà costruita un'istanza di =GCG= tale che esiste un 3-dimensional matching per la relativa istanza di =3D-Match= /se e solo se/ esiste un 
+   =NE= di costo _al più_ \(C = 3n\).\\
+
+   Come prima cosa la rete ha \(3n\) sorgenti numerate come \(s_{x_1}, ..., s_{x_n}\), \(s_{y_1}, ..., s_{y_n}\), \(s_{z_1}, ..., s_{z_n}\).\\
+   Dopodiché per ogni tripla \((x_i, y_j, z_k) \in T\) aggiungiamo il nodo \(e\) e gli archi diretti \((s_{x_i}, e), (s_{y_j}, e), (s_{z_k}, e)\), tutti di costo pari a 0.\\
+   Infine aggiungiamo l'unica destinazione $t$ e gli archi diretti del tipo \((e,t)\), tutti di costo pari a 3.
+
+   #+caption: Istanza di =GCG= relativa all'esempio precedente
+   #+ATTR_HTML: :style max-width:550px; width:100%
+   [[file:../images/adrc-lesson20-img11.png]]
+
+   Come prima cosa assumiamo che esista un 3-dimensional matching $M$, e vediamo come da esso è possibile ricavare un profilo di strategie $S$ che è anche un =NE=.
+   Il matching $M$ è composto dalle tripe \(e_1, e_2, ..., e_n\), perciò il profilo di strategie $S$ sarà composto dai path formati da dagli archi entri nei rispettivi nodi \(e_1, ..., e_n\)
+   e dagli archi verso la destinazione $t$.
+   Dato che ci saranno esattamente $n$ archi del tipo \((e,t)\) (tutti di costo 3), e dato che tutti quelli del tipo \((s,e)\) hanno costo 0, il costo totale di $S$ è esattamente \(C = 3n\).
+   Inoltre dato che per definizione il matching $M$ "tocca" tutte i nodi di \(X,Y,Z\), allora il relativo profilo $S$ ha un cammino per ogni coppia =sorgente-destinazione= \((s,t)\).
+   Infine è facile verificare che $S$ è un =NE=.
+   Infatti, supponiamo che un player $i$ vuole cambiare strategia ed adottare un nuovo nodo intermedio $e$ diverso dal suo.
+   Certamente tale nodo non sarà occupato da nessun altro, in quanto tutti gli altri player passano attraverso nodi intermedi condivisi con altri due player.
+   Perciò il player $i$ passerà dal pagare 1 unità di costo, a pagarne 3.
+   Perciò $S$ è un /Equilibrio di Nash/.\\
+
+   #+caption: Una possibile soluzione.
+   #+ATTR_HTML: :style max-width:550px; width:100%
+   [[file:../images/adrc-lesson20-img12.png]]
+
+   Viceversa, supponiamo che esista almeno una configurazione di strategie $S$ che è un =NE= di costo _al più_ \(3n\).
+   Certamente la rete indotta \(NET(S)\) da _al più_ $n$ archi di costo 3, in quanto se ce ne fossero di più di $n$ il costo di $S$ sarebbe maggiore di \(3n\).
+   Inoltre, dato che ogni arco di costo 3 può "servire" al più 3 sorgenti, e dato che /tutte/ le sorgenti devono essere servite, allora gli archi di costo 3 sono _esattamente_ $n$.
+   Tali triple formano il matching $M$ \(\square\).
+   #+end_quote
