@@ -471,7 +471,24 @@
     \mathcal{P}(\mathcal{H}_n) \geq 1 - (3q - 3q^2)^{n/3} \implies \lim_{n \rightarrow \infty} \mathcal{P}(\mathcal{H}_n) = 1
     \]
 
-    *[DISCUTERE OSSERVAZIONI FINALI...]*
+** Considerazioni
+   Come appena visto, le cascate informative sono fenomeni abbastanza semplici da innescare, in quanto richiedono lo scambio di pochissime informazioni (solo le decisioni prese).
+   Se si pensa bene, in realtà le uniche informazioni realmente rilevanti sono quelle /precedenti/ all'innesco della cascata in quanto, per definizione, una volta iniziata la cascata informativa
+   tutti gli individui prenderanno la stessa decisione *indipendentemente* dalle informazioni in possesso.
+   Le informazioni che vengono ricevute dopo che la cascata si innesca sono /inutili/.\\
+
+   Le cascata informative non sono affidabili, possono portare facilmente a prendere decisioni inesatte.
+   Proprio perché non vengono usate tutte le informazioni presenti nella rete, bensì un piccolissima parte di esse.\\
+   
+   Inoltre le cascate informative sono anche molto instabili, è possibile "rompere" una cascata semplicemente rendendo pubblica l'informazione privata
+   di un individuo oppure che qualcuno voti in disaccordo alla cascata, e questo è più probabile che accada tanto più la rete è grande.\\
+
+   Tuttavia nel libro /[[https://www.amazon.it/Wisdom-Crowds-James-Surowiecki/dp/0385721706][The Wisdom of Crowds]]/,  James Surowiecki sostiene la tesi secondo la quale
+   #+begin_quote
+   /il comportamento aggregato di un numero elevato di persone in possesso di informazione molto limitata può produrre risultati molto accurati/
+   #+end_quote
+   Però l'assuzione alla base di questa tesi è che ogni individuo prende la propria decisione solamente sulla base delle proprie informazioni private,
+   *indipendentemente* da ciò che fanno gli altri.
 
 -----
 
