@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-01-05 mer 18:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 21</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 21</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8927e09">Local Connection Game</a>
+<ul>
+<li><a href="#org30fe0a5">Uniform Model</a></li>
+<li><a href="#orgff404f8">Stima dell'Ottimo</a></li>
+<li><a href="#org66c9e47">PoS: Price of Stability</a></li>
+<li><a href="#org9eeaf2e">PoA: Price of Anarchy</a></li>
+<li><a href="#orge9eb191">Complessità</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8927e09" class="outline-2">
+<h2 id="org8927e09">Local Connection Game</h2>
+<div class="outline-text-2" id="text-org8927e09">
+<p>
+I <b>Local Connection Games</b> sono un'altra tipologia di giochi per il task del <b>Network Formation</b>.
+Consideriamo un gioco con \(n\) players, dove ogni player è rappresentato da un <i>nodo</i> della rete.
+Ogni nodo \(u\) può decidere di <i>costruire</i> degli archi ( <span class="underline">non diretti</span> ) verso un qualsiasi altro sottoinsieme di nodi.
+I giocatori hanno due obbiettivi competitivi:
+</p>
+<ul class="org-ul">
+<li>construire, e quindi pagare, il minor numero possibile di archi.</li>
+<li>ottenere una rete che <i>minimizzi</i> la distanza verso ogni altro nodo.</li>
+</ul>
+<p>
+Ovviamente i due obbiettivi si controbilanciano, ovvero pagare la costruzione di troppi pochi archi comporta in automatico 
+l'aumento delle distanze, e viceversa avere distanze complessivamente brevi comporta un costo di costruzione troppo alto.
+</p>
+
+<p>
+Data una configurazione di strategie \(S\), indichiamo con \(G(S)\) la rete risultante.
+</p>
+</div>
+
+<div id="outline-container-org30fe0a5" class="outline-3">
+<h3 id="org30fe0a5">Uniform Model</h3>
+<div class="outline-text-3" id="text-org30fe0a5">
+<p>
+Considereremo solamente un modello <b>uniforme</b>, ovvero dove il costo di costruzione degli archi è una certa costante \(\alpha\) uguale per tutti.
+Datamuna coppia di nodei \(u,v\), indichiamo con \(dist_{G(S)}(u,v)\) la lunghezza del cammino minimo (in termine di numero di archi) tra i nodi
+\(u,v\) del grafo \(G(S)\) risultante dal profilo di strategie \(S\).
+Indichiamo poi con \(n_u\) il numero di archi "comprati" dal nodo \(u\).<br />
+</p>
+
+<p>
+Il <i>costo</i> della strategie \(S\) che un nodo \(u\) pagherà è
+\[
+   COST_u(S) = \alpha n_u + \sum_v dist_{G(S)}(u,v)
+   \]
+il quale ovviamente si desidera <span class="underline">minimizzare</span>.
+</p>
+
+<p>
+Possiamo vedere il costo dei player come la somma di un <b>building cost</b> (costo di costruzione) e di un <b>usage cost</b> (costo d'uso, ovvero le distanze tra i nodi).
+</p>
+
+<p>
+Osservare che in quanto il grafo \(G(S)\) è non diretto, quando un nodo \(u\) compra un arco \((u,v)\) esso sarà disponibile anche per il nodo \(v\).
+Perciò in un <i>Equilibrio di Nash</i> <code>NE</code> al più uno tra \(u\) e \(v\) comprerà l'arco \((u,v)\).
+Infatti se \((u,v)\) è comprato da entrambi gli estremi, uno dei due può tranquillamente abbandonare quell'arco migliorando il proprio <i>building cost</i>.<br />
+</p>
+
+<p>
+Inoltre dato che \(dist_{G(S)}(u,v)\) è <i>infitia</i> se \(u\) e \(v\) non sono connessi, allora ogni equilibrio deve necessariamente indurre un grafo <span class="underline">connesso</span>.<br />
+</p>
+
+<p>
+Considereremo quindi i <code>NE</code> come soluzioni del task.
+Dato quindi un equilibrio \(S\), definiamo il suo <b>costo sociale</b> come la somma di tutti i costi dei nodi.
+\[
+   COST(S) = \alpha \vert E \vert + \sum_{u \neq v} dist_{G(S)}(u,v)
+   \]
+Osservare che la quantità \(dist_{G(S)}(u,v)\) contribuisce due volte al costo totale, una volta per \(u\) ed una per \(v\).
+Una soluzioni \(S\) è <b>ottima</b> se <b>minimizza</b> il costo sociale \(COST(S)\).<br />
+</p>
+
+<p>
+<b>[FARE ALCUNI ESEMPI&#x2026;]</b><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgff404f8" class="outline-3">
+<h3 id="orgff404f8">Stima dell'Ottimo</h3>
+<div class="outline-text-3" id="text-orgff404f8">
+<p>
+Prima di dare delle stime per <code>PoA</code> e <code>PoS</code> è necessario individuare qual è il costo di una soluzione ottima al problema.
+</p>
+
+<blockquote>
+<p>
+<b>Lemma 1</b>
+If \(\alpha \geq 2\) then any <i>star</i> is an optimal solution, and if \(\alpha \leq 2\) then the <i>complete graph</i> is an optimal solution.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> 
+Consideriamo una soluzione ottima \(G(S)\) con \(m\) archi.
+Sappiamo che \(m \geq n − 1\), altrimenti il grafo sarebbe disconnesso e quindi avrebbe un costo infinito.<br />
+</p>
+
+<p>
+Sappiamo con certezza che il <i>building cost</i> totale è \(\alpha m\).
+Per ogni arco \((u,v)\) c'è esattamente 1 coppia di nodi a <span class="underline">distanza 1</span> (appunto \(u\) e \(v\)) che contribuirà di un fattore 2 all costo sociale, una volta per \(dist_{G(S)}(u,v)\) e una volta per \(dist_{G(S)}(v,u)\).<br />
+</p>
+
+<p>
+Dopodiché, dato che le coppie ordinate di nodi sono \(n(n-1)\), vuol dire che sono rimaste \(n(n-1) - 2m\) coppie di nodi non direttamente connessi da un arco, ovvero a distanza <span class="underline">almeno</span> 2.
+Perciò un <i>lowerbound</i> al costo sociale della soluzione \(S\) è
+\[
+   COST(S) \geq \alpha m + 2 m + 2(n(n-1) - 2m) = (\alpha - 2)m + 2n(n-1) = LB(m) 
+   \]
+</p>
+
+<p>
+Osservare che il precedente lowerbound \(LB(m)\) è pari al costo sociale di una clique \(K_n\) quando \(m=n(n-1)/2\), e pari al costo sociale di
+una stella quando \(m = n - 1\).
+</p>
+
+<p>
+Infatti, in una clique \(K_n\) tutti i nodi sono a distanza 1, perciò l'<i>usage cost globale</i> è \(n(n-1)\), mentre il <i>building cost</i> è \(\alpha \frac{n(n-1)}{2}\).
+Perciò il costo sociale di \(K_n\) è proprio pari al lowerbound \(LB(n(n-1)/2)\), ovvero
+</p>
+\begin{align*}
+  COST(K_n)
+  &= \alpha \frac{n(n-1)}{2} + n(n-1)\\
+  &= \alpha \frac{n(n-1)}{2} + (2-1)n(n-1)\\
+  &= \alpha \frac{n(n-1)}{2} + 2n(n-1) - n(n-1)\\
+  &= \alpha \frac{n(n-1)}{2} + 2n(n-1) - \left(\frac{2}{2}\right)n(n-1)\\
+  &= (\alpha - 2)\frac{n(n-1)}{2} + 2n(n-1) = LB\left(\frac{n(n-1)}{2}\right)
+\end{align*}
+<p>
+<br />
+</p>
+
+<p>
+Invece nel caso di una <i>stella</i> con \(m = n-1\) archi avremo un <i>usage cost</i> di \(2(n-1)(n-2)\) per tutte gli \(n-1\) nodi a distanza 2, più \(2(n-1)\) per le coppie a distanza 1,
+per un totale di \(2(n-1)(n-2) + 2(n-1) = 2(n-1)(n-1)\).
+Il <i>building cost</i> globale è invece pari a \(\alpha(n-1)\).
+Perciò il costo sociale per una stella è
+</p>
+\begin{align*}
+  COST(STAR_n)
+  &= \alpha(n-1) + 2(n-1)(n-1)\\
+  &= \alpha(n-1) + 2n(n-1) - 2(n-1)\\
+  &= (\alpha - 2)(n-1) + 2n(n-1) = LB(n-1) 
+\end{align*}
+<p>
+<br />
+</p>
+
+<p>
+A questo punto ci si può chiedere per quali valori di \(\alpha\) il costo sociale di \(K_n\) è <i>migliore</i> (o viceversa <i>peggiore</i>) di quello di \(STAR_n\)
+</p>
+\begin{align*}
+  COST(K_n) \leq COST(STAR_n) &\iff LB(K_n) \leq COST(STAR_n)\\
+  \\
+  \implies (\alpha - 2)\frac{n(n-1)}{2} + 2n(n-1) &\leq (\alpha - 2)(n-1) + 2n(n-1)\\
+  \\
+  (\alpha - 2)\frac{n(n-1)}{2} &\leq (\alpha - 2)(n-1)\\
+  \\
+  (\alpha - 2)\underbrace{ \left( \frac{n(n-1)}{2} - (n-1) \right) }_{> 0} &\leq 0\\
+  \\
+  \alpha \leq 2
+\end{align*}
+
+<p>
+Vicversa, per \(\alpha \geq 2\) il costo sociale di una stella è quello ottimo \(\square\).
+</p>
+</blockquote>
+
+<p>
+Abbiamo visto che per diversi valori di \(\alpha\) la clique \(K_n\) o la stella \(STAR_n\) hanno un costo sociale <b>ottimo</b>.
+Quello che ci si può chiedere è se tali grafi sono delle soluzioni effettive, ovvero se sono <i>reti stabili</i>.
+</p>
+
+<blockquote>
+<p>
+<b>Lemma 2</b>
+If \(\alpha \leq 1\) the complete graph is stable, while if \(\alpha \geq 1\) then any star is stable.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> nel caso di \(\alpha \leq 1\), a nessun nodo \(v\) della clique conviene "risparimare" un arco.
+Infatti, togliendo un arco, il nodo \(v\) guadagna di <i>al più</i> una unità, però si allontana dall'altro estremo dell'arco rimosso di esattamente 1.
+Perciò, nel caso migliore (quando \(\alpha = 1\)), il guadagno complessivo che \(v\) ricava nel togliere un suo arco incidente è pari a 0.
+La situazione non migliora lo stesso se \(v\) decide di elimnare \(k > 1\) archi.<br />
+</p>
+
+<p>
+Nel caso di una stella invece non è possibile effettuare rimozioni di archi, in quanto causerebbe la disconnessione del grafo.
+Perciò un nodo \(v\) potrebbe al più comprare nuovi archi per cercare di migliorare la sua situazione.
+Se \(v\) decide di comprare \(k \geq 1\) nuovi archi, pagherà una quantità aggiuntiva di \(\alpha k\), risparmiando esattamente \(k\) nell'usage cost.
+Per \(\alpha \geq 1\) tale strategia non migliora il costo del nodo \(v\) \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org66c9e47" class="outline-3">
+<h3 id="org66c9e47">PoS: Price of Stability</h3>
+<div class="outline-text-3" id="text-org66c9e47">
+<p>
+A questo punto è possibile quantificare il valore del prezzo della stabilità <code>PoS</code>.
+</p>
+
+<blockquote>
+<p>
+<b>THM</b><br />
+For \(\alpha \leq 1) and \(\alpha \geq 2) the =PoS= is 1. For \(1 < \alpha < 2\) the <code>PoS</code> is <span class="underline">at most</span> \(4/3\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> per \(\alpha \leq 1\) sappiamo che la soluzione socialmente ottima è la clique \(K_n\) e sappiamo anche che è una rete stabile, perciò <code>PoS</code> = 1.
+Stessa cosa oer \(\alpha \geq 2\), la stella è la soluzione socialmente ottima ed è pure una rete stabile.<br />
+</p>
+
+<p>
+Invece per \(1 < \alpha < 2\) sappiamo che \(K_n\) è una soluzione ottima e che ogni stella (che indichiamo per brevità \(T\)) è stabile.
+Perciò
+</p>
+\begin{align*}
+  PoS
+  &\leq \frac{COST(T)}{COST(K_n)}\\
+  &= \frac{ (\alpha - 2)(n-1) + 2n(n-1) }{ \alpha\frac{n(n-1)}{2} + n(n-1) }\\
+  \textbf{( * )} &\leq \frac{ -1(n-1) + 2n(n-1) }{ \frac{n(n-1)}{2} + n(n-1) }\\
+  &= \frac{2n - 1}{\frac{3}{2}n} = \frac{4n - 2}{3n} \leq \frac{4}{3}
+\end{align*}
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson21-img1.png" alt="adrc-lesson21-img1.png" style="max-width:350px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>rapporto tra \(COST(T)\) e \(COST(K_n)\) in funzione di \(\alpha\).</p>
+</div>
+
+<p>
+La disuguaglianza <b>( * )</b> è giustificata dal fatto che tale rapporto è massimo per \(\alpha = 1\), come evince in figura \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org9eeaf2e" class="outline-3">
+<h3 id="org9eeaf2e">PoA: Price of Anarchy</h3>
+<div class="outline-text-3" id="text-org9eeaf2e">
+<p>
+Per \(\alpha \leq 1\) l'unica rete stabile è il grafo completo (da dimostrare&#x2026;), perciò costo sociale ottimo e il costo della peggiore rete stabile coincidono, <code>PoA</code> = 1.
+Per valori di \(\alpha > 1\) è più complicato dare una stima di <code>PoA</code>.
+</p>
+
+<blockquote>
+<p>
+<b>THM</b><br />
+The <code>PoA</code> is <span class="underline">at most</span> \(O(\sqrt{\alpha})\).
+</p>
+</blockquote>
+
+<p>
+La dimostrazione di questo teorema è una diretta conseguenza dei seguenti due lemmi.
+</p>
+
+<blockquote>
+<p>
+<b>Lemma 3</b>
+The diameter of a <i>Nash Equilibrium</i> is <span class="underline">at most</span> \(2\sqrt{\alpha}\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b>
+Supponiamo di avere due nodi \(u,v\) a distanza \(dist(u,v) \geq 2k\), per qualche \(k > 0\).
+Osserviamo che succede se \(u\) compra l'arco \((u,v)\).
+Certamente il <i>building cost</i> di \(u\) aumenta di \(\alpha\), mentre la distanza con la <i>seconda metà</i> dei nodi del cammino minimo \(u \leadsto v\) diminuisce.<br />
+</p>
+
+<p>
+Più precisamente, la distanza \(dist(u,v)\) passa da al più \(2k\) ad 1.
+La distanza da \(u\) al penultimo nodo del cammino passa da al più \(2k-1\) a 2.
+Col precedente al penultimo passa da al più \(2k-2\) a 3, e così via&#x2026; fiano al \(k-1\) esimo nodo più distante da \(v\).
+Perciò l'<i>usage cost</i> di \(u\) diminuisce <span class="underline">al più</span> della quantità
+\[
+   \sum_{i=0}^{k-1} (2i-1) = k^2
+   \]
+</p>
+
+<p>
+In una rete stabile non deve convenire ad \(u\) comprare l'arco \((u,v)\), e ciò accade se e solo se \(\alpha \geq k^2\) \(\implies\) \(k \leq \sqrt{\alpha}\).
+Perciò una rete è stabile se
+\[
+   dist(u,v) \leq 2k \leq 2\sqrt{\alpha} \;\;\; \square
+   \]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Lemma 4</b>
+If a graph \(G\) at <i>Nash Equilibrium</i> has diameter \(d\), then its social cost is <span class="underline">at most</span> \(O(d)\) times the <i>optimum</i> social cost.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Dal <b>Lemma 1</b> sappiamo che il <i>social cost</i> ottimo (che d'ora in poi indicheremo con \(OPT\)) è almeno \(\Omega(\alpha n + n^2) \subseteq \Omega(n^2)\) (perché \(\alpha\) è una <b>costante</b>).
+Infatti dato che una soluzione è certamente una rete connessa dobbiamo pagare <b>almeno</b> un <i>building cost</i> di \(\alpha(n-1)\), e dato che ci sono
+circa \(n^2\) coppie di nodi le quali distanze saranno <b>almeno</b> 1, giustificando l'<i>usage cost</i> di \(\Omega(n^2)\).<br />
+</p>
+
+<p>
+Dato che per ipotesi del teorema \(G\) ha diametro \(d\), allora l'<i>usage cost</i> sociale è \(O(n^2d)\), ovvero \(d\) volte \(OPT\).<br />
+</p>
+
+<p>
+Più articolata è l'analisi del <i>building cost</i> \(\alpha \vert E \vert\).
+Come prima cosa <i>partizioniamo</i> l'insieme di archi in <b>cut edges</b> \(E_{cut}\), ovvero tutti quegli archi che se rimossi <span class="underline">disconnettono</span> \(G\),
+e in <b>non cut edges</b> \(E_{non-cut}\), ovvero tutti gli archi restanti che non sono <i>cut edges</i>.<br />
+</p>
+
+<p>
+Osserviamo che i <i>cut edges</i> sono al più \(n-1\), perciò il building cost sarà al più \(\alpha(n-1)\).
+Dato che \(\alpha(n-1) \in O(\alpha n + n^2)\), avremo che il <i>building cost</i> di \(E_{cut}\) è <span class="underline">al più</span> \(OPT\).<br />
+</p>
+
+<p>
+Consideriamo ora \(E_{non-cut}\), dimostreremo che ogni vertice \(v\) pagherà \(O(nd/\alpha)\) di tali archi (<i>non cut edges</i>), perciò
+applicando tale costo per tutti gli \(n\) nodi avremo il <i>building cost</i> totale di \(E_{non-cut}\) è di \(O(n^2d/\alpha) \subseteq O(n^2d) \subseteq O(d \cdot OPT)\).<br />
+</p>
+
+<p>
+Consideriamo un nodo \(u\) avente almeno un <i>non cut edge</i> incidente \(e = (u,v) \in E_{non-cut}\).
+Indichimo con \(V_e\) l'insieme dei nodi \(w\), dove i shortest path \(u \leadsto w\) passano attraverso \(e\).
+Rimuovendo l'arco \(e\) il grafo residuo \(G'\) è ancora connesso (perché per ipotesi \(e\) è un <i>non cut edge</i>) perciò esisterà un altro cammino <b>minimo</b> \(P\) da \(u\) a \(v\).
+Tale cammino entrerà in \(V_e\) attraverso un arco \((u',v')\), per poi arrivare fino a \(v\).
+\(P\) sarà del tipo \((u, ..., u', v', ..., v)\).
+Per la proprietà di <b>sottostruttra ottima</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> dei cammini minimi avremo che \(dist(u,u') \leq d\) e \(dist(v',v) \leq d\),
+perciò rimuovendo \(e\) la distanza tra \(u\) e \(v\) sarà <span class="underline">al più</span> \(dist_{G'}(u,v) \leq 2d\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson21-img2.png" alt="adrc-lesson21-img2.png" style="max-width:450px; width:100%" />
+</p>
+</div>
+
+
+<p>
+Dato che in \(V_e\) il nodo \(v\) è il più vicino ad \(u\), rimuovendo \(e\) le distanze da \(u\) di tutti i nodi \(w \in V_e\) diventeranno al più \(dist_{G'}(u,w) \leq dist_{G'}(u,v) \leq 2d\).
+Quindi rimuovendo \(e\), l'<i>usage cost</i> di \(u\) aumenterà di <span class="underline">al più</span> \(2d \vert V_e \vert\).<br />
+</p>
+
+<p>
+Perciò a un qualsiasi nodo \(u\) conviene rimuovere un suo arco \(e \in E_{non-cut}\) se e solo se \(\alpha \leq 2d \vert V_e \vert\), ovvero se \(\vert V_e \vert \geq \frac{\alpha}{2d}\).
+Dato che in ogni \(V_e\) ci sono almeno \(\frac{\alpha}{2d}\) nodi, allora ci sono al più \(\frac{n}{\alpha/2d} = \frac{n2d}{\alpha}\) insiemi di quel tipo.
+Quindi per ogni nodo \(u\) ci sono <span class="underline">al più</span> \(n\frac{2d}{\alpha}\) <i>non cut edges</i>, quindi \(\vert E_{non-cut} \vert \leq n^2\frac{2d}{\alpha}\).<br />
+</p>
+
+<p>
+In conclusione avremo che il <i>social cost</i> di un grafo \(G\) di diametro \(d\) è 
+</p>
+\begin{align*}
+  COST(G)
+  &= ( \sum_{u,v} dist_{G}(u,v) ) + \alpha \vert E \vert\\
+  &= O(d n^2) + \alpha \vert E_{cut} \vert + \alpha \vert E_{non-cut} \vert\\
+  &\leq O(d) \cdot OPT + \alpha (n-1) + \alpha O(n^2d/\alpha)\\
+  &\leq O(d) \cdot OPT + OPT + O(d) \cdot OPT = O(d) \cdot OPT \;\;\; \square
+\end{align*}
+</blockquote>
+
+<p>
+Ricapitolando, abbiamo detto che il <i>diametro</i> \(d\) di una rete stabile è al più \(2\sqrt{\alpha}\), e che il suo <i>social cost</i> è al più \(O(d) \cdot OPT\).
+Perciò il prezzo dell'anarchia di una rete stabile \(G\) è
+\[
+     \texttt{PoA} = \max_{G \in NEs}{\frac{COST(G)}{OPT}} \leq \frac{ O(\sqrt{\alpha}) \cdot OPT }{ OPT } = O(\sqrt{\alpha}) 
+   \]
+come affermato nel teorema iniziale.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge9eb191" class="outline-3">
+<h3 id="orge9eb191">Complessità</h3>
+<div class="outline-text-3" id="text-orge9eb191">
+<p>
+Generalmente dare queste stime al prezzo dell'anarchia e della stabilità può sembrare incoraggiante, perché ci fa ben sperare di trovare una buana soluzione a problema del <i>Network Formation</i>.
+Purtroppo però bisogna anche considerare quanto può essere complicato per un player individuare qual è la strategia migliore da adottare.
+</p>
+
+<blockquote>
+<p>
+<b>THM</b>
+It is <i>NP</i>-hard, given the strategies of the other agents, to compute the best response of a given player.
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+ogni sottocammino minimo di un cammino minimo è un cammino minimo. 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-16 gio 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-01-05 mer 18:33</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
