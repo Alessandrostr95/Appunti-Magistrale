@@ -136,7 +136,7 @@
    
    #+begin_quote
    *THM*\\
-   For \(\alpha \leq 1) and \(\alpha \geq 2) the =PoS= is 1. For \(1 < \alpha < 2\) the =PoS= is _at most_ \(4/3\).
+   For \(\alpha \leq 1\) and \(\alpha \geq 2\) the =PoS= is 1. For \(1 < \alpha < 2\) the =PoS= is _at most_ \(4/3\).
    #+end_quote
 
    #+begin_quote
@@ -264,5 +264,54 @@
    *THM*
    It is /NP/-hard, given the strategies of the other agents, to compute the best response of a given player.
    #+end_quote
+
+   #+begin_quote
+   *Proof:* verrà mostrata una riduzione polinomiale dal problema NP-completo /Dominating Set Problem/ (=DSP=).
+   \[
+   \texttt{DSP} \preccurlyeq_P \texttt{LCG}
+   \]
+   
+   Un'istanza di =DSP= è un grafo \(G=(V,E)\), e si vuole trovare un sottoinsieme di nodi \(U \subseteq V\) tale che \(\forall v \in V \setminus U\)
+   esiste almeno un \(u \in U\) vicino di $v$, ovvero \((u,v) \in E\).
+   In tal caso si dice che $U$ è un /insieme dominante/.
+   Il problema decisionale NP-completo riguardo gli insiemi dominanti è stabilire se, dato un \(k \geq 1\), esiste un dominating se grande _al più_ $k$.\\
+
+   #+caption: In rosso un /dominating set/.
+   #+ATTR_HTML: :style max-width:200px; width:100%
+   [[file:../images/adrc-lesson21-img3.png]]
+
+   Consideriamo volri di \(\alpha\) compresi tra 1 e 2.
+   Per ogni player $i$ aggiungiamo un nuovo al grafo.
+   A questo punto il player $i$ dovrà scegliere quali archi costruire per ottenere un guadagno ottimo (per se stesso).
+   È possibile dimostrare che il player $i$ ha una strategia /better response/ \(S_i\) di costo _al più_ \(\leq \alpha k + 2n -k\)
+   *se e soltanto se* esiste in \(G(V,E) = G(S_{-i})\) un /dominating set/ di dimensione _al più_ \(\leq k\).\\
+
+   Dato un dominating set grande al più $k$ è facile ricavare una strategia better response \(S_i\) col costo desidera.
+   Basterà infatti che $i$ compri un arco verso ognuno dei nodi nel dominating set.
+
+   #+caption: Dato il dominating set precedente, il player $i$ può immediatamente definire una strategia \(S_i\) /better response/.
+   #+ATTR_HTML: :style max-width:200px; width:100%
+   [[file:../images/adrc-lesson21-img4.png]]
+
+   - \(\Longleftarrow\) ::
+     Analiziamo il costo di \(COST_i(S_i)\).
+     Sicuramente il building cost stara al più \(\alpha k\).
+     Per quanto riguarda l'usage cost, pagherà 1 per tutti i nodi nel nel dominating set, e 2 per i restanti \(n-k\) nodi.
+     Perciò l'usage cost sarà al più \(2(n-k) + k = 2n - k\).
+     In conclusione, se in $G$ esiste un dominating set di dimensione $k$, $i$ riesce a trovare immediatamente una strategia better response
+     di costo al più \(\alpha k + 2n - k\).
+   - \(\Longrightarrow\) :: 
+     Sia \(S_i\) una strategia di costo al più $k$.
+     Se in $G$ esiste un nodo $v$ a distanti più di 2 da $i$, aggiungere ad \(S_i\) l'arco \((i,v)\).
+     Osservare che il building cost di \(S_i\) aumenta di \(\alpha < 2\), per l'usage cost risparmia un fattore di _almeno_ 2, perché stiamo
+     avvicinando $v$ che era a distanza \(\geq 3\) a distanza 1.
+     Ripetiamo questo passaggio finché tutti nodi non saranno a distanza 1 o 2 da $i$.
+     Creiamo ora il dominating set $U$ semplicemente inserendo tutti i nodi che sono distanti 1 da $i$.
+     È facile convincersi che $U$ sia un dominating set, perché tutti gli altri nodi sono distanti 2 da $i$, e quindi hanno almeno un vicino in $U$.
+     Infine basta osservare che la nuova strategia \(S_i\) ha costo esattamente \(\alpha \vert U \vert + 2n  - \vert U \vert \leq \alpha k + 2n - k\),
+     ovvero \(\vert U \vert \leq k\) \(\square\).
+   #+end_quote
+
+   -----
 
 [fn:1] ogni sottocammino minimo di un cammino minimo è un cammino minimo. 
