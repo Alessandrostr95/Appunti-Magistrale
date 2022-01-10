@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-01-10 lun 21:20 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 22</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 22</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge90cdf5">Algorithmic Mechanism Design</a>
+<ul>
+<li><a href="#org202cc52">Giochi d'asta</a></li>
+<li><a href="#orga68c9eb">Forma di Minimizzazione</a></li>
+<li><a href="#org4abeb60">Ingredients</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge90cdf5" class="outline-2">
+<h2 id="orge90cdf5">Algorithmic Mechanism Design</h2>
+<div class="outline-text-2" id="text-orge90cdf5">
+<p>
+Abbiamo visto come ai player nei giochi conviene sempre adottare un comportamento <i>egoistico</i>, il quale però porta spesso pessimi risultati sociali.
+Sarebbe quindi ideale progettare dei giochi, con eventuali <i>meccanismi di ricompensa</i>, che incentivino i player ad adottare strategie che portano ad un risultato socialmente buono.
+Ovviamente si desidera progettare questi giochi/meccanismi in modo tale che l'outcome socialmente buono si raggiunga in <i>Equilibrio</i>, ovvero deve convenire ai
+singoli individui adottare tali configurazioni di strategie che portano all'outcome desiderato.<br />
+</p>
+
+<p>
+La differenza sostanziale coi giochi classici visti fin ora è che ogni player possiede delle <b>informazioni private</b> riguardo le proprie preferenze,
+e nonostante tutto si deisera ottenere un risultato che vada più o meno bene per tutti, anche in presenza di tali <i>informazioni mancanti</i>.
+Nei giochi standard la funzione costo/guadagno dei giocatori è unica e nota a priori, invece nei giochi indotti dal mechanism design possiamo pensare
+ad un <i>vettore</i> di funzioni, una per ogni player.
+</p>
+</div>
+
+<div id="outline-container-org202cc52" class="outline-3">
+<h3 id="org202cc52">Giochi d'asta</h3>
+<div class="outline-text-3" id="text-org202cc52">
+<p>
+Supponiamo di voler vendere un oggetto prezioso all'asta, alla quale partecipano \(n\) giocatori.
+Ogni player \(i\) stiamo con il valore \(t_i\) quanto secondo lui vale l'oggeto all'asta, e quindi quanto è disposto a pagare al massimo.
+Tale stima che hanno i diversi giocatori è un'informazione <b>privata</b>.<br />
+</p>
+
+<p>
+Ciò che vorremmo è definire un <i>meccanismo d'asta</i> che assegni l'oggeto al player disposto a pagare più di tutti, anche se non abbiamo idea di chi possa essere.
+Ovvero si vuole che vinca il player \(i\) con la stima personale \(t_i\) maggiore.<br />
+</p>
+
+<p>
+Ogni player farà un'offerta \(r_i\), la quale ovviamente può essere (e deve essere) minore della propria stima personale \(\leq t_i\).
+Un generico giocatore può quindi mentire, e sottostimare parecchio il valore dell'oggetto, e quindi pagare il meno possibile.
+Ovviamente però non conviene offrire troppo poco, altrimenti si rischia di non vincere l'asta, e l'obbiettivo di ogni giocatore è proprio quello di vincerla (altrimenti se ne stavano a casa).
+</p>
+
+<p>
+Vedendo il <i>guadagno</i> dei player in termini di utilità \(u\), un player che non riesce a comprare l'oggeto avrà utilità \(u = 0\).
+Viceversa, se il player \(i\) riesce a vincere l'asta comprando ad un prezzo \(p\), avrà un guadagno finale di \(u_i = t_i - p\).
+Per questo motivo infatti un player non deve mai offrire più di quanto stiama, altrimenti anche se vince l'asta il suo guadagno sarà negativo \(u_i < 0\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson22-img1.png" alt="adrc-lesson22-img1.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Esempio d'asta. Facendo vincere il player che offre di più vincerebbe il player 1. In questo caso non solo il vincitore avrebbe un guadagno negativo, ma otterremo un risultato sicualmente errato. Infatti desideriamo che vinca il player 2, in quanto stima più di tutti il valore dell'oggetto.</p>
+</div>
+
+<p>
+Il meccanismo da progettare deve quindi:
+</p>
+<ul class="org-ul">
+<li>decidere il vincitore</li>
+<li>decidere il pagamento</li>
+</ul>
+<p>
+in modo tale che l'asta non possa essere in qualche modo manipolata.<br />
+</p>
+
+<p>
+Un meccanismo molto semplice è il <code>NO-PAIMENT</code>, con le seguenti regole:
+</p>
+<ol class="org-ol">
+<li>vince chi fa l'offerta \(r_i\) più alta.</li>
+<li>il vincitore paga un prezzo \(p = 0\).</li>
+</ol>
+<p>
+Tale meccanismo non è buono, in quanto a tutti i player converrebbe offrire \(r_i = \infty\), dato che alla fine il pagamento è 0.
+Purtroppo però non sarebbe possibile stabilire un vincitore, e quindi nessuno vincerebbe, con un guadagno pari a 0 per tutti i partecipanti.<br />
+</p>
+
+<p>
+Un meccanismo migliore è <code>PAY-YOUR-BID</code>, nel quale vince sempre chi fa l'offerta (<i>bid</i>) più alta, e pagherà una quantità pari alla sua offerta.
+Ovvero se vince il player \(i\) pagherà un prezzo \(p = r_i\).
+Come già accennato, ovviamente l'offerta deve essere minore della propria stima, altrimenti si rischia dicadere in un guadagno negatico, \(r_i < t_i\).<br />
+</p>
+
+<p>
+Purtroppo questo meccanismo non garantisce il raggiungimento dell'obbiettivo.
+Infatti non è detto che chi offre di più sia il colui che ha la stima più alta di tutti.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson22-img2.png" alt="adrc-lesson22-img2.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>In questo caso vince il player 1, ma il vincitore desiderato sarebbe il player 2.</p>
+</div>
+
+<p>
+Un'altra pecca di questo meccanismo è che un player per massimizzare la probabilità di vincere l'asta deve necessariamente porre la propria offerta \(r_i\) il più alta possibile,
+purtroppo però aumentando \(r_i\) diminuisce il guadagno finale \(u_i = t_i - r_i\).<br />
+</p>
+
+<p>
+Un meccanismo elegante e vincente è il cosiddetto <b>Vickrey’s second price auction</b>, nel quale vince chi offre di più e paga quanto l'offerta del secondo classificato.
+Più formalmente, siano \(i,j\) i primi due giocatori in ordine di offerte, ovvero \(r_i\) è l'offerta massima, e \(r_j\) è la seconda più alta.
+In tal caso il vincitore sarà \(i\) è pagherà il prezzo \(p = t_j\), con un'utilità complessiva pari a \(u_i = t_i - t_j \geq 0\).<br />
+</p>
+
+<blockquote>
+<p>
+<b>THM</b><br />
+Nel meccanismo <b>Vickrey’s second price auction</b>, per ogni player \(i\) offrire \(r_i = t_i\) è una <b>strategia dominate</b>, ovvero conviene sempre essere sinceri indipendentemente dalle azioni degli altri.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b>
+Fissiamo un qualsiasi player \(i\), la sua relativa stima \(t_i\) e osserviamo le possibili strategie che può adottare.<br />
+</p>
+
+<p>
+Consideriamo il valore
+\[
+   R = \max_{j \neq i}{r_j}
+   \]
+ovvero la massima offerta tra tutti i player escluso il player \(i\).
+</p>
+
+<dl class="org-dl">
+<dt>Case \(t_i \geq R\)</dt><dd>Se il player \(i\) offre \(r_i = t_i\) esso vincerà di sicuro, perché \(r_i = t_i \geq R\), con un'utilità <span class="underline">non negativa</span> \(u_i = t_i - R \geq 0\).
+Se invece \(i\) offore \(r_i \neq t_i\), per quanto osservato certamente non conviene mai offire più della propria stima, quindi necessariamente \(r_i < t_i\).
+Esso ha possibilità di vincere solo se \(r_i \geq R\), ottenendo comunque lo stesso guadagno del caso \(r_i = t_i\).
+Se invece \(r_i < R\) certamente \(i\) perde e ottiene un guadagno nullo.
+\[
+     r_i = t_i \implies u_i = t_i - R \geq 0\\
+     \\
+     r_i \neq t_i \begin{cases}
+     r_i > R &\implies u_i = t_i - R \geq 0\\
+     r_i \leq R &\implies u_i = 0
+     \end{cases}
+     \]
+Perciò, l'offerta che massimizza la possibilità di vittoria (e di ottenere un guadagno non negativo) è \(r_i = t_i\).</dd>
+<dt>Case \(t_i < R\)</dt><dd>Se \(i\) offre \(r_i = t_i\), dato che \(t_i < R\), certamente non vincerà, ottenendo un guadagno nullo \(u_i = 0\).
+Vediamo invece che accade se invece \(i\) offre \(r_i \neq t_i\).
+Se \(r_i < R\) nuovamente \(i\) non vince e otterrà guadagno nullo \(u_i = 0\).
+Se invece \(r_i \geq R\), allora \(i\) dovrà pagare una quantità pari ad \(R\).
+Infatti, se \(r_i \geq R\), allora la seconda offerta più alta sarà proprio pari ad \(R\).
+E dato che \(t_i < R\) avremo un guadagno negativo \(u_i = t_i - R < 0\)
+\[
+     r_i = t_i \implies u_i = 0\\
+     \\
+     r_i \neq t_i \begin{cases}
+     r_i > R &\implies u_i < 0\\
+     r_i \leq R &\implies u_i = 0
+     \end{cases}
+     \]
+Perciò, anche in questo caso, la strategia migliore per il player \(i\) è quella di porre \(r_i = t_i\),
+indipendentemente dalle offerte degli altri \(\square\).</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orga68c9eb" class="outline-3">
+<h3 id="orga68c9eb">Forma di Minimizzazione</h3>
+<div class="outline-text-3" id="text-orga68c9eb">
+<p>
+Nel gioco dell'asta ogni player voleva <i>massimizzare</i> la propria utilità \(u_i\).
+È possibile esprimere la stessa tipologia di giochi in forma di <b>minimizzazione</b>, in cui si desidera <i>minimizzare</i> un certo costo sociale.<br />
+</p>
+
+<p>
+Per esempio supponiamo il caso in cui dobbiamo scegliere una macchina a cui assegnare un <i>job</i>.
+Ogni macchina ha un costo di utilizzo \(t_i\) che non è noto a nessuno (informazione privata), e se la macchina \(i\) riceve il job avrà un pagamento \(p\).
+In questo caso l'utilità della macchina \(i\) sarà la quantità \(u_i = p - t_i\), ovvero <i>pagamento ricevuto</i> meno <i>costo d'utilizzo</i>.<br />
+</p>
+
+<p>
+Ogni macchina propone un costo \(r_i\) che rappresenta quanto è il suo costo d'utilizzo.<br />
+</p>
+
+<p>
+Si desiderà progettare un meccanismo che assegni il job alla macchina con costo d'uso \(t_i\) <b>minimo</b>.<br />
+</p>
+
+<p>
+Ogni macchina concorre per l'assegnazione del job, perciò avremo che \(r_i \leq t_i\).
+Infatti se \(r_i > t_i\) si rischia di non essere scelti per l'assegnazione del job, ottenendo quindi un guadagno nullo \(u_i = 0\).<br />
+</p>
+
+<p>
+È possibile dimostrare che anche nella versione di minimizzazione il meccanismo <b>Vickrey's second price</b> (con le opportune modifiche)
+induce i player a porre \(r_i = t_i\) come <i>strategia dominante</i>.
+Più precisamente le regole della strategia sono:
+</p>
+<ol class="org-ol">
+<li>vince il player \(i\) con offerta \(r_i\) <i>minima</i>.</li>
+<li>il pagamento \(p\) dato al vincitore \(i\) è pari alla seconda offerta \(r_j\) meno costosa.</li>
+</ol>
+<p>
+In questo caso l'utilità di \(i\) sarà pari a \(u_i = r_j - t_i \geq 0\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson22-img3.png" alt="adrc-lesson22-img3.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>In questo caso vince la macchina 3, ottenendo un pagamento di 10.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4abeb60" class="outline-3">
+<h3 id="org4abeb60">Ingredients</h3>
+<div class="outline-text-3" id="text-org4abeb60">
+<p>
+Generalizziamo il <b>Mechanism Design Problem</b> (in breve <code>MDP</code>).
+Abbiamo un insieme di \(N\) player <span class="underline">non cooperativi</span>, ognuno dei quali avente un' <span class="underline">informazione privata</span> \(t_i \in T_i\) detta <b>type</b> (o <b>tipo</b>).
+Esiste un'insieme di <b>outcomes possibili</b> \(F\).
+Per ogni combinazione di <i>tipi</i> \(t = (t_1, t_2, ..., t_N)\), una <b>scelta sociale</b> \(f\) è una funzione 
+</p>
+\begin{align*}
+  f : T_1 \times T_2 \times \cdots \times T_N &\rightarrow F\\
+  \\
+  \begin{bmatrix}
+    t_1\\
+    t_2\\
+    \vdots \\
+    t_N
+  \end{bmatrix} &\mapsto f(t) \in F
+\end{align*}
+
+<p>
+Ogni player \(i\) sceglie un strategia da adottare \(r_i\) in uno spazio delle possibili strategie \(S_i\).
+Restringiamoci solo ai casi in cui spazio delle strategie e spazio delle informazioni private coincidono, ovvero solo i casi in cui \(S_i \equiv T_i\).<br />
+</p>
+
+<p>
+Per esempio, considerando il gioco dell'asta, l'sieme \(F\) degli <i>outcomes possibili</i> equivale all'insieme degli \(n\) offerenti, mentre
+la funzione di <i>scelta sociale</i> è quella in cui si sceglie l'offerente con informazione privata \(t_i \in T_i\) <i>muinima</i> tra tutti.
+\[
+   f(t) = arg \min_i {t_i}
+   \]
+</p>
+
+<p>
+Per ogni possibile <i>outcome</i> \(x \in F\), ogni player \(i\) effettua una valutazione \(v_i(t_i, x)\), che indica la preferenza di \(i\) rispetto al possible outcome \(x\).
+Più precisamente indica quanto il player \(i\) <b>spende</b> se adotta la strategia \(t_i\) e se il player \(x\) vince il gioco.
+Per sempio, tornando al gioco d'asta, avremo che
+\[
+   v_i(t_i, x) = \begin{cases}
+	p &\mbox{se } x = i\\
+	0 &\mbox{se } x \neq i\\
+   \end{cases}
+   \]
+Viceversa, nel gioco di assegnazione dei <i>job</i>, avremo che 
+\[
+   v_i(t_i, x) = \begin{cases}
+	t_i &\mbox{se } x = i\\
+	0 &\mbox{se } x \neq i\\
+   \end{cases}
+   \]
+<br />
+</p>
+
+<p>
+Per ogni configurazione di strategie \(r \in S_1 \times S_2 \times ... \times S_N\), ogni player \(i\) riceve un <b>pagamento</b> \(p_i(r) = p_i\).
+I pagamenti (o guadagni) vengono impiegati dal sistema per incentivare gli individui ad essere onesti/collaborativi.
+Per esempio nel gioco d'asta il premio il giocatore che vince equivale alla propria stima personale dell'oggetto all'asta, perciò sia \(i\)
+il giocatore che vince l'asta, esso avrà un premio pari a \(p_i(r) = t_i\).
+Viceversa nel gioco dell'assegnazione dei jobs il premio equivale a quanto il sistema paga la macchina a cui viene assegnato il job.<br />
+</p>
+
+<p>
+A questo punto possiamo descrivere l'<b>utilità</b> dei player come la differenza tra il prorpio guadagno e la propria valutazione di spesa.
+Più formalmente, sia \(r \in S_1 \times S_2 \times ... \times S_N\) una data <i>configurazione di strategie</i>, e sia \(x(r) \in F\) l'outcome se applicato \(r\),
+allora l'utilità di un generico giocatore \(i\) sarà la quantità
+\[
+   u_i(t_i, x(r)) = p_i(r) - v_i(t_i, x(r))
+   \]
+Notiamo quindi che a prescindere se il problema è di massimizzazione o minimizzazione, ogni player vuole sempre <span class="underline">massimizzare la propria utitlità</span> \(u_i\).
+<br />
+</p>
+
+<p>
+Abbiamo ora tutti gli <i>ingredienti</i> per definire formalmente un <code>MDP</code>.
+Un <b>meccansimo</b> \(M = \langle g(r), p(r) \rangle\) è una coppia composta da:
+</p>
+<ul class="org-ul">
+<li>\(g(r)\): un <b>algoritmo</b> che consente di calcolare l'outcome \(x = g(r)\) in funzione alle strategie riportate in \(r\).</li>
+<li>\(p(r)\): uno <b>schema di pagamenti</b> che indica gli incentivi che i giocatori devono avere in accordo alle strategie in \(r\).</li>
+</ul>
+<p>
+Si vuole quindi progettare un meccanismo \(M\) in modo tale \(g(r) = f(t)\) in accordo al concetto di equilibrio relativo all'utilità \(u_i\),
+che a sua volta notiamo dipendere dallo schema di pagamenti \(p(r)\).<br />
+</p>
+
+
+<blockquote>
+<p>
+<b>DEF:</b> Un meccanismo \(M = \langle g(), p() \rangle\) è una <b>implementazione con strategie dominanti</b> se esiste un vettore di
+strategie riportate \(r^* = (r^*_1, r^*_2, ..., r^*_N)\) tale che \(f(t) = g(r^*)\) è un equilibirio di strategie dominanti.
+Ovvero se, per ogni player \(i\) e per ogni configurazione di strategie \(r = ( r_1, r_2, ..., r_N)\) avremo che
+\[
+   u_i(t_i, g(r_{-i}, r^*_i)) \geq u_i(t_i, g(r_{-i}, r_i))
+   \]
+ovvero la strategie \(r_i\) è <i>dominante</i> per il player \(i\).
+</p>
+</blockquote>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-20 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-01-10 lun 21:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
