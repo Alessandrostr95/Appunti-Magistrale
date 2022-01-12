@@ -11,7 +11,7 @@
   singoli individui adottare tali configurazioni di strategie che portano all'outcome desiderato.\\
   
   La differenza sostanziale coi giochi classici visti fin ora è che ogni player possiede delle *informazioni private* riguardo le proprie preferenze,
-  e nonostante tutto si deisera ottenere un risultato che vada più o meno bene per tutti, anche in presenza di tali /informazioni mancanti/.
+  e nonostante tutto si desidera ottenere un risultato che vada più o meno bene per tutti, anche in presenza di tali /informazioni mancanti/.
   Nei giochi standard la funzione costo/guadagno dei giocatori è unica e nota a priori, invece nei giochi indotti dal mechanism design possiamo pensare
   ad un /vettore/ di funzioni, una per ogni player.
 
@@ -197,21 +197,154 @@
    \\
 
    Abbiamo ora tutti gli /ingredienti/ per definire formalmente un =MDP=.
-   Un *meccansimo* \(M = \langle g(r), p(r) \rangle\) è una coppia composta da:
+   Un *meccanismo* \(M = \langle g(r), p(r) \rangle\) è una coppia composta da:
    - \(g(r)\): un *algoritmo* che consente di calcolare l'outcome \(x = g(r)\) in funzione alle strategie riportate in $r$.
    - \(p(r)\): uno *schema di pagamenti* che indica gli incentivi che i giocatori devono avere in accordo alle strategie in $r$.
    Si vuole quindi progettare un meccanismo $M$ in modo tale \(g(r) = f(t)\) in accordo al concetto di equilibrio relativo all'utilità \(u_i\),
    che a sua volta notiamo dipendere dallo schema di pagamenti \(p(r)\).\\
    
+*** Implementazione con Strategie Dominanti
+    Un meccanismo \(M = \langle g(), p() \rangle\) è una *implementazione con strategie dominanti* se esiste un vettore di
+    strategie riportate \(r^* = (r^*_1, r^*_2, ..., r^*_N)\) tale che \(f(t) = g(r^*)\) è un equilibirio di strategie dominanti.
+    Ovvero se, per ogni player $i$ e per ogni configurazione di strategie \(r = ( r_1, r_2, ..., r_N)\) avremo che
+    \[
+    u_i(t_i, g(r_{-i}, r^*_i)) \geq u_i(t_i, g(r_{-i}, r_i))
+    \]
+    ovvero la strategie \(r_i\) è /dominante/ per il player $i$.
+
+*** Meccanismo Truthfull
+    Se per ogni player la strategia dominante è quella di dichiarare i propri tipi privati, allora il meccanismo si dice *Truthfull* (o *Strategy-proof* o *incentive compatible*).
+    Più formalmente, sia \(t \in T_1 \times T_2 \times ... \times T_N\) il vettore dei /tipi/ privati dei player, e sia \(r^* \in S_1 \times S_2 \times ... \times S_N\) una strategia dominante per tutti.
+    Allora il meccanismo si dice /truthfull/ se \(r^* = t\).\\
+
+#    Facciamo alcuni esempi
+#
+#    - Asta a molteplici oggetti ::
+#      Questo tipo di asta è una generalizzazione di quella quella a singolo oggetto.
+#      Ci sono $N$ partecipanti e \(k < N\) oggetti all'asta.
+#      Dopo che ogni giocatore riporta un'offerta, il meccanismo deve decidere l'inseieme dei $k$ vincitori dell'asta a cui assegnare un oggetto.
+#      Perciò avremo che \(F \equiv \lbrace X \subseteq \lbrace 1, 2, ..., N \rbrace : \vert X \vert = k \rbrace\).
+#      Il sistema desidera assegnare i $k$ oggetti ai $k$ individui con i primi $k$ tipi di valore più 
+
+** Utilitarian Problems
+   Ovviamente quello ci possiamo chiedere:
+   - per quali categorie di problemi posso progettare un meccanismo truthfull?
+   - come posso proggettare un meccanismo truthfull?
+   - è sempre possibile progettarne uno ?
+
+   Allo stato dell'arte, sappiamo che esiste una classe di problemi, detti *Problemi Utilitari*, per i quali è sempre possibile progettare un meccanismo veritiero.
    
    #+begin_quote
-   *DEF:* Un meccanismo \(M = \langle g(), p() \rangle\) è una *implementazione con strategie dominanti* se esiste un vettore di
-   strategie riportate \(r^* = (r^*_1, r^*_2, ..., r^*_N)\) tale che \(f(t) = g(r^*)\) è un equilibirio di strategie dominanti.
-   Ovvero se, per ogni player $i$ e per ogni configurazione di strategie \(r = ( r_1, r_2, ..., r_N)\) avremo che
+   *DEF: /(Problema Utilitario)/*\\
+   Un problema è detto *utilitario* se la funzione obiettivo (scelta sociale) \(f(t)\) che mappa ogni insieme di tipi in una soluzione,
+   /minimizza/ (o /massimizza/ nei problemi di massimizzazione) la somma di tutte le valutazioni.
+   Più formalmente
    \[
-   u_i(t_i, g(r_{-i}, r^*_i)) \geq u_i(t_i, g(r_{-i}, r_i))
+   f(t) = arg\min_{x \in F} \sum_{i \in \left[ N \right]} v_i(t_i, x)
    \]
-   ovvero la strategie \(r_i\) è /dominante/ per il player $i$.
    #+end_quote
 
-   *[DA FINIRE...]*
+   Osservare che il gioco dell'assegnazione dei job è un gioco utilitario.
+   Infatti, essendoci un solo vincitore $i$ la cui valutazione è \(v_i(t_i, i) = t_i\), e dato che le valutazioni di tutti gli altri player saranno 0,
+   avermo che la somma di tutte le valutazioni è pari a \(\sum_j v_j(t_j, i) = v_i(t_i, i) = t_i\).
+   Dato che \(f(t) = arg \min_i{t_i}\), allora è vero anche che \(f(t) = arg \min_i{\sum_j v_j(t_j, i)}\).\\
+
+* Vickrey-Clarke-Groves (VCG) Mechanisms
+  Il meccanismo =VCG= è l' *unico* meccanismo /truthfull/ utile a risolvere i /problemi utilitari/.
+  Nel meccanismo =VCG= l'algoritmo \(g()\) e lo schema di pagamenti \(p()\) sono definiti come segue:
+  - data una sequenza di tipi dichiarati $r$, l'algoritmo \(g(r)\) computa una soluzione \(x \in F\) come segue
+    \[
+    g(r) = arg \min_{x \in F} \sum_i v_i(r_i, x)
+    \]
+    Perciò, se i tipi dichiarati corrispondono a quelli reali (ovvero \(r = t\)) abbiamo che \(g \equiv f\), perché il problema ricordiamo essere /utilitario/.
+  - data una sequenza di tipi dichiarati $r$, lo schema di pagamenti \(p_i(r)\) per il player $i$ è definito come segue
+    \[
+    p_i(r) = h_i(r_{-i}) - \sum_{j \neq i} v_j(r_j, g(r))
+    \]
+    dove \(h_i(r_{-i})\) è una funzione *costante arbitraria*, metre ricordiamo che \(r_{-i}\) è la sequenza di tutti i tipi dichiarati escluso \(r_i\),
+    ovvero \(r_{-i} = (r_1, ..., r_{i-1}, r_{i+1}, ..., r_N)\).
+  
+  Per quanto riguarda la funzione costante \(h_i(r_{-i})\), essa può essere definita in maniera opportuna per ottenere tutti /pagamenti positivi/.
+  Non è però necessario che \(p_i(r)\) sia positivo per ottenere la /veridicità/ del meccanismo.
+  Perciò, se più comodo, è possibile anche porre \(h_i(r_{-i}) = 0\) per ogni $i$.\\
+
+  Formalizziamo la correttezza dei meccanismi =VCG=.
+
+  #+begin_quote
+  *THM*\\
+  =VCG=-mechanisms are truthful for utilitarian problems.
+  #+end_quote
+  
+  #+begin_quote
+  *Proof:* fissiamo un generico player $i$ con tipo \(t_i \in T_i\).
+  Consideriamo ora una qualsiasi sequenza di tipi rivelati $r$, dove però sappiamo che \(r_i \neq t_i\).
+  Indichiamo poi con \(\hat{r} = (r_{-i}, t_i)\), ovvero
+  \[
+  r = \left[ \begin{matrix}
+  r_1\\
+  r_2\\
+  \vdots\\
+  r_i\\
+  \vdots\\
+  r_N
+  \end{matrix} \right] \;\;
+  \left[ \begin{matrix}
+  r_1\\
+  r_2\\
+  \vdots\\
+  t_i\\
+  \vdots\\
+  r_N
+  \end{matrix} \right] = \hat{r}
+  \]
+  Definiamo poi con \(\hat{x} = g(\hat{r})\) la soluzione ottima nel caso in cui il player $i$ dichiara il vero (\(r_i = t_i\)),
+  e con \(x = g(r)\) il caso in cui $i$ non dichiara il vero (\(r_i \neq t_i\)).\\
+
+  Vediamo ora l'utilità del player $i$ secondo il meccanismo =VCG= nei due casi 
+  \begin{align*}
+    u_i(t_i, \hat{x}) &= \left[ h_i(r_{-i}) - \sum_{j \neq i} v_j(r_j, \hat{x}) \right] - v_i(t_i, \hat{x}) &= h_i(r_{-i}) - \sum_j v_j(\hat{r}_j, \hat{x}) \\
+    u_i(t_i, x) &= \left[ h_i(r_{-i}) - \sum_{j \neq i} v_j(r_j, x) \right] - v_i(t_i, x) &= h_i(r_{-i}) - \sum_j v_j(\hat{r}_j, x)
+  \end{align*}
+
+  Però per definizione sappiamo che \(\hat{x}\) è una soluzione ottima per \(\hat{r} = (r_{-i}, t_i)\), perciò
+  \[
+  \sum_j v_j(\hat{r}_j, \hat{x}) \leq \sum_j v_j(\hat{r}_j, x)\\
+  \\
+  \implies u_i(t_i, \hat{x}) \geq u_i(t_i, x)
+  \]
+  ovvero al player $i$ conviene sempre dichiarare la verità \(r_i = t_i\) \(\square\).
+  #+end_quote
+
+** The Clarke payments
+   A questo punto ci si può chiedere come deve essere definita la funzione costante \(h_i(r_{-i})\) per far sì che l'utilità \(u_i\) abbia effettivamente senso.
+   Infatti, se pongo \(h_i(r_{-i}) = 0\) otteremmo una utilità _non positiva_ \(u_i \leq 0\).
+   Anche se il teorema precedente continua ad essere valido anche con \(h_i(r_{-i}) = 0\), è necessario scegliere un \(h_i(r_{-i})\) in modo tale da
+   avere un'utlità _positiva_ (altrimenti i giocatori non sarebbero incentivati nemmeno a partecipare al gioco, in quanto in ogni caso andrebbero a perderci).\\
+
+   I *pagamenti di Clarke* sono un caso particolare di =VCG= mechanism in cui si pone \(h_i(r_{-i})\) in modo da ottenere sempre utilità _non negative_.
+   Tale funzione costante è posta come 
+   \[
+   h_i(r_{-i}) = \sum_{j \neq i} v_j(r_j, g(r_{-i}))
+   \]
+   ovvero come la somma di tutte le valutazioni, assumendo però che il giocatore $i$ non esista.\\
+   
+   Otteremo quindi che il pagamento sarà della forma
+   \[
+   p_i(r) = \sum_{j \neq i} v_j(r_j, g(r_{-i})) - \sum_{j \neq i} v_j(r_j, g(r))
+   \]
+
+   \\
+   Per esempio, consideriamo ancora una volta l'esempio dell'assegnazione del /job/ su una delle $N$ macchine.
+   Secondo il meccanismo =VCG= avremo che l'algoritmo sarà
+   \[
+   g(r) = arg \min_{x \in F} \sum_i v_i(r_i, x)
+   \]
+   ovvero allocare il /job/ alla macchina con /tipo minimo/.\\
+   Poniamo ora il costo del vincitore $i$ in accordo col /Clarke payment schema/ e otteniamo
+   \[
+   p_i(r) = \sum_{j \neq i} v_j(r_j, g(r_{-i})) - \underbrace{ \sum_{j \neq i} v_j(r_j, g(r)) }_{= 0} = \sum_{j \neq i} v_j(r_j, g(r_{-i}))
+   \]
+   ovvero pagherà quanto la /seconda migliore offerta/.
+   Perciò osserviamo che applicando il /Clarke payment schema/ otteniamo nuovamente lo schema della seconda miglior offerta di Vickrey.
+
+   -----
