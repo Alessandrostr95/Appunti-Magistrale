@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-01-15 sab 23:31 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 23</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 23</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0264c00">Meccanismi one-parameter</a>
+<ul>
+<li><a href="#orgf47044f">Problema dello <i>Shortest Path Egoistico</i></a>
+<ul>
+<li><a href="#orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</a></li>
+</ul>
+</li>
+<li><a href="#org8e356e2">Shortest Path Tree (SPT) non cooperativo</a></li>
+<li><a href="#orgffdf9a7">Problemi one-parameter</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0264c00" class="outline-2">
+<h2 id="org0264c00">Meccanismi one-parameter</h2>
+<div class="outline-text-2" id="text-org0264c00">
+</div>
+<div id="outline-container-orgf47044f" class="outline-3">
+<h3 id="orgf47044f">Problema dello <i>Shortest Path Egoistico</i></h3>
+<div class="outline-text-3" id="text-orgf47044f">
+<p>
+Siamo in uno scenario in cui gli archi di un grafo sono controllati da <i>agenti egoistici</i>, e si vuole costruire un <i>cammino minimo</i> tra una coppia di nodi stabiliti.
+Ogni agente conosce segretamente il peso del proprio arco, e si desidera che il cammino (in quanto minimo) <b>minimizzi</b> la somma di tutti i pesi degli archi scelti.<br />
+</p>
+
+<p>
+Più formalmente, l'input del problema è un grafo pesato \(G=(V,E, c: E \rightarrow \mathbb{R}^+)\), una coppia di nodi \(s\) <i>sorgente</i> e \(t\) <i>destinazione</i>,
+e per ogni arco in \(E\) esiste un player egoistico che lo possiede.
+Il tipo privato di un player \(i\) è pari al peso dell'arco \(e_i\), ovvero \(t_i = c(e_i)\).
+Si vuole trovare un sottoinsieme di player tale che i rispettivi archi creano un <i>cammino</i> \(s \leadsto t\) e tali da minimizzare la somma dei rispettivi <i>pesi</i> (o <i>tipi</i>).<br />
+</p>
+
+<p>
+Se un arco \(e_i\) viene scelto per appartenere al cammino minimo, allora il rispettivo player pagherà una quantità pari al peso dell'arco \(t_i\).
+Tale costo può essere visto come una sorta di <b>costo d'utilizzo</b>.
+Ovvero la <b>valutazione</b> dei player sarà
+\[
+   v_i(t_i, P) = \begin{cases}
+   t_i &\mbox{se } e_i \in P\\
+   0 &\mbox{se } e_i \notin P
+   \end{cases}
+   \;\;\; \forall P \in F
+   \]
+L'insieme dei possibili outcomes \(F\) equivale all'insieme di tutti i possibili cammini da \(s\) a \(t\) in \(G\).<br />
+</p>
+
+<p>
+Osserviamo che, per come è stato descritto il meccanismo fin ora, ogni player è disincentivato a dichiarare il proprio tipo privato, ma che piuttosto è spinto a dichiarare un tipo il più
+alto possibile per evitare di essere scelto.
+Si desidera quindi progettare un meccanismo \(M\), il cui schema di pagamenti \(p\) incentivi i player a dichiarere il proprio tipo privato, ovvero si vuole progettare un meccanismo <b>truthfull</b>
+per questo problema.<br />
+</p>
+
+<p>
+Un'osservazione chiave che si può fare è che tale problema è un <b><a href="./22.html">problema utilitario</a></b>, ovvero perché la funzione obiettifo \(f(t)\) minimizza la <span class="underline">somma di tutte le valutazioni</span>.
+Ovvero sia un cammino minimo \(f(t) = P \in F\) da \(s\) a \(t\), allora avremo che
+\[
+   \sum_{e \in P} c(e) = \sum_{e \in E} v_e(e, P)
+   \]
+<br />
+</p>
+
+<p>
+Infatti, ponendo l'algoritmo
+\[
+   g(r) = arg \min_{x \in F} \sum_j v_j(r_j, x)
+   \]
+possiamo definire uno schema di pagamenti \(p\) in accordo al meccanismo <code>VCG</code> visto nella <a href="./22.html">precedente lezione</a>, come segue
+\[
+   p_e(r) = \sum_{j \neq e} v_j(r_j, g(r_{-e})) -  \sum_{j \neq e} v_j(r_j, g(r))
+   \]
+ovvero se un arco \(e\) viene scelto per una soluzione \(g(r)\) il suo pagamento sarà pari alla distanza tra \(s\) e \(t\) nel grafo \(G=(V, E \setminus \lbrace e \rbrace)\) <i>meno</i> la distanza
+tra \(s\) e \(t\) in \(G\) contando tutti gli archi del cammino eccetto \(e\).
+Più semplicemente
+\[
+   p_e(r) = \begin{cases}
+   d_{G-e}(s,t) - \left( d_G(s,t) - r_e \right) &\mbox{se } e \in P_G(s,t)\\
+   0 &\mbox{altrimenti}
+   \end{cases}
+   \]
+Indicando con \(P_G(s,t)\) il cammino minimo \(s \leadsto t\) per il grafo \(G=(V, E, r)\), e con \(P_{G-e}(s,t)\) il <b>cammino di rimpiazzo</b> ad \(e\) per il grafo \(G-e=(V, E \setminus \lbrace e \rbrace, r_{-e})\).<br />
+</p>
+
+<p>
+Per fare chiarezza, consideriamo il seguente esempio.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img1.png" alt="adrc-lesson23-img1.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Istanza di esempio.</p>
+</div>
+
+<p>
+Per esempio un cammino minimo da \(s\) a \(t\) è quello con gli archi di peso <code>4-2-5</code> (come in figura).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img2.png" alt="adrc-lesson23-img2.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Una possibile soluzione \(P_G(s,t)\), evidenziata in rosso.</p>
+</div>
+
+<p>
+Consideriamo l'arco \(e\) centrale al cammino minimo, e proviamo a calcolare il suo schema di pagamento \(p_e\).
+Innanzitutto calcoliamo la quantità
+\[
+   d_G(s,t) - r_e = 11 - 2 = 9
+   \]
+Dopodichè rimuoviamo l'arco \(e\) e calcoliamo il <i>cammino di rimpiazzo</i> \(P_{G-e}(s,t)\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img3.png" alt="adrc-lesson23-img3.png" style="max-width:200px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Cammino di rimpiazzo \(P_{G-e}(s,t)\).</p>
+</div>
+
+<p>
+La lunghezza del cammino di rimpiazzo \(P_{G-e}(s,t)\) sarà pari a
+\[
+   d_{G-e}(s,t) = 12
+   \]
+</p>
+
+<p>
+Perciò il pagamento del player \(e\) sarà
+\[
+   p_e(r) = d_{G-e}(s,t) - \left( d_G(s,t) - r_e \right) = 12 - 9 = 3
+   \]
+</p>
+
+<p>
+Per concludere bisogna imporre come ulteriore restrizione che la sorgente e la destinazione devono essere <b>2-edges connessi</b>.
+Ciò signifa che per disconnetere \(s\) e \(t\) è necessario rimuovere <span class="underline">almeno</span> 2 archi, la rimozione di un solo arco non è sufficiente.
+Infatti, se \(s\) e \(t\) non fossero <b>2-edges connessi</b> allora esiste un arco \(e\) che disconnette \(s\) da \(t\), e tale arco deve necessariamente appartenere al cammino minimo \(P_G(s,t)\).
+Però, nel grafo \(G-e\) i due nodi \(s,t\) risulterebbe disconnessi, con distanza \(d_{G-e}(s.t) = \infty\)
+</p>
+</div>
+
+<div id="outline-container-orga77fab0" class="outline-4">
+<h4 id="orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</h4>
+<div class="outline-text-4" id="text-orga77fab0">
+<p>
+Supponiamo di aver individuato un cammino minimo \(P_G(s,t)\) di lunghezza minima in \(G=(V,E,r)\).
+Per sempio abbiamo calcolato tale cammino con l'<a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">algoritmo di Dijkstra</a> in tempo \(O(m + n\log{n})\).
+Supponiamo che il cammino \(P_G(s,t)\) sia composto da \(k\) archi.
+Per avere uno schema di pagamento dobbiamo calcolare il cammino minimo residuo per oguno dei \(k\) archi in \(P_G(s,t)\).
+Supponendo di calcolare i camminimi minimi con lo stesso algoritmo (ovvero quello di <i>Dijkstra</i>), allora avremo che è possibile calcolare lo schema di pagamenti in tempo \(O(k(m + n \log{n}))\).
+Se \(k \in O(n)\), allora risulta particolarmente non efficiente calcolare \(p(r)\), il quale richiederà un tempo di \(O(nm + n^2\log{n})\).<br />
+</p>
+
+<p>
+Per fortuna esiste un risultato che mostra come è possibile calcolare i \(k\) cammini di rimpiazzo in tempo \(O(m + n\log{n})\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8e356e2" class="outline-3">
+<h3 id="org8e356e2">Shortest Path Tree (SPT) non cooperativo</h3>
+<div class="outline-text-3" id="text-org8e356e2">
+<p>
+Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente \(s\).
+Come sempre, i player hanno informazioni private, ovvero i pesi degli archi, e si desidera costruire uno <code>Shortest Path Tree</code> (in breve <code>SPT</code>).
+Ogni player dichiara un tipo, e si desidera progettare un meccanismo \(M\) che induca tutti i player a dichiarere i tipi reali (i reali pesi degli archi), ovvero si desidera progettare un
+<b>meccanismo trhthfull</b> per questo problema.<br />
+</p>
+
+<p>
+L'sieme \(F\) dei possibili outcomes è formato da tutti gli <i>alberi ricoprenti</i> \(T\) di \(V\).
+Definiamo la funzione di scelta sociale \(f()\) come segue
+\[
+   f(t) = arg \min_{T \in F} \sum_{v \in V} d_T(s,v) = arg \min_{T \in F} \sum_{e \in E(T)} c(e) \cdot \Vert e \Vert
+   \]
+ovvero \(f(t)\) è pari alla simma di tutte le distanze da \(s\) nello <code>SPT</code> radicato in \(s\).
+La quantità \(\Vert e \Vert\) sta ad indicare la <b>molteplicità</b> dell'arco \(e\), ovvero quante volte viene contato l'arco \(e\) nel conteggio delle distante di tutti i \(d_T(s,v)\).
+Infatti considerando la seguente figura, possiamo dire che l'arco \((x_1, x_2)\) ha molteplicità 2 in quanto è calcolato nel calcolo delle distante \(d(x_1, x_2)\) e \(d(x_1, x_4)\),
+l'arco \((x_1, x_3)\) avrà molteplicità 3, e gliarchi \((x_2, x_4), (x_3, x_5), (x_3, x_6)\) avranno molteplicità 1.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img4.png" alt="adrc-lesson23-img4.png" style="max-width:250px; width:100%" />
+</p>
+</div>
+
+<p>
+A questo punto ci si può chiedere se questo è un problema utilitario, e quindi risolvibile con il meccanismo <code>VCG</code>.
+In questo dipende dalla funzione di valutazione dei player.
+Per esempio, se siamo in un contesto in cui la sorgente \(s\) costruisce uno <code>SPT</code> con l'intento di mandare in broadcast un messaggio, allora le singole connessioni verranno attraversate una sola volta,
+perciò ha senso porre la valutazione di un arco \(e\) appartenente allo <code>SPT</code> pari al suo costo d'utilizzo (ovvero al suo peso).
+Quindi avremo che
+\[
+   v_e(t_e, T) = \begin{cases}
+   t_e &\mbox{se } e \in E(T)\\
+   0   &\mbox{altrimenti}
+   \end{cases}
+   \;\;\; \forall P \in F
+   \]
+In tal caso avremo che il problema non è utilitario in quanto la funzione di scelta sociale non è pari alla somma di tutte le valutazioni
+\[
+   f(t) = arg \min_{T \in F} \sum_{e \in E(T)} t_e \cdot \Vert e \Vert \neq arg \min_{T \in F} \sum_{e \in E(T)} t_e
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgffdf9a7" class="outline-3">
+<h3 id="orgffdf9a7">Problemi one-parameter</h3>
+<div class="outline-text-3" id="text-orgffdf9a7">
+<p>
+Il problema precedentemente descritto è noto appartenere ad una classe di problemi detti <b>problemi one-parameter</b>, o anche problemi a <b>singolo parametro</b>.
+Un problema è detto a singolo parametro se:
+</p>
+<ol class="org-ol">
+<li>L'informazione posseduta da ogni singolo player \(i\) è un <b>singolo parametro</b> \(t_i \in \mathbb{R}\), ovvero non può per esempio essere un vettore di \(n\) elementi.</li>
+<li>La valutazione di ogni player \(i\) è del tipo
+\[
+      v_i(t_i, x) = t_i \cdot w_i(x)
+      \]
+dove \(w_i(x)\) indica il <b>carico di lavoro</b> del player \(i\) rispetto alla soluzione \(x\).</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2022-01-10 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-01-15 sab 23:31</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
