@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-15 sab 23:31 -->
+<!-- 2022-01-18 mar 00:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 23</title>
@@ -274,28 +274,34 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0264c00">Meccanismi one-parameter</a>
+<li><a href="#org775042a">Meccanismi one-parameter</a>
 <ul>
-<li><a href="#orgf47044f">Problema dello <i>Shortest Path Egoistico</i></a>
+<li><a href="#orgd637883">Problema dello <i>Shortest Path Egoistico</i></a>
 <ul>
-<li><a href="#orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</a></li>
+<li><a href="#org81083c1">Complessità del calcolo dei cammini di rimpiazzo</a></li>
 </ul>
 </li>
-<li><a href="#org8e356e2">Shortest Path Tree (SPT) non cooperativo</a></li>
-<li><a href="#orgffdf9a7">Problemi one-parameter</a></li>
+<li><a href="#org94aa74b">Shortest Path Tree (SPT) non cooperativo</a></li>
+<li><a href="#orgc6b1e1e">Problemi one-parameter</a>
+<ul>
+<li><a href="#org60aac03">VCG vs OP</a></li>
+<li><a href="#org506584b">Algoritmo monotono</a></li>
+<li><a href="#org94b8856">Meccanismi one-parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0264c00" class="outline-2">
-<h2 id="org0264c00">Meccanismi one-parameter</h2>
-<div class="outline-text-2" id="text-org0264c00">
+<div id="outline-container-org775042a" class="outline-2">
+<h2 id="org775042a">Meccanismi one-parameter</h2>
+<div class="outline-text-2" id="text-org775042a">
 </div>
-<div id="outline-container-orgf47044f" class="outline-3">
-<h3 id="orgf47044f">Problema dello <i>Shortest Path Egoistico</i></h3>
-<div class="outline-text-3" id="text-orgf47044f">
+<div id="outline-container-orgd637883" class="outline-3">
+<h3 id="orgd637883">Problema dello <i>Shortest Path Egoistico</i></h3>
+<div class="outline-text-3" id="text-orgd637883">
 <p>
 Siamo in uno scenario in cui gli archi di un grafo sono controllati da <i>agenti egoistici</i>, e si vuole costruire un <i>cammino minimo</i> tra una coppia di nodi stabiliti.
 Ogni agente conosce segretamente il peso del proprio arco, e si desidera che il cammino (in quanto minimo) <b>minimizzi</b> la somma di tutti i pesi degli archi scelti.<br />
@@ -419,9 +425,9 @@ Però, nel grafo \(G-e\) i due nodi \(s,t\) risulterebbe disconnessi, con distan
 </p>
 </div>
 
-<div id="outline-container-orga77fab0" class="outline-4">
-<h4 id="orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</h4>
-<div class="outline-text-4" id="text-orga77fab0">
+<div id="outline-container-org81083c1" class="outline-4">
+<h4 id="org81083c1">Complessità del calcolo dei cammini di rimpiazzo</h4>
+<div class="outline-text-4" id="text-org81083c1">
 <p>
 Supponiamo di aver individuato un cammino minimo \(P_G(s,t)\) di lunghezza minima in \(G=(V,E,r)\).
 Per sempio abbiamo calcolato tale cammino con l'<a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">algoritmo di Dijkstra</a> in tempo \(O(m + n\log{n})\).
@@ -438,14 +444,15 @@ Per fortuna esiste un risultato che mostra come è possibile calcolare i \(k\) c
 </div>
 </div>
 
-<div id="outline-container-org8e356e2" class="outline-3">
-<h3 id="org8e356e2">Shortest Path Tree (SPT) non cooperativo</h3>
-<div class="outline-text-3" id="text-org8e356e2">
+<div id="outline-container-org94aa74b" class="outline-3">
+<h3 id="org94aa74b">Shortest Path Tree (SPT) non cooperativo</h3>
+<div class="outline-text-3" id="text-org94aa74b">
 <p>
-Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente \(s\).
-Come sempre, i player hanno informazioni private, ovvero i pesi degli archi, e si desidera costruire uno <code>Shortest Path Tree</code> (in breve <code>SPT</code>).
+Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente \(s\),
+ovvero uno <code>Shortest Path Tree</code> (in breve <code>SPT</code>) <i>radicato</i> in \(s\).
+Come sempre, i player hanno informazioni private, ovvero i pesi degli archi, che in qualche modo stanno ad indicare il <i>tempo di attraversamento</i> o il <i>costo di utilizzo</i> dell'arco in questione.
 Ogni player dichiara un tipo, e si desidera progettare un meccanismo \(M\) che induca tutti i player a dichiarere i tipi reali (i reali pesi degli archi), ovvero si desidera progettare un
-<b>meccanismo trhthfull</b> per questo problema.<br />
+<b>meccanismo truthfull</b> per questo problema.<br />
 </p>
 
 <p>
@@ -487,9 +494,9 @@ In tal caso avremo che il problema non è utilitario in quanto la funzione di sc
 </div>
 </div>
 
-<div id="outline-container-orgffdf9a7" class="outline-3">
-<h3 id="orgffdf9a7">Problemi one-parameter</h3>
-<div class="outline-text-3" id="text-orgffdf9a7">
+<div id="outline-container-orgc6b1e1e" class="outline-3">
+<h3 id="orgc6b1e1e">Problemi one-parameter</h3>
+<div class="outline-text-3" id="text-orgc6b1e1e">
 <p>
 Il problema precedentemente descritto è noto appartenere ad una classe di problemi detti <b>problemi one-parameter</b>, o anche problemi a <b>singolo parametro</b>.
 Un problema è detto a singolo parametro se:
@@ -502,6 +509,268 @@ Un problema è detto a singolo parametro se:
       \]
 dove \(w_i(x)\) indica il <b>carico di lavoro</b> del player \(i\) rispetto alla soluzione \(x\).</li>
 </ol>
+
+<p>
+Osservare che il problema dello <code>SPT</code> <i>non cooperativo</i> è un problema a singolo parametro, in quanto i tipi privati sono <span class="underline">singoli valori reali</span>,
+mentre basta porre le valutazioni come
+\[
+     v_e(t_e, T) = t_e \cdot w_e(T)\\
+     w_e(T) = \begin{cases}
+       1 &\mbox{se } e \in E(T)\\
+       0 &\mbox{altrimenti}
+     \end{cases}\\
+   \]
+\[
+     \implies v_e(t_e, T) = \begin{cases}
+       t_e &\mbox{se } e \in E(T)\\
+       0 &\mbox{altrimenti}
+     \end{cases}\\
+   \]
+</p>
+</div>
+
+<div id="outline-container-org60aac03" class="outline-4">
+<h4 id="org60aac03">VCG vs OP</h4>
+<div class="outline-text-4" id="text-org60aac03">
+<p>
+Le principali differenze tra meccanismi <code>VCG</code> e <code>OP</code> sono:
+</p>
+<ul class="org-ul">
+<li><b>VCG</b>: non ci sono vincoli su come devono essere i tipi e le valutazioni, ma si richiede che la funzione di costo sociale debba essere pari alla somma delle valutazioni (problemi utilitari)</li>
+<li><b>OP</b>: non c'è vincolo su come deve essere fatta la funzione di costo sociale, ma si richiede che i tipi siano valori reali e che la valutazione di un individuo deve essere pari al suo tipo privato moltiplicato il carico di lavoro.</li>
+</ul>
+<p>
+Le due classi di problemi non si includono, ma si intersecano.
+Ciò significa che esistono problemi utilitari che non sono a singolo parametro e viceversa, oppure che esistono problemi che sono sia utilitari che a singolo parametro.
+In questo ultima cosa i meccanismi <code>VCG</code> e <code>OP</code> <b>coincidono</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org506584b" class="outline-4">
+<h4 id="org506584b">Algoritmo monotono</h4>
+<div class="outline-text-4" id="text-org506584b">
+<p>
+Un algoritmo \(g()\) per un problema <i>one-parameter di minimizzazione</i> si dice <b>monotono</b> se per ogni agente \(i\),
+\(w_i(g(r_{-i},r_i))\) è <span class="underline">non crescente</span> rispetto a \(r_i\), qualunque siano \(r_{-i}=(r_1, ..., r_{i-1}, r_{i+1}, ..., r_n)\).
+Perciò se consideriamo il carico di lavoro \(w_i(g(r))\), esso non crescerà mai al crescere del parametro \(r_i\).<br />
+</p>
+
+<p>
+Per comodità d'ora in poi ci riferiremo al valore \(w_i(g(r))\) semplicemente con \(w_i(r)\).
+</p>
+<blockquote>
+<p>
+<b>THM 1</b> <i>(Mayerson ‘81)</i><br />
+Condizione necessaria affinché un meccanismo \(M = \langle g(r), p(r) \rangle\) per un problema <code>OP</code> sia <span class="underline">veritiero</span> è che \(g(r)\) sia monotono.
+Ovvero dato un problema <code>OP</code>, un relativo meccanismo \(M\) <span class="underline">veritiero</span> per tale problema ha necessariamente \(g()\) monotona.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b>
+Supponiamo per assurdo di avere un meccanismo \(M\) truthfull per un problema <code>OP</code> di minimizzazione, con algoritmo \(g()\) <span class="underline">non monotono</span>.
+Verrà mostrato che non è possibile trovare alcuno schema di pagamento \(p\) che renda \(M\) veritiero.<br />
+</p>
+
+<p>
+Se \(g\) non è monotona, allora esisterà un certo agente \(i\) e un vettore \(r_{-i} \in \mathbb{R}^{n-1}\) tale che la funzione carico di
+lavoro \(w_i(r_{-i}, r_i)\) è non <span class="underline">"non crescente"</span> rispetto alla variabile \(r_i\).
+Ovvero esisteranno due valori \(x < y\) tale che \(w_i(r_{-i}, x) < w_i(r_{-i}, y)\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img5.png" alt="adrc-lesson23-img5.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+<b>Caso \(i\) sincero</b><br />
+Consideriamo il caso in cui il player \(i\) dichiara la verità \(r_i = t_i\).
+Se il tipo del player \(i\) è pari a \(t_i = x\) allora la sua valutazione sarà uguale all'area in <code>verde</code> \(x \cdot w_i(r_{-i}, x)\)
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img6.png" alt="adrc-lesson23-img6.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>\(r_i = t_i = x\).</p>
+</div>
+
+<p>
+mentre se pari a \(t_i = y\) assumerà il valore dell'area in <code>viola</code> \(y \cdot w_i(r_{-i}, y)\)
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img7.png" alt="adrc-lesson23-img7.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 7: </span>\(r_i = t_i = y\).</p>
+</div>
+
+<p>
+<b>Caso \(i\) non sincero</b><br />
+Consideriamo il caso in cui il player \(i\) <span class="underline">non</span> dichiara la verità \(r_i \neq t_i\).
+Possono succedere due cose, o \(i\) dichiara di <span class="underline">più</span> del suo tipo, per esempio \(r_i = y > x = t_i\),
+oppure \(i\) dichiara <span class="underline">meno</span> del reale, per esempio \(r_i = x < y = t_i\).<br />
+</p>
+
+<p>
+Se \(i\) dichiara <span class="underline">più</span> di \(t_i\), allora la sua valutazione sarà pari a \(x \cdot w_i(r_{-i}, y)\), ovvero all'area <code>GIALLA</code> in figura.
+</p>
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img8.png" alt="adrc-lesson23-img8.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>\(r_i = y > x = t_i\).</p>
+</div>
+
+<p>
+Viceversa, se dichiara <span class="underline">meno</span> del tipo reale \(t_i\), allora la sua valutazione sarà pari a \(y \cdot w_i(r_{-i}, x)\), ovvero all'area <code>AZZURRA</code> in figura.
+</p>
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img9.png" alt="adrc-lesson23-img9.png" style="max-width:550px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 9: </span>\(r_i = x < y = t_i\).</p>
+</div>
+
+<p>
+Considerando i seguenti rettangoli nella figura contrassegnati come <code>A</code> e <code>k</code>, possiamo ricapitolare i 4 possibili scenari appena visti come segue:
+</p>
+<ol class="org-ol">
+<li>se \(r_i = t_i = x \implies v_i(t_i, \star) = x \cdot w_i(r_{-i}, x)\)</li>
+<li>se \(r_i = t_i = y \implies v_i(t_i, \star) = y \cdot w_i(r_{-i}, y)\)</li>
+<li>se \(r_i = y > x = t_i\) \(\implies v_i(t_i, \star) = x \cdot w_i(r_{-i}, y)\) \(\implies\) \(i\) <b>aumenta</b> il suo costo di <code>A</code></li>
+<li>se \(r_i = x < y = t_i\) \(\implies v_i(t_i, \star) = y \cdot w_i(r_{-i}, x)\) \(\implies\) \(i\) <b>diminuisce</b> il suo costo di <code>A + k</code></li>
+</ol>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img10.png" alt="adrc-lesson23-img10.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+Vediamo ora la differenza d'utilità in base alle possibili dichiarazioni che \(i\) può fare, \(x\) o \(y\).
+Supponiamo di avere un meccanismo \(M\) <span class="underline">truthfull</span>, e indichiamo con \(\Delta p = p_i(r_{-i}, y) - p_i(r_{-i}, x)\) il pagamento che il meccanismo \(M\) da ad \(i\)
+se dichiara \(y\) meno il pagamento che avrebbe dichiarando \(x\).
+Ovviamente i pagamenti dipendono solamente dai tipi riportati e non da quelli reali, in quanto il meccanismo non conosce i tipi reali.
+</p>
+
+<dl class="org-dl">
+<dt>\(\Delta p \leq A\)</dt><dd>Se \(\Delta p > A\) e \(t_i = x\), allora al player converrebbe mentire e riportare \(r_i = y\).
+Infatti se \(i\) fosse sincero dichiarando \(r_i = t_i = x\) avrebbe un pagamento certo pagamento \(p_i(r_{-i}, x)\), mentre se dichiara di più \(r_i = y > x = t_i\),
+il suo costo aumenterebbe di <code>A</code>, ma il suo pagamento aumenterebbe di quantità <b>maggiore</b> di <code>A</code> (risultando in una utilità migliore).
+Perciò affinché \(M\) sia <i>truthfull</i>, allora necessariamente deve essre che \(\Delta p \leq A\).<br /></dd>
+
+<dt>\(\Delta p \geq A+k\)</dt><dd>Se invece \(\Delta p < A+k\) e \(t_i = y\), allora al player converrebbe mentire e riportare \(r_i = x\).
+Infatti se \(i\) fosse sincero dichiarando \(r_i = t_i = y\) avrebbe un pagamento certo pagamento \(p_i(r_{-i}, y)\), mentre se dichiara di meno \(r_i = x < y = t_i\),
+il suo costo diminuirebbe di <code>A+k</code>, mentre il suo pagamento diminuirebbe di una quantità <b>minore</b> di <code>A+k</code> (risultando ancora una volta in una utilità migliore).
+Perciò un'altra condizione affinché \(M\) sia <i>truthfull</i> è che \(\Delta p \geq A + k\).<br /></dd>
+</dl>
+
+<p>
+Infine, dato che per assunzione \(x < y\) e \(w_i(r_{-i}, x) < w_i(r_{-i}, y)\), allora l'area di <code>k</code> è <span class="underline">non nulla</span>.
+Perciò se \(M\) è <i>truthfull</i> con funzione \(g()\) non monotona, allora incorreremo in uno schema di pagamento tale che \(\Delta p \leq A\) e \(\Delta p > A\) (<b>assurdo!</b>) \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org94b8856" class="outline-4">
+<h4 id="org94b8856">Meccanismi one-parameter</h4>
+<div class="outline-text-4" id="text-org94b8856">
+<p>
+È possibile progettare un meccanismo <b>truthfull</b> \(M\) <i>one-parameter</i> per i problemi <code>OP</code>.
+Tale meccanismo è definito come segue:
+</p>
+<ul class="org-ul">
+<li>\(g(r)\) un qualsiasi algoritmo <b>monotono</b></li>
+<li>sia \(h_i(r_{-i})\) una qualsiasi funzione <i>indipendente</i> da \(i\), allora possiamo porre lo schema di pagamanto di \(i\) pari a 
+\[
+      p_i(r) = h_i(r_{-i}) + r_i \cdot w_i(r) - \int_{0}^{r_i}w_i(r_{-i}, z)\,dz
+      \]</li>
+</ul>
+
+<blockquote>
+<p>
+<b>THM 2</b> <i>(Mayerson ‘81)</i><br />
+Un meccanismo <code>OP</code> (per un problema <code>OP</code>) è veritiero.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b>
+Basta far vedere che qualsiasi strategia che non sia dichiarare il vero è sempre peggiore.<br />
+</p>
+
+<p>
+Fissiamo un generico player \(i\), e consideriamo una <span class="underline">qualsiasi</span> configurazione di strategie \(r_{-i}\) (per tutti gli altri player eccetto \(i\)).
+Considerando uno schema <code>OP</code> come quello visto in precedenza, poniamo la funzione \(h_i(r_{-i}) = 0\) in quanto ininfluente dato che <span class="underline">indipendente</span> da \(r_i\).
+Supponiamo che \(i\) dichiari un certo tipo \(r_i\) ed indicando con \(r = (r_{-i},r)\), avremo che il suo pagamento sarà
+\[
+    p_i(r) = r_i \cdot w_i(r) - \int_{0}^{r_i}w_i(r_{-i}, z)\,dz
+    \]
+</p>
+
+<p>
+Calcoliamo ora quanto vale l'utilità di \(i\) se dovesse dichiarare il suo tipo reale \(t_i\)
+</p>
+\begin{align*}
+  u_i(t_i, (r_{-i}, t_i)) &= p_i(r_{-i}, t_i) - v_i(t_i, g(r_{-i}, t_i))\\
+  &= t_i \cdot w_i(r_{-i}, t_i) - \int_{0}^{r_i} w_i(r_{-i}, z)\,dz - t_i \cdot w_i(r_{-i}, t_i)\\
+  &= - \int_{0}^{r_i} w_i(r_{-i}, z)\,dz
+\end{align*}
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img11.png" alt="adrc-lesson23-img11.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+<b>Caso \(i\) dichiara \(x > t_i\)</b><br />
+Se \(i\) dichiara un tipo maggiore di quello reale \(x > t_i\) avremo che l'utilità diminuisce.
+</p>
+\begin{align*}
+  u_i(t_i, (r_{-i}, x))
+  &= \underbrace{ x \cdot w_i(r_{-i}, x) - \int_{0}^{x} w_i(r_{-i}, z)\,dz }_{- P} - \underbrace{ t_i \cdot w_i(r_{-i}, x) }_{ C }\\
+  &= u_i(t_i, (r_{-i}, t_i)) - G
+\end{align*}
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img12.png" alt="adrc-lesson23-img12.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+<b>Caso \(i\) dichiara \(x < t_i\)</b><br />
+Anche se \(i\) dichiara un tipo minore di quello reale \(x < t_i\) avremo che l'utilità diminuisce.
+\[
+    u_i(t_i, (r_{-i}, x)) = - P - C = u_i(t_i, (r_{-i}, t_i)) - G
+    \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson23-img13.png" alt="adrc-lesson23-img13.png" style="max-width:550px; width:100%" />
+</p>
+</div>
+
+<p>
+Perciò, se \(i\) mente la sua utilità non può che peggiorare \(\square\).
+</p>
+</blockquote>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</div>
 </div>
 </div>
 </div>
@@ -510,7 +779,7 @@ dove \(w_i(x)\) indica il <b>carico di lavoro</b> del player \(i\) rispetto alla
 <p class="date">Data: 2022-01-10 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-15 sab 23:31</p>
+<p class="date">Created: 2022-01-18 mar 00:02</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -1,0 +1,20 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/alessandro/Appunti-Magistrale/org/ADRC/23.org
+
+
+* Meccanismi one-parameter
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2022-01-17 lun 21:41
+  :ARCHIVE_FILE: ~/Appunti-Magistrale/org/ADRC/23.org
+  :ARCHIVE_OLPATH: Meccanismi one-parameter/Problemi one-parameter
+  :ARCHIVE_CATEGORY: 23
+  :END:
+  È possibile progettare un meccanismo *truthfull* $M$ /one-parameter/ per i problemi =OP=.
+  Tale meccanismo è definito come segue:
+  - \(g(r)\) un qualsiasi algoritmo *monotono*
+  - sia \(h_i(r_{-i})\) una qualsiasi funzione /indipendente/ da $i$, allora possiamo porre lo schema di pagamanto di $i$ pari a 
+    \[
+     p_i(r) = h_i(r_{-i}) + r_i \cdot w_i(r) - \int_{0}^{r_i}w_i(r_{-i}, g(r))\,dr
+    \]

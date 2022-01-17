@@ -107,10 +107,11 @@
     Per fortuna esiste un risultato che mostra come è possibile calcolare i $k$ cammini di rimpiazzo in tempo \(O(m + n\log{n})\).
 
 ** Shortest Path Tree (SPT) non cooperativo  
-   Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente $s$.
-   Come sempre, i player hanno informazioni private, ovvero i pesi degli archi, e si desidera costruire uno =Shortest Path Tree= (in breve =SPT=).
+   Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente $s$,
+   ovvero uno =Shortest Path Tree= (in breve =SPT=) /radicato/ in $s$.
+   Come sempre, i player hanno informazioni private, ovvero i pesi degli archi, che in qualche modo stanno ad indicare il /tempo di attraversamento/ o il /costo di utilizzo/ dell'arco in questione.
    Ogni player dichiara un tipo, e si desidera progettare un meccanismo $M$ che induca tutti i player a dichiarere i tipi reali (i reali pesi degli archi), ovvero si desidera progettare un
-   *meccanismo trhthfull* per questo problema.\\
+   *meccanismo truthfull* per questo problema.\\
 
    L'sieme $F$ dei possibili outcomes è formato da tutti gli /alberi ricoprenti/ $T$ di $V$.
    Definiamo la funzione di scelta sociale \(f()\) come segue
@@ -151,5 +152,170 @@
       v_i(t_i, x) = t_i \cdot w_i(x)
       \]
       dove \(w_i(x)\) indica il *carico di lavoro* del player $i$ rispetto alla soluzione $x$.
+   
+   Osservare che il problema dello =SPT= /non cooperativo/ è un problema a singolo parametro, in quanto i tipi privati sono _singoli valori reali_,
+   mentre basta porre le valutazioni come
+   \[
+     v_e(t_e, T) = t_e \cdot w_e(T)\\
+     w_e(T) = \begin{cases}
+       1 &\mbox{se } e \in E(T)\\
+       0 &\mbox{altrimenti}
+     \end{cases}\\
+   \]
+   \[
+     \implies v_e(t_e, T) = \begin{cases}
+       t_e &\mbox{se } e \in E(T)\\
+       0 &\mbox{altrimenti}
+     \end{cases}\\
+   \]
+   
+*** VCG vs OP
+    Le principali differenze tra meccanismi =VCG= e =OP= sono:
+    - *VCG*: non ci sono vincoli su come devono essere i tipi e le valutazioni, ma si richiede che la funzione di costo sociale debba essere pari alla somma delle valutazioni (problemi utilitari)
+    - *OP*: non c'è vincolo su come deve essere fatta la funzione di costo sociale, ma si richiede che i tipi siano valori reali e che la valutazione di un individuo deve essere pari al suo tipo privato moltiplicato il carico di lavoro.
+    Le due classi di problemi non si includono, ma si intersecano.
+    Ciò significa che esistono problemi utilitari che non sono a singolo parametro e viceversa, oppure che esistono problemi che sono sia utilitari che a singolo parametro.
+    In questo ultima cosa i meccanismi =VCG= e =OP= *coincidono*.
 
-  
+*** Algoritmo monotono
+    Un algoritmo \(g()\) per un problema /one-parameter di minimizzazione/ si dice *monotono* se per ogni agente $i$,
+    \(w_i(g(r_{-i},r_i))\) è _non crescente_ rispetto a \(r_i\), qualunque siano \(r_{-i}=(r_1, ..., r_{i-1}, r_{i+1}, ..., r_n)\).
+    Perciò se consideriamo il carico di lavoro \(w_i(g(r))\), esso non crescerà mai al crescere del parametro \(r_i\).\\
+
+    Per comodità d'ora in poi ci riferiremo al valore \(w_i(g(r))\) semplicemente con \(w_i(r)\).
+    #+begin_quote
+    *THM 1* /(Mayerson ‘81)/\\
+    Condizione necessaria affinché un meccanismo \(M = \langle g(r), p(r) \rangle\) per un problema =OP= sia _veritiero_ è che \(g(r)\) sia monotono.
+    Ovvero dato un problema =OP=, un relativo meccanismo $M$ _veritiero_ per tale problema ha necessariamente \(g()\) monotona.
+    #+end_quote
+
+    #+begin_quote
+    *Proof:*
+    Supponiamo per assurdo di avere un meccanismo $M$ truthfull per un problema =OP= di minimizzazione, con algoritmo \(g()\) _non monotono_.
+    Verrà mostrato che non è possibile trovare alcuno schema di pagamento $p$ che renda $M$ veritiero.\\
+    
+    Se \(g\) non è monotona, allora esisterà un certo agente $i$ e un vettore \(r_{-i} \in \mathbb{R}^{n-1}\) tale che la funzione carico di
+    lavoro \(w_i(r_{-i}, r_i)\) è non _"non crescente"_ rispetto alla variabile \(r_i\).
+    Ovvero esisteranno due valori \(x < y\) tale che \(w_i(r_{-i}, x) < w_i(r_{-i}, y)\).
+
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img5.png]]
+    
+    *Caso $i$ sincero*\\
+    Consideriamo il caso in cui il player $i$ dichiara la verità \(r_i = t_i\).
+    Se il tipo del player $i$ è pari a \(t_i = x\) allora la sua valutazione sarà uguale all'area in =verde= \(x \cdot w_i(r_{-i}, x)\)
+   
+    #+caption: \(r_i = t_i = x\).
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img6.png]]
+    
+    mentre se pari a \(t_i = y\) assumerà il valore dell'area in =viola= \(y \cdot w_i(r_{-i}, y)\)
+    
+    #+caption: \(r_i = t_i = y\).
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img7.png]]
+
+    *Caso $i$ non sincero*\\
+    Consideriamo il caso in cui il player $i$ _non_ dichiara la verità \(r_i \neq t_i\).
+    Possono succedere due cose, o $i$ dichiara di _più_ del suo tipo, per esempio \(r_i = y > x = t_i\),
+    oppure $i$ dichiara _meno_ del reale, per esempio \(r_i = x < y = t_i\).\\
+
+    Se $i$ dichiara _più_ di \(t_i\), allora la sua valutazione sarà pari a \(x \cdot w_i(r_{-i}, y)\), ovvero all'area =GIALLA= in figura.
+    #+caption: \(r_i = y > x = t_i\).
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img8.png]]
+    
+    Viceversa, se dichiara _meno_ del tipo reale \(t_i\), allora la sua valutazione sarà pari a \(y \cdot w_i(r_{-i}, x)\), ovvero all'area =AZZURRA= in figura.
+    #+caption: \(r_i = x < y = t_i\).
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img9.png]]
+
+    Considerando i seguenti rettangoli nella figura contrassegnati come =A= e =k=, possiamo ricapitolare i 4 possibili scenari appena visti come segue:
+    1. se \(r_i = t_i = x \implies v_i(t_i, \star) = x \cdot w_i(r_{-i}, x)\)
+    2. se \(r_i = t_i = y \implies v_i(t_i, \star) = y \cdot w_i(r_{-i}, y)\)
+    3. se \(r_i = y > x = t_i\) \(\implies v_i(t_i, \star) = x \cdot w_i(r_{-i}, y)\) \(\implies\) $i$ *aumenta* il suo costo di =A=
+    4. se \(r_i = x < y = t_i\) \(\implies v_i(t_i, \star) = y \cdot w_i(r_{-i}, x)\) \(\implies\) $i$ *diminuisce* il suo costo di =A + k=
+
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img10.png]]
+    
+    Vediamo ora la differenza d'utilità in base alle possibili dichiarazioni che $i$ può fare, $x$ o $y$.
+    Supponiamo di avere un meccanismo $M$ _truthfull_, e indichiamo con \(\Delta p = p_i(r_{-i}, y) - p_i(r_{-i}, x)\) il pagamento che il meccanismo $M$ da ad $i$
+    se dichiara $y$ meno il pagamento che avrebbe dichiarando $x$.
+    Ovviamente i pagamenti dipendono solamente dai tipi riportati e non da quelli reali, in quanto il meccanismo non conosce i tipi reali.
+    
+    - \(\Delta p \leq A\) ::
+      Se \(\Delta p > A\) e \(t_i = x\), allora al player converrebbe mentire e riportare \(r_i = y\).
+      Infatti se $i$ fosse sincero dichiarando \(r_i = t_i = x\) avrebbe un pagamento certo pagamento \(p_i(r_{-i}, x)\), mentre se dichiara di più \(r_i = y > x = t_i\),
+      il suo costo aumenterebbe di =A=, ma il suo pagamento aumenterebbe di quantità *maggiore* di =A= (risultando in una utilità migliore).
+      Perciò affinché $M$ sia /truthfull/, allora necessariamente deve essre che \(\Delta p \leq A\).\\
+    
+    - \(\Delta p \geq A+k\) ::
+      Se invece \(\Delta p < A+k\) e \(t_i = y\), allora al player converrebbe mentire e riportare \(r_i = x\).
+      Infatti se $i$ fosse sincero dichiarando \(r_i = t_i = y\) avrebbe un pagamento certo pagamento \(p_i(r_{-i}, y)\), mentre se dichiara di meno \(r_i = x < y = t_i\),
+      il suo costo diminuirebbe di =A+k=, mentre il suo pagamento diminuirebbe di una quantità *minore* di =A+k= (risultando ancora una volta in una utilità migliore).
+      Perciò un'altra condizione affinché $M$ sia /truthfull/ è che \(\Delta p \geq A + k\).\\
+
+    Infine, dato che per assunzione \(x < y\) e \(w_i(r_{-i}, x) < w_i(r_{-i}, y)\), allora l'area di =k= è _non nulla_.
+    Perciò se $M$ è /truthfull/ con funzione \(g()\) non monotona, allora incorreremo in uno schema di pagamento tale che \(\Delta p \leq A\) e \(\Delta p > A\) (*assurdo!*) \(\square\).
+    #+end_quote
+
+*** Meccanismi one-parameter
+    È possibile progettare un meccanismo *truthfull* $M$ /one-parameter/ per i problemi =OP=.
+    Tale meccanismo è definito come segue:
+    - \(g(r)\) un qualsiasi algoritmo *monotono*
+    - sia \(h_i(r_{-i})\) una qualsiasi funzione /indipendente/ da $i$, allora possiamo porre lo schema di pagamanto di $i$ pari a 
+      \[
+      p_i(r) = h_i(r_{-i}) + r_i \cdot w_i(r) - \int_{0}^{r_i}w_i(r_{-i}, z)\,dz
+      \]
+
+    #+begin_quote
+    *THM 2* /(Mayerson ‘81)/\\
+    Un meccanismo =OP= (per un problema =OP=) è veritiero.
+    #+end_quote
+
+    #+begin_quote
+    *Proof:*
+    Basta far vedere che qualsiasi strategia che non sia dichiarare il vero è sempre peggiore.\\
+
+    Fissiamo un generico player $i$, e consideriamo una _qualsiasi_ configurazione di strategie \(r_{-i}\) (per tutti gli altri player eccetto $i$).
+    Considerando uno schema =OP= come quello visto in precedenza, poniamo la funzione \(h_i(r_{-i}) = 0\) in quanto ininfluente dato che _indipendente_ da \(r_i\).
+    Supponiamo che $i$ dichiari un certo tipo \(r_i\) ed indicando con \(r = (r_{-i},r)\), avremo che il suo pagamento sarà
+    \[
+    p_i(r) = r_i \cdot w_i(r) - \int_{0}^{r_i}w_i(r_{-i}, z)\,dz
+    \]
+
+    Calcoliamo ora quanto vale l'utilità di $i$ se dovesse dichiarare il suo tipo reale \(t_i\)
+    \begin{align*}
+      u_i(t_i, (r_{-i}, t_i)) &= p_i(r_{-i}, t_i) - v_i(t_i, g(r_{-i}, t_i))\\
+      &= t_i \cdot w_i(r_{-i}, t_i) - \int_{0}^{r_i} w_i(r_{-i}, z)\,dz - t_i \cdot w_i(r_{-i}, t_i)\\
+      &= - \int_{0}^{r_i} w_i(r_{-i}, z)\,dz
+    \end{align*}
+
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img11.png]]
+
+    *Caso $i$ dichiara \(x > t_i\)*\\
+    Se $i$ dichiara un tipo maggiore di quello reale \(x > t_i\) avremo che l'utilità diminuisce.
+    \begin{align*}
+      u_i(t_i, (r_{-i}, x))
+      &= \underbrace{ x \cdot w_i(r_{-i}, x) - \int_{0}^{x} w_i(r_{-i}, z)\,dz }_{- P} - \underbrace{ t_i \cdot w_i(r_{-i}, x) }_{ C }\\
+      &= u_i(t_i, (r_{-i}, t_i)) - G
+    \end{align*}
+
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img12.png]]
+    
+    *Caso $i$ dichiara \(x < t_i\)*\\
+    Anche se $i$ dichiara un tipo minore di quello reale \(x < t_i\) avremo che l'utilità diminuisce.
+    \[
+    u_i(t_i, (r_{-i}, x)) = - P - C = u_i(t_i, (r_{-i}, t_i)) - G
+    \]
+
+    #+ATTR_HTML: :style max-width:550px; width:100%
+    [[file:../images/adrc-lesson23-img13.png]]
+    
+    Perciò, se $i$ mente la sua utilità non può che peggiorare \(\square\).
+    #+end_quote
+
+    *[DA FINIRE...]*
