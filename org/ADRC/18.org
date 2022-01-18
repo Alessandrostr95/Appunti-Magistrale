@@ -87,3 +87,70 @@ In questa lezione verranno introdotti ed analizzati dei protocolli probabilistic
   #+end_quote
 
 * Maximal Independent Set
+  Dato un grafo \(G = (V, E)\), un suo *Independent Set* è un sottoinsieme di vertici \(M \subseteq V\) tale non contiene nessuna coppia di nodi adiacenti.
+  Trovare un independent set *massimo* è noto essere un problema /NP-Hard/.
+  Un independent set *massimale* invece è un independent sat $M$ il quale non può essere ingrandito ulteriormente con l'aggiunta di un qualsiasi altro nodo in \(V \setminus M\),
+  ovvero $M$ è un *massimo locale*.
+
+** Luby’s Maximal Independent Set Algorithm
+   Consideriamo il seguente algorimo semplice per il calcolo di un independent set.
+   
+   #+caption: A maximal independent set algorithm.
+   #+ATTR_HTML: :style max-width:600px; width:100%
+   [[file:../images/adrc-lesson18-img2.png]]
+
+   Con \(\Gamma(v)\) si intende il vicinato \(N(v)\) di un nodo, perciò \(\Gamma(S)\) (per un certo sottoinsieme \(S \subset V\)) indica il vicinato \(N(S)\)
+   di tale sottoinsieme, ovvero \(N(S) = (\bigcup_{v \in S}N(v)) \cap (V \setminus S)\).
+   Invece con \(\Gamma^+(S)\) si intende $S$ unito il suo vicinato, ovvero \(\Gamma^+(S) = \Gamma(S) \cup S\).\\
+
+   È facile dimostrare che l'insieme $M$ ritornato dal precedente algoritmo è un /independent set massimale/.
+   Sicuramente $M$ è un independent set in quanto ogni volta che aggiungo un $S$ mi assicuro di rimuovere da $V$ anche tutti i vicini in \(\Gamma(S)\),
+   perciò qualsiasi altro nodo inserirò in futuro non avrà vicini in $S$.
+   Infine $M$ è massimale in quanto ogni nodo in $V$ o viene selezionato per appartenere in $S$, oppure viene rimosso perché appartiene a \(\Gamma(S)\).
+   Perciò se aggiungo in $M$ un altro nodo che sta in \(V \setminus M\) creerebbe un arco all'interno di $M$.\\
+
+   Ora vogliamo sapere come poter calcolare un /independet set/ $S$ ad ogni interazione.
+   Il calcolo di $S$ è il /task distribuito/ che ci interessa.
+   Introduciamo due possibili approcci.\\
+
+   Come prima cosa potremmo usare la solita tecnica del /"lancio di moneta"/.
+   Ogni nodo lancia una moneta, e dopodichè invia il suo risultato a tutto il suo vicinato (e ne riceve ovviamente i rispettivi risultati).
+   Se un nodo $u$ ottiene =TESTA= (1) e tutti i suoi vicini ricevono =CROCE= (0), allora aggiungiamo $u$ all'insieme $S$.
+   Come è facile intuire, così facendo $S$ sarà un insieme indipendentente.
+   Osserviamo che se le probabilità di ottenere =TESTA=  e =CROCE= sono uguali, allora la probabilità che $u$ appartenga ad $S$ sarà
+   pari a \((1/2)^{\vert \Gamma(u) \vert + 1}\).
+   Perciò in media $S$ avrà \(\sum_v (1/2)^{\vert \Gamma(v) \vert + 1}\) nodi.
+   Se invece sbilanciamo la probabilità di ottenere =TESTA= pari a $p$, avremo che la probabilità che $u$ appartenga ad $S$
+   sarà pari a \(p(1-p)^{\vert \Gamma(u) \vert}\), la quale potrebbe essere nettamente maggiore di \((1/2)^{\vert \Gamma(u) \vert + 1}\).
+   Il problema di questo approccio è che il numero di iterazioni affinché si termini il protocollo potrebbe diventare davvero motlo grande.\\
+
+   Un altro approccio potrebbe essere quello in cui ogni nodo $u$ sceglie un valore /u.a.r./ \(\pi_u \in \left[ R \right]\),
+   e se $u$ ha il valore \(\pi_u\) maggiore rispetto a quello di tutti i suoi vicini, allora $u$ viene inserito in $S$.
+   Osserviamo che se l'insieme in cui scegliere i valori è \(\lbrace 0, 1 \rbrace\), allora questo metodo equivale al lancio di moneta equa.
+   La probabilità che esistano due nodi vicini che scelgono lo stesso valore è
+   \[
+   \mathcal{P}(\exists (u,v) \in E : \pi_u = \pi_v) \leq \sum_{(u,v) \in E} \mathcal{P}(\pi_u = \pi_v) = \frac{\vert E \vert}{R}
+   \]
+   Perciò se \(R = cn\), per qualche $c$ sufficientemente grande, allora otterremo che con alta probabilità non ci sono due nodi con la stessa etichetta.\\
+
+   Sulla base di questa idea, introduciamo il protocollo probabilistico per il calcolo di un independent set massimale noto come /Luby’s algorithm/.
+
+   #+caption: Luby’s Maximal Independent Set Algorithm
+   #+ATTR_HTML: :style max-width:650px; width:100%
+   [[file:../images/adrc-lesson18-img3.png]]
+
+
+*** Analysis of Luby’s Algorithm
+    Verrà dimostrato che l'algoritmo di Luby richiede /in media/ solamente \(O(\log{n})\) iterazioni per completare.
+    In realtà è possibile dimostrarne anche l'alta probabilità.\\
+
+    #+begin_quote
+    *Lemma*
+    Il numero medio di archi rimossi in una iterazione è almeno \(\vert E \vert / 2\), dove \(\vert E \vert\) denota l'insieme di archi rimanenti nel grafo.
+    #+end_quote
+
+    Ciò che ci suggerisce questo lemma, è che sostanzialmente ad ogni iterazione il numero di archi si dimezza.
+    Alla fine non rimarranno archi, e con un'ultima iterazione inseriamo tutti gli ultimi nodi restanti.
+    Dato che ci possono essere al più \(n(n-1)/2\) archi, in media in tempo \(O(\log{n})\) il protocollo terminera.\\
+
+    *[DA FINIRE DIMOSTRAZIONE...]*

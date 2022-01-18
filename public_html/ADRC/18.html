@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-15 sab 16:07 -->
+<!-- 2022-01-19 mer 00:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 18</title>
@@ -274,8 +274,16 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org64a1e8f">Randomized Distributed Graph Coloring</a></li>
-<li><a href="#org1da723c">Maximal Independent Set</a></li>
+<li><a href="#org16ffe5e">Randomized Distributed Graph Coloring</a></li>
+<li><a href="#org4285ec3">Maximal Independent Set</a>
+<ul>
+<li><a href="#orge084fa5">Luby’s Maximal Independent Set Algorithm</a>
+<ul>
+<li><a href="#orgb255342">Analysis of Luby’s Algorithm</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -284,9 +292,9 @@ Nella <a href="./17.html">precedente lezione</a> sono stati descritti dei protoc
 In questa lezione verranno introdotti ed analizzati dei protocolli probabilistici.
 </p>
 
-<div id="outline-container-org64a1e8f" class="outline-2">
-<h2 id="org64a1e8f">Randomized Distributed Graph Coloring</h2>
-<div class="outline-text-2" id="text-org64a1e8f">
+<div id="outline-container-org16ffe5e" class="outline-2">
+<h2 id="org16ffe5e">Randomized Distributed Graph Coloring</h2>
+<div class="outline-text-2" id="text-org16ffe5e">
 <p>
 Un approccio probabilistico molto usato per risolvere questa tipologia di problemi distribuiti (non solo il <i>Graph Coloring</i>, ma per esempio anche il <i>Maximal Independent Set</i>) è il seguente:
 il protocollo procede per <b>fasi</b>, dove in ciascuna di esse ogni nodo sceglie <b>casualmente</b> un valore da un insieme appropriato di colori.
@@ -387,15 +395,122 @@ Per \(i = (c+1)\cdot\log_2{n}\) avremo che dopo \(i\) round tutti i nodi termina
 </div>
 </div>
 
-<div id="outline-container-org1da723c" class="outline-2">
-<h2 id="org1da723c">Maximal Independent Set</h2>
+<div id="outline-container-org4285ec3" class="outline-2">
+<h2 id="org4285ec3">Maximal Independent Set</h2>
+<div class="outline-text-2" id="text-org4285ec3">
+<p>
+Dato un grafo \(G = (V, E)\), un suo <b>Independent Set</b> è un sottoinsieme di vertici \(M \subseteq V\) tale non contiene nessuna coppia di nodi adiacenti.
+Trovare un independent set <b>massimo</b> è noto essere un problema <i>NP-Hard</i>.
+Un independent set <b>massimale</b> invece è un independent sat \(M\) il quale non può essere ingrandito ulteriormente con l'aggiunta di un qualsiasi altro nodo in \(V \setminus M\),
+ovvero \(M\) è un <b>massimo locale</b>.
+</p>
+</div>
+
+<div id="outline-container-orge084fa5" class="outline-3">
+<h3 id="orge084fa5">Luby’s Maximal Independent Set Algorithm</h3>
+<div class="outline-text-3" id="text-orge084fa5">
+<p>
+Consideriamo il seguente algorimo semplice per il calcolo di un independent set.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson18-img2.png" alt="adrc-lesson18-img2.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>A maximal independent set algorithm.</p>
+</div>
+
+<p>
+Con \(\Gamma(v)\) si intende il vicinato \(N(v)\) di un nodo, perciò \(\Gamma(S)\) (per un certo sottoinsieme \(S \subset V\)) indica il vicinato \(N(S)\)
+di tale sottoinsieme, ovvero \(N(S) = (\bigcup_{v \in S}N(v)) \cap (V \setminus S)\).
+Invece con \(\Gamma^+(S)\) si intende \(S\) unito il suo vicinato, ovvero \(\Gamma^+(S) = \Gamma(S) \cup S\).<br />
+</p>
+
+<p>
+È facile dimostrare che l'insieme \(M\) ritornato dal precedente algoritmo è un <i>independent set massimale</i>.
+Sicuramente \(M\) è un independent set in quanto ogni volta che aggiungo un \(S\) mi assicuro di rimuovere da \(V\) anche tutti i vicini in \(\Gamma(S)\),
+perciò qualsiasi altro nodo inserirò in futuro non avrà vicini in \(S\).
+Infine \(M\) è massimale in quanto ogni nodo in \(V\) o viene selezionato per appartenere in \(S\), oppure viene rimosso perché appartiene a \(\Gamma(S)\).
+Perciò se aggiungo in \(M\) un altro nodo che sta in \(V \setminus M\) creerebbe un arco all'interno di \(M\).<br />
+</p>
+
+<p>
+Ora vogliamo sapere come poter calcolare un <i>independet set</i> \(S\) ad ogni interazione.
+Il calcolo di \(S\) è il <i>task distribuito</i> che ci interessa.
+Introduciamo due possibili approcci.<br />
+</p>
+
+<p>
+Come prima cosa potremmo usare la solita tecnica del <i>"lancio di moneta"</i>.
+Ogni nodo lancia una moneta, e dopodichè invia il suo risultato a tutto il suo vicinato (e ne riceve ovviamente i rispettivi risultati).
+Se un nodo \(u\) ottiene <code>TESTA</code> (1) e tutti i suoi vicini ricevono <code>CROCE</code> (0), allora aggiungiamo \(u\) all'insieme \(S\).
+Come è facile intuire, così facendo \(S\) sarà un insieme indipendentente.
+Osserviamo che se le probabilità di ottenere <code>TESTA</code>  e <code>CROCE</code> sono uguali, allora la probabilità che \(u\) appartenga ad \(S\) sarà
+pari a \((1/2)^{\vert \Gamma(u) \vert + 1}\).
+Perciò in media \(S\) avrà \(\sum_v (1/2)^{\vert \Gamma(v) \vert + 1}\) nodi.
+Se invece sbilanciamo la probabilità di ottenere <code>TESTA</code> pari a \(p\), avremo che la probabilità che \(u\) appartenga ad \(S\)
+sarà pari a \(p(1-p)^{\vert \Gamma(u) \vert}\), la quale potrebbe essere nettamente maggiore di \((1/2)^{\vert \Gamma(u) \vert + 1}\).
+Il problema di questo approccio è che il numero di iterazioni affinché si termini il protocollo potrebbe diventare davvero motlo grande.<br />
+</p>
+
+<p>
+Un altro approccio potrebbe essere quello in cui ogni nodo \(u\) sceglie un valore <i>u.a.r.</i> \(\pi_u \in \left[ R \right]\),
+e se \(u\) ha il valore \(\pi_u\) maggiore rispetto a quello di tutti i suoi vicini, allora \(u\) viene inserito in \(S\).
+Osserviamo che se l'insieme in cui scegliere i valori è \(\lbrace 0, 1 \rbrace\), allora questo metodo equivale al lancio di moneta equa.
+La probabilità che esistano due nodi vicini che scelgono lo stesso valore è
+\[
+   \mathcal{P}(\exists (u,v) \in E : \pi_u = \pi_v) \leq \sum_{(u,v) \in E} \mathcal{P}(\pi_u = \pi_v) = \frac{\vert E \vert}{R}
+   \]
+Perciò se \(R = cn\), per qualche \(c\) sufficientemente grande, allora otterremo che con alta probabilità non ci sono due nodi con la stessa etichetta.<br />
+</p>
+
+<p>
+Sulla base di questa idea, introduciamo il protocollo probabilistico per il calcolo di un independent set massimale noto come <i>Luby’s algorithm</i>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson18-img3.png" alt="adrc-lesson18-img3.png" style="max-width:650px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Luby’s Maximal Independent Set Algorithm</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb255342" class="outline-4">
+<h4 id="orgb255342">Analysis of Luby’s Algorithm</h4>
+<div class="outline-text-4" id="text-orgb255342">
+<p>
+Verrà dimostrato che l'algoritmo di Luby richiede <i>in media</i> solamente \(O(\log{n})\) iterazioni per completare.
+In realtà è possibile dimostrarne anche l'alta probabilità.<br />
+</p>
+
+<blockquote>
+<p>
+<b>Lemma</b>
+Il numero medio di archi rimossi in una iterazione è almeno \(\vert E \vert / 2\), dove \(\vert E \vert\) denota l'insieme di archi rimanenti nel grafo.
+</p>
+</blockquote>
+
+<p>
+Ciò che ci suggerisce questo lemma, è che sostanzialmente ad ogni iterazione il numero di archi si dimezza.
+Alla fine non rimarranno archi, e con un'ultima iterazione inseriamo tutti gli ultimi nodi restanti.
+Dato che ci possono essere al più \(n(n-1)/2\) archi, in media in tempo \(O(\log{n})\) il protocollo terminera.<br />
+</p>
+
+<p>
+<b>[DA FINIRE DIMOSTRAZIONE&#x2026;]</b>
+</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Data: 2021-12-07 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-15 sab 16:07</p>
+<p class="date">Created: 2022-01-19 mer 00:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
