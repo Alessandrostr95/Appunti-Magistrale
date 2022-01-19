@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-19 mer 00:29 -->
+<!-- 2022-01-19 mer 15:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 18</title>
@@ -499,8 +499,82 @@ Dato che ci possono essere al più \(n(n-1)/2\) archi, in media in tempo \(O(\lo
 </p>
 
 <p>
-<b>[DA FINIRE DIMOSTRAZIONE&#x2026;]</b>
+L'idea della dimostrazione è la seguente:
+Consideriamo la seguente figura, e assumiamo che il nodo \(u\) venga selezionato per appartenere in \(S\).
 </p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson18-img4.png" alt="adrc-lesson18-img4.png" style="max-width:500px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>\(u \in S\) e gli archi da rimuovere.</p>
+</div>
+
+<p>
+Certamente (per definizione dell'algoritmo) sia \(u\) che \(\Gamma(u)\) verranno rimossi da \(V\), e di conseguenza verranno rimossi anche gli archi
+incidenti a \(u\) e ai nodi in \(\Gamma(u)\).
+Osservare che il numero di archi incidenti ai nodi in \(\Gamma(u)\) è <span class="underline">almeno</span> il numero di arhci incidenti a \(u\).
+Verrà mostrato che sarà sufficiente contare solamente gli archi incidenti a \(\Gamma(u)\).
+</p>
+
+<blockquote>
+<p>
+<b>Proof:</b>
+Siano il \(u\) inserito in \(S\) a un certo round, e si \(w \in \Gamma(u)\) un suo vicino.
+Per definizione dell'algoritmo verranno rimossi tutti gli archi incidenti a \(w\) alla fine di questo round.
+Nulla vieta che possa accadere che esista un altro nodo \(v \in S\) adiacente a \(w\).<br />
+</p>
+
+<p>
+Consideriamo un arco \((w,w')\) tale che \(w' \notin \Gamma(S)\).
+Certamente l'arco \((w,w')\) verrà rimosso per colpa sia dell'appartenenza di \(u\) in \(S\), sia per colpa di \(v\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson18-img5.png" alt="adrc-lesson18-img5.png" style="max-width:350px; width:100%" />
+</p>
+</div>
+
+<p>
+Però noi vogliamo contare la rimozione di \((w, w')\) una sola volta.
+Perciò, senza perdita di generalità, assumiamo che \(\pi_u \geq \pi_v\) e affermiamo che \((w, w')\) è stato rimosso perché <i>"\(u\) salva \(w\)"</i> .
+In altre parole diciamo che <i>"\(u\) salva \(w\)"</i> se \(u \in S\), \(w \in \Gamma(u)\), e se \(\pi_u\) è l'etichetta massima tra quelle dei nodi in \(\Gamma^+(u) \cup \Gamma^+(w)\).<br />
+</p>
+
+<p>
+Notare che l'arco \((w, w')\) potrebbe essere rimosso anche perché esiste un \(u' \in S\) tale che <i>"\(u'\) salva \(w'\)"</i>.
+L'importante è che però conto la rimozione di \((w, w')\) <span class="underline">al più</span> due volte.<br />
+</p>
+
+<p>
+La probabilità che <i>"\(u\) salva \(w\)"</i>, ovvero la probabilità che \(\pi_u\) sia il valore maggiore in \(\Gamma^+(u) \cup \Gamma^+(w)\) è esattamente \(1/(d(u) + d(w))\),
+dove \(d(\cdot)\) indica il grado del nodo.<br />
+</p>
+
+<p>
+Indichiamo la v.a. binaria \(X_{u \rightarrow w'}\) che vale 1 se l'arco \((w, w')\) è rimosso per colpa di \(u\), e 0 altrimenti.
+La sua media sarà
+\[
+    \mathbb{E}\left[ X_{u \rightarrow w'} \right] = \mathcal{P}(X_{u \rightarrow w'} = 1) = \frac{1}{d(u) + d(w)}
+    \]
+Indichiamo invece con \(X_{u \rightarrow \Gamma(w)}\) il archi incidenti a \(w\) rimossi per colpa di \(u\).
+La sua media sarà
+\[
+    \mathbb{E}\left[ X_{u \rightarrow \Gamma(w)} \right] = \sum_{w' \in \Gamma(w)} \mathbb{E}\left[ X_{u \rightarrow w'} \right] = \frac{d(w)}{d(u) + d(w)}
+    \]
+</p>
+
+<p>
+Perciò sapendo che la rimozione di ogni arco la conto <span class="underline">al più</span> due volte, e considerando ogni arco \((u,w) \in E\), posso dire che il mediamente
+il numero di archi rimossi sarà
+</p>
+\begin{align*}
+  \frac{1}{2} \sum_{(u,w) \in E} \mathbb{E}\left[ X_{u \rightarrow \Gamma(w)} \right] + \mathbb{E}\left[ X_{w \rightarrow \Gamma(u)} \right]
+  &= \frac{1}{2} \sum_{(u,w) \in E} \left( \frac{d(w)}{d(u) + d(w)} + \frac{d(e)}{d(u) + d(w)} \right)\\
+  &= \frac{1}{2} \sum_{(u,w) \in E} 1 = \frac{ \vert E \vert }{2} \;\;\; \square
+\end{align*}
+</blockquote>
 </div>
 </div>
 </div>
@@ -510,7 +584,7 @@ Dato che ci possono essere al più \(n(n-1)/2\) archi, in media in tempo \(O(\lo
 <p class="date">Data: 2021-12-07 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-19 mer 00:29</p>
+<p class="date">Created: 2022-01-19 mer 15:10</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
