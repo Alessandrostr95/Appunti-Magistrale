@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-19 mer 15:10 -->
+<!-- 2022-01-23 dom 12:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 18</title>
@@ -274,12 +274,12 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org16ffe5e">Randomized Distributed Graph Coloring</a></li>
-<li><a href="#org4285ec3">Maximal Independent Set</a>
+<li><a href="#org64a1e8f">Randomized Distributed Graph Coloring</a></li>
+<li><a href="#org1da723c">Maximal Independent Set</a>
 <ul>
-<li><a href="#orge084fa5">Luby’s Maximal Independent Set Algorithm</a>
+<li><a href="#orge4878a4">Luby’s Maximal Independent Set Algorithm</a>
 <ul>
-<li><a href="#orgb255342">Analysis of Luby’s Algorithm</a></li>
+<li><a href="#orgb05d5bb">Analysis of Luby’s Algorithm</a></li>
 </ul>
 </li>
 </ul>
@@ -292,9 +292,9 @@ Nella <a href="./17.html">precedente lezione</a> sono stati descritti dei protoc
 In questa lezione verranno introdotti ed analizzati dei protocolli probabilistici.
 </p>
 
-<div id="outline-container-org16ffe5e" class="outline-2">
-<h2 id="org16ffe5e">Randomized Distributed Graph Coloring</h2>
-<div class="outline-text-2" id="text-org16ffe5e">
+<div id="outline-container-org64a1e8f" class="outline-2">
+<h2 id="org64a1e8f">Randomized Distributed Graph Coloring</h2>
+<div class="outline-text-2" id="text-org64a1e8f">
 <p>
 Un approccio probabilistico molto usato per risolvere questa tipologia di problemi distribuiti (non solo il <i>Graph Coloring</i>, ma per esempio anche il <i>Maximal Independent Set</i>) è il seguente:
 il protocollo procede per <b>fasi</b>, dove in ciascuna di esse ogni nodo sceglie <b>casualmente</b> un valore da un insieme appropriato di colori.
@@ -395,9 +395,9 @@ Per \(i = (c+1)\cdot\log_2{n}\) avremo che dopo \(i\) round tutti i nodi termina
 </div>
 </div>
 
-<div id="outline-container-org4285ec3" class="outline-2">
-<h2 id="org4285ec3">Maximal Independent Set</h2>
-<div class="outline-text-2" id="text-org4285ec3">
+<div id="outline-container-org1da723c" class="outline-2">
+<h2 id="org1da723c">Maximal Independent Set</h2>
+<div class="outline-text-2" id="text-org1da723c">
 <p>
 Dato un grafo \(G = (V, E)\), un suo <b>Independent Set</b> è un sottoinsieme di vertici \(M \subseteq V\) tale non contiene nessuna coppia di nodi adiacenti.
 Trovare un independent set <b>massimo</b> è noto essere un problema <i>NP-Hard</i>.
@@ -406,9 +406,9 @@ ovvero \(M\) è un <b>massimo locale</b>.
 </p>
 </div>
 
-<div id="outline-container-orge084fa5" class="outline-3">
-<h3 id="orge084fa5">Luby’s Maximal Independent Set Algorithm</h3>
-<div class="outline-text-3" id="text-orge084fa5">
+<div id="outline-container-orge4878a4" class="outline-3">
+<h3 id="orge4878a4">Luby’s Maximal Independent Set Algorithm</h3>
+<div class="outline-text-3" id="text-orge4878a4">
 <p>
 Consideriamo il seguente algorimo semplice per il calcolo di un independent set.
 </p>
@@ -477,9 +477,9 @@ Sulla base di questa idea, introduciamo il protocollo probabilistico per il calc
 </div>
 
 
-<div id="outline-container-orgb255342" class="outline-4">
-<h4 id="orgb255342">Analysis of Luby’s Algorithm</h4>
-<div class="outline-text-4" id="text-orgb255342">
+<div id="outline-container-orgb05d5bb" class="outline-4">
+<h4 id="orgb05d5bb">Analysis of Luby’s Algorithm</h4>
+<div class="outline-text-4" id="text-orgb05d5bb">
 <p>
 Verrà dimostrato che l'algoritmo di Luby richiede <i>in media</i> solamente \(O(\log{n})\) iterazioni per completare.
 In realtà è possibile dimostrarne anche l'alta probabilità.<br />
@@ -584,7 +584,7 @@ il numero di archi rimossi sarà
 <p class="date">Data: 2021-12-07 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-19 mer 15:10</p>
+<p class="date">Created: 2022-01-23 dom 12:03</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

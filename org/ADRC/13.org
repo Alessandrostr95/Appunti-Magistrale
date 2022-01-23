@@ -68,7 +68,7 @@
    Riferiamoci a tale protocollo con al sigla =BPP= (/broadcast pull protocoll/).
 
 *** THM
-    il protocollo =BPP= termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n}\)\) *w.h.p.*\\
+    il protocollo =BPP= termina il suo task sull'istanza \((K_n, s \in \left[ n \right])\) in tempo \(\Theta(\log{n})\) *w.h.p.*\\
 
 *** Proof
     Fissiamo un time slot \(t \geq 0\), e definiamo l'insieme

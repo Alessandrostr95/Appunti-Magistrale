@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-18 mar 00:02 -->
+<!-- 2022-01-23 dom 12:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 23</title>
@@ -274,19 +274,19 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org775042a">Meccanismi one-parameter</a>
+<li><a href="#org628e23f">Meccanismi one-parameter</a>
 <ul>
-<li><a href="#orgd637883">Problema dello <i>Shortest Path Egoistico</i></a>
+<li><a href="#orgf47044f">Problema dello <i>Shortest Path Egoistico</i></a>
 <ul>
-<li><a href="#org81083c1">Complessità del calcolo dei cammini di rimpiazzo</a></li>
+<li><a href="#orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</a></li>
 </ul>
 </li>
-<li><a href="#org94aa74b">Shortest Path Tree (SPT) non cooperativo</a></li>
-<li><a href="#orgc6b1e1e">Problemi one-parameter</a>
+<li><a href="#org8e356e2">Shortest Path Tree (SPT) non cooperativo</a></li>
+<li><a href="#orgffdf9a7">Problemi one-parameter</a>
 <ul>
-<li><a href="#org60aac03">VCG vs OP</a></li>
-<li><a href="#org506584b">Algoritmo monotono</a></li>
-<li><a href="#org94b8856">Meccanismi one-parameter</a></li>
+<li><a href="#org8c784dc">VCG vs OP</a></li>
+<li><a href="#orgbe4a517">Algoritmo monotono</a></li>
+<li><a href="#org0264c00">Meccanismi one-parameter</a></li>
 </ul>
 </li>
 </ul>
@@ -295,13 +295,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org775042a" class="outline-2">
-<h2 id="org775042a">Meccanismi one-parameter</h2>
-<div class="outline-text-2" id="text-org775042a">
+<div id="outline-container-org628e23f" class="outline-2">
+<h2 id="org628e23f">Meccanismi one-parameter</h2>
+<div class="outline-text-2" id="text-org628e23f">
 </div>
-<div id="outline-container-orgd637883" class="outline-3">
-<h3 id="orgd637883">Problema dello <i>Shortest Path Egoistico</i></h3>
-<div class="outline-text-3" id="text-orgd637883">
+<div id="outline-container-orgf47044f" class="outline-3">
+<h3 id="orgf47044f">Problema dello <i>Shortest Path Egoistico</i></h3>
+<div class="outline-text-3" id="text-orgf47044f">
 <p>
 Siamo in uno scenario in cui gli archi di un grafo sono controllati da <i>agenti egoistici</i>, e si vuole costruire un <i>cammino minimo</i> tra una coppia di nodi stabiliti.
 Ogni agente conosce segretamente il peso del proprio arco, e si desidera che il cammino (in quanto minimo) <b>minimizzi</b> la somma di tutti i pesi degli archi scelti.<br />
@@ -425,9 +425,9 @@ Però, nel grafo \(G-e\) i due nodi \(s,t\) risulterebbe disconnessi, con distan
 </p>
 </div>
 
-<div id="outline-container-org81083c1" class="outline-4">
-<h4 id="org81083c1">Complessità del calcolo dei cammini di rimpiazzo</h4>
-<div class="outline-text-4" id="text-org81083c1">
+<div id="outline-container-orga77fab0" class="outline-4">
+<h4 id="orga77fab0">Complessità del calcolo dei cammini di rimpiazzo</h4>
+<div class="outline-text-4" id="text-orga77fab0">
 <p>
 Supponiamo di aver individuato un cammino minimo \(P_G(s,t)\) di lunghezza minima in \(G=(V,E,r)\).
 Per sempio abbiamo calcolato tale cammino con l'<a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">algoritmo di Dijkstra</a> in tempo \(O(m + n\log{n})\).
@@ -444,9 +444,9 @@ Per fortuna esiste un risultato che mostra come è possibile calcolare i \(k\) c
 </div>
 </div>
 
-<div id="outline-container-org94aa74b" class="outline-3">
-<h3 id="org94aa74b">Shortest Path Tree (SPT) non cooperativo</h3>
-<div class="outline-text-3" id="text-org94aa74b">
+<div id="outline-container-org8e356e2" class="outline-3">
+<h3 id="org8e356e2">Shortest Path Tree (SPT) non cooperativo</h3>
+<div class="outline-text-3" id="text-org8e356e2">
 <p>
 Questo problema è molto simile al precedente, con la differenza che si desiderano trovare tutti i cammini minimi che partono da una data sorgente \(s\),
 ovvero uno <code>Shortest Path Tree</code> (in breve <code>SPT</code>) <i>radicato</i> in \(s\).
@@ -494,9 +494,9 @@ In tal caso avremo che il problema non è utilitario in quanto la funzione di sc
 </div>
 </div>
 
-<div id="outline-container-orgc6b1e1e" class="outline-3">
-<h3 id="orgc6b1e1e">Problemi one-parameter</h3>
-<div class="outline-text-3" id="text-orgc6b1e1e">
+<div id="outline-container-orgffdf9a7" class="outline-3">
+<h3 id="orgffdf9a7">Problemi one-parameter</h3>
+<div class="outline-text-3" id="text-orgffdf9a7">
 <p>
 Il problema precedentemente descritto è noto appartenere ad una classe di problemi detti <b>problemi one-parameter</b>, o anche problemi a <b>singolo parametro</b>.
 Un problema è detto a singolo parametro se:
@@ -529,9 +529,9 @@ mentre basta porre le valutazioni come
 </p>
 </div>
 
-<div id="outline-container-org60aac03" class="outline-4">
-<h4 id="org60aac03">VCG vs OP</h4>
-<div class="outline-text-4" id="text-org60aac03">
+<div id="outline-container-org8c784dc" class="outline-4">
+<h4 id="org8c784dc">VCG vs OP</h4>
+<div class="outline-text-4" id="text-org8c784dc">
 <p>
 Le principali differenze tra meccanismi <code>VCG</code> e <code>OP</code> sono:
 </p>
@@ -547,9 +547,9 @@ In questo ultima cosa i meccanismi <code>VCG</code> e <code>OP</code> <b>coincid
 </div>
 </div>
 
-<div id="outline-container-org506584b" class="outline-4">
-<h4 id="org506584b">Algoritmo monotono</h4>
-<div class="outline-text-4" id="text-org506584b">
+<div id="outline-container-orgbe4a517" class="outline-4">
+<h4 id="orgbe4a517">Algoritmo monotono</h4>
+<div class="outline-text-4" id="text-orgbe4a517">
 <p>
 Un algoritmo \(g()\) per un problema <i>one-parameter di minimizzazione</i> si dice <b>monotono</b> se per ogni agente \(i\),
 \(w_i(g(r_{-i},r_i))\) è <span class="underline">non crescente</span> rispetto a \(r_i\), qualunque siano \(r_{-i}=(r_1, ..., r_{i-1}, r_{i+1}, ..., r_n)\).
@@ -680,9 +680,9 @@ Perciò se \(M\) è <i>truthfull</i> con funzione \(g()\) non monotona, allora i
 </div>
 </div>
 
-<div id="outline-container-org94b8856" class="outline-4">
-<h4 id="org94b8856">Meccanismi one-parameter</h4>
-<div class="outline-text-4" id="text-org94b8856">
+<div id="outline-container-org0264c00" class="outline-4">
+<h4 id="org0264c00">Meccanismi one-parameter</h4>
+<div class="outline-text-4" id="text-org0264c00">
 <p>
 È possibile progettare un meccanismo <b>truthfull</b> \(M\) <i>one-parameter</i> per i problemi <code>OP</code>.
 Tale meccanismo è definito come segue:
@@ -779,7 +779,7 @@ Perciò, se \(i\) mente la sua utilità non può che peggiorare \(\square\).
 <p class="date">Data: 2022-01-10 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-18 mar 00:02</p>
+<p class="date">Created: 2022-01-23 dom 12:03</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
