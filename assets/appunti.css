@@ -147,3 +147,15 @@ div.theorem::before {
     display: inline;
 }
 */
+
+div.yt-video-container {
+    width: 100% !important;
+    max-width: 600px;
+    min-height: 400px !important;
+    margin: auto;
+}
+
+div.yt-video-container iframe {
+    width: 100% !important;
+    min-height: 400px !important;
+}

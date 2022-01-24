@@ -256,4 +256,20 @@
      \implies \mathcal{P}(z_{t+1} = 0) \geq 1 - c\frac{\log^2{n}}{n} \;\;\;w.h.p\;\square
      \]
 
+*** Video spiegazione
+
+    #+begin_export html
+    <div class="yt-video-container">
+      <iframe
+	src="https://www.youtube.com/embed/--jJ1xcXZ9Q"
+	allowfullscreen
+	>
+      </iframe>
+    </div>
+    #+end_export
+
+    -----
+
+
+    
 [fn:1] uniformemente a caso.
