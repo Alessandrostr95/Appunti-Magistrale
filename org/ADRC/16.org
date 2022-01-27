@@ -199,5 +199,16 @@
    \]
    implicando che si passerà da \(O(\log{n})\) nodi colorati di 0 a nessuno con alta probabilità in un solo step \(\square\).
    #+end_quote
-   
+
+*** Video dimostrazione
+    #+begin_export html
+    <div class="yt-video-container">
+      <iframe
+	src="https://www.youtube.com/embed/kVVuMGG4B9Y"
+	allowfullscreen
+	>
+      </iframe>
+    </div>
+    #+end_export
+
    -----
