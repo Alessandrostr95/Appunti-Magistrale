@@ -1,0 +1,91 @@
+#+title: ADRC - Lesson 24
+#+date: <2022-01-13>
+#+teacher: Luciano Gualà
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Combinatorial Auction
+  Nella [[./22.html][lezione 22]] abbiamo visto il gioco dell'/Asta a Singolo Oggetto/, in cui ogni player vuole comprare l'oggetto all'asta.
+  Ogni player $i$ ha una volutazione privata \(t_i\) dell'oggetto, e fa un'offerta \(r_i\) per cercare di vincere l'asta.
+  Se $i$ vince allora dovrà pagare un prezzo \(p_i\), ottenendo quindi un'/utilità/ pari a \(u_i = t_i - p_i\).
+  Abbiamo anche visto che questo è un *problema utilitario* e che quindi è sempre possibile definire un /meccanismo truthful/
+  che induca tutti i player a dichiarere il prorpio tipo privato \(t_i\).\\
+
+  Il gioco dell' *Asta Combinatorica*, o *Combinatorial Auction* (in breve =CA=), è una /generalizzazione/ dell'asta a singolo oggetto.
+
+  Abbiamo un'insieme di $n$ acquirenti/player e $m$ oggetti all'asta.
+  Ogni player $i$ desidera ottenere un sottoinsieme \(S_i \subseteq \lbrace 1, ..., m \rbrace\) degli oggitti all'asta, è come /tipo privato/
+  ha la stima \(t_i\) di quanto vale l'insieme \(S_i\).\\
+
+  Si desidera identificare un sottoinsieme \(W \subseteq \lbrace 1, ..., n \rbrace\) di vincitori, ognuno dei quali non va in conflitto con gli
+  oggetti desiderati dagli altri, ovvero
+  \[
+  \forall i,j \in W : i \neq j \left[ S_i \cap S_j \equiv \emptyset \right]
+  \]
+
+  Come nell'asta singola, si desidera *massimizzare* il /valore/ di $W$, ovvero la somma di tutti i tipi privati \(\sum_{i \in W} t_i\).\\
+
+  Se un player $i$ vince, allora avrebbe un guadagno pari al valore che lui stima per \(S_i\).
+  Più formalmente la *valutazione* \(v_i\) di ogni player sarà
+  \[
+  v_i(t_i, W) = \begin{cases}
+    t_i &\mbox{se } i \in W\\
+    0 &\mbox{altrimenti}
+  \end{cases}
+  \;\; \forall W \in F
+  \]
+  È facile a questo punto osservare che anche l'asta combinatorica è un gioco /utilitario/.
+  \[
+  \sum_{i \in W} t_i = \sum_{i = 1}^{n} v_i(t_i, W) \;\;\; \forall W \subseteq \left[ n \right]
+  \]
+
+  A questo punto basterà applicare il meccanismo =VCG=:
+  \[ g(r) = arg \max_{W \subseteq \left[ n \right]} \sum_{i = 1}^{n} v_i(t_i, W) \]
+  \[ p_i(r) = \sum_{j \neq i} v_j(r_j, g(r_{-i})) - \sum_{j \neq i} v_j(r_j, g(r)) \]
+
+  Constatato che il gioco =CA= è utilitario e che l'algoritmo \(g\) calcola una soluzione ottima, ci si può chiedere quanto è effettivamente complesso
+  (in termini computazionali) calcolare un outcome di \(g\).
+  
+  #+begin_quote
+  *THM*\\
+  Consideriamo il gioco =CA= con $m$ oggetti ed $n$ players.
+  Approssimare una soluzione ottima calcolata da $g$ di un fattore _migliore_ di \(m^{1/2 - \varepsilon}\) è *NP-Hard*, per ogni costante \(\varepsilon > 0\).
+  #+end_quote
+
+  #+begin_quote
+  *Proof:* Il teorema verrà dimostrato mostrando una riduzione polinomiale dal problema /Maximum Independent Set/ (=MAX-IS=).
+
+  Dato un grafo con $n$ nodi, dal /teorema di J.Håstad, 2002/ sappiamo che approssimare =MAX-IS= di un fattore migliore \(n^{1-\varepsilon}\) è NP-Hard.\\
+
+  Prendiamo un'istanza \(G=(V,E)\) di =MAX-IS=, e per ogni arco associamo un oggetto all'asta, mentre per ogni nodo associamo un player.
+  Poniamo poi per ogni player $i$ l'insieme \(S_i\) pari all'insieme dei suo /archi incidenti/, e \(t_i = 1\).\\
+
+  È possibile dimostrare che un'istanza di =CA= (ricavata col metodo appena descritto) ha una soluzione di valore \(\geq k\) _se e solo se_ la relativa istanza
+  di =MAX-IS= ha un independent set di dimensione \(\geq k\).\\
+
+  - \(\Rightarrow\) ::
+    Supponiamo di avere una soluzione \(W\) di valore $k$ per l'istanza di =CA=.
+    Dato che $W$ è una soluzione ammissibile, allora per definizione non ci saranno due player \(i, j \in W\) che condivideranno qualche oggetto, ovvero \(S_i cap S_j \equiv \emptyset\).
+    Però \(S_i\) ed \(S_j\) rappresentano gli archi incidenti ai rispettivi nodi $i$ e $j$ dell'instanza di =MAX-IS=, e visto che non si intersecano allora certamente $i$ e $j$ non saranno vicini.
+    Perciò, dato che il valore di ogni \(S_i\) è pari a \(t_i = 1\), avremo che $W$ è anche un independent set grande $k$ per $G$.\\
+
+  - \(\Leftarrow\) ::
+    Supponiamo ora di avere un independent set \(I\) grande $k$ per l'istanza $G$ di =MAX-IS=.
+    Per definizione, per ogni coppia di nodi \(i, j \in I\) essi non sono nodo adiacenti, perciò i rispettivi insiemi di archi incidenti non si intersecano.
+    Dato però che i rispettivi archi incidenti compongono gli insiemi \(S_i\) ed \(S_j\), avremo che \(S_i \cap S_j \equiv \emptyset\).
+    Perciò $I$ è anche una soluzione di valore $k$ per l'istanza di =CA=.
+
+  Perciò consideriamo una soluzione \(W\) per =CA= di dimensione $k$, con $k$ sufficientemente grande in modo tale da ottenere
+  \[
+  \frac{OPT_{\texttt{CA}}}{k} \leq m^{1/2 - \varepsilon}
+  \]
+
+  Ciò implica che esiste un independent set \(I\) di cardinalità $k$ tale che
+  \[
+  \frac{OPT_{\texttt{MAX-IS}}}{k} = \frac{OPT_{\texttt{CA}}}{k} \leq m^{1/2 - \varepsilon} \leq n^{1 - 2\varepsilon}
+  \]
+  dove l'ultima uguaglianza è data dal fatto che \(m \leq n^2\).\\
+  
+  Perciò se avessimo un algoritmo che riesce a calcolare \(W\) in tempo efficiente, allora avremo anche un modo di approssimare =MAX-IS= in maniera efficiente a un fattore
+  più piccolo di n^{1 - 2\varepsilon} \(\square\).
+  #+end_quote
