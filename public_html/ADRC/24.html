@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-03 gio 00:33 -->
+<!-- 2022-02-03 gio 21:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 24</title>
@@ -274,7 +274,14 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3cad4a8">Combinatorial Auction</a></li>
+<li><a href="#org3cad4a8">Combinatorial Auction</a>
+<ul>
+<li><a href="#org9254e4f">An efficient truthful mechanism</a></li>
+<li><a href="#org12576db">A greedy \(\sqrt{m}\)-approximation algorithm</a></li>
+<li><a href="#org611dbb1">Computing payments</a></li>
+<li><a href="#org53cbcbc">Fattore Approssimazione</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -399,13 +406,186 @@ più piccolo di n<sup>1 - 2&epsilon;</sup> \(\square\).
 </p>
 </blockquote>
 </div>
+
+<div id="outline-container-org9254e4f" class="outline-3">
+<h3 id="org9254e4f">An efficient truthful mechanism</h3>
+<div class="outline-text-3" id="text-org9254e4f">
+<p>
+È possibile dimostrare che il problema <code>CA</code> è anche un problema <b>one-parameter</b> (<code>OP</code>), più precisamente del tipo <b>binary-demand</b> (<code>BD</code>).<br />
+</p>
+
+<p>
+Certamente i tipi privati sono un <i>singolo paramentro</i> \(t_i \in \mathbb{R}\).
+Inoltre ponendo la funzione di carico di lavoro su valori binari \(w_i(\cdot) \in \lbrace 0, 1 \rbrace\) otterremo che la valutazione sarà
+\[
+   v_i(t_i, x) = t_i \cdot w_i(x) = \begin{cases}
+   t_i &\mbox{se } i \in x\\
+   0 &\mbox{altrimenti}
+   \end{cases}
+   \;\;\; \forall x \in F
+   \]
+ergo <code>CA</code> è anche un gioco <code>OP</code>.<br />
+</p>
+
+<p>
+Nella <a href="./23.html">lezione precedente</a> abbiamo visto i meccanismi one-parameter per problemi di <i>minimizzazione</i>.
+In questo caso il problema è di <i>massimizzazione</i>, perciò la monotonia dell'algoritmo \(g\) deve essere in non decrescente,
+ovvero:
+</p>
+
+<blockquote>
+<p>
+per ogni player \(i\) e per ogni configurazione di strategie degli altri player \(r_{-i} = (r_1, ..., r_{i-1},r_{i+1}, ..., r_n)\)
+la funzione di carico di lavoro \(w_i(r_{-i}, r_i)\) deve essere <span class="underline">non decrescente</span> al crescere del valore dichiarato \(r_i\),
+ovvero della froma
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson24-img1.png" alt="adrc-lesson24-img1.png" style="max-width:350px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Funzione di carico di lavoro \(w_i\) per un problema <i>binary demand</i> di <span class="underline">massimizzazione</span>.</p>
+</div>
+</blockquote>
+
+<p>
+Sappiamo già che lo schema di pagamenti del player \(i\) sarà una quantità \(p_i(r) = \theta_i(r_{-i})\).
+Ciò che manca per concludere la definizione di un meccanismo truthful è la definizione di algorimo \(g\) che sia <b>monotono</b>,
+che <b>approssimi</b> bene una soluzione ottima e che sia calcolabile in tempo <b>polinomiale</b>.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org12576db" class="outline-3">
+<h3 id="org12576db">A greedy \(\sqrt{m}\)-approximation algorithm</h3>
+<div class="outline-text-3" id="text-org12576db">
+<blockquote>
+<p>
+<b>Alg</b><br />
+</p>
+<dl class="org-dl">
+<dt>Input</dt><dd>Una serie di <i>tipi dichiarati</i> \(r_1, r_2, ..., r_n\) e una serie rispettivi insiemi desiderati \(S_1, S_2, ..., S_n \subseteq \left[ m \right]\).</dd>
+<dt>Output</dt><dd>Un sottoinsieme \(W \subseteq \left[ n \right]\) di vincitori dell'asta con insiemi non in conflitto.
+Ovvero per ogni \(i,j \in W\) avremo che \(S_i \cap \S_j \equiv \emptyset\).</dd>
+<dt>ALG</dt><dd><ol class="org-ol">
+<li>riordina (e rinomina) le offerte (i tipi dichiarati) secondi il seguente ordine
+\[
+	\frac{r_1}{\sqrt{\vert S_1 \vert}} \geq \frac{r_2}{\sqrt{\vert S_2 \vert}} \geq ... \geq \frac{r_n}{\sqrt{\vert S_n \vert}}
+	\]</li>
+<li>Poni gli insiemi \(W = \emptyset\) e \(X = \emptyset\).</li>
+<li>\begin{align*}
+  \texttt{for } &\texttt{i=1:n do}\\
+  &\texttt{if } S_i \cap X \equiv \emptyset \texttt{ then}\\
+  &\;\;\;W = W \cup \lbrace i \rbrace\\
+  &\;\;\;E = E \cup S_i
+\end{align*}</li>
+<li>return \(W\).</li>
+</ol></dd>
+</dl>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Lemma 1</b> l'algoritmo \(g\) appena descritto è <b>monotono</b>.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> è sufficiente dimostrare che dato un agente \(i\) selezionato nella soluzione \(W\),
+anche se esso aumenta la sua offerta lui continuerà ad essere selezionato.
+Infatti, rifacendoti alla funzione di carico di lavoro dei problemi <i>binary demand</i> (come quella in Figura 1),
+avremo che una volta che \(r_i\) supera la soglia \(\theta_i(r_{-i})\) i valore di \(w_i\) non decresce più (rimane fisso a 1).<br />
+</p>
+
+<p>
+Osservando l'ordinamento dell'algoritmo
+\[
+   \frac{r_1}{\sqrt{\vert S_1 \vert}} \geq ... \geq \frac{r_i}{\sqrt{\vert S_i \vert}} \geq ... \geq \frac{r_n}{\sqrt{\vert S_n \vert}}
+   \]
+avremo che aumentando \(r_i\) la posizione nel raching cresce, spostandosi verso sinistra.<br />
+</p>
+
+<p>
+Dato che l'algoritmo sceglie in maniera <i>greedy</i> da sinistra verso destra, avremo che se \(i\) veniva selezionato dichiarando \(r_i\), certamente continuerà ad
+essere selezionato se dichiara \(r_i + k\), per qualsiasi \(k > 0\) \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org611dbb1" class="outline-3">
+<h3 id="org611dbb1">Computing payments</h3>
+<div class="outline-text-3" id="text-org611dbb1">
+<p>
+Abbiamo visto che i pagamenti per i giochi <code>OP</code> binary demand sono del tipo \(p_i(r) = \theta_i(r_{-i})\).
+Ciò che serve sapere è come ricavare la soglia \(\theta_i(r_{-i})\).
+Una volta individuato un modo per ricavare la soglia, è possibile farlo in maniera efficiente?<br />
+</p>
+
+<p>
+Fissiamo un player \(i\), una configurazione di strategie \(r = (r_{-i}, r_i)\) e consideriamo sempre l'ordinamento fatto nell'algoritmo \(g\).
+Vogliamo sapere quanto deve essere grande <span class="underline">almeno</span> \(r_i\) affinché nell'ordinamento \(i\) venga scelto.<br />
+</p>
+
+<p>
+Certamente chi sta prima di lui nell'algoritmo viene scelto e non interferisce con \(i\).
+Perciò considerimo il primo player \(j\) <b>non compatibile</b> a <span class="underline">destra</span> di \(i\) nell'ordinamento, ovvero tale che \(S_i \cap S_j \not\equiv \emptyset\).
+Dato che \(j\) è incompatibile con \(i\), se \(j\) venisse scelto allora per forza \(i\) non apparterrebbe alla soluzione \(W\).<br />
+</p>
+
+<p>
+Perciò affinché \(i\) venga scelto nella soluzione deve essere necessariamente vero che
+\[
+   \frac{r_i}{\sqrt{\vert S_i \vert}} \geq \frac{r_j}{\sqrt{\vert S_j \vert}}
+   \]
+ovvero la soglia di accettazione per \(i\) sarà
+\[
+   \theta_i(r_{-i}) = \frac{r_j}{\sqrt{\vert S_j \vert}} \sqrt{\vert S_i \vert} = r_j \frac{ \sqrt{\vert S_i \vert} }{ \sqrt{\vert S_j \vert} }
+   \]
+Se invece non ci sono player incompatibili con \(i\), allora certamente \(i\) verrà scelto in \(W\) e quindi avremo che \(\theta_i(r_{-i}) = 0\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org53cbcbc" class="outline-3">
+<h3 id="org53cbcbc">Fattore Approssimazione</h3>
+<div class="outline-text-3" id="text-org53cbcbc">
+<blockquote>
+<p>
+<b>Lemma 2</b>
+Sia \(OPT\) una soluzione ottima per il problema <code>CA</code>, e sia \(W\) una soluzione calcolata dall'algoritmo descritto.
+Allora avremo che
+\[
+   \sum_{i \in OPT} v_i \leq \sqrt{m} \sum_{i \in W} v_i
+   \]
+ovvero l'algoritmo è \(\sqrt{m}\)-approssimante.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> consideriamo un player vincente \(i \in W\).
+Definiamo l'insieme
+\[
+   OPT_i \equiv \lbrace j \in OPT : j \geq i \land S_j \cap S_i \not\equiv \emptyset \rbrace
+   \]
+ovvero l'insieme di tutti i player \(j\) <b>non compatibili</b> con \(i\) rispetto all'ordinamento dell'algrotimo, e che si trovano alla sua destra.<br />
+</p>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</blockquote>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Data: 2022-01-13 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-03 gio 00:33</p>
+<p class="date">Created: 2022-02-03 gio 21:01</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

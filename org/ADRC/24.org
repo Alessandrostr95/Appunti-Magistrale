@@ -89,3 +89,124 @@
   Perciò se avessimo un algoritmo che riesce a calcolare \(W\) in tempo efficiente, allora avremo anche un modo di approssimare =MAX-IS= in maniera efficiente a un fattore
   più piccolo di n^{1 - 2\varepsilon} \(\square\).
   #+end_quote
+
+** An efficient truthful mechanism
+   È possibile dimostrare che il problema =CA= è anche un problema *one-parameter* (=OP=), più precisamente del tipo *binary-demand* (=BD=).\\
+
+   Certamente i tipi privati sono un /singolo paramentro/ \(t_i \in \mathbb{R}\).
+   Inoltre ponendo la funzione di carico di lavoro su valori binari \(w_i(\cdot) \in \lbrace 0, 1 \rbrace\) otterremo che la valutazione sarà
+   \[
+   v_i(t_i, x) = t_i \cdot w_i(x) = \begin{cases}
+   t_i &\mbox{se } i \in x\\
+   0 &\mbox{altrimenti}
+   \end{cases}
+   \;\;\; \forall x \in F
+   \]
+   ergo =CA= è anche un gioco =OP=.\\
+
+   Nella [[./23.html][lezione precedente]] abbiamo visto i meccanismi one-parameter per problemi di /minimizzazione/.
+   In questo caso il problema è di /massimizzazione/, perciò la monotonia dell'algoritmo $g$ deve essere in non decrescente,
+   ovvero:
+
+   #+begin_quote
+   per ogni player $i$ e per ogni configurazione di strategie degli altri player \(r_{-i} = (r_1, ..., r_{i-1},r_{i+1}, ..., r_n)\)
+   la funzione di carico di lavoro \(w_i(r_{-i}, r_i)\) deve essere _non decrescente_ al crescere del valore dichiarato \(r_i\),
+   ovvero della froma
+
+   #+caption: Funzione di carico di lavoro \(w_i\) per un problema /binary demand/ di _massimizzazione_.
+   #+ATTR_HTML: :style max-width:350px; width:100%
+   [[file:../images/adrc-lesson24-img1.png]]
+   #+end_quote
+
+   Sappiamo già che lo schema di pagamenti del player $i$ sarà una quantità \(p_i(r) = \theta_i(r_{-i})\).
+   Ciò che manca per concludere la definizione di un meccanismo truthful è la definizione di algorimo $g$ che sia *monotono*,
+   che *approssimi* bene una soluzione ottima e che sia calcolabile in tempo *polinomiale*.\\
+
+** A greedy \(\sqrt{m}\)-approximation algorithm
+
+   #+begin_quote
+   *Alg*\\
+   - Input ::
+     Una serie di /tipi dichiarati/ \(r_1, r_2, ..., r_n\) e una serie rispettivi insiemi desiderati \(S_1, S_2, ..., S_n \subseteq \left[ m \right]\).
+   - Output ::
+     Un sottoinsieme \(W \subseteq \left[ n \right]\) di vincitori dell'asta con insiemi non in conflitto.
+     Ovvero per ogni \(i,j \in W\) avremo che \(S_i \cap \S_j \equiv \emptyset\).
+   - ALG ::
+     1. riordina (e rinomina) le offerte (i tipi dichiarati) secondi il seguente ordine
+	\[
+	\frac{r_1}{\sqrt{\vert S_1 \vert}} \geq \frac{r_2}{\sqrt{\vert S_2 \vert}} \geq ... \geq \frac{r_n}{\sqrt{\vert S_n \vert}}
+	\]
+     2. Poni gli insiemi \(W = \emptyset\) e \(X = \emptyset\).
+     3. 
+	 \begin{align*}
+	   \texttt{for } &\texttt{i=1:n do}\\
+	   &\texttt{if } S_i \cap X \equiv \emptyset \texttt{ then}\\
+	   &\;\;\;W = W \cup \lbrace i \rbrace\\
+	   &\;\;\;E = E \cup S_i
+	 \end{align*}
+     4. return \(W\).
+   #+end_quote
+
+   #+begin_quote
+   *Lemma 1* l'algoritmo $g$ appena descritto è *monotono*.
+   #+end_quote
+
+   #+begin_quote
+   *Proof:* è sufficiente dimostrare che dato un agente $i$ selezionato nella soluzione $W$,
+   anche se esso aumenta la sua offerta lui continuerà ad essere selezionato.
+   Infatti, rifacendoti alla funzione di carico di lavoro dei problemi /binary demand/ (come quella in Figura 1),
+   avremo che una volta che \(r_i\) supera la soglia \(\theta_i(r_{-i})\) i valore di \(w_i\) non decresce più (rimane fisso a 1).\\
+
+   Osservando l'ordinamento dell'algoritmo
+   \[
+   \frac{r_1}{\sqrt{\vert S_1 \vert}} \geq ... \geq \frac{r_i}{\sqrt{\vert S_i \vert}} \geq ... \geq \frac{r_n}{\sqrt{\vert S_n \vert}}
+   \]
+   avremo che aumentando \(r_i\) la posizione nel raching cresce, spostandosi verso sinistra.\\
+
+   Dato che l'algoritmo sceglie in maniera /greedy/ da sinistra verso destra, avremo che se $i$ veniva selezionato dichiarando \(r_i\), certamente continuerà ad
+   essere selezionato se dichiara \(r_i + k\), per qualsiasi \(k > 0\) \(\square\).
+   #+end_quote
+
+** Computing payments
+   Abbiamo visto che i pagamenti per i giochi =OP= binary demand sono del tipo \(p_i(r) = \theta_i(r_{-i})\).
+   Ciò che serve sapere è come ricavare la soglia \(\theta_i(r_{-i})\).
+   Una volta individuato un modo per ricavare la soglia, è possibile farlo in maniera efficiente?\\
+
+   Fissiamo un player $i$, una configurazione di strategie \(r = (r_{-i}, r_i)\) e consideriamo sempre l'ordinamento fatto nell'algoritmo $g$.
+   Vogliamo sapere quanto deve essere grande _almeno_ \(r_i\) affinché nell'ordinamento $i$ venga scelto.\\
+   
+   Certamente chi sta prima di lui nell'algoritmo viene scelto e non interferisce con $i$.
+   Perciò considerimo il primo player $j$ *non compatibile* a _destra_ di $i$ nell'ordinamento, ovvero tale che \(S_i \cap S_j \not\equiv \emptyset\).
+   Dato che $j$ è incompatibile con $i$, se $j$ venisse scelto allora per forza $i$ non apparterrebbe alla soluzione $W$.\\
+
+   Perciò affinché $i$ venga scelto nella soluzione deve essere necessariamente vero che
+   \[
+   \frac{r_i}{\sqrt{\vert S_i \vert}} \geq \frac{r_j}{\sqrt{\vert S_j \vert}}
+   \]
+   ovvero la soglia di accettazione per $i$ sarà
+   \[
+   \theta_i(r_{-i}) = \frac{r_j}{\sqrt{\vert S_j \vert}} \sqrt{\vert S_i \vert} = r_j \frac{ \sqrt{\vert S_i \vert} }{ \sqrt{\vert S_j \vert} }
+   \]
+   Se invece non ci sono player incompatibili con $i$, allora certamente $i$ verrà scelto in $W$ e quindi avremo che \(\theta_i(r_{-i}) = 0\).\\
+
+** Fattore Approssimazione
+   #+begin_quote
+   *Lemma 2*
+   Sia \(OPT\) una soluzione ottima per il problema =CA=, e sia $W$ una soluzione calcolata dall'algoritmo descritto.
+   Allora avremo che
+   \[
+   \sum_{i \in OPT} v_i \leq \sqrt{m} \sum_{i \in W} v_i
+   \]
+   ovvero l'algoritmo è \(\sqrt{m}\)-approssimante.
+   #+end_quote
+
+   #+begin_quote
+   *Proof:* consideriamo un player vincente \(i \in W\).
+   Definiamo l'insieme
+   \[
+   OPT_i \equiv \lbrace j \in OPT : j \geq i \land S_j \cap S_i \not\equiv \emptyset \rbrace
+   \]
+   ovvero l'insieme di tutti i player $j$ *non compatibili* con $i$ rispetto all'ordinamento dell'algrotimo, e che si trovano alla sua destra.\\
+   
+   *[DA FINIRE...]*
+   #+end_quote
