@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-03 gio 21:01 -->
+<!-- 2022-02-04 ven 12:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 24</title>
@@ -557,7 +557,7 @@ Se invece non ci sono player incompatibili con \(i\), allora certamente \(i\) ve
 Sia \(OPT\) una soluzione ottima per il problema <code>CA</code>, e sia \(W\) una soluzione calcolata dall'algoritmo descritto.
 Allora avremo che
 \[
-   \sum_{i \in OPT} v_i \leq \sqrt{m} \sum_{i \in W} v_i
+   \sum_{i \in OPT} r_i \leq \sqrt{m} \sum_{i \in W} r_i
    \]
 ovvero l'algoritmo è \(\sqrt{m}\)-approssimante.
 </p>
@@ -574,9 +574,97 @@ ovvero l'insieme di tutti i player \(j\) <b>non compatibili</b> con \(i\) rispet
 </p>
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Osserviamo che
+\[
+   \bigcup_{i \in W} OPT_i \equiv OPT
+   \]
+Infatti consideriamo un player nella soluzione ottima \(j \in OPT\).
+Abbiamo due casi:
+</p>
+<dl class="org-dl">
+<dt>Caso 1</dt><dd>Se \(j\) appartiene anche alla soluzione \(W\) calcolata dall'algoritmo, allora certamente \(j \in OPT_j\).</dd>
+<dt>Caso 2</dt><dd>Se invece \(j \notin W\) <span class="underline">sicuramente</span> esisterà un \(i \in W\) con \(i < j\) incompatibile (ovvero \(S_j \cap S_i \not\equiv \emptyset\)).
+Infatti, l'algoritmo inserisce i player nella soluzione \(W\) in ordine dal più piccolo al più grande, e se una volta arrivato a \(j\) esso fosse <span class="underline">compatibile</span> coi precenti,
+allora sarebbe stato inserito nella soluzione \(W\) (ritornando al caso 1).
+Perciò necessariamente \(j \in OPT_i\).</dd>
+</dl>
+
+<p>
+Per dimostrare il teorema basterà dimostrare che \(\forall i \in W\)
+\[
+   \sum_{j \in OPT_i} r_j \leq \sqrt{m} \; r_i
+   \]
+infatti se così fosse avremo che
+\[
+   \sum_{j \in OPT} r_j \leq \sum_{i \in W} \sum_{j \in OPT_i} r_j \leq \sum_{i \in W} \sqrt{m} \; r_i = \sqrt{m} \sum_{i \in W} r_i
+   \]
+</p>
+<hr />
+<p>
+Consideriamo un \(i \in W\).
+Dalla sezione precende sappiamo che per ogni \(j\) a destra di \(i\) (ovvero \(j \geq i\)), \(i\) verrà scelto dall'algoritmo se e solo se
+\[
+   r_i \geq r_j \frac{ \sqrt{\vert S_i \vert} }{ \sqrt{\vert S_j \vert} }
+   \]
+perciò viceversa
+\[
+   r_j \leq r_i \frac{ \sqrt{\vert S_j \vert} }{ \sqrt{\vert S_i \vert} }
+   \]
+e questo è anche vero per ogni \(j \in OPT_i\).<br />
+</p>
+
+<p>
+Perciò avremo che per ogni \(i \in W\)
+\[
+     \sum_{j \in OPT_i} r_j \leq \sum_{j \in OPT_i} r_i \frac{ \sqrt{\vert S_j \vert} }{ \sqrt{\vert S_i \vert} } = \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} 
+   \]
+Diamo ora un upperbound alla sommatoria \(\sum_{j \in OPT_i} \sqrt{\vert S_j \vert}\).<br />
+</p>
+
+<p>
+La <a href="https://it.wikipedia.org/wiki/Disuguaglianza_di_Cauchy-Schwarz">disuguaglianza di Cauchy-Schwarz</a> ci dice che dati due vettori \(n\)-dimensionali \(x,y\) è vero che
+\[
+   \left( \sum_{j = 1}^{n} x_i y_i \right) \leq \left( \sum_{j = 1}^{n} x_i^2 \right)^{1/2} \left( \sum_{j = 1}^{n} y_i^2 \right)^{1/2}
+   \]
+Nel nostro caso ponendo \(x_j = 1\), \(y_j = \sqrt{\vert S_j \vert}\) ed \(n = \vert OPT_i \vert\) otterremo che
+</p>
+\begin{align*}
+  \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} &= \sum_{j = 1}^{\vert OPT_i \vert} 1 \cdot \sqrt{\vert S_j \vert} \leq \left( \sum_{j = 1}^{\vert OPT_i \vert} 1 \right)^{1/2} \left( \sum_{j = 1}^{\vert OPT_i \vert} \vert S_j \vert \right)^{1/2}\\
+  \\
+  &= \sqrt{\vert OPT_i \vert} \cdot \sqrt{ \sum_{j = OPT_i} \vert S_j \vert }
+\end{align*}
+
+<p>
+Per quanto riguarda \(\vert OPT_i \vert\) ci potrà essere <span class="underline">al più</span> un altro player \(j\) per ogni oggetto desiderato da \(i\) in \(S_i\).
+Perciò \(\vert OPT_i \vert \leq \vert S_i \vert\).<br />
+</p>
+
+<p>
+Invece per \(\sum_{j = OPT_i} \vert S_j \vert\), dato che tutti i \(j\) appartengono alla soluzione \(OPT\), certamente saranno tutti <span class="underline">compatibili</span> tra di loro, e quindi
+\[
+   \sum_{j = OPT_i} \vert S_j \vert\ = \vert \bigcup_{j \in OPT_i} S_j\vert
+   \]
+Infine dato che
+\[
+   \bigcup_{j \in OPT_i} S_j \subseteq \bigcup_{j \in OPT} S_j \subseteq \left[ m \right]
+   \]
+possiamo concludere che \(\sum_{j = OPT_i} \vert S_j \vert \leq m\).<br />
+</p>
+
+<p>
+Ricapitolando abbiamo dimostrato che
+\[
+   \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} \leq \sqrt{\vert OPT_i \vert} \cdot \sqrt{ \sum_{j = OPT_i} \vert S_j \vert } \leq \sqrt{\vert S_i \vert} \cdot \sqrt{m}
+   \]
+\[
+   \implies \sum_{j \in OPT_i} r_j \leq \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} \leq \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sqrt{\vert S_i \vert} \cdot \sqrt{m} = \sqrt{m} \cdot r_i
+   \]
+\[
+   \implies \sum_{j \in OPT} r_j \leq \sum_{i \in W} \sum_{j \in OPT_i} r_j \leq \sqrt{m} \sum_{i \in W} r_i \;\;\; \square
+   \]
 </p>
 </blockquote>
+<hr />
 </div>
 </div>
 </div>
@@ -585,7 +673,7 @@ ovvero l'insieme di tutti i player \(j\) <b>non compatibili</b> con \(i\) rispet
 <p class="date">Data: 2022-01-13 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-03 gio 21:01</p>
+<p class="date">Created: 2022-02-04 ven 12:57</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

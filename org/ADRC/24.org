@@ -195,7 +195,7 @@
    Sia \(OPT\) una soluzione ottima per il problema =CA=, e sia $W$ una soluzione calcolata dall'algoritmo descritto.
    Allora avremo che
    \[
-   \sum_{i \in OPT} v_i \leq \sqrt{m} \sum_{i \in W} v_i
+   \sum_{i \in OPT} r_i \leq \sqrt{m} \sum_{i \in W} r_i
    \]
    ovvero l'algoritmo è \(\sqrt{m}\)-approssimante.
    #+end_quote
@@ -208,5 +208,79 @@
    \]
    ovvero l'insieme di tutti i player $j$ *non compatibili* con $i$ rispetto all'ordinamento dell'algrotimo, e che si trovano alla sua destra.\\
    
-   *[DA FINIRE...]*
+   Osserviamo che
+   \[
+   \bigcup_{i \in W} OPT_i \equiv OPT
+   \]
+   Infatti consideriamo un player nella soluzione ottima \(j \in OPT\).
+   Abbiamo due casi:
+   - Caso 1 ::
+     Se $j$ appartiene anche alla soluzione $W$ calcolata dall'algoritmo, allora certamente \(j \in OPT_j\).
+   - Caso 2 ::
+     Se invece \(j \notin W\) _sicuramente_ esisterà un \(i \in W\) con \(i < j\) incompatibile (ovvero \(S_j \cap S_i \not\equiv \emptyset\)).
+     Infatti, l'algoritmo inserisce i player nella soluzione $W$ in ordine dal più piccolo al più grande, e se una volta arrivato a $j$ esso fosse _compatibile_ coi precenti,
+     allora sarebbe stato inserito nella soluzione $W$ (ritornando al caso 1).
+     Perciò necessariamente \(j \in OPT_i\).
+
+   Per dimostrare il teorema basterà dimostrare che \(\forall i \in W\)
+   \[
+   \sum_{j \in OPT_i} r_j \leq \sqrt{m} \; r_i
+   \]
+   infatti se così fosse avremo che
+   \[
+   \sum_{j \in OPT} r_j \leq \sum_{i \in W} \sum_{j \in OPT_i} r_j \leq \sum_{i \in W} \sqrt{m} \; r_i = \sqrt{m} \sum_{i \in W} r_i
+   \]
+   -----
+   Consideriamo un \(i \in W\).
+   Dalla sezione precende sappiamo che per ogni $j$ a destra di $i$ (ovvero \(j \geq i\)), $i$ verrà scelto dall'algoritmo se e solo se
+   \[
+   r_i \geq r_j \frac{ \sqrt{\vert S_i \vert} }{ \sqrt{\vert S_j \vert} }
+   \]
+   perciò viceversa
+   \[
+   r_j \leq r_i \frac{ \sqrt{\vert S_j \vert} }{ \sqrt{\vert S_i \vert} }
+   \]
+   e questo è anche vero per ogni \(j \in OPT_i\).\\
+
+   Perciò avremo che per ogni \(i \in W\)
+   \[
+     \sum_{j \in OPT_i} r_j \leq \sum_{j \in OPT_i} r_i \frac{ \sqrt{\vert S_j \vert} }{ \sqrt{\vert S_i \vert} } = \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} 
+   \]
+   Diamo ora un upperbound alla sommatoria \(\sum_{j \in OPT_i} \sqrt{\vert S_j \vert}\).\\
+
+   La [[https://it.wikipedia.org/wiki/Disuguaglianza_di_Cauchy-Schwarz][disuguaglianza di Cauchy-Schwarz]] ci dice che dati due vettori \(n\)-dimensionali \(x,y\) è vero che
+   \[
+   \left( \sum_{j = 1}^{n} x_i y_i \right) \leq \left( \sum_{j = 1}^{n} x_i^2 \right)^{1/2} \left( \sum_{j = 1}^{n} y_i^2 \right)^{1/2}
+   \]
+   Nel nostro caso ponendo \(x_j = 1\), \(y_j = \sqrt{\vert S_j \vert}\) ed \(n = \vert OPT_i \vert\) otterremo che
+   \begin{align*}
+     \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} &= \sum_{j = 1}^{\vert OPT_i \vert} 1 \cdot \sqrt{\vert S_j \vert} \leq \left( \sum_{j = 1}^{\vert OPT_i \vert} 1 \right)^{1/2} \left( \sum_{j = 1}^{\vert OPT_i \vert} \vert S_j \vert \right)^{1/2}\\
+     \\
+     &= \sqrt{\vert OPT_i \vert} \cdot \sqrt{ \sum_{j = OPT_i} \vert S_j \vert }
+   \end{align*}
+
+   Per quanto riguarda \(\vert OPT_i \vert\) ci potrà essere _al più_ un altro player $j$ per ogni oggetto desiderato da $i$ in \(S_i\).
+   Perciò \(\vert OPT_i \vert \leq \vert S_i \vert\).\\
+
+   Invece per \(\sum_{j = OPT_i} \vert S_j \vert\), dato che tutti i $j$ appartengono alla soluzione \(OPT\), certamente saranno tutti _compatibili_ tra di loro, e quindi
+   \[
+   \sum_{j = OPT_i} \vert S_j \vert\ = \vert \bigcup_{j \in OPT_i} S_j\vert
+   \]
+   Infine dato che
+   \[
+   \bigcup_{j \in OPT_i} S_j \subseteq \bigcup_{j \in OPT} S_j \subseteq \left[ m \right]
+   \]
+   possiamo concludere che \(\sum_{j = OPT_i} \vert S_j \vert \leq m\).\\
+
+   Ricapitolando abbiamo dimostrato che
+   \[
+   \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} \leq \sqrt{\vert OPT_i \vert} \cdot \sqrt{ \sum_{j = OPT_i} \vert S_j \vert } \leq \sqrt{\vert S_i \vert} \cdot \sqrt{m}
+   \]
+   \[
+   \implies \sum_{j \in OPT_i} r_j \leq \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sum_{j \in OPT_i} \sqrt{\vert S_j \vert} \leq \frac{ r_i }{ \sqrt{\vert S_i \vert} } \sqrt{\vert S_i \vert} \cdot \sqrt{m} = \sqrt{m} \cdot r_i
+   \]
+   \[
+   \implies \sum_{j \in OPT} r_j \leq \sum_{i \in W} \sum_{j \in OPT_i} r_j \leq \sqrt{m} \sum_{i \in W} r_i \;\;\; \square
+   \]
    #+end_quote
+   -----
