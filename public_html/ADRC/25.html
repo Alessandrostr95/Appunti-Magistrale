@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-02-05 sab 20:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADRC - Lesson 25</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">ADRC - Lesson 25</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge24126d">Congestion Games</a></li>
+<li><a href="#orgf05c24c">FNP class</a>
+<ul>
+<li><a href="#orgf9e2666">FNT-completezza di <code>CG-NE</code></a></li>
+<li><a href="#orgad3dd6d">TFNP - Total FNP</a>
+<ul>
+<li><a href="#org81ca160">Esmpi di problemi TFNP</a></li>
+<li><a href="#org3987d9d">TFNP-completeness?</a></li>
+</ul>
+</li>
+<li><a href="#org9bc1864">PLS</a></li>
+<li><a href="#org02a9781">PLS-reduction</a></li>
+<li><a href="#org27a7ef6">PLS-completeness</a>
+<ul>
+<li><a href="#orgb1f6824">Maximum Cut Problem</a></li>
+<li><a href="#orga1fa455">Completezza del Congesion Game</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc8185e5">Complexity of Mixed Nash Equilibria</a>
+<ul>
+<li><a href="#org58e2d88">PPAD</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orge24126d" class="outline-2">
+<h2 id="orge24126d">Congestion Games</h2>
+<div class="outline-text-2" id="text-orge24126d">
+<p>
+Richiamando il <a href="./20.html">Global Connection Game</a>, gli "ingredienti" del problema sono:
+</p>
+<ul class="org-ul">
+<li>Un grafo \(G(V,E)\) <span class="underline">diretto</span>.</li>
+<li>Dei costi \(c_e\) <span class="underline">non negativi</span> per ogni archo \(e \in E\).</li>
+<li>Un insieme di \(k\) player egoistici, dove ad ognuno è associata un nodo sorgente \(s_i\) e una destinazione \(t_i\).</li>
+<li>Ogni player \(i\) deve scegliere come <i>strategia</i> un cammino \(P_i\) che collega \(s_i\) a \(t_i\).</li>
+<li>Data una configurazione di strategie \(S = (P_1, ..., P_k)\), il costo del singolo player \(i\) è pari a
+\[
+    COST_i(S) = \sum_{e \in P_i} \frac{ c_e }{ k_e(S) }
+    \]
+doce \(k_e(S)\) sta ad indicare il numero di player che in \(S\) utilizzano l'arco \(e\).</li>
+</ul>
+
+<p>
+Abbiamo visto che <code>GCG</code> è un <b>gioco potenziale</b>, e sappiamo che per un gioco potenziale esiste <span class="underline">sempre</span> un <code>NE</code> e che applicando la dinamica <i>better response</i> si convergerà sempre ad un <code>NE</code>.<br />
+</p>
+
+<p>
+Il problema è che nessuno conosce una dinamica di tipo <i>better response</i> che faccia converge ad un equilibrio in tempo <b>polinomiale</b>,
+tantomeno si sa come calcolare un equilibrio in tempo polinomiale.
+Perciò ci si può chiedere se si riesce a dare un'evidenza formale che il problema sia effettivamente <i>computazionalmente difficile</i>.<br />
+</p>
+
+<p>
+Il <b>Congestion Game</b> (<code>CG</code>) è una <span class="underline">generalizzazione</span> del <code>GCG</code>.
+Gli ingredienti del problema sono:
+</p>
+<ul class="org-ul">
+<li>Un insieme \(E\) di <i>risorse</i>.</li>
+<li>Un insieme di \(k\) player egoistici.</li>
+<li>Ogni player \(i\) sceglie una strategia \(S_i\) da un suo insieme di possibili strategie \(\mathcal{S}_i \subseteq 2^E\).</li>
+<li>Ogni risorsa \(e \in E\) ha un <span class="underline">costo possibile</span> \(c_e(1), c_e(2), ... , c_e(k)\), che dipende dal numero di player che la utilizzano.
+Se una risorsa \(e \in E\) è usata da \(x\) player, allora il suo costo sarà \(c_e(x)\).</li>
+<li>Dato un vettore di strategie \(S \in \mathcal{S}_1 \times \mathcal{S}_2 \times ... \times \mathcal{S}_k\), il costo del player \(i\) sarà
+\[
+    COST_i(S) = \sum_{e \in S_i} c_e(k_e(S))
+    \]
+dove \(k_e(S)\) indica il numero di player che utilizzano la risorsa \(e\) nelle rispettive strategie.</li>
+</ul>
+
+<p>
+È possibile dimostrare che <code>CG</code> è un <i>gioco potenziale</i>, con funzione potenziale
+\[
+  \Phi(S) = \sum_{e \in E} \sum_{i = 0}^{k_e(S)} c_e(i)
+  \]
+</p>
+
+<p>
+Ciò implica che esiste sempre un <code>NE</code> per il <code>CG</code> (ogni minimo locale di \(\Phi\)), e che la dinamica better response converge sempre a un <code>NE</code>.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf05c24c" class="outline-2">
+<h2 id="orgf05c24c">FNP class</h2>
+<div class="outline-text-2" id="text-orgf05c24c">
+<p>
+Per iniziare a capire quanto può essere complesso il <i>Congestion Game</i> il primo passo è quello di definire formalmente un problema.
+Definiamo quindi con <code>CG-NE</code> il problema del calcolo di un equilibrio di Nash per il <i>Congestion Game</i>.
+</p>
+<blockquote>
+<p>
+<b>Def:</b> <code>CG-NE problem</code><br />
+Data un'istanza del <i>Congestion Game</i>, calcolare un <i>equilibrio di Nash</i> (a strategie pure).
+</p>
+</blockquote>
+
+<p>
+A questo punto ci possiamo chiedere in quale classe di complessità collocare il <code>CG-NE</code> problem.
+Sicuramente non possiamo collocare <code>CG-NE</code> <span class="underline">direttamente</span> nella classe <code>NP</code>, in quanto <code>NP</code> è una classe di <a href="https://en.wikipedia.org/wiki/Decision_problem">problemi decisionali</a>, mentre per <code>CG-NE</code> si richiede di <b>ricercare</b> una soluzione.
+Perciò abbiamo bisogno di definire una <i>classe di complessità</i> in cui collocare i problemi come <code>CG-NE</code>.
+</p>
+<blockquote>
+<p>
+<b>Def:</b> <code>FNP class</code> (<code>Functional NP</code>)<br />
+La classe <code>FNP</code> è la classe di problemi che risolvono il seguente tipo di compito:<br />
+data un'istanza di un problema decisionale \(\Pi \in NP\), determinare se tale istanza è una <code>YES-instance</code><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, e in tal caso <b>calcolare/trovare</b> un <code>certificato polinomiale</code><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> per data istanza,
+oppure se è una <code>NO-instance</code>, e in tal caso restituire la stringa <code>NO</code>.
+</p>
+</blockquote>
+<p>
+I problemi <code>FNP</code> sono anche noti come <b>search problems</b>, in quanto non si richiede solamente di stabilire se una data istanza è una <code>YES-instace</code> o una <code>NO-instace</code>, ma di <i>ricercare</i> (nel caso di <code>YSE-instace</code>)
+una effettiva soluzione per data istanza.
+</p>
+</div>
+
+<div id="outline-container-orgf9e2666" class="outline-3">
+<h3 id="orgf9e2666">FNT-completezza di <code>CG-NE</code></h3>
+<div class="outline-text-3" id="text-orgf9e2666">
+<p>
+Come qualsiasi altra classe di complessità, si può definire il concetto di <b>completezza</b> di un problema rispetto alla classe <code>FNP</code>.
+Perciò diciamo che un problema \(X \in FNP\) è <code>FNP-completo</code> se <b>per ogni</b> altro problema \(Y \in FNP\) esiste una <b>riduzione polinomiale</b> \(\chi\) da \(Y\) a \(X\) tale che
+<b>per ogni istanza</b> \(y \in Y\) esiste un <b>certificato polinomiale</b> per \(y\) <span class="underline">se e solo se</span> esiste un certificato polinomiale per l'istanza \(\chi(y) \in X\).
+In questo caso diremo che ogni problema \(Y\) è <b>riducibile polinomialmente</b> ad \(X\), \(Y \preccurlyeq_P X\).<br />
+</p>
+
+<p>
+Un altro modo per dire che un problema \(Y\) è <i>riducibile polinomialmente</i> ad \(X\), è mostrare che la presenza di due <i>algoritmi polinomiali</i> \(A_1,A_2\) tali che:
+</p>
+<ul class="org-ul">
+<li>per ogni istanza \(y \in Y\) l'algoritmo \(A_1\) crea in tempo polinomiale nella grandezza di \(y\) un'istanza \(A_1(y) \in X\), tale che esiste un certificato polinomiale di \(y\) se e solo se ne esiste uno di \(A_1(x)\).</li>
+<li>per ogni certificato polinomiale \(t\) per l'istanza \(A_1(y) \in X\), \(A_2\) calcola un certificato polinomiale \(A_2(t)\) per l'istanza iniziale \(y\).</li>
+</ul>
+<p>
+Possiamo quindi vedere la riduzione come un porecco si <code>pre</code> e <code>post</code> processing di un'instanza \(y \in Y\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img1.png" alt="adrc-lesson25-img1.png" style="max-width:650px; width:100%" />
+</p>
+</div>
+
+<p>
+Perciò dato un problema \(X\) già noto essere <code>FNP-completo</code>, se riuscissimo a trovare una riduzione polinomiale vero <code>CG-NE</code> per transitività delle riduzioni polinomiali,
+potremmo dire che anche <code>CG-NE</code> è <code>FNP-completo</code>.
+</p>
+
+<blockquote>
+<p>
+<b>THM 1</b><br />
+<code>CG-NE</code> non è <code>FNP-completo</code> a meno che <code>NP = coNP</code><sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>.
+In altri termini, se <code>CG-NE</code> è <code>FNP-completo</code> allora <code>NP = coNP</code>.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof.</b>
+Sappiamo che <code>SAT</code> è un problem <code>FNP-completo</code>, in quanto trovare un'assegnazione di verità che soddisfa una formula di <code>SAT</code> equivale al decidere se tale istanza è una istanza <code>YES</code>.
+Supponiamo che <code>CG-NE</code> sia <code>FNP-completo</code>, ovvero di avere una <span class="underline">riduzione polinomia</span> da <code>SAT</code> a <code>CG-NE</code>.
+Quindi esistono:
+</p>
+<ul class="org-ul">
+<li>un algoritmo efficiente<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> \(A_1\) che ad ogni <i>formula</i> (istanza) \(\phi\) di <code>SAT</code> associa un'istanza \(A_1(\phi)\) di <code>CG-NE</code>.</li>
+<li>un algoritmo efficiente<sup><a id="fnr.4.100" class="footref" href="#fn.4">4</a></sup> \(A_2\) che ad ogni equilibrio di Nash \(S\) per \(A_1(\phi)\) associa un'<i>assegnazione di verità</i> \(A_2(S)\) per la formula \(\phi\) se soddisfacibile, altrimenti ritorna <code>NO</code>.</li>
+</ul>
+
+<p>
+Consideriamo quindi una formula \(\phi \in SAT\) <b>non soddisfacibile</b>.
+Computiamo quindi in tempo polinomiale l'istanza \(A_1(\phi) \in CG-NE\).
+Certamente esiste un equilibrio \(S\) per \(A_1(\phi)\), in quanto <code>CG-NE</code> è un gioco potenziale.
+Dato che per ipotesi \(\phi\) è non soddisfacibile, allora \(A_2(S)\) ritornerà <code>NO</code> in tempo polinomiale.
+Così facendo avremmo dimostrato che in tempo polinomiale si può trovare un certificato anche per le <code>NO-instace</code> di <code>SAT</code>,
+ovvero evremmo dimostrate che <code>NP = coNP</code> \(\square\).
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgad3dd6d" class="outline-3">
+<h3 id="orgad3dd6d">TFNP - Total FNP</h3>
+<div class="outline-text-3" id="text-orgad3dd6d">
+<p>
+Nel teorema precedente viene sostanzialmente sfruttato il fatto che un'isatnza di <code>CG-NE</code> ha <span class="underline">sempre</span> un equilibrio di Nash \(S\), perciò in qualche modo possiamo dire che tutte le istanze di <code>CG-NE</code> sono <code>YES-instance</code>.
+Definiamo quindi una classe più specifica nella quale collocare <code>CG-NE</code>.
+</p>
+<blockquote>
+<p>
+<b>Def:</b> <code>TFNP class</code> (<code>Total FNP</code>)<br />
+La classe <code>TFNP</code> è la clesse di tutti quei problemi <code>FNP</code> per la quale esiste sempre almeno una <code>YES-instace</code>.
+</p>
+</blockquote>
+
+<p>
+Per prima cosa possiamo osservare che per definizone \(TFNP \subseteq FNP\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img2.png" alt="adrc-lesson25-img2.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>\(TFNP \subseteq FNP\).</p>
+</div>
+
+<p>
+Osserviamo inoltre che otteniamo il risultato del <b>Teorema 1</b> <span class="underline">solamente</span> grazie al fatto che <code>CG-NE</code> è un problema <code>TFNP</code>.
+In poche parole, se riapplichiamo il <b>Teorema 1</b> su un qualsiasi problema <code>TFNP</code> otterremo che
+</p>
+
+<blockquote>
+<p>
+<b>THM 2</b><br />
+Se un problema <code>TFNP</code> è <code>FNP-completo</code> allora <code>NP = coNP</code>.
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-org81ca160" class="outline-4">
+<h4 id="org81ca160">Esmpi di problemi TFNP</h4>
+<div class="outline-text-4" id="text-org81ca160">
+<p>
+Secondo il teorema di Nash sappiamo che ogni gioco finito ammette sempre un Equilibrio a <b>strategie miste</b>.
+Perciò il problema di <span class="underline">trovare</span> un equilibrio a strategie miste per un gioco finito è un problema <code>TFNP</code>.<br />
+</p>
+
+<p>
+Un altro problema <code>TFNP</code> è il problema <b>Factoring</b><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>, in quanto grazie al <a href="https://it.wikipedia.org/wiki/Teorema_fondamentale_dell%27aritmetica">Teorema fondamentale dell'aritmetica</a> sappiamo che ogni numero può essere scomposto nel prodotto di un'unica sequenza di numeri primi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3987d9d" class="outline-4">
+<h4 id="org3987d9d">TFNP-completeness?</h4>
+<div class="outline-text-4" id="text-org3987d9d">
+<p>
+Dato che abbiamo visto che non possiamo dimostrare che <code>CG-NE</code> è <code>FNP-completo</code> (a meno che <code>NP = coNP</code>) potremmo voler dimostrare che <code>CG-NE</code> è <code>TFNP-completo</code>.<br />
+</p>
+
+<p>
+Purtroppo però non si conoscono ad ora problemi <code>TFNP-completi</code>.
+Si pensa che il motivo per il quale non si possono trovare problemi <code>TFNP-completi</code> completi è perché <code>TFNP</code> è una classe <b>semantica</b> e non una classe <b>sintattica</b>.
+Le differenze tra le due tipologie di calssi sono:
+</p>
+<dl class="org-dl">
+<dt>Classi Sintattiche</dt><dd>Le classi sintattiche sono caratterizzare dal fatto che esiste un modello di calcolo che permette di stabilire se un dato problema appartiene o meno alla classe in questione.</dd>
+<dt>Classi Semantiche</dt><dd>Nelle classi semantiche invece l'appartenenza o meno di un proble alla classe in questione non dipende tanto dal modello di calcolo che la definisce, quanto a fattori esterni.
+Per esempio, l'appartenenza di <code>CG-NE</code> in <code>TFNP</code> dipende dal fatto che la toeria dei giochi ci dice che in un gioco potenziale esiste sempre un equilibrio di Nash a strategie pure.
+Stessa cosa per <code>factoring</code>, il teorema fondamentale dell'aritmetica ci garantisce che ogni numero o è primo, oppure può essere scomposto in numeri primi.</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9bc1864" class="outline-3">
+<h3 id="org9bc1864">PLS</h3>
+<div class="outline-text-3" id="text-org9bc1864">
+<p>
+Abbiamo visto che <code>CG-NE</code> non può essere ne <code>FNP-completo</code> (a meno che <code>NP = coNP</code>) ne <code>TFNP-completo</code> (perché classe semantica).
+Perciò vogliamo sapere in quale classe di complessità poter collocare <code>CG-NE</code> per la quale esso è un problema <i>completo</i> (o difficile).<br />
+</p>
+
+<p>
+Tale classe è la classe <code>PLS</code>, ovvero <code>Polinomial Local Search</code>.
+</p>
+<blockquote>
+<p>
+<b>Def:</b> <code>PLS class</code> (<code>Polinomial Local Search</code>)<br />
+La classe <code>PLS</code> è la classe di problemi di ricerca di <b>ottimi locali</b> tramite un algoritmo polinomiale <a href="https://en.wikipedia.org/wiki/Local_search_(optimization)">ricerca locale</a>.
+</p>
+</blockquote>
+
+<p>
+Per algoritmo <span class="underline">polinomiale</span> di ricerca locale si intende un algoritmo che:
+</p>
+<ol class="org-ol">
+<li>calcoli in tempo polinomiale una qualsiasi soluzione ammissibile \(X\).</li>
+<li>data una soluzione ammissibile \(X\) in tempo polinomiale riesce a calcolarne il valore.</li>
+<li>data una soluzione ammissibile \(X\) in tempo polinomiale riesce a definire se essa è un ottimo locale, oppure se c'è un'altra soluzione nel vicinato di \(X\)<sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup> migliore. Ovvero se in tempo polinomiale si può trovare un'azione <b>better response</b>.</li>
+</ol>
+<p>
+Perciò non è necessariamente richiesto che l'algoritmo di ricerca locale <b>converga</b> in tempo polinomiale ad una soluzione.<br />
+</p>
+
+<p>
+Certamente <code>CG-NE</code> è un problema in <code>PLS</code>, in qunato tutti gli equilibri \(S\) sono ottimi locali della funzione potenziale \(\Phi\), e sappiamo che tramite la dinamica better response (ovvero una ricerca locale) si riesce sempre a trovare un equilibrio.<br />
+Infatti, ritornando ai 3 punti di come deve essere un algoritmo polinomiale di ricerca locale per <code>CG-NE</code> avremo che:
+</p>
+<ol class="org-ol">
+<li>scelgo un qualsiasi progilo di strategie valido \(S\) in tempo polinomiale.</li>
+<li>con un doppio ciclo \(\texttt{for}\) riesco a calcolare \(\Phi(S)\).</li>
+<li>in tempo polinomiale cerco un palyer che ha la possibilità di fare una mossa <b>better respose</b>.</li>
+</ol>
+
+<p>
+È anche facile constatare che \(PLS \subseteq TFNP\).
+Infatti certamente un problema in <code>PLS</code> è un problema di ricerca di una soluzione (perciò \(PLS \subseteq FNP\)), inoltre se staimo dicendo di voler ricercare gli ottimi locali (e non se esistono) vuol dire che stiamo dando per scontato che esiste sempre almeno una soluzione (prciò \(PLS \subseteq TFNP\)).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img3.png" alt="adrc-lesson25-img3.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>\(PLS \subseteq TFNP\).</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org02a9781" class="outline-3">
+<h3 id="org02a9781">PLS-reduction</h3>
+<div class="outline-text-3" id="text-org02a9781">
+<p>
+Prima di parlare della completezza dei problemi in <code>PLS</code> è doveroso definire cosa è una riduzione tra problemi di ricerca locale.
+La definizione è del tutto analoga alle altre classi.
+Perciò una riduzione da un problema \(Y \in PLS\) ad un altro \(X \in PLS\) è una coppia di algoritmi \(A_1, A_2\) tali che:
+</p>
+<ol class="org-ol">
+<li>Per ogni istanza \(y \in Y\) l'algoritmo \(A_1\) crea in tempo polinomiale un'istanza \(A_1(y) \in X\).</li>
+<li>Per ogni ottimo locale di un'istanza \(x \in X\), l'algoritmo \(A_2\) calcola in tempo polinomiale un ottimo locale per \(y\).</li>
+</ol>
+
+<p>
+Ovviamente se esiste un algoritmo di ricerca locale per \(X\) che converge in tempo polinomiale, allora possiamo risolvere anche \(Y\) in tempo polinomiale.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org27a7ef6" class="outline-3">
+<h3 id="org27a7ef6">PLS-completeness</h3>
+<div class="outline-text-3" id="text-org27a7ef6">
+<p>
+Abbiamo quindi dato una classe sintattica che contiene <code>CG-NE</code>.
+È possibile dimostrare che <code>CG-NE</code> è <code>PLS-completo</code>.<br />
+</p>
+
+<p>
+Per prima cosa però bisogna identificare un problema <code>PLS-completo</code>, per poi mostrarne una riduzione verso <code>CG-NE</code>.
+</p>
+</div>
+
+<div id="outline-container-orgb1f6824" class="outline-4">
+<h4 id="orgb1f6824">Maximum Cut Problem</h4>
+<div class="outline-text-4" id="text-orgb1f6824">
+<p>
+Gli ingredienti del <code>Maximum Cut Problem</code> sono:
+</p>
+<dl class="org-dl">
+<dt>Input</dt><dd>Un grafo non diretto e pesato con pesi non negativi \(G = (V, E, w: E \rightarrow \mathbb{R}^+)\).</dd>
+<dt>Soluzione Ammissibile</dt><dd>Un taglio \((X, V \setminus X) \subseteq E\).</dd>
+<dt>Misura da ottimizzare</dt><dd>Si vuole trovare una soluzione ammissibile di dimensione massima, ovvero si vuole massimizzare il seguente valore
+\[
+      \sum_{(u,v) \in (X, V \setminus X)} w(u,v)
+      \]</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img4.png" alt="adrc-lesson25-img4.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>Esempio di Max Cut.</p>
+</div>
+
+<p>
+È già noto che tale problema è <code>NP-hard</code>.
+Possiamo però applicare un'euristica di <b>ricerca locale</b> per trovare un taglio <b>massimale</b><sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup>, ovvero un <b>massimo locale</b>.
+Tale ricerca funziona nel seguente modo:
+</p>
+<ol class="org-ol">
+<li>Considero un qualsiasi taglio \((X, \overline{X})\).</li>
+<li>Se spostando un solo vertice da un lato del taglio all'altro ottengo una soluzione migliore, allora faccio questa mossa.</li>
+<li>Quando non riesco più a trovare una mossa da fare che milgiori il valore della mia soluzione, termino l'algoritmo. Il taglio finale sarà un taglio di valore massimale.</li>
+</ol>
+
+<p>
+Ovviamente non è sempre detto che un massimo locale equivalga a un massimo globale, come si può vedere nella seguente immagine.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img5.png" alt="adrc-lesson25-img5.png" style="max-width:500px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>A sinistra un massimo locale di valre 15, a destra un massimo globale di valore 17.</p>
+</div>
+
+<p>
+Ci si chiede ora
+</p>
+<blockquote>
+<p>
+Trovare un ottimo locale è "<i>più semplice</i>" che trovare un ottimo globale?
+Ovvero, la ricerca locale precedentemente descritta converge in tempo polinomiale o in tempo esponenziale?
+</p>
+</blockquote>
+
+<p>
+Nel caso particolare di grafi non pesati (ovvero quando tutti i pesi valgono 1) si può dimostrare la ricerca locale converge a un ottimo locale in tempo polinomaile.
+Infatti ad ogni mossa la soluzione migliora di almeno un arco, e dato che ci sono al più \(n^2\) archi, in al più \(n^2\) mosse si convergerà ad un ottimo locale.
+Il problema di trovare un ottimo globale invece, rimane sempre <code>NP-hard</code> anche nel caso particolare di grafi non pesati.<br />
+</p>
+
+<p>
+Purtroppo però nel caso generale con pesi generici non negativi anche trovare un ottimo locale è <code>NP-hard</code>.
+Ovvero l'euristica precedente, nel caso generale, non converge in tempo polinomiale ad un massimo locale.<br />
+</p>
+
+<p>
+Ricapitolando:
+</p>
+<ul class="org-ul">
+<li>non si conosce un algoritmo polinomiale per calcolare un massimo <b>globale</b> di <code>Max Cut</code>.</li>
+<li>non si conosce un algoritmo polinomiale per calcolare un massimo <b>locale</b> di <code>Max Cut</code>.</li>
+</ul>
+
+<blockquote>
+<p>
+<b>Theorem</b> <i>(Johnson, Papadimitriou, Yannakakis ’85, Schaffer, Yannakakis 91)</i><br />
+Computing a local maximum of a maximum cut instance with general non-negative edge weights is a PLS-complete problem.
+</p>
+</blockquote>
+
+<p>
+Questo teorema ci dice che tutti i problemi in <code>PLS</code> sono riducibili a <code>Max Cut</code>, se se conoscessimo un algoritmo (qualsiasi, non necessariamente di ricerca locale) per risolvere <code>Max Cut</code> in tempo polinomiale alora saremmo in grado di risolvere
+in tempo polinomiale <b>tutti</b> i problemi in <code>PLS</code>.<br />
+</p>
+
+<p>
+Esiste un corollario di questo teorema che dice anche che se volessimo usare un qualsiasi algoritmo di ricerca locale, si convergerebbe ad una soluzione in tempo esponenziale, indipendentemente dalle scelte fatte per spostarsi durante la ricerca.
+</p>
+
+<blockquote>
+<p>
+<b>Corollary</b> <i>(Johnson, Papadimitriou, Yannakakis, ’85, Schaffer, Yannakakis 91)</i><br />
+Computing a local maximum of a maximum cut instance with general non-negative edge weights using local search can require an exponential
+(in \(\vert V \vert\)) number of iterations, no matter how an improving local move is chosen in each iteration.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orga1fa455" class="outline-4">
+<h4 id="orga1fa455">Completezza del Congesion Game</h4>
+<div class="outline-text-4" id="text-orga1fa455">
+<blockquote>
+<p>
+<b>Theorem</b> <i>(Fabrikant, Papadimitriou, Talwar 2004)</i><br />
+<code>CG-NE</code> is <code>PLS-complete</code>.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof:</b> verrà proposta una riduazione dal problema del <code>Local Max Cut</code> a <code>CG-NE</code>
+\[
+    \texttt{Local Max Cut} \preccurlyeq_P \texttt{CG-NE}
+    \]
+</p>
+
+<p>
+Data un'istanza \(G=(V,E,w)\) di <code>Local Max Cut</code> costruiamo un'istanza di <code>CG-NE</code>.
+</p>
+<ul class="org-ul">
+<li>Per ogni nodo \(v \in V\) definiamo il player.</li>
+<li>Per ogni arco \(e \in E\) definiamo due risorse \(r_e\) ed \(\overline{r}_e\).</li>
+<li><p>
+Ogni player \(v\) ha solamente due possibili strategie
+</p>
+\begin{align*}
+  S_v &= \lbrace r_e : e \in \delta(v) \rbrace\\
+  \overline{S}_v &= \lbrace \overline{r}_e : e \in \delta(v) \rbrace
+\end{align*}
+<p>
+ovvero \(v\) può decidere solamente se comprare tutte le risorse \(r_e\) oppure tutte quelle \(\overline{r}_e\) per tutti i soui archi incidenti.
+</p></li>
+<li>per ogni risorsa \(r \in \lbrace r_e, \overline{r}_e \rbrace\) il suo costo sarà
+\[
+      c_r(i) = \begin{cases}
+	0 &\mbox{se } i = 0,1\\
+	w(e) &\mbox{se } i = 2
+      \end{cases}
+      \]
+ovvero se due nodi utilizzano una stessa risorsa allora il suo costo sarà pari al peso del rispettivo arco, 0 altrimenti.</li>
+</ul>
+
+<p>
+Osserviamo che per ogni possible taglio \((X, \overline{X})\) esiste un relativo profilo di strategie \(S\), e <span class="underline">viceversa</span>.
+Infatti, dato un taglio \((X, \overline{X})\) possiamo dire per ogni nodo \(v \in X\) il rispettivo player ha scelto la strategie \(S_v\),
+mentre per ogni nodo \(v \in \overline{X}\) il rispettivo player ha scelto la strategia \(\overline{S}_v\).<br />
+</p>
+
+<p>
+Viceversa dato un profilo di strategie \(S\), indichiamo il taglio \((X_S, \overline{X}_S)\) dove in \(X_S\) ci sono tutti player che hanno scelto la strategie \(S_v\),
+mentre in \(\overline{X}_S\) ci sono tutti quei nodi che hanno scelto \(\overline{S}_v\).<br />
+</p>
+
+<p>
+Infatti dato un profilo distrategie \(S\) avremo che
+</p>
+\begin{align*}
+  \Phi(S)
+  &= \sum_{r \in R} \sum_{i = 0}^{k_r(S)} c_r(i)\\
+  &= \cdots = W(E) - W(X_s, \overline{X}_S)
+\end{align*}
+<p>
+Dove \(W(\cdot)\) indica la somma dei pesi degli archi.<br />
+Perciò osserviamo che al cresce del valore del taglio \((X,\overline{X})\), la funzione potenziale del rispettivo equilibrio \(S\) decresce.
+Perciò a un massimo locale per <code>Local Max Cut</code> corrisponde un minimo \(\Phi(S)\), e viceversa \(\square\).
+</p>
+</blockquote>
+
+<hr />
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc8185e5" class="outline-2">
+<h2 id="orgc8185e5">Complexity of Mixed Nash Equilibria</h2>
+<div class="outline-text-2" id="text-orgc8185e5">
+<p>
+Abbiamo appena collocato un problema che riguarda la ricerca di un equilibrio a <span class="underline">strategie pure</span> come <code>PLS-completo</code>.
+In generale però non è detto che in ogni tipo di gioco esista un equilibrio a strategie pure, per il momento ne abbiamo la certezza solamente per i giochi potenziali.
+Viceversa per gli equilibiri a <b>strategie miste</b>, sappiamo grazie al Teorema di Nash che esiste sempre un equilibrio per qualsiasi gioco finito.
+Perciò per esempio ci si potrebbe chiedere dove poter catalogare un problema di ricerca di equilibri a strategie miste.<br />
+</p>
+
+<p>
+Per esempio consideriamo il gioco <a href="https://en.wikipedia.org/wiki/Bimatrix_game">Bitmatrix Game</a> con soli <b>due players</b> (senza perdita di tempo non entriamo nel dettaglio della descrizione).
+Definiamo ora il problema <code>MNE</code>
+</p>
+
+<blockquote>
+<p>
+<b>Def:</b> <code>MNE problem</code><br />
+Dato un'istanza di un qualsiasi gioco finito a due player (per esempio <code>Bitmatrix</code>), trovare un equilibrio a <b>strategie miste</b>.
+</p>
+</blockquote>
+
+<p>
+Sappiamo già che esiste una soluzione, perciò possiamo catalogare questo problema in <code>TFNP</code>
+\[
+  \texttt{MNE} \in \texttt{TFNP}
+  \]
+e inoltre non si conosce nessun algoritmo polinomiale che risolva tale problema.<br />
+</p>
+
+<p>
+Dato che sappiamo che probabilmente non esistono problemi <code>TFNP-completi</code> ci chiedhimo: dove catalocare più precisamente <code>MNE</code>?
+</p>
+</div>
+
+<div id="outline-container-org58e2d88" class="outline-3">
+<h3 id="org58e2d88">PPAD</h3>
+<div class="outline-text-3" id="text-org58e2d88">
+<p>
+Intuitivamente possiamo visualizzare la classe <code>PLS</code> come quella classi di problemi per i quali esiste un <b>DAG</b><sup><a id="fnr.8" class="footref" href="#fn.8">8</a></sup> dove i
+nodi rappresentano delle soluzioni possibili mentre un arco diretto rappresenta un <b>improving local move</b><sup><a id="fnr.9" class="footref" href="#fn.9">9</a></sup>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img6.png" alt="adrc-lesson25-img6.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span><code>DAG</code> di una ricerca locale di un prblema <code>PLS</code>.</p>
+</div>
+
+<p>
+Possiamo quindi pensare ai nodi pozzo di questo DAG come gli ottimi locali del problema.<br />
+</p>
+
+<p>
+Esiste invece una classe equivalente per il problema di ricerca di equilibri a strategie miste, nota come <code>PPAD</code>.
+Tale classe è simile intuitivamente alla classe <code>PLS</code>, ovvero si effettua una ricerca locale per non su di un DAG, bensì su un grafo diretto
+di <b>in-</b> e <b>out-</b> degree pari esattamente 1.
+Perciò i tipi di grafi in questione sono o delle liste o degli anelli.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img7.png" alt="adrc-lesson25-img7.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 7: </span>Grafo di una ricerca locale di un prblema <code>PPAD</code>.</p>
+</div>
+
+<p>
+In questo caso però le soluzioni non sono solamente i nodi pozzo, ma anche i nodi sorgente.<br />
+</p>
+
+<p>
+In teoria il termine <code>PPAD</code> sta per <i>Polynomial Parity Argument in a Directed graph</i>, ma in realtà la leggenda vuole che il nome di questa classe è dato dalla somiglianza
+col nome di chi ha definito questa classe, <a href="https://en.wikipedia.org/wiki/Christos_Papadimitriou">Christos H. Papadimitriou</a>.<br />
+</p>
+
+<blockquote>
+<p>
+<b>Theorem</b> <i>(Daskalakis, Godberg, Papadimitriou 06, Chen,Deng,Teng 06)</i><br />
+Computing any <code>MNE</code> of a bimatrix game is <code>PPAD-complete</code>.
+</p>
+</blockquote>
+
+
+<div class="figure">
+<p><img src="../images/adrc-lesson25-img8.png" alt="adrc-lesson25-img8.png" style="max-width:300px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Catalogazione classe <code>PPAD</code>.</p>
+</div>
+
+<hr />
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+istanze di un problme in <code>NP</code> che ammettono l'esistenza di un certificato verificabile in tempo polinomiale nella grandezza dell'istanza.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+un certificato verificabile in tempo polinomiale ha certamente una <span class="underline">dimensione polinomiale</span>, in quanto per essere verificato va innanzitutto letto.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+la classe di tutti i problemi per i quali è possibile identificare un <i>certificato polinomiale</i> per le <code>NO-instance</code>.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+calcolabile in tempo polinomiale.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+scomposizione in numeri primi.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6">6</a></sup> <div class="footpara"><p class="footpara">
+per vicinato di una soluzione \(X\) si intende l'insieme di tutte quelle soluzioni ammissibili \(Y\) tali che si può passare da \(X\) ad \(Y\) facendo una sola mossa/modifica.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7">7</a></sup> <div class="footpara"><p class="footpara">
+un taglio è detto massimale se, spostando un qualsiasi nodo da un lato del taglio all'altro il nuovo taglio non è migliore del precedente.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8">8</a></sup> <div class="footpara"><p class="footpara">
+Directed Acyclic Graph.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9">9</a></sup> <div class="footpara"><p class="footpara">
+un movimento better response durante la ricerca locale.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2022-01-17 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-02-05 sab 20:15</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
