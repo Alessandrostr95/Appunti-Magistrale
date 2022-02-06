@@ -18,7 +18,7 @@
 
 ** Uniform Model
    Considereremo solamente un modello *uniforme*, ovvero dove il costo di costruzione degli archi è una certa costante \(\alpha\) uguale per tutti.
-   Datamuna coppia di nodei \(u,v\), indichiamo con \(dist_{G(S)}(u,v)\) la lunghezza del cammino minimo (in termine di numero di archi) tra i nodi
+   Data una coppia di nod i \(u,v\), indichiamo con \(dist_{G(S)}(u,v)\) la lunghezza del cammino minimo (in termine di numero di archi) tra i nodi
    \(u,v\) del grafo \(G(S)\) risultante dal profilo di strategie \(S\).
    Indichiamo poi con \(n_u\) il numero di archi "comprati" dal nodo $u$.\\
    
