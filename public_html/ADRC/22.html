@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-15 sab 17:20 -->
+<!-- 2022-02-07 lun 18:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 22</title>
@@ -337,7 +337,7 @@ Ovviamente però non conviene offrire troppo poco, altrimenti si rischia di non 
 <p>
 Vedendo il <i>guadagno</i> dei player in termini di utilità \(u\), un player che non riesce a comprare l'oggeto avrà utilità \(u = 0\).
 Viceversa, se il player \(i\) riesce a vincere l'asta comprando ad un prezzo \(p\), avrà un guadagno finale di \(u_i = t_i - p\).
-Per questo motivo infatti un player non deve mai offrire più di quanto stiama, altrimenti anche se vince l'asta il suo guadagno sarà negativo \(u_i < 0\).<br />
+Per questo motivo infatti un player non dovrebbe mai offrire più di quanto stiama, altrimenti anche se vince l'asta il suo guadagno sarà negativo \(u_i < 0\).<br />
 </p>
 
 
@@ -396,7 +396,7 @@ purtroppo però aumentando \(r_i\) diminuisce il guadagno finale \(u_i = t_i - r
 <p>
 Un meccanismo elegante e vincente è il cosiddetto <b>Vickrey’s second price auction</b>, nel quale vince chi offre di più e paga quanto l'offerta del secondo classificato.
 Più formalmente, siano \(i,j\) i primi due giocatori in ordine di offerte, ovvero \(r_i\) è l'offerta massima, e \(r_j\) è la seconda più alta.
-In tal caso il vincitore sarà \(i\) è pagherà il prezzo \(p = t_j\), con un'utilità complessiva pari a \(u_i = t_i - t_j \geq 0\).<br />
+In tal caso il vincitore sarà \(i\) è pagherà il prezzo \(p = r_j\), con un'utilità complessiva pari a \(u_i = t_i - r_j \geq 0\).<br />
 </p>
 
 <blockquote>
@@ -422,7 +422,7 @@ ovvero la massima offerta tra tutti i player escluso il player \(i\).
 
 <dl class="org-dl">
 <dt>Case \(t_i \geq R\)</dt><dd>Se il player \(i\) offre \(r_i = t_i\) esso vincerà di sicuro, perché \(r_i = t_i \geq R\), con un'utilità <span class="underline">non negativa</span> \(u_i = t_i - R \geq 0\).
-Se invece \(i\) offore \(r_i \neq t_i\), per quanto osservato certamente non conviene mai offire più della propria stima, quindi necessariamente \(r_i < t_i\).
+Se invece \(i\) offre \(r_i \neq t_i\), per quanto osservato certamente non conviene mai offrire più della propria stima, quindi necessariamente \(r_i < t_i\).
 Esso ha possibilità di vincere solo se \(r_i \geq R\), ottenendo comunque lo stesso guadagno del caso \(r_i = t_i\).
 Se invece \(r_i < R\) certamente \(i\) perde e ottiene un guadagno nullo.
 \[
@@ -459,7 +459,7 @@ indipendentemente dalle offerte degli altri \(\square\).</dd>
 <h3 id="org965535d">Forma di Minimizzazione</h3>
 <div class="outline-text-3" id="text-org965535d">
 <p>
-Nel gioco dell'asta ogni player voleva <i>massimizzare</i> la propria utilità \(u_i\).
+Nel gioco dell'asta ogni player vuole <i>massimizzare</i> la propria utilità \(u_i\).
 È possibile esprimere la stessa tipologia di giochi in forma di <b>minimizzazione</b>, in cui si desidera <i>minimizzare</i> un certo costo sociale.<br />
 </p>
 
@@ -474,7 +474,7 @@ Ogni macchina propone un costo \(r_i\) che rappresenta quanto è il suo costo d'
 </p>
 
 <p>
-Si desiderà progettare un meccanismo che assegni il job alla macchina con costo d'uso \(t_i\) <b>minimo</b>.<br />
+Si desidera progettare un meccanismo che assegni il job alla macchina con costo d'uso \(t_i\) <b>minimo</b>.<br />
 </p>
 
 <p>
@@ -531,9 +531,9 @@ Restringiamoci solo ai casi in cui spazio delle strategie e spazio delle informa
 
 <p>
 Per esempio, considerando il gioco dell'asta, l'sieme \(F\) degli <i>outcomes possibili</i> equivale all'insieme degli \(n\) offerenti, mentre
-la funzione di <i>scelta sociale</i> è quella in cui si sceglie l'offerente con informazione privata \(t_i \in T_i\) <i>muinima</i> tra tutti.
+la funzione di <i>scelta sociale</i> è quella in cui si sceglie l'offerente con informazione privata \(t_i \in T_i\) <i>massima</i> tra tutti.
 \[
-   f(t) = arg \min_i {t_i}
+   f(t) = arg \max_i {t_i}
    \]
 </p>
 
@@ -791,7 +791,7 @@ Perciò osserviamo che applicando il <i>Clarke payment schema</i> otteniamo nuov
 <p class="date">Data: 2021-12-20 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-15 sab 17:20</p>
+<p class="date">Created: 2022-02-07 lun 18:12</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

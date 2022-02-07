@@ -29,7 +29,7 @@
    
    Vedendo il /guadagno/ dei player in termini di utilità $u$, un player che non riesce a comprare l'oggeto avrà utilità \(u = 0\).
    Viceversa, se il player $i$ riesce a vincere l'asta comprando ad un prezzo $p$, avrà un guadagno finale di \(u_i = t_i - p\).
-   Per questo motivo infatti un player non deve mai offrire più di quanto stiama, altrimenti anche se vince l'asta il suo guadagno sarà negativo \(u_i < 0\).\\
+   Per questo motivo infatti un player non dovrebbe mai offrire più di quanto stiama, altrimenti anche se vince l'asta il suo guadagno sarà negativo \(u_i < 0\).\\
 
    #+caption: Esempio d'asta. Facendo vincere il player che offre di più vincerebbe il player 1. In questo caso non solo il vincitore avrebbe un guadagno negativo, ma otterremo un risultato sicualmente errato. Infatti desideriamo che vinca il player 2, in quanto stima più di tutti il valore dell'oggetto.
    #+ATTR_HTML: :style max-width:200px; width:100%
@@ -62,7 +62,7 @@
 
    Un meccanismo elegante e vincente è il cosiddetto *Vickrey’s second price auction*, nel quale vince chi offre di più e paga quanto l'offerta del secondo classificato.
    Più formalmente, siano \(i,j\) i primi due giocatori in ordine di offerte, ovvero \(r_i\) è l'offerta massima, e \(r_j\) è la seconda più alta.
-   In tal caso il vincitore sarà $i$ è pagherà il prezzo \(p = t_j\), con un'utilità complessiva pari a \(u_i = t_i - t_j \geq 0\).\\
+   In tal caso il vincitore sarà $i$ è pagherà il prezzo \(p = r_j\), con un'utilità complessiva pari a \(u_i = t_i - r_j \geq 0\).\\
    
    #+begin_quote
    *THM*\\
@@ -81,7 +81,7 @@
 
    - Case \(t_i \geq R\) ::
      Se il player $i$ offre \(r_i = t_i\) esso vincerà di sicuro, perché \(r_i = t_i \geq R\), con un'utilità _non negativa_ \(u_i = t_i - R \geq 0\).
-     Se invece $i$ offore \(r_i \neq t_i\), per quanto osservato certamente non conviene mai offire più della propria stima, quindi necessariamente \(r_i < t_i\).
+     Se invece $i$ offre \(r_i \neq t_i\), per quanto osservato certamente non conviene mai offrire più della propria stima, quindi necessariamente \(r_i < t_i\).
      Esso ha possibilità di vincere solo se \(r_i \geq R\), ottenendo comunque lo stesso guadagno del caso \(r_i = t_i\).
      Se invece \(r_i < R\) certamente $i$ perde e ottiene un guadagno nullo.
      \[
@@ -113,7 +113,7 @@
    #+end_quote
 
 ** Forma di Minimizzazione
-   Nel gioco dell'asta ogni player voleva /massimizzare/ la propria utilità \(u_i\).
+   Nel gioco dell'asta ogni player vuole /massimizzare/ la propria utilità \(u_i\).
    È possibile esprimere la stessa tipologia di giochi in forma di *minimizzazione*, in cui si desidera /minimizzare/ un certo costo sociale.\\
 
    Per esempio supponiamo il caso in cui dobbiamo scegliere una macchina a cui assegnare un /job/.
@@ -122,7 +122,7 @@
 
    Ogni macchina propone un costo \(r_i\) che rappresenta quanto è il suo costo d'utilizzo.\\
 
-   Si desiderà progettare un meccanismo che assegni il job alla macchina con costo d'uso \(t_i\) *minimo*.\\
+   Si desidera progettare un meccanismo che assegni il job alla macchina con costo d'uso \(t_i\) *minimo*.\\
 
    Ogni macchina concorre per l'assegnazione del job, perciò avremo che \(r_i \leq t_i\).
    Infatti se \(r_i > t_i\) si rischia di non essere scelti per l'assegnazione del job, ottenendo quindi un guadagno nullo \(u_i = 0\).\\
@@ -158,9 +158,9 @@
    Restringiamoci solo ai casi in cui spazio delle strategie e spazio delle informazioni private coincidono, ovvero solo i casi in cui \(S_i \equiv T_i\).\\
 
    Per esempio, considerando il gioco dell'asta, l'sieme $F$ degli /outcomes possibili/ equivale all'insieme degli $n$ offerenti, mentre
-   la funzione di /scelta sociale/ è quella in cui si sceglie l'offerente con informazione privata \(t_i \in T_i\) /muinima/ tra tutti.
+   la funzione di /scelta sociale/ è quella in cui si sceglie l'offerente con informazione privata \(t_i \in T_i\) /massima/ tra tutti.
    \[
-   f(t) = arg \min_i {t_i}
+   f(t) = arg \max_i {t_i}
    \]
    
    Per ogni possibile /outcome/ \(x \in F\), ogni player $i$ effettua una valutazione \(v_i(t_i, x)\), che indica la preferenza di $i$ rispetto al possible outcome $x$.
