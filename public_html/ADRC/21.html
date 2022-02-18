@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-06 dom 23:35 -->
+<!-- 2022-02-18 ven 14:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 21</title>
@@ -274,22 +274,22 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf0d317f">Local Connection Game</a>
+<li><a href="#org8927e09">Local Connection Game</a>
 <ul>
-<li><a href="#orgf79211f">Uniform Model</a></li>
-<li><a href="#orgacba202">Stima dell'Ottimo</a></li>
-<li><a href="#orgc0e4327">PoS: Price of Stability</a></li>
-<li><a href="#orgc23471c">PoA: Price of Anarchy</a></li>
-<li><a href="#org925151a">Complessità</a></li>
+<li><a href="#org30fe0a5">Uniform Model</a></li>
+<li><a href="#orgff404f8">Stima dell'Ottimo</a></li>
+<li><a href="#org66c9e47">PoS: Price of Stability</a></li>
+<li><a href="#org9eeaf2e">PoA: Price of Anarchy</a></li>
+<li><a href="#orge9eb191">Complessità</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf0d317f" class="outline-2">
-<h2 id="orgf0d317f">Local Connection Game</h2>
-<div class="outline-text-2" id="text-orgf0d317f">
+<div id="outline-container-org8927e09" class="outline-2">
+<h2 id="org8927e09">Local Connection Game</h2>
+<div class="outline-text-2" id="text-org8927e09">
 <p>
 I <b>Local Connection Games</b> sono un'altra tipologia di giochi per il task del <b>Network Formation</b>.
 Consideriamo un gioco con \(n\) players, dove ogni player è rappresentato da un <i>nodo</i> della rete.
@@ -310,9 +310,9 @@ Data una configurazione di strategie \(S\), indichiamo con \(G(S)\) la rete risu
 </p>
 </div>
 
-<div id="outline-container-orgf79211f" class="outline-3">
-<h3 id="orgf79211f">Uniform Model</h3>
-<div class="outline-text-3" id="text-orgf79211f">
+<div id="outline-container-org30fe0a5" class="outline-3">
+<h3 id="org30fe0a5">Uniform Model</h3>
+<div class="outline-text-3" id="text-org30fe0a5">
 <p>
 Considereremo solamente un modello <b>uniforme</b>, ovvero dove il costo di costruzione degli archi è una certa costante \(\alpha\) uguale per tutti.
 Data una coppia di nod i \(u,v\), indichiamo con \(dist_{G(S)}(u,v)\) la lunghezza del cammino minimo (in termine di numero di archi) tra i nodi
@@ -358,9 +358,9 @@ Una soluzioni \(S\) è <b>ottima</b> se <b>minimizza</b> il costo sociale \(COST
 </div>
 </div>
 
-<div id="outline-container-orgacba202" class="outline-3">
-<h3 id="orgacba202">Stima dell'Ottimo</h3>
-<div class="outline-text-3" id="text-orgacba202">
+<div id="outline-container-orgff404f8" class="outline-3">
+<h3 id="orgff404f8">Stima dell'Ottimo</h3>
+<div class="outline-text-3" id="text-orgff404f8">
 <p>
 Prima di dare delle stime per <code>PoA</code> e <code>PoS</code> è necessario individuare qual è il costo di una soluzione ottima al problema.
 </p>
@@ -479,9 +479,9 @@ Per \(\alpha \geq 1\) tale strategia non migliora il costo del nodo \(v\) \(\squ
 </div>
 </div>
 
-<div id="outline-container-orgc0e4327" class="outline-3">
-<h3 id="orgc0e4327">PoS: Price of Stability</h3>
-<div class="outline-text-3" id="text-orgc0e4327">
+<div id="outline-container-org66c9e47" class="outline-3">
+<h3 id="org66c9e47">PoS: Price of Stability</h3>
+<div class="outline-text-3" id="text-org66c9e47">
 <p>
 A questo punto è possibile quantificare il valore del prezzo della stabilità <code>PoS</code>.
 </p>
@@ -525,9 +525,9 @@ La disuguaglianza <b>( * )</b> è giustificata dal fatto che tale rapporto è ma
 </div>
 </div>
 
-<div id="outline-container-orgc23471c" class="outline-3">
-<h3 id="orgc23471c">PoA: Price of Anarchy</h3>
-<div class="outline-text-3" id="text-orgc23471c">
+<div id="outline-container-org9eeaf2e" class="outline-3">
+<h3 id="org9eeaf2e">PoA: Price of Anarchy</h3>
+<div class="outline-text-3" id="text-org9eeaf2e">
 <p>
 Per \(\alpha \leq 1\) l'unica rete stabile è il grafo completo (da dimostrare&#x2026;), perciò costo sociale ottimo e il costo della peggiore rete stabile coincidono, <code>PoA</code> = 1.
 Per valori di \(\alpha > 1\) è più complicato dare una stima di <code>PoA</code>.
@@ -664,9 +664,9 @@ come affermato nel teorema iniziale.<br />
 </div>
 </div>
 
-<div id="outline-container-org925151a" class="outline-3">
-<h3 id="org925151a">Complessità</h3>
-<div class="outline-text-3" id="text-org925151a">
+<div id="outline-container-orge9eb191" class="outline-3">
+<h3 id="orge9eb191">Complessità</h3>
+<div class="outline-text-3" id="text-orge9eb191">
 <p>
 Generalmente dare queste stime al prezzo dell'anarchia e della stabilità può sembrare incoraggiante, perché ci fa ben sperare di trovare una buana soluzione a problema del <i>Network Formation</i>.
 Purtroppo però bisogna anche considerare quanto può essere complicato per un player individuare qual è la strategia migliore da adottare.
@@ -759,7 +759,7 @@ ogni sottocammino minimo di un cammino minimo è un cammino minimo.
 <p class="date">Data: 2021-12-16 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-06 dom 23:35</p>
+<p class="date">Created: 2022-02-18 ven 14:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

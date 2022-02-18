@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-18 ven 14:22 -->
+<!-- 2022-02-18 ven 15:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ADRC - Lesson 26</title>
+<title>SOSE - Model Driven Engineering (MDE)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -247,25 +247,194 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ADRC - Lesson 26</h1>
+<h1 class="title">SOSE - Model Driven Engineering (MDE)</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7b08866">ToDo</a></li>
+<li><a href="#org074c561">Building SW is an effortful activity</a>
+<ul>
+<li><a href="#orgd2255a0">Model</a></li>
+<li><a href="#org72bbf0f">Principle of limited substitutability</a></li>
+<li><a href="#org4880123">How to build and interpret a model</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7b08866" class="outline-2">
-<h2 id="org7b08866">ToDo</h2>
+<div id="outline-container-org074c561" class="outline-2">
+<h2 id="org074c561">Building SW is an effortful activity</h2>
+<div class="outline-text-2" id="text-org074c561">
+<p>
+I moderni <i>sistemi software distribuiti</i> sfruttare svariate tecnologie, come linguaggi di programmazione, librerie middleware, linguaggi per la definizione d'interfacce,
+linguaggi di definizione delle basi di dati, query languages, ecc&#x2026;
+In base al loro utilizzo, tali sistemi sono tenuti a fornire determinati livelli di qualità del servizio in termini di
+</p>
+<ul class="org-ul">
+<li>efficienza</li>
+<li>affidabilità</li>
+<li>scalabilità</li>
+<li>sicurezza</li>
+<li>ecc&#x2026;</li>
+</ul>
+<p>
+tenendo conto però dei carichi di lavoro altamente variabili e delle infrastrutture di rete <i>best-effort</i>.<br />
+</p>
+
+<p>
+Il processo di traduzione dai requisiti di un problema aziendale a una soluzione che utilizza tutte queste tecnologie richiede una <span class="underline">profonda</span>
+comprensione delle numerose architetture, protocolli, linguaggi, framework e tecnologie in generale che compongono una soluzione distribuita.<br />
+</p>
+
+<p>
+La modellazione è essenziale per l'attività umana perché ogni <b>azione</b> è preceduta dalla <i>costruzione</i> (implicita o esplicita) di un <b>modello</b>.<br />
+</p>
+</div>
+
+<div id="outline-container-orgd2255a0" class="outline-3">
+<h3 id="orgd2255a0">Model</h3>
+<div class="outline-text-3" id="text-orgd2255a0">
+<p>
+Innanzitutto è necessario definire (quantomeno intuitivamente) cosa è un <b>modello</b>.
+In maniera informale, un modello è una <b>rappresentazione astratta</b> di un <i>sistema</i>.
+Per <b>sistema</b> si intende un insieme di elementi con delle specifiche proprietà e che <span class="underline">interagiscono</span> tra di loro secondo determinate <b>dinamiche</b>.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img2.png" alt="sose-lesson1-img2.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Un <b>modello</b> che è una rappresentazione di un <b>sistema</b>.</p>
+</div>
+
+<blockquote>
+<p>
+La modellazione, nel senso più ampio, è l'uso <b>conveniente</b> di qualcosa al posto di qualcos'altro per uno scopo.
+Ci permette di usare qualcosa che è <b>più semplice</b>, <b>più sicuro</b> o <b>più economico</b> della realtà invece della realtà per qualche scopo.
+<b>Un modello rappresenta la realtà per un dato obiettivo</b>; il modello è un'<b>astrazione</b> della realtà, nel senso che non può rappresentare <span class="underline">tutti</span> i suoi aspetti in modo esaustivo.
+Questo ci permette di affrontare il mondo in modo <b>semplificato</b>, <b>evitando la complessità</b>, il <b>pericolo</b> e l'<b>irreversibilità</b> della realtà. <br />
+</p>
+
+<p>
+<i>"The Nature of Modeling" Jeff Rothenberg</i>
+</p>
+</blockquote>
+
+<p>
+Un modello può anche essere visto come una <b>visione parziale</b> di un sistema reale, il quale raccoglie solamente le caratteristiche e dinamiche utili per lo scopo finale.
+Infatti, è facile osservaere, che ogni sistema ha diversi modelli che rappresentano diversi aspetti.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img3.png" alt="sose-lesson1-img3.png" style="max-width:500px; width:100%" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img4.png" alt="sose-lesson1-img4.png" style="max-width:250px; width:100%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org72bbf0f" class="outline-3">
+<h3 id="org72bbf0f">Principle of limited substitutability</h3>
+<div class="outline-text-3" id="text-org72bbf0f">
+<p>
+Non basta che un modello, per essere tale, rappresenti intuitivamente alcuni aspetti di un sistema.
+Come già accennato, un modello rappresenta un sistema basandosi su un problema che si vuole risolvere.
+Tale problema indica in maniera implicita (o talvolta esplicita) quali aspetti del sistema sono utili da rappresentare e quali invece sono irrilevanti.<br />
+</p>
+
+<p>
+Si necessita quindi che un modello <code>M</code> per essere una <b>rappresentazione</b> di un sistema <code>S</code> rispetto a un dato <b>insieme di domande</b> <code>Q</code> (il nostro problema) deve,
+per ogni domanda di <code>Q</code>, fornire <span class="underline">esattamente</span> la stessa risposta che il sistema <code>S</code> avrebbe fornito rispondendo allo stesso domanda.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img5.png" alt="sose-lesson1-img5.png" style="max-width:400px; width:100%" />
+</p>
+</div>
+
+<p>
+Per esempio un <i>globo</i> (ovvero un modello della <i>Terra</i>) può provvedere una risposta alla domanda
+</p>
+<blockquote>
+<p>
+<i>posso raggiungere Tallinn da Roma senza usare una barca?</i>
+</p>
+</blockquote>
+<p>
+però non sarà mai in grado di rispondere alla domanda
+</p>
+<blockquote>
+<p>
+<i>che tempo fa oggi a Roma?</i>
+</p>
+</blockquote>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img6.png" alt="sose-lesson1-img6.png" style="max-width:400px; width:100%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4880123" class="outline-3">
+<h3 id="org4880123">How to build and interpret a model</h3>
+<div class="outline-text-3" id="text-org4880123">
+<p>
+Ogni modello è costruito per mezzo di un <b>linguaggio</b>.
+Per esempio consideriamo una <i>mappa</i> dei mezzi pubblici.
+Su di essa saranno segnate delle linee di deversi colori e dimensioni che rappresentano le diverse tratte delle diverse tipologie di mezzi (bus, tram, treni, &#x2026;).
+Il <b>significato</b> che assumono tali linee è specificato nella <b>leggenda</b>.
+Perciò una leggenda è il <b>linguaggio</b> al quale una mappa deve <b>essere conferme</b>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img7.png" alt="sose-lesson1-img7.png" style="width:100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>mappa dei mezzi pubblici di Roma.</p>
+</div>
+
+<p>
+Un linguaggio non solo specifica come definire un modello e come <b>interpretarlo</b>, ma può anche essere visto come <b>modello</b>.
+Infatti, nella leggenda dei mezzi pubblici del precedente esempio, vediamo che la linea in verde rappresenta il traggitto della <code>Metro C</code>.
+Però si può osservare che una linea a sua volta è una <span class="underline">rappresentazione astratta</span> di una tratta di una metro, perciò a sua volta è un modello.<br />
+</p>
+
+<p>
+Possiamo quindi dire che un linguaggio è a sua volta un modello che definisce un altro modello, ovvero un <b>meta-modello</b>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img8.png" alt="sose-lesson1-img8.png" style="width:100%" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson1-img9.png" alt="sose-lesson1-img9.png" style="width:100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Alcuni esempi di modelli e relativi metamodelli.</p>
+</div>
+
+<hr />
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Data: 2022-01-20 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-18 ven 14:22</p>
+<p class="date">Created: 2022-02-18 ven 15:12</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
