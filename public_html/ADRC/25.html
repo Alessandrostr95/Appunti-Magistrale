@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-05 sab 20:15 -->
+<!-- 2022-02-18 ven 14:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 25</title>
@@ -274,29 +274,29 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge24126d">Congestion Games</a></li>
-<li><a href="#orgf05c24c">FNP class</a>
+<li><a href="#org1305fd6">Congestion Games</a></li>
+<li><a href="#org5c71e1d">FNP class</a>
 <ul>
-<li><a href="#orgf9e2666">FNT-completezza di <code>CG-NE</code></a></li>
-<li><a href="#orgad3dd6d">TFNP - Total FNP</a>
+<li><a href="#org99dece5">FNT-completezza di <code>CG-NE</code></a></li>
+<li><a href="#org1be31f4">TFNP - Total FNP</a>
 <ul>
-<li><a href="#org81ca160">Esmpi di problemi TFNP</a></li>
-<li><a href="#org3987d9d">TFNP-completeness?</a></li>
+<li><a href="#orgd3699b2">Esmpi di problemi TFNP</a></li>
+<li><a href="#org7e847c3">TFNP-completeness?</a></li>
 </ul>
 </li>
-<li><a href="#org9bc1864">PLS</a></li>
-<li><a href="#org02a9781">PLS-reduction</a></li>
-<li><a href="#org27a7ef6">PLS-completeness</a>
+<li><a href="#orge10e9c5">PLS</a></li>
+<li><a href="#org92f2fdd">PLS-reduction</a></li>
+<li><a href="#org249dcfb">PLS-completeness</a>
 <ul>
-<li><a href="#orgb1f6824">Maximum Cut Problem</a></li>
-<li><a href="#orga1fa455">Completezza del Congesion Game</a></li>
+<li><a href="#org755f538">Maximum Cut Problem</a></li>
+<li><a href="#org5c9998e">Completezza del Congesion Game</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgc8185e5">Complexity of Mixed Nash Equilibria</a>
+<li><a href="#orgf67df32">Complexity of Mixed Nash Equilibria</a>
 <ul>
-<li><a href="#org58e2d88">PPAD</a></li>
+<li><a href="#orged382a2">PPAD</a></li>
 </ul>
 </li>
 </ul>
@@ -304,9 +304,9 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-orge24126d" class="outline-2">
-<h2 id="orge24126d">Congestion Games</h2>
-<div class="outline-text-2" id="text-orge24126d">
+<div id="outline-container-org1305fd6" class="outline-2">
+<h2 id="org1305fd6">Congestion Games</h2>
+<div class="outline-text-2" id="text-org1305fd6">
 <p>
 Richiamando il <a href="./20.html">Global Connection Game</a>, gli "ingredienti" del problema sono:
 </p>
@@ -362,9 +362,9 @@ Ciò implica che esiste sempre un <code>NE</code> per il <code>CG</code> (ogni m
 </div>
 </div>
 
-<div id="outline-container-orgf05c24c" class="outline-2">
-<h2 id="orgf05c24c">FNP class</h2>
-<div class="outline-text-2" id="text-orgf05c24c">
+<div id="outline-container-org5c71e1d" class="outline-2">
+<h2 id="org5c71e1d">FNP class</h2>
+<div class="outline-text-2" id="text-org5c71e1d">
 <p>
 Per iniziare a capire quanto può essere complesso il <i>Congestion Game</i> il primo passo è quello di definire formalmente un problema.
 Definiamo quindi con <code>CG-NE</code> il problema del calcolo di un equilibrio di Nash per il <i>Congestion Game</i>.
@@ -395,9 +395,9 @@ una effettiva soluzione per data istanza.
 </p>
 </div>
 
-<div id="outline-container-orgf9e2666" class="outline-3">
-<h3 id="orgf9e2666">FNT-completezza di <code>CG-NE</code></h3>
-<div class="outline-text-3" id="text-orgf9e2666">
+<div id="outline-container-org99dece5" class="outline-3">
+<h3 id="org99dece5">FNT-completezza di <code>CG-NE</code></h3>
+<div class="outline-text-3" id="text-org99dece5">
 <p>
 Come qualsiasi altra classe di complessità, si può definire il concetto di <b>completezza</b> di un problema rispetto alla classe <code>FNP</code>.
 Perciò diciamo che un problema \(X \in FNP\) è <code>FNP-completo</code> se <b>per ogni</b> altro problema \(Y \in FNP\) esiste una <b>riduzione polinomiale</b> \(\chi\) da \(Y\) a \(X\) tale che
@@ -459,9 +459,9 @@ ovvero evremmo dimostrate che <code>NP = coNP</code> \(\square\).
 </div>
 </div>
 
-<div id="outline-container-orgad3dd6d" class="outline-3">
-<h3 id="orgad3dd6d">TFNP - Total FNP</h3>
-<div class="outline-text-3" id="text-orgad3dd6d">
+<div id="outline-container-org1be31f4" class="outline-3">
+<h3 id="org1be31f4">TFNP - Total FNP</h3>
+<div class="outline-text-3" id="text-org1be31f4">
 <p>
 Nel teorema precedente viene sostanzialmente sfruttato il fatto che un'isatnza di <code>CG-NE</code> ha <span class="underline">sempre</span> un equilibrio di Nash \(S\), perciò in qualche modo possiamo dire che tutte le istanze di <code>CG-NE</code> sono <code>YES-instance</code>.
 Definiamo quindi una classe più specifica nella quale collocare <code>CG-NE</code>.
@@ -497,9 +497,9 @@ Se un problema <code>TFNP</code> è <code>FNP-completo</code> allora <code>NP = 
 </blockquote>
 </div>
 
-<div id="outline-container-org81ca160" class="outline-4">
-<h4 id="org81ca160">Esmpi di problemi TFNP</h4>
-<div class="outline-text-4" id="text-org81ca160">
+<div id="outline-container-orgd3699b2" class="outline-4">
+<h4 id="orgd3699b2">Esmpi di problemi TFNP</h4>
+<div class="outline-text-4" id="text-orgd3699b2">
 <p>
 Secondo il teorema di Nash sappiamo che ogni gioco finito ammette sempre un Equilibrio a <b>strategie miste</b>.
 Perciò il problema di <span class="underline">trovare</span> un equilibrio a strategie miste per un gioco finito è un problema <code>TFNP</code>.<br />
@@ -511,9 +511,9 @@ Un altro problema <code>TFNP</code> è il problema <b>Factoring</b><sup><a id="f
 </div>
 </div>
 
-<div id="outline-container-org3987d9d" class="outline-4">
-<h4 id="org3987d9d">TFNP-completeness?</h4>
-<div class="outline-text-4" id="text-org3987d9d">
+<div id="outline-container-org7e847c3" class="outline-4">
+<h4 id="org7e847c3">TFNP-completeness?</h4>
+<div class="outline-text-4" id="text-org7e847c3">
 <p>
 Dato che abbiamo visto che non possiamo dimostrare che <code>CG-NE</code> è <code>FNP-completo</code> (a meno che <code>NP = coNP</code>) potremmo voler dimostrare che <code>CG-NE</code> è <code>TFNP-completo</code>.<br />
 </p>
@@ -533,9 +533,9 @@ Stessa cosa per <code>factoring</code>, il teorema fondamentale dell'aritmetica 
 </div>
 </div>
 
-<div id="outline-container-org9bc1864" class="outline-3">
-<h3 id="org9bc1864">PLS</h3>
-<div class="outline-text-3" id="text-org9bc1864">
+<div id="outline-container-orge10e9c5" class="outline-3">
+<h3 id="orge10e9c5">PLS</h3>
+<div class="outline-text-3" id="text-orge10e9c5">
 <p>
 Abbiamo visto che <code>CG-NE</code> non può essere ne <code>FNP-completo</code> (a meno che <code>NP = coNP</code>) ne <code>TFNP-completo</code> (perché classe semantica).
 Perciò vogliamo sapere in quale classe di complessità poter collocare <code>CG-NE</code> per la quale esso è un problema <i>completo</i> (o difficile).<br />
@@ -587,9 +587,9 @@ Infatti certamente un problema in <code>PLS</code> è un problema di ricerca di 
 </div>
 </div>
 
-<div id="outline-container-org02a9781" class="outline-3">
-<h3 id="org02a9781">PLS-reduction</h3>
-<div class="outline-text-3" id="text-org02a9781">
+<div id="outline-container-org92f2fdd" class="outline-3">
+<h3 id="org92f2fdd">PLS-reduction</h3>
+<div class="outline-text-3" id="text-org92f2fdd">
 <p>
 Prima di parlare della completezza dei problemi in <code>PLS</code> è doveroso definire cosa è una riduzione tra problemi di ricerca locale.
 La definizione è del tutto analoga alle altre classi.
@@ -606,9 +606,9 @@ Ovviamente se esiste un algoritmo di ricerca locale per \(X\) che converge in te
 </div>
 </div>
 
-<div id="outline-container-org27a7ef6" class="outline-3">
-<h3 id="org27a7ef6">PLS-completeness</h3>
-<div class="outline-text-3" id="text-org27a7ef6">
+<div id="outline-container-org249dcfb" class="outline-3">
+<h3 id="org249dcfb">PLS-completeness</h3>
+<div class="outline-text-3" id="text-org249dcfb">
 <p>
 Abbiamo quindi dato una classe sintattica che contiene <code>CG-NE</code>.
 È possibile dimostrare che <code>CG-NE</code> è <code>PLS-completo</code>.<br />
@@ -619,9 +619,9 @@ Per prima cosa però bisogna identificare un problema <code>PLS-completo</code>,
 </p>
 </div>
 
-<div id="outline-container-orgb1f6824" class="outline-4">
-<h4 id="orgb1f6824">Maximum Cut Problem</h4>
-<div class="outline-text-4" id="text-orgb1f6824">
+<div id="outline-container-org755f538" class="outline-4">
+<h4 id="org755f538">Maximum Cut Problem</h4>
+<div class="outline-text-4" id="text-org755f538">
 <p>
 Gli ingredienti del <code>Maximum Cut Problem</code> sono:
 </p>
@@ -718,9 +718,9 @@ Computing a local maximum of a maximum cut instance with general non-negative ed
 </div>
 </div>
 
-<div id="outline-container-orga1fa455" class="outline-4">
-<h4 id="orga1fa455">Completezza del Congesion Game</h4>
-<div class="outline-text-4" id="text-orga1fa455">
+<div id="outline-container-org5c9998e" class="outline-4">
+<h4 id="org5c9998e">Completezza del Congesion Game</h4>
+<div class="outline-text-4" id="text-org5c9998e">
 <blockquote>
 <p>
 <b>Theorem</b> <i>(Fabrikant, Papadimitriou, Talwar 2004)</i><br />
@@ -794,9 +794,9 @@ Perciò a un massimo locale per <code>Local Max Cut</code> corrisponde un minimo
 </div>
 </div>
 
-<div id="outline-container-orgc8185e5" class="outline-2">
-<h2 id="orgc8185e5">Complexity of Mixed Nash Equilibria</h2>
-<div class="outline-text-2" id="text-orgc8185e5">
+<div id="outline-container-orgf67df32" class="outline-2">
+<h2 id="orgf67df32">Complexity of Mixed Nash Equilibria</h2>
+<div class="outline-text-2" id="text-orgf67df32">
 <p>
 Abbiamo appena collocato un problema che riguarda la ricerca di un equilibrio a <span class="underline">strategie pure</span> come <code>PLS-completo</code>.
 In generale però non è detto che in ogni tipo di gioco esista un equilibrio a strategie pure, per il momento ne abbiamo la certezza solamente per i giochi potenziali.
@@ -829,9 +829,9 @@ Dato che sappiamo che probabilmente non esistono problemi <code>TFNP-completi</c
 </p>
 </div>
 
-<div id="outline-container-org58e2d88" class="outline-3">
-<h3 id="org58e2d88">PPAD</h3>
-<div class="outline-text-3" id="text-org58e2d88">
+<div id="outline-container-orged382a2" class="outline-3">
+<h3 id="orged382a2">PPAD</h3>
+<div class="outline-text-3" id="text-orged382a2">
 <p>
 Intuitivamente possiamo visualizzare la classe <code>PLS</code> come quella classi di problemi per i quali esiste un <b>DAG</b><sup><a id="fnr.8" class="footref" href="#fn.8">8</a></sup> dove i
 nodi rappresentano delle soluzioni possibili mentre un arco diretto rappresenta un <b>improving local move</b><sup><a id="fnr.9" class="footref" href="#fn.9">9</a></sup>.
@@ -936,7 +936,7 @@ un movimento better response durante la ricerca locale.
 <p class="date">Data: 2022-01-17 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-05 sab 20:15</p>
+<p class="date">Created: 2022-02-18 ven 14:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-04 ven 12:57 -->
+<!-- 2022-02-18 ven 14:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADRC - Lesson 24</title>
@@ -274,21 +274,21 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3cad4a8">Combinatorial Auction</a>
+<li><a href="#org86d4745">Combinatorial Auction</a>
 <ul>
-<li><a href="#org9254e4f">An efficient truthful mechanism</a></li>
-<li><a href="#org12576db">A greedy \(\sqrt{m}\)-approximation algorithm</a></li>
-<li><a href="#org611dbb1">Computing payments</a></li>
-<li><a href="#org53cbcbc">Fattore Approssimazione</a></li>
+<li><a href="#org39e6fa1">An efficient truthful mechanism</a></li>
+<li><a href="#orgdd117b5">A greedy \(\sqrt{m}\)-approximation algorithm</a></li>
+<li><a href="#org57334b7">Computing payments</a></li>
+<li><a href="#orgd895f91">Fattore Approssimazione</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3cad4a8" class="outline-2">
-<h2 id="org3cad4a8">Combinatorial Auction</h2>
-<div class="outline-text-2" id="text-org3cad4a8">
+<div id="outline-container-org86d4745" class="outline-2">
+<h2 id="org86d4745">Combinatorial Auction</h2>
+<div class="outline-text-2" id="text-org86d4745">
 <p>
 Nella <a href="./22.html">lezione 22</a> abbiamo visto il gioco dell'<i>Asta a Singolo Oggetto</i>, in cui ogni player vuole comprare l'oggetto all'asta.
 Ogni player \(i\) ha una volutazione privata \(t_i\) dell'oggetto, e fa un'offerta \(r_i\) per cercare di vincere l'asta.
@@ -407,9 +407,9 @@ più piccolo di n<sup>1 - 2&epsilon;</sup> \(\square\).
 </blockquote>
 </div>
 
-<div id="outline-container-org9254e4f" class="outline-3">
-<h3 id="org9254e4f">An efficient truthful mechanism</h3>
-<div class="outline-text-3" id="text-org9254e4f">
+<div id="outline-container-org39e6fa1" class="outline-3">
+<h3 id="org39e6fa1">An efficient truthful mechanism</h3>
+<div class="outline-text-3" id="text-org39e6fa1">
 <p>
 È possibile dimostrare che il problema <code>CA</code> è anche un problema <b>one-parameter</b> (<code>OP</code>), più precisamente del tipo <b>binary-demand</b> (<code>BD</code>).<br />
 </p>
@@ -456,9 +456,9 @@ che <b>approssimi</b> bene una soluzione ottima e che sia calcolabile in tempo <
 </div>
 </div>
 
-<div id="outline-container-org12576db" class="outline-3">
-<h3 id="org12576db">A greedy \(\sqrt{m}\)-approximation algorithm</h3>
-<div class="outline-text-3" id="text-org12576db">
+<div id="outline-container-orgdd117b5" class="outline-3">
+<h3 id="orgdd117b5">A greedy \(\sqrt{m}\)-approximation algorithm</h3>
+<div class="outline-text-3" id="text-orgdd117b5">
 <blockquote>
 <p>
 <b>Alg</b><br />
@@ -514,9 +514,9 @@ essere selezionato se dichiara \(r_i + k\), per qualsiasi \(k > 0\) \(\square\).
 </div>
 </div>
 
-<div id="outline-container-org611dbb1" class="outline-3">
-<h3 id="org611dbb1">Computing payments</h3>
-<div class="outline-text-3" id="text-org611dbb1">
+<div id="outline-container-org57334b7" class="outline-3">
+<h3 id="org57334b7">Computing payments</h3>
+<div class="outline-text-3" id="text-org57334b7">
 <p>
 Abbiamo visto che i pagamenti per i giochi <code>OP</code> binary demand sono del tipo \(p_i(r) = \theta_i(r_{-i})\).
 Ciò che serve sapere è come ricavare la soglia \(\theta_i(r_{-i})\).
@@ -548,9 +548,9 @@ Se invece non ci sono player incompatibili con \(i\), allora certamente \(i\) ve
 </div>
 </div>
 
-<div id="outline-container-org53cbcbc" class="outline-3">
-<h3 id="org53cbcbc">Fattore Approssimazione</h3>
-<div class="outline-text-3" id="text-org53cbcbc">
+<div id="outline-container-orgd895f91" class="outline-3">
+<h3 id="orgd895f91">Fattore Approssimazione</h3>
+<div class="outline-text-3" id="text-orgd895f91">
 <blockquote>
 <p>
 <b>Lemma 2</b>
@@ -673,7 +673,7 @@ Ricapitolando abbiamo dimostrato che
 <p class="date">Data: 2022-01-13 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-04 ven 12:57</p>
+<p class="date">Created: 2022-02-18 ven 14:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
