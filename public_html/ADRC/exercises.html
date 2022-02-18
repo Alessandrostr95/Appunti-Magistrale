@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-18 ven 14:22 -->
+<!-- 2022-02-18 ven 16:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Exercises</title>
@@ -274,29 +274,35 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd7a9470">Pollution game</a>
+<li><a href="#orgbef0da8">Pollution game</a>
 <ul>
-<li><a href="#org0ed0cae">Traccia</a></li>
-<li><a href="#org744e48b">Soluzione</a></li>
+<li><a href="#orgf9620e5">Traccia</a></li>
+<li><a href="#org7948b38">Soluzione</a></li>
 </ul>
 </li>
-<li><a href="#org42557a7">Tragedy of commons</a>
+<li><a href="#org66fd4f1">Tragedy of commons</a>
 <ul>
-<li><a href="#org401a38b">Traccia</a></li>
-<li><a href="#orgbf529fb">Soluzione</a></li>
+<li><a href="#org69736ba">Traccia</a></li>
+<li><a href="#org5e46f28">Soluzione</a></li>
+</ul>
+</li>
+<li><a href="#org5d328cd">Max-Cut Game</a>
+<ul>
+<li><a href="#orgb13043a">Traccia</a></li>
+<li><a href="#org2578773">Soluzione</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd7a9470" class="outline-2">
-<h2 id="orgd7a9470">Pollution game</h2>
-<div class="outline-text-2" id="text-orgd7a9470">
+<div id="outline-container-orgbef0da8" class="outline-2">
+<h2 id="orgbef0da8">Pollution game</h2>
+<div class="outline-text-2" id="text-orgbef0da8">
 </div>
-<div id="outline-container-org0ed0cae" class="outline-3">
-<h3 id="org0ed0cae">Traccia</h3>
-<div class="outline-text-3" id="text-org0ed0cae">
+<div id="outline-container-orgf9620e5" class="outline-3">
+<h3 id="orgf9620e5">Traccia</h3>
+<div class="outline-text-3" id="text-orgf9620e5">
 <p>
 There are \(n\) countries. Each country faces the choice of either passing legislation to control pollution or not.
 Assume that pollution control has a cost of 3 for the country, but each country that pollutes adds 1 to all countries (in term of added health costs).
@@ -309,9 +315,9 @@ The cost of controlling pollution is 3.<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org744e48b" class="outline-3">
-<h3 id="org744e48b">Soluzione</h3>
-<div class="outline-text-3" id="text-org744e48b">
+<div id="outline-container-org7948b38" class="outline-3">
+<h3 id="org7948b38">Soluzione</h3>
+<div class="outline-text-3" id="text-org7948b38">
 <p>
 Supponiamo di acere \(n_1\) nazioni irresponsabili ed egoiste (che non approvano la legge sul controllo dell'inquinamento) ed \(n_2\) responsabili (che l'approvano).
 Certamente \(n_1 + n_2 = n\).
@@ -365,13 +371,13 @@ In conclusione, per \(n > 3\), il prezzo dell'anarchia <code>PoA</code> e quello
 </div>
 </div>
 
-<div id="outline-container-org42557a7" class="outline-2">
-<h2 id="org42557a7">Tragedy of commons</h2>
-<div class="outline-text-2" id="text-org42557a7">
+<div id="outline-container-org66fd4f1" class="outline-2">
+<h2 id="org66fd4f1">Tragedy of commons</h2>
+<div class="outline-text-2" id="text-org66fd4f1">
 </div>
-<div id="outline-container-org401a38b" class="outline-3">
-<h3 id="org401a38b">Traccia</h3>
-<div class="outline-text-3" id="text-org401a38b">
+<div id="outline-container-org69736ba" class="outline-3">
+<h3 id="org69736ba">Traccia</h3>
+<div class="outline-text-3" id="text-org69736ba">
 <p>
 There are \(n\) players.
 Each player wants to send information along a shared channel of known maximum capacity 1.
@@ -386,9 +392,9 @@ More precisely, the value of a player \(i\) is \(x_i \cdot (1 - \sum_j x_j)\).<b
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbf529fb" class="outline-3">
-<h3 id="orgbf529fb">Soluzione</h3>
-<div class="outline-text-3" id="text-orgbf529fb">
+<div id="outline-container-org5e46f28" class="outline-3">
+<h3 id="org5e46f28">Soluzione</h3>
+<div class="outline-text-3" id="text-org5e46f28">
 <p>
 Iniziamo col cercare di individuare una soluzione <span class="underline">socialmente</span> ottima.
 Data una configurazione di strategie \(S = (x_1, x_2, ..., x_n)\), il suo costo sarà della forma
@@ -462,6 +468,102 @@ Una configurazione \(S\) sarà quindi di equilibrio quando per ogni \(i\) è ver
 <p>
 <b>[DA FINRIE&#x2026;]</b>
 </p>
+
+<hr />
+</div>
+</div>
+</div>
+<div id="outline-container-org5d328cd" class="outline-2">
+<h2 id="org5d328cd">Max-Cut Game</h2>
+<div class="outline-text-2" id="text-org5d328cd">
+<p>
+Gli ingredienti di questo gioco sono:
+</p>
+<ul class="org-ul">
+<li>un grafo \(G = (V,E)\) <span class="underline">non diretto</span>.</li>
+<li>ad ogni nodo è associato un player egoistico.</li>
+<li>la strategia di un generico player \(u\) è \(S_u \in \lbrace \texttt{red}, \texttt{green} \rbrace\).</li>
+<li>la ricompensa di un player \(u\) rispetto alla configurazione di strategie \(S\) giocata da tutti i player è
+\[
+    p_u(S) = \vert \lbrace (u,v) \in E : S_u \neq S_v \rbrace \vert
+    \]
+ovvero il numero di suoi vicini che hanno scelto un colore diverso da quello scelto da \(u\).</li>
+<li>l'obiettivo di ogni player è quello di <b>massimizzare</b> la propria ricompens.</li>
+<li>la funzione di costo sociale è pari a
+\[
+    COST(S) = \sum_u p_u(S)
+    \]
+ovvero <span class="underline">due volte</span> la dimensione del taglio tra i nodi colorati di verde e quelli colorati di rosso.</li>
+</ul>
+</div>
+<div id="outline-container-orgb13043a" class="outline-3">
+<h3 id="orgb13043a">Traccia</h3>
+<div class="outline-text-3" id="text-orgb13043a">
+<p>
+Mostrare che:
+</p>
+<ol class="org-ol">
+<li>Max-cut game è un <b>gioco potenziale</b>.</li>
+<li>\(\texttt{PoS} = 1\).</li>
+<li>\(\texttt{PoA} \geq 1/2\).</li>
+<li>there is an instance of the game having a NE with social welfare of 1/2 the social optimum.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org2578773" class="outline-3">
+<h3 id="org2578773">Soluzione</h3>
+<div class="outline-text-3" id="text-org2578773">
+<dl class="org-dl">
+<dt>Quesito 1</dt><dd><p>
+Una funzione potenziale per questo gioco è la seguente
+\[
+     \Phi(S) = \frac{ \vert (V_R, V_G) \vert }{2} = \frac{ COST(S) }{2}
+     \]
+dove con \((V_R, V_G)\) indichiamo il taglio tra i nodi colorati di <i>rosso</i> (ovvero quelli che hanno scelto come strategie \(\texttt{red}\)) e  i nodi colorati
+di <i>verde</i> (ovvero quelli che hanno scelto come strategie \(\texttt{green}\)).<br />
+</p>
+
+<p>
+Dimostriamo ora perché questa funzione è <span class="underline">potenziale</span>.
+Sia \(S\) una configurazione di strategie nella quale il player \(u\) ha scelto di colorarsi di <i>verde</i>, ovvero che si trova nel versanete \(V_G\) del taglio.
+Consideriamo la configurazione \(S' = (S_{-u}, \texttt{red})\) nella quale \(u\) cambia versante e si colora di <i>rosso</i>, e indichiamo con \((V'_R, V'_G)\) il nuovo taglio.
+Calcoliamo la differenza della funzione potenziale \(\Phi\) applicata ad \(S\) e ad \(S'\).
+</p>
+\begin{align*}
+  \Phi(S) - \Phi(S')
+  &= \frac{1}{2} (\vert (V_R, V_G) \vert - \vert (V'_R, V'_G) \vert)\\
+  &= \frac{1}{2} (COST(S) - COST(S'))\\
+  &= \vert \lbrace (u,v) \in E : v \in V_R \rbrace \vert - \vert \lbrace (u,v) \in E : v \in V'_G \rbrace \vert\\
+  &= COST_u(S) - COST_u(S')
+\end{align*}
+<p>
+perciò \(\Phi\) è potenziale.
+</p></dd>
+
+<dt>Quesito 2</dt><dd><p>
+Sia \(M \subseteq E\) un <span class="underline">taglio massimo</span> dell'istanza \(G\).
+Si può dimostrare che ad ogni max-cut corrisponde un equilibrio di nash per il Max-cut game.
+Poniamo in \(M=(V_G, V_R)\), ovvero tutti i nodi nel versante \(V_G\) adottano la strategia \(\texttt{green}\), mentre tutti quille nel versante \(V_R\) adottano la strategia \(\texttt{red}\).
+Per dimostrare che \(M\) è anche un <code>NE</code> basta dimostrare che a un player in \(V_G\) non conviene cambiare versante (simmetrico il viceversa).<br />
+</p>
+
+<p>
+Indichiamo quindi un qualsiasi \(u \in V_G\).
+Certamente, dato che \(M\) è un taglio massimo, avremo che i vicini di \(u\) in \(V_G\) sono di meno che quelli nel versante opposto \(V_R\), altrimenti non sarebbe massimo.
+Ovvero
+\[
+     \lbrace (u,v) \in E : v \in V_R \rbrace \vert \geq \lbrace (u,v) \in E : v \in V_G \rbrace \vert
+     \]
+Indichiamo con \(M'\) il nuovo taglio in cui \(u\) cambia versante e va in \(V_R\) (cambiando colore).
+Il nuovo guadagno di \(u\) diventa
+\[
+     COST_u(M') = \lbrace (u,v) \in E : v \in V_G \rbrace \vert \leq \lbrace (u,v) \in E : v \in V_R \rbrace \vert = COST_u(M)
+     \]
+perciò \(M\) è un equilibrio di Nash.
+</p></dd>
+
+<dt>Quesito 3</dt><dd></dd>
+</dl>
 </div>
 </div>
 </div>
@@ -470,7 +572,7 @@ Una configurazione \(S\) sarà quindi di equilibrio quando per ogni \(i\) è ver
 <p class="date">Data: 2022-01-13 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-18 ven 14:22</p>
+<p class="date">Created: 2022-02-18 ven 16:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

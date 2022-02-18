@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-02-18 ven 22:51 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOSE - Meta-MetaModeling</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">SOSE - Meta-MetaModeling</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgca40f64">Meta-MetaModeling</a>
+<ul>
+<li><a href="#org925caee">MOF</a></li>
+<li><a href="#orgfde3e33">Some informal definitions of model</a></li>
+<li><a href="#orgaea1834">Formal (structural) definition of model</a></li>
+</ul>
+</li>
+<li><a href="#orgbd48179">Principi del Model Driven Architecture</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgca40f64" class="outline-2">
+<h2 id="orgca40f64">Meta-MetaModeling</h2>
+<div class="outline-text-2" id="text-orgca40f64">
+<p>
+Nella <a href="./11.html">precedente lezione</a> abbiamo visto che un <b>modello</b> è una rappresentazione astratta di un <b>sistema</b>.
+Abbiamo anche visto che ogni modello è conforme ad un <b>metamodello</b> (o <b>linguaggio</b>) che ne definisce la struttura ed il significato.
+Perciò un metamodello è utilizzato sia per definire un modello sia per verificarne la sua correttezza.<br />
+</p>
+
+<p>
+Per lo stesso ragionameto però anche un metamodello può essere definito basandosi su un <b>meta-metamodello</b>, ovvero un linguaggio usato per definire la struttura e il significato di un metamodello.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img1.png" alt="sose-lesson2-img1.png" style="max-width:400px; width:100%" />
+</p>
+</div>
+
+<p>
+Allo stesso modo, anche un meta-metamodello può essere conforme a un <b>meta-meta-metamodello</b>, e così via&#x2026;
+Perciò è necessario cercare di capire come interrompere questa <b>meta</b>-\(\infty\) iterazione.<br />
+</p>
+
+<p>
+Per capire meglio come fare, consideriamo un esempio:
+</p>
+
+<blockquote>
+<p>
+In un ambiente scolastico composto da docenti e studenti vogliamo definrie un sistema di gestione delle <b>risorse</b> informatiche.
+Si vogliono quindi rappresentare <code>docenti</code>, <code>studenti</code>, <code>risorse</code> e <code>privilegi</code> in base ai tipi di utenti.<br />
+</p>
+
+<p>
+Si potrebbe per esempio definire un metamodellare di questo sistema tramite una notazione visuale utilizzando un <b>class diagram</b>.
+Per esempio possiamo avere le seguenti classi e relazioni:
+</p>
+<ul class="org-ul">
+<li>Una classe <code>risorsa</code> la quale è una generalizzazione di <code>file</code> o <code>directory</code>.</li>
+<li>Una <code>risorsa</code> può avere una relazione <b>riflessiva</b> <code>contains</code>, in quanto una <code>directory</code> può contenere altre risorse.</li>
+<li>Un <code>user</code> che rappresenta gli utenti del sistema.</li>
+<li>Una relazione <code>owns</code> di proprietà che associa ad ogni utente più risorse.</li>
+<li>Un'aggregazione <code>group</code> composta da utenti, che ne specifica i privilegi.</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img2.png" alt="sose-lesson2-img2.png" style="max-width:500px; width:100%" />
+</p>
+</div>
+
+<p>
+Grazie a questo metamodello possiamo ora <i>instanziare</i> un modello che descrive un sistema reale.
+Per esempio un sistema reale è formato da:
+</p>
+<ul class="org-ul">
+<li>Due gruppi:
+<ul class="org-ul">
+<li>il gruppo <b>studenti</b> composto da Giovanni, Mario e Silvia.</li>
+<li>il gruppo <b>docenti</b> composto da Eleonora.</li>
+</ul></li>
+<li>Tre directory: dir1, dir2, dir3.</li>
+<li>Cinque file: file1, file2, file3, file4, file5.</li>
+<li>Le seguenti relazioni di possesso:
+<ul class="org-ul">
+<li>Giovanni <code>owns</code> dir1, file1.</li>
+<li>Mario <code>owns</code> file2.</li>
+<li>Silvia <code>owns</code> dir3, file4.</li>
+<li>Eleonora <code>owns</code> dir2, file3, file5.</li>
+</ul></li>
+<li>Le seguenti relazioni di contenimento:
+<ul class="org-ul">
+<li>dir1 <code>contains</code> file1, file2, file3.</li>
+<li>dir2 <code>contains</code> dir3.</li>
+<li>dir3 <code>contains</code> file4, file5.</li>
+</ul></li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img3.png" alt="sose-lesson2-img3.png" style="max-width:500px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Modello che rappresenta il sistema appena descritto, e conforme al metamodella definito in precedenza.</p>
+</div>
+</blockquote>
+
+<p>
+Nell'esempio precedente abbiamo quindi rappresentato le caratteristiche rilevanti di un sistema reale tramite un modello, il quale è conforme a un metamodello.
+Tale metamodello è rappresentato con una versione semplificata di un <b>class diagram</b>.
+Perciò il class diagram è il <b>meta-metamodello</b> dell'esempio.<br />
+</p>
+
+<p>
+A questo punto possiamo chiederci: come rappresento il meta-metamodello?<br />
+</p>
+
+<p>
+È possibile dimostrare che il class diagram può essere descritto con un altro class diagram.
+Perciò abbiamo visto che possiamo definire un meta-metamodello conforme a se stesso.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img4.png" alt="sose-lesson2-img4.png" style="max-width:600px; width:100%" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org925caee" class="outline-3">
+<h3 id="org925caee">MOF</h3>
+<div class="outline-text-3" id="text-org925caee">
+<p>
+Si può quindi intuire che tramite i diagrammi <code>UML</code> si può definire qualsiasi metamodello.
+Lo standard <code>MOF</code> (<code>Meta Object Facility</code>) è un meta-metamodello utile per la definizione del metamodello <code>UML</code>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img5.png" alt="sose-lesson2-img5.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>The <code>Object-Management-Group/Model-Driven-Architecture</code> stack.</p>
+</div>
+
+<p>
+Nell'esempio in figura abbiamo un modello <code>M1</code> che rappresenta un <code>Cliente</code>.
+Tale modello è rappresentato visivamente con un class diagram <code>UML</code>, avente una <b>classe</b> <code>Client</code> con attributo <code>name</code> di tipo <code>String</code>.<br />
+</p>
+
+<p>
+A sua volta possiamo rappresentare il class diagram del modello <code>M1</code> con un meta-metamodello <code>M2</code>, sempre tramite l'uso di un diagramma <code>UML</code>.
+Possiamo definire due classi, la classe <code>Class</code> (che apputo indica una classe) e la classe <code>Attribute</code> (che invece rappresenta gli <b>attributi</b> di una classe del class diagramm).
+A questo punto è necessario definire una <b>relazione</b> tra la classe <code>Class</code> e la classe <code>Attribute</code> che sta ad indicare l'appartenenza di un attributo ad una data classe.<br />
+</p>
+
+<p>
+In fine possiamo rappresentare questo metamodello <code>UML</code> <code>M2</code> con un meta-metamodello <code>MOF</code> <code>M3</code>.
+In sostanza non cambia molto, infatti si tratta nuovamente di una sorta di class diagram.
+In questo caso abbiamo le sole classi <code>Class</code> e <code>Association</code>.
+La prima classe <code>Class</code> di <code>M3</code> cattura le classi <code>Class</code> e <code>Attribute</code> del metamodello <code>M2</code>.
+La seconda classe <code>Association</code> di <code>M3</code> invece rappresenta l'associazione tra <code>Class</code> e <code>Attribute</code> di <code>M2</code>.
+Infice, tra le classi <code>Class</code> e <code>Association</code> di <code>M3</code> ci sono due relazione che indicano la <i>sorgente</i> e la <i>destinazione</i> di una generica relazione.<br />
+</p>
+
+<p>
+Notare che <code>M3</code> può essere definito tramite l'utilizzo di <code>M3</code> stesso.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img6.png" alt="sose-lesson2-img6.png" style="max-width:450px; width:100%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfde3e33" class="outline-3">
+<h3 id="orgfde3e33">Some informal definitions of model</h3>
+<div class="outline-text-3" id="text-orgfde3e33">
+<dl class="org-dl">
+<dt>Phil Bernstein, “A Vision for Management of Complex Systems”</dt><dd>Un modello è una struttura complessa che rappresenta un artefatto software come per esempio uno schema relazionare, una definizione di interfaccia (<code>API</code>), uno schema <code>XML</code>, una rete semantica, un modello <code>UML</code> o un documento ipertestuale.</dd>
+<dt>OMG, “UML Superstructure”</dt><dd>Un modello cattura una visione di un sistema fisico.
+È un'astrazione del sistema fisico, con un certo scopo.
+Questo scopo determina cosa è incluso nel modello e cosa è rilevante.
+Pertanto il modello descrive completamente quegli aspetti del sistema fisico che sono rilevanti per lo scopo del modello, ad un livello di dettaglio appropriato.</dd>
+<dt>OMG, “MDA Guide”</dt><dd>Un modello è una specifica formale della funzione, struttura e/o comportamento di un'applicazione o di un sistema.</dd>
+<dt>Steve Mellor, et al., “UML Distilled”</dt><dd>Un modello è una semplificazione di qualcosa, che ci consente di visualizzarla, manipolarla e ragionarci su, e quindi ci aiuta a capire la complessità insita nell'argomento in studio.</dd>
+<dt>Anneke Kleppe, et. al. “MDA Explained”</dt><dd>Un modello è una descrizione di un sistema (o di una sua parte) scritto in un linguaggio ben definito.
+Una linguaggio ben definito è una linguaggio con <b>forma</b> (<b>sintassi</b>) e <b>significato</b> (<b>semantica</b>) ben definiti, adatta per l'interpretazione automatizzata da parte di un computer.</dd>
+<dt>Chris Raistricket al., “Model Driven Architecture with Executable UML”</dt><dd>Un modello è una rappresentazione formale della funzione, del comportamento e della struttura del sistema che stiamo considerando, espressa in un linguaggio rigoroso.</dd>
+<dt>J. Bézivin&amp; O. Gerbé, “Towards a Precise Definition of the OMG/MDA Framework”</dt><dd>Una semplificazione di un sistema costruito con un obiettivo prefissato in mente.
+Un modello dovrebbe essere in grado di rispondere alle domande al posto del sistema effettivo.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgaea1834" class="outline-3">
+<h3 id="orgaea1834">Formal (structural) definition of model</h3>
+<div class="outline-text-3" id="text-orgaea1834">
+<p>
+Purtroppo nessuna delle precedenti definizioni è completa, e inoltre nessuna di esse è realmente utile perl'ingegneria del software.
+Perciò abbiamo bisogono di una definizone più formale e utile ai nostri scopi.
+</p>
+
+<blockquote>
+<p>
+<b>DEF 1</b> <i>(Directed Multi-Graph)</i><br />
+Un multi-grafo diretto \(G=(V_G, E_G, f_G)\) è composto da un insieme <span class="underline">finito</span> di <b>nodi distinti</b> \(V_G\), da un insieme <span class="underline">finito</span> di <b>archi</b> \(E_G\) e una funzione
+\[
+   f_G : E_G \rightarrow V_G \times V_G
+   \]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>DEF 2</b> <i>(Model)</i><br />
+Un modello \(M = (G, \omega, \mu)\) è una tripla composta da:
+</p>
+<ul class="org-ul">
+<li>un multi-grafo diretto \(G=(V_G, E_G, f_G)\)</li>
+<li>un <b>modello di riferimento</b> \(\omega\), il quale è a sua volta un modello con multigrafo \(G_{\omega}=(V_{\omega}, E_{\omega}, f_{\omega})\)</li>
+<li>una funzione
+\[
+     \mu : V_G \cup E_G \rightarrow V_{\omega}
+     \]
+che associa degli elementi di \(G\) a dei nodi o <b>meta-elementi</b> di \(G_{\omega}\).</li>
+</ul>
+</blockquote>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img7.png" alt="sose-lesson2-img7.png" style="width:100%" />
+</p>
+</div>
+
+<blockquote>
+<p>
+<b>DEF 3</b> <i>(Meta-Metamodel)</i><br />
+Un <b>meta-metamodello</b> è un modello avente se stesso come <i>modello di riferimento</i> \(\omega\).
+Ovvero un modello che fa riferimento a se stesso.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>DEF 4</b> <i>(Metamodel)</i><br />
+Un <b>metamodello</b> è un modello avente un meta-metamodello come <i>modello di riferimento</i> \(\omega\).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>DEF 5</b> <i>(Terminal Model)</i><br />
+Un <b>Terminal Model</b> è un modello avente un metamodello come <i>modello di riferimento</i> \(\omega\).
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbd48179" class="outline-2">
+<h2 id="orgbd48179">Principi del Model Driven Architecture</h2>
+<div class="outline-text-2" id="text-orgbd48179">
+<p>
+Uno dei principi fondamenti del <code>MDA</code> è descritto dal motto
+</p>
+<blockquote>
+<p>
+Model Once, Generate Anywhere<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>
+</p>
+</blockquote>
+<p>
+L'idea dietro questa frase consiste nel fatto che una volta definito un modello che rappresenta un determinato sistema rispetto a un dato problema da risolvere,
+da esso si può generare in maniera automatica il software (o una sua parte), indipendentemente da quale tecnologia si desidera utilizzare.
+In questa maniera si ottiene un netto guadagno in termini di sviluppo del software.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson2-img8.png" alt="sose-lesson2-img8.png" style="width:100%" />
+</p>
+</div>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+
+<hr />
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+simile al motto di java <i>Write Once, Run Anywhere</i>.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-02-18 ven 22:51</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

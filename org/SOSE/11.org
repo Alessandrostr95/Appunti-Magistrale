@@ -1,4 +1,4 @@
-#+title: SOSE - Model Driven Engineering (MDE)
+#+title: SOSE - System - Model - MetaModel
 #+date: 
 #+teacher: Andrea D'Ambrogio
 #+setupfile: ../../org-template/appunti.org
