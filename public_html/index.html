@@ -8,7 +8,7 @@
 	    margin: auto;
 	    padding: 0;
 	    font-family: 'Roboto Mono', monospace;
-	    font-size: 0.85rem;
+	    font-size: 1rem;
 	    font-weight: 400;
 	    line-height: 1.5;
 	    color: #212529;
@@ -25,7 +25,7 @@
 	}
 
 	.tree .comment {
-	    font-size: 13px;
+	    font-size: 1rem;
 	    font-style: italic;
 	    letter-spacing: 0.4px;
 	    color: #a8a8a8;
@@ -96,6 +96,7 @@
 	    z-index: 99;
 	    padding: 5px 10px;
 	}
+  
 	.bold {
 	    font-weight: bold;
 	}
@@ -103,15 +104,24 @@
 	.intro {
 	    text-align: justify;
 	    margin: 10px;
+      font-family: 'Roboto Mono', monospace;
 	}
 
+  .hidden {
+    display: none !important;
+  }
+  
+  /*
 	@media screen and (min-width: 720px) {
 	    .intro {
 		width: 50%;
 	    }
 	}
+  */
 	
       </style>
+
+      <script src="script.js"></script>
     </head>
     <body>
       <div class="intro">
@@ -130,10 +140,10 @@
       <div class="tree">
 	<span class="bold tree-node" style="font-family: 'Roboto Mono', monospace; line-height: 1.75; font-size: 1.2em;">/Appunti-Magistrale</span>
 	<ul style="margin-top:0px;">
-	  <li><span class="bold">Primo Anno</span>
+	  <li><span class="bold tree-node">Primo Anno</span>
 	    <ul>
-	      <li> <span class="bold">Analisi di reti</span>
-		<ul>
+        <li> <span class="bold tree-node">Analisi di reti</span> <span class="comment">- AR</span>
+		<ul class="hidden">
 		  <li><a href="./AR/01.html">Lesson 1 - Modello Erdős–Rényi</a></li>
 		  <li><a href="./AR/02.html">Lesson 2-3 - Fenomeno rich-get-richer</a></li>
 		  <li><a href="./AR/04.html">Lesson 4-5 - Grafi Geometrici Aleatori e Reti Wireless</a></li>
@@ -147,13 +157,14 @@
 		  <li><a href="./AR/13.html">Lesson 13 - Sistemi di Voto - Part 1</a></li>
 		</ul>    
 	      </li>
-	      <li> <span class="bold">Logica Matematica</span>
-		<ul>
+	      <li> <span class="bold tree-node">Logica Matematica</span> <span class="comment">- LM</span>
+		<ul class="hidden">
 		  <li><a href="./LM1/01.html">Lesson 1</a></li>
 		</ul>    
 	      </li>
-	      <li> <span class="bold">Algoritmi Distribuiti e Reti Complesse</span>
-		<ul>
+	      <li> <span class="bold tree-node">Algoritmi Distribuiti e Reti Complesse</span> <span class="comment">- ADRC</span>
+
+		<ul class="hidden">
 		  <li><a href="./ADRC/02.html">Lesson 2 - Ambienti distribuiti</a></li>
 		  <li><a href="./ADRC/03.html">Lesson 3 - Single source broadcast problem - Part 1</a></li>
 		  <li><a href="./ADRC/04.html">Lesson 4 - Single source broadcast problem - Part 2</a></li>
@@ -171,8 +182,8 @@
 		  <li><a href="./ADRC/16.html">Lesson 16 - Swarm Intelligence: 3-MAJ protocol</a></li>
 		  <li><a href="./ADRC/17.html">Lesson 17 - Distributed Graph Coloring</a></li>
 		  <li><a href="./ADRC/18.html">Lesson 18 - Randomized Distributed Graph Coloring</a></li>
-		  <li> <span class="bold">Algorithmic Game Theory</span>
-		      <ul>
+		  <li> <span class="bold tree-node">Algorithmic Game Theory</span> <span class="comment">- AGT</span>
+		      <ul class="hidden">
 			  <li><a href="./ADRC/19.html">Lesson 19 - Nash Equilibrium</a></li>
 			  <li><a href="./ADRC/20.html">Lesson 20 - Network Formation Games: Global Connection Game</a></li>
 			  <li><a href="./ADRC/21.html">Lesson 21 - Network Formation Games: Local Connection Game</a></li>
@@ -181,20 +192,20 @@
 			  <li><a href="./ADRC/24.html">Lesson 24 - Combinatorial Auction</a></li>
 			  <li><a href="./ADRC/25.html">Lesson 25 - Computing a Nash Equilibrium of a Congestion Game: PLS-completeness</a></li>
 			  <li><a href="./ADRC/26.html">Lesson 26 - Bitcoin: Selfish Mining</a></li>
-			  <li><a href="./ADRC/exercises.html">Exercise</a></li>
+			  <!-- <li><a href="./ADRC/exercises.html">Exercise</a></li> -->
 		      </ul>
 		  </li>
 		</ul>    
 	      </li>
-	      <li> <span class="bold">Sistemi Distribuiti Coperativi</span>
-		<ul>
+	      <li> <span class="bold tree-node">Sistemi Distribuiti Coperativi</span> <span class="comment">- SDC</span>
+		<ul class="hidden">
 		  <li><a href="./SDC/01.html">Lesson 1</a></li>
 		  <li><a href="./SDC/02.html">Lesson 2</a></li>
 		  <li><a href="./SDC/03.html">Lesson 3</a></li>	    
 		</ul>    
 	      </li>
-	      <li> <span class="bold">Service Oriented Software Engeneering - mod II</span>
-		<ul>
+	      <li> <span class="bold tree-node">Service Oriented Software Engeneering - mod II</span> <span class="comment">SOSE</span>
+		<ul class="hidden">
 		  <li><a href="./SOSE/11.html">System - Model - MetaModel</a></li>
 		  <li><a href="./SOSE/12.html">Meta-MetaModeling</a></li>	    
 		</ul>    
