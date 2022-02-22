@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-01-15 sab 16:08 -->
+<!-- 2022-02-22 mar 12:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 13</title>
@@ -312,11 +312,11 @@ avere la possibilità di inferire informazioni aggiuntive).
 <h3 id="org4a3ec25">Un Modello Semplice di Decision Making: Simultaneous, Sincere Voting</h3>
 <div class="outline-text-3" id="text-org4a3ec25">
 <p>
-Definiamo un modello primo modello molto semplice di decision making <b>individuale</b>.<br />
+Definiamo un primo modello molto semplice di decision making <b>individuale</b>.<br />
 </p>
 
 <p>
-Gli individui devono scelgiere tra due alternative <code>X</code> o <code>Y</code>.
+Gli individui devono scelgiere trai sole due alternative <code>X</code> o <code>Y</code>.
 Una delle due è migliore dell'altra.
 Indichiamo con <code>X &gt; Y</code> se l'alternativa <code>X</code> è migliore di <code>Y</code>, viceversa con <code>Y &gt; X</code>.
 Per seimplicità assumiamo inizialmente l'equiprobabilità che un'alternativa sia migliore di un'altra
@@ -326,7 +326,7 @@ Per seimplicità assumiamo inizialmente l'equiprobabilità che un'alternativa si
 </p>
 
 <p>
-Dopodiché ogni individuo assume un <i>segnale privato</i> <b>indipendente</b>, che suggerisce quale delle due è la scelta migliore.
+Dopodiché ogni individuo riceve un <i>segnale privato</i> <b>indipendente</b>, che suggerisce quale delle due è la scelta migliore.
 Inidichiamo con <code>x</code> il segnale che suggerisce <code>X</code>, e con <code>y</code> il segnale che suggerisce <code>Y</code>.
 Indichiamo con \(q > 1/2\) la probabilità di ricevere un segnare corretto
 \[
@@ -344,6 +344,7 @@ Molto importante assumere che le scelte degli individui siano <b>sincere</b>, ov
 </p>
 
 <p>
+Supponiamo di ricevere il segnale privato <code>x</code>.
 Per la <i>regola di Bayes</i> e per la <i>regola delle probabilità totali</i> possiamo scrivere la probabilità che <code>X</code> sia la scelta corretta avendo ricevuto
 il segnale <code>x</code> come
 </p>
@@ -365,7 +366,7 @@ A tal proposito il <a href="https://it.wikipedia.org/wiki/Nicolas_de_Condorcet">
 <p>
 <b>Teorema della Giuria di Condorcet</b><br />
 Senza perdita di generalità supponiamo che <code>X</code> sia l'alternativa migliore.
-Allora al crescere dei votanti, la frazione di individui che votano a favore di <code>X</code> tente <i>quasi sicuramente</i> alla probabilità \(q > 1/2\) di ricevere il segnale <code>x</code>.
+Allora al crescere dei votanti, la frazione di individui che votano a favore di <code>X</code> tende <i>quasi sicuramente</i> alla probabilità \(q > 1/2\) di ricevere il segnale <code>x</code>.
 Di conseguenza, la probabilità che la maggioranza voti l'alternativa corretta <code>X</code> tende ad 1 con l'aumentare dei votanti.<br />
 </p>
 
@@ -390,7 +391,7 @@ da James Surowiecki nel libro <i><a href="https://www.amazon.it/Wisdom-Crowds-Ja
 <h3 id="org3413340">Insincere Voting</h3>
 <div class="outline-text-3" id="text-org3413340">
 <p>
-Il teorema di Condorcet si basa sulla forte assunzione che i voti degli individui devono essere <b>sinceri</b>.
+Il teorema di Condorcet si basa sulla forte assunzione che i voti degli individui siano <b>sinceri</b>.
 Questa assuzione sembra abbastanza ragionevole.
 Infatti, in assenza di informazioni condivise, un individuo non può inferire nulla che possa in qualche modo indirizzare verso un'alternativa.
 Perciò per quale motivo si dovrebbe votare in disaccordo col proprio segnale privato?<br />
@@ -412,20 +413,20 @@ Certamente la precedentemente affermazione è controintuitiva, perciò è necess
 <p>
 Siamo in una situazione in cui abbiamo un'urna <code>UG</code> con 10 palline gialle, e un'urna <code>UV</code> con 9 palline verdi e 1 gialla.
 Viene scelta totalmente a caso (con probabilità \(1/2\)) un'urna tra le due.
-Ci sono 3 giocatori che pescano una pallina dall'urna, la reinseriscono e infine <i>simultanemante</i> devono decidere se secondo loro l'urna <code>UG</code> o <code>UV</code>.
+Ci sono 3 giocatori che pescano una pallina dall'urna, la reinseriscono e infine <i>simultanemante</i> devono decidere se secondo loro l'urna è <code>UG</code> o <code>UV</code>.
 Se la <b>maggioranza</b> ha votato l'urna esatta, allora vincono tutti, altrimenti tutti perdono.<br />
 </p>
 
 <p>
-Indichiamo con <code>v</code> <i>"estraggo una pallina verde"</i> e <code>g</code> <i>"estraggo una pallina gialla"</i> i segnali privati che un giocatore può ricevere.
+Indichiamo con <code>v</code> l'evento <i>"estraggo una pallina verde"</i> e con <code>g</code> <i>"estraggo una pallina gialla"</i>, ovvero i segnali privati che un giocatore può ricevere.
 Avremo quindi le seguenti probabilità
 </p>
 \begin{align*}
   \mathcal{P}(UG \vert g) &= \frac{ \mathcal{P}(g \vert UG) \cdot \mathcal{P}(UG) }{ \mathcal{P}(g \vert UG) \cdot \mathcal{P}(UG) + \mathcal{P}(g \vert UV) \cdot \mathcal{P}(UV) } = \frac{10}{11}\\
-  \mathcal{P}(UG \vert v) &= \frac{1}{11}\\
+  \mathcal{P}(UV \vert g) &= \frac{1}{11}\\
   \\
   \mathcal{P}(UV \vert v) &= 1\\
-  \mathcal{P}(UV \vert g) &= 0
+  \mathcal{P}(UG \vert v) &= 0
 \end{align*}
 <p>
 Ai giocatori conviene rispondere in accordo a ciò che pescano.
@@ -433,7 +434,7 @@ Ai giocatori conviene rispondere in accordo a ciò che pescano.
 
 <p>
 Proviamo a immedesimarci nei panni di uno dei giocatori.
-So che vinceremo so se <i>almeno</i> due di noi indoviano la risposta esatta.
+So che vinceremo se <i>almeno</i> due di noi indoviano la risposta esatta.
 Perciò quando la mia risposta è <i>realmente influenzate</i>?<br />
 </p>
 
@@ -464,7 +465,7 @@ Mi conviene votare in maniera <b>non sincera</b>.
 <div class="outline-text-4" id="text-orgfcc2031">
 <p>
 Consideriamo la situazione in cui una giuria deve decidere se un imputato è innocente <code>I</code> o colpevole <code>C</code>.
-Supponiamo inoltre che la colpevolezza e l'innocenza dell'imputato sono <i>equiprobabili</i>, ovvero
+Supponiamo inoltre che la colpevolezza e l'innocenza dell'imputato siano <i>equiprobabili</i>, ovvero che
 \[
     \mathcal{P}(I) = \mathcal{P}(C) = \frac12
     \]
@@ -487,7 +488,7 @@ sempre per evitare ogni dubbio.<br />
 </p>
 
 <p>
-Perciò, sempre immedesimandosi in un "giocatore" (un giurato), ci si chiede quando il mio voto è realmente influente nell'esito finale.<br />
+Sempre immedesimandoci in un "giocatore" (un giurato), ci si chiede quando il mio voto è realmente influente nell'esito finale.<br />
 </p>
 
 <p>
@@ -519,7 +520,7 @@ perchè dato che per ipotesi \(q > 1/2\) allora \(\frac{1-q}{q} < 1\).<br />
 Anche in questo caso posso dedurre una strategia che massimizza la probabilità di ottenere un risultato corretto:
 </p>
 <ul class="org-ul">
-<li>Se fra gli altri giurati c’è qualcuno che è in favore dell’innocenza, che io voti per la <i>colpevolezza</i> o per l’/innocenza/ non altera il verdetto.</li>
+<li>Se fra gli altri giurati c’è qualcuno che è in favore dell’innocenza, che io voti per la <i>colpevolezza</i> o per l’ <i>innocenza</i> non alter il verdetto.</li>
 <li>Se invece gli altri giurati sono in favore della colpevolezza, allora è proprio dal mio voto che dipende il verdetto.
 Però abbiamo visto che anche se sono l'unico ad avere il segnale <code>i</code>, quasi sicuramente l'imputato è colpevole.
 Perciò conviene comunque che io voti <code>C</code> colpevole.</li>
@@ -527,7 +528,7 @@ Perciò conviene comunque che io voti <code>C</code> colpevole.</li>
 
 <p>
 Anche in questo esempio, assumendo che gli altri votino sinceramente, l'alternativa che massimizza la probabilità di successo è che voti <code>C</code> colpevole,
-a prescindere di quale sia il mio segnale privato (alla faccio di <i>"oltre ogni ragionevole dubbio"</i>&#x2026;).
+a prescindere da quale sia il mio segnale privato (alla faccia di <i>"oltre ogni ragionevole dubbio"</i>&#x2026;).
 </p>
 </div>
 </div>
@@ -543,10 +544,9 @@ Generalmente però è richiesto di scegliere una preferenza su <i>più alternati
 </p>
 
 <p>
-  Un <b>sistema di voto</b> è un <i>insieme di regole utili per derivare una decisione collettiva a partire da un insieme di decisioni individuali</i>.<br />
-n
-  Indichiamo con \(A = \lbrace a_1, a_2, ..., a_n \rbrace\) l'insieme di \(n\) <i>alternative possibili</i>, e con \(V = \lbrace v_1, v_2, ..., v_k \rbrace\) l'insieme di \(k\) <i>votanti</i>.
-  Per semplicità alcune volte porremo \(A \equiv \left[ n \right]\) e \(V \equiv \left[ k \right]\).<br />
+Un <b>sistema di voto</b> è un <i>insieme di regole utili per derivare una decisione collettiva a partire da un insieme di decisioni individuali</i>.<br />
+Indichiamo con \(A = \lbrace a_1, a_2, ..., a_n \rbrace\) l'insieme di \(n\) <i>alternative possibili</i>, e con \(V = \lbrace v_1, v_2, ..., v_k \rbrace\) l'insieme di \(k\) <i>votanti</i>.
+Per semplicità alcune volte porremo \(A \equiv \left[ n \right]\) e \(V \equiv \left[ k \right]\).<br />
 </p>
 
 <p>
@@ -554,7 +554,7 @@ Per prima cosa definiamo il concetto di <b>voto</b> dei singoli votanti.
 Ciascun votante \(v_h \in V\) può esprimere il suo voto in due modalità <span class="underline">equivalenti</span>:
 </p>
 <dl class="org-dl">
-<dt>Ranking (Graduatoria)</dt><dd>un <b>ranking</b> \(r_h\) per un votante \(v_h\) è una <span class="underline">sequenza ordinata</span> \(\langle a_{h1}, a_{h2}, ..., a_{hk} \rangle \in \Pi(A)\) dove \(\Pi(A)\) è l'insieme di tutte
+<dt>Ranking (Graduatoria)</dt><dd>un <b>ranking</b> \(r_h\) per un votante \(v_h\) è una <span class="underline">sequenza ordinata</span> \(\langle a_{h1}, a_{h2}, ..., a_{hn} \rangle \in \Pi(A)\) dove \(\Pi(A)\) è l'insieme di tutte
 le <b>permutazioni</b> delle alternative in \(A\).
 Più precisamente gli elementi in \(r_h\) sono ordinati in ordine decrescente di preferenza, ovvero \(a_{h1}\) è il preferito di \(v_h\),
 \(a_{h2}\) è il secondo preferito, e così via&#x2026;</dd>
@@ -572,12 +572,12 @@ Come già accennato le due forme possibili di espressione di un voto sono fra lo
 </p>
 
 <p>
-Derivare una relazione \(>_h\) da un ranking \(r_h = \langle a_{h1}, a_{h2}, ... , a_{hn} \rangle\) è immediato: per ogni \(i, j \in \left[ n \right]\) tali che \(j > i\), poniamo \(a_{hi} >_h a_{hj}\).<br />
+Derivare una relazione \(>_h\) da un ranking \(r_h = \langle a_{h1}, a_{h2}, ... , a_{hn} \rangle\) è immediato: per ogni \(i, j \in \left[ n \right]\) tali che \(j > i\) rispetto a \(r_h\), poniamo \(a_{hi} >_h a_{hj}\).<br />
 </p>
 
 <p>
 Il viceversa è un po' più articolato.
-Dato che \(>_h\) è completa e transitiva, certamente esiste un'alternativa \(\ell \in \left[ n \right]\) tale per ogni altra alternativa
+Dato che \(>_h\) è completa e transitiva, certamente esiste un'alternativa \(\ell \in \left[ n \right]\) tale <span class="underline">per ogni</span> altra alternativa
 \(j \in \left[ n \right] \setminus \lbrace \ell \rbrace\), \(a_{\ell}\) è preferita più volte rispetto ad \(a_j\), ovvero formalmente
 \[
   \vert \lbrace i \in \left[ n \right] : a_{\ell} >_h a_i \rbrace \vert > \vert \lbrace j \in \left[ n \right] : a_j >_h a_i \rbrace \vert
@@ -590,7 +590,7 @@ Una diretta e naturale conseguenza del <b>Lemma 1</b> è ciò che verrà mostrat
 </p>
 
 <p>
-A questo punto individuato tale \(\ell\), poniamo \(a_{h1} = a_{\ell}\), ed iteriamo con lo stesso procedimento su sottoinsieme \(A \setminus \lbrace a_{\ell} \rbrace\) per individuare \(a_{h2}\), e così via&#x2026;<br />
+A questo punto individuato tale \(\ell\), poniamo \(a_{h1} = a_{\ell}\), ed iteriamo con lo stesso procedimento sul sottoinsieme \(A \setminus \lbrace a_{\ell} \rbrace\) per individuare \(a_{h2}\), e così via&#x2026;<br />
 </p>
 
 <p>
@@ -611,7 +611,7 @@ se \(>_h\) è una relazione binaria completa e transitiva sull'inseme \(A = \lbr
 <blockquote>
 <p>
 <b>Proof:</b>
-per ogni \(j \in \left[ n \right]\) indichiamo con \(p_j \vert \lbrace j \in \left[ n \right] : a_j >_h a_i \rbrace \vert\) il numero di alternative che \(a_j\) "batte" secondo il voto di \(v_h\).
+per ogni \(j \in \left[ n \right]\) indichiamo con \(p_j = \vert \lbrace j \in \left[ n \right] : a_j >_h a_i \rbrace \vert\) il numero di alternative che \(a_j\) "batte" secondo il voto di \(v_h\).
 Certamente esisterà un esiste un \(\ell \in \left[ n \right]\) tale per ogni altro \(j \in \left[ n \right] \setminus \lbrace \ell \rbrace\)
 \[
   p_{\ell} = \vert \lbrace i \in \left[ n \right] : a_{\ell} >_h a_i \rbrace \vert \geq \vert \lbrace j \in \left[ n \right] : a_j >_h a_i \rbrace \vert = p_j
@@ -621,7 +621,7 @@ in quanto \(p_1, p_2, ..., p_n\) sono numeri, e quindi esiste un massimo.<br />
 
 <p>
 Supponiamo per assurdo che esiste un \(m \neq \ell\) tale che \(p_{\ell} = p_m\).
-Poiché \(>_h\) è <b>completa</b> deve essere vero che o \(a_{\ell} >_h a_m\) oppure \(a_m >_h a_{\ell}\) (ma non entrambe).<br />
+Poiché \(>_h\) è <b>completa</b> deve essere vero che o \(a_{\ell} >_h a_m\) oppure \(a_m >_h a_{\ell}\) (<sub>ma</sub> non entrambe_).<br />
 </p>
 
 <p>
@@ -670,7 +670,10 @@ Come già accennato un sistema di voto è un <i>insieme di regole utili per deri
 </p>
 
 <p>
-Data l'equivalenza delle due modalità di voto per il momeno assumiamo che i \(k\) votanti esprimano il loro voto tramite <b>ranking</b>.
+Data l'equivalenza delle due modalità di voto per il momento assumiamo che i \(k\) votanti esprimano il loro voto tramite <b>ranking</b>.<br />
+</p>
+
+<p>
 Un <b>voto aggregato</b> per \(n\) alternative e \(k\) votanti è una <i>funzione</i>
 </p>
 \begin{align*}
@@ -691,7 +694,7 @@ che associa a \(k\) ranking un nuovo ranking \(r\)
 </p>
 
 <p>
-Un <b>sistema di voto</b> è un predicato \(\sigma\) che specifica, per ogni \(k\)-upla di ranking \((r_1, r_2, ..., r_k\) &isin; &Pi;(\left[ n \right])<sup>k</sup>\)
+Un <b>sistema di voto</b> è un predicato \(\sigma\) che specifica, per ogni \(k\)-upla di ranking \((r_1, r_2, ..., r_k) \in \Pi(\left[ n \right])^k\)
 le regole che devono essere rispettate dal voto aggregato \(f_{n,k}(r_1, r_2, ..., r_k)\).
 Perciò un ranking \(r\) è un voto aggregato per i ranking \(r_1, r_2, ..., r_k\) se e solo se \(\sigma(r_1, r_2, ..., r_k,r)\) è vero.<br />
 </p>
@@ -706,14 +709,14 @@ Analogamente la relazione bianria \(\succ\) è un voto aggregato per le relazion
 <h3 id="org71380a8">Sistema di Voto a Maggioranza</h3>
 <div class="outline-text-3" id="text-org71380a8">
 <p>
-Consideriamo un insieme di voti \(<_1, <_2, ..., <_k\) espressi come relazioni binarie.
+Consideriamo un insieme di voti \(>_1, >_2, ..., >_k\) espressi come relazioni binarie.
 Il <b>sistema di voto a maggioranza</b> è intuitivamente espresso dal seguente predicato \(\sigma_M\)
 \[
    \sigma_M(>_1, >_2, ..., >_k, \succ) = \forall i,j \in \left[ n \right]\\
    \\
    i \succ j \iff \vert \lbrace h \in \left[ k \right] : i >_h j \rbrace \vert > \vert \lbrace h \in \left[ k \right] : j >_h i \rbrace \vert
    \]
-Ovvero se il numero di voti che preferiscono \(i\) a \(j\) è maggiore di quelli che preferiscono \(j\) ad \(i\): \(i\) è preferito a \(j\) dalla <i>maggioranza</i> dei votanti.<br />
+Ovvero se il numero di votanti che preferiscono \(i\) a \(j\) è maggiore di quelli che preferiscono \(j\) ad \(i\): \(i\) è preferito a \(j\) dalla <i>maggioranza</i> dei votanti.<br />
 </p>
 
 <p>
@@ -799,12 +802,12 @@ Se le \(n\) alternative sono dispari, una di esse passerà direttamente ad una f
 </div>
 
 <p>
-Se invece i \(k\) votanti sono dispari ci sarà sempre un vincitore.
+Se i \(k\) votanti sono dispari ci sarà sempre un vincitore.
 Nel caso di \(k\) pari possono accadere pareggi, in quel caso supponiamo di avere un metodo imparziale per rompere la simmetria e proclamare un vincitore, per esempio lanciando una moneta.<br />
 </p>
 
 <p>
-Importante osservare che in un torneo non avvengono tutti gli scontri possibili, bensì <span class="underline">solamente quello programmati</span> da un'<b>agenda</b>.
+Importante osservare che in un torneo non avvengono tutti gli scontri possibili, bensì <span class="underline">solamente quelli programmati</span> da un'<b>agenda</b>.
 Ovvero prima del torneo si pianificano i vari scontri che verranno fatti.<br />
 </p>
 
@@ -827,8 +830,8 @@ Ognuo propone una diversa sequenza di scontri:
 </div>
 
 <p>
-Ciascun amico ha proposto un'agenda che portasse alla vittoria il proprio prodotto preferito!
-Purtroppo il sistema di voto torneo è sensibile allo <b>Strategic Agenda Setting</b>.
+Ciascun amico ha proposto un'agenda che porta alla vittoria il proprio prodotto preferito!
+Purtroppo il sistema di voto a torneo è sensibile al cosiddetto <b>Strategic Agenda Setting</b>.
 </p>
 
 <hr />
@@ -840,7 +843,7 @@ Purtroppo il sistema di voto torneo è sensibile allo <b>Strategic Agenda Settin
 <p class="date">Data: 2021-12-01 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-01-15 sab 16:08</p>
+<p class="date">Created: 2022-02-22 mar 12:41</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
