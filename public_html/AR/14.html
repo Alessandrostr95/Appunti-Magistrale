@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-02-22 mar 17:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AR - Lesson 14</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">AR - Lesson 14</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5e6a7a2">Sistemi di Voto Posizionali</a>
+<ul>
+<li><a href="#org4ff21bc">Problema dell ex aequo</a></li>
+<li><a href="#org00f7d52">Rilevanza delle Alternative Irrilevanti</a></li>
+</ul>
+</li>
+<li><a href="#org77f7abf">Sistemi di Voto Affidabili</a>
+<ul>
+<li><a href="#orgd7cc863">Principio di Paretro - Unanimità</a></li>
+<li><a href="#org8ea9c4a">Principio d'Indipendenza dalle Alternative Irrilevanti</a></li>
+</ul>
+</li>
+<li><a href="#orgc85b24c">Il Teorema (di Impossibilità) di Arrow</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5e6a7a2" class="outline-2">
+<h2 id="org5e6a7a2">Sistemi di Voto Posizionali</h2>
+<div class="outline-text-2" id="text-org5e6a7a2">
+<p>
+Supponiamo che i voti individuali siano espressi sotto forma di <span class="underline">ranking</span> \((r_1, ..., r_k) \in \Pi(\left[ n \right])^k\).
+Una classe diversa di sistemi di voto cerca di produrre un ranking di gruppo \(r\) <span class="underline">direttamente</span> dalle classifiche individuali \(r_1, ..., r_k\),
+piuttosto che costruire \(r\) da confronti tra coppie di alternative.<br />
+</p>
+
+<p>
+In un sistema di voto <b>posizionale</b> a ciascun ranking \(r_h\) viene assegnata una <b>funzione peso</b> \(w_h\) la quale associa un valore numerico a ciascuna alternativa
+<span class="underline">dipendentemente</span> dalla sua posizione nel ranking \(r_h\).
+Tale funzione \(w_h\) per essere sensata è tipicamente decrescente, ovvero se un'alternativa \(a\) sta in una posizione bassa (tra i primi posti) rispetto a \(r_h\) avrà un peso \(w_h(a)\) alto,
+viceversa se \(a\) sta verso gli ultimi posti allora \(w_h(a)\) assumerà un valore più basso.<br />
+</p>
+
+<p>
+Un esempio di funzione peso \(w_h\) per il ranking \(r_h = \langle a_{h1}, ..., a_{hn} \rangle\) è la seguente
+\[
+  w_h(a_{hi}) = \frac{1}{i} \;\; \forall i \in \left[ n \right]
+  \]
+</p>
+
+<p>
+Una volta associata una funzione peso ad ogni ranking si calcola il <b>peso collettivo</b> di un'alternativa \(a\) semplicemente sommando i pesi dei seingoli rankingk, ovvero
+\[
+  w(a) = \sum_{h = 1}^{k} w_h(a)
+  \]
+Infine le alternative vengono quindi ordinate in base al loro peso totale, e in base ad esse definito un ranking collettibo \(r\).
+</p>
+
+<p>
+Il <b>Borda Count</b> è un particolare sistema di <i>voto posizionale</i> nel quale per ogni votante \(h \in \left[ k \right]\) la funzione di peso associata al ranking \(r_h\) è definita come segue
+\[
+  \rho_h(a_{hi}) = n - i \;\;\; \forall i \in \left[ n \right]
+  \]
+</p>
+</div>
+
+<div id="outline-container-org4ff21bc" class="outline-3">
+<h3 id="org4ff21bc">Problema dell ex aequo</h3>
+<div class="outline-text-3" id="text-org4ff21bc">
+<p>
+Anche nei sistemi posizionali si manigesta il <i>paradosso di Condorcet</i> sotto forma di <b>ex aequo</b> (pareggio).
+</p>
+
+<p>
+Consideriamo ancora una volta l'esempio dei tre amici che devono andare in campeggio, visto nella <a href="./13.html">lezione precedente</a>.
+Le tre classifiche erano
+</p>
+<ul class="org-ul">
+<li><code>A</code>: \(\langle\)🍫, 🍒, 🍯\(\rangle\).</li>
+<li><code>B</code>: \(\langle\)🍒, 🍯, 🍫\(\rangle\).</li>
+<li><code>C</code>: \(\langle\)🍯, 🍫, 🍒\(\rangle\).</li>
+</ul>
+
+<p>
+Applichiamo ora il Borda Count, ottendo le seguenti funzioni peso
+</p>
+\begin{array}{ccc}
+  \rho_A(🍫) = 2 & \rho_A(🍒) = 1 & \rho_A(🍯) = 0\\
+  \rho_B(🍒) = 2 & \rho_B(🍯) = 1 & \rho_B(🍫) = 0\\
+  \rho_C(🍯) = 2 & \rho_C(🍫) = 1 & \rho_C(🍒) = 0
+\end{array}
+
+<p>
+Alla fine otteremo un pareggio tra i pesi finali
+\[
+   \rho(🍫) = \rho(🍒) = \rho(🍯) = 3
+   \]
+Perciò è necessario supporre che se due alternative ricevono lo stesso peso totale, allora viene utilizzato un sistema di <b>spareggio</b> organizzato in anticipo per decidere quale di queste due alternative posizionare di fronte all'altra.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org00f7d52" class="outline-3">
+<h3 id="org00f7d52">Rilevanza delle Alternative Irrilevanti</h3>
+<div class="outline-text-3" id="text-org00f7d52">
+<p>
+Consideriamo una rassegna cinematografica, in cui una giuria composta da cinque critici <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code> deve eleggere un vincitore tra i film <i>"Via col Vento"</i> (alternativa <code>VV</code>) e <i>"Il Padrino"</i> (alternativa <code>IP</code>).
+Tre guidici su 5 ritengono che <code>VV</code> sia il film che debba vincere.
+Le classifiche riultano quindi essere
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+<caption class="t-above"><span class="table-number">Tabella 1:</span> Classifiche dei 5 giudici.</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Giudici</th>
+<th scope="col" class="org-left">1° posto</th>
+<th scope="col" class="org-left">2° posto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>A</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>B</code></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Via col Vento</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>D</code></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Via col Vento</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>E</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+A questo punto gli organizzatori nella rassegna decidono di introdurre un novo film nella gara, <i>"Pulp Fiction"</i> (alternativa <code>PF</code>).<br />
+</p>
+
+<p>
+Tutta la giuria è d'accordo che <code>PF</code> non è all'altezza della competizione e che quindi non può vincere.
+Tuttavia i player <code>B</code> e <code>D</code> (i due che preferiscono <code>IP</code> a <code>VV</code>) possono creare un ranking in modo tale da far vincere il loro preferito.
+Infatti ponendo <code>PF</code> al secondo posto nella loro classifica, e <code>VV</code> all'utlimo, possono compromettere il risultato finale.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+<caption class="t-above"><span class="table-number">Tabella 2:</span> Nuove classifiche.</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Giudici</th>
+<th scope="col" class="org-left">1° posto</th>
+<th scope="col" class="org-left">2° posto</th>
+<th scope="col" class="org-left">3° posto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>A</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Pulp Fiction</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>B</code></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Pulp Fiction</i></td>
+<td class="org-left"><i>Via col Vento</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Pulp Fiction</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>D</code></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Pulp Fiction</i></td>
+<td class="org-left"><i>Via col Vento</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>E</code></td>
+<td class="org-left"><i>Via col Vento</i></td>
+<td class="org-left"><i>Il Padrino</i></td>
+<td class="org-left"><i>Pulp Fiction</i></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Con questa nuova graduatoria avremo i seguenti pesi collettivi
+</p>
+\begin{align*}
+  \rho(\texttt{``Via col Vento''}) &= 6\\
+  \rho(\texttt{``Il Padrino''}) &= 7\\
+  \rho(\texttt{``Pulp Fiction''}) &= 2
+\end{align*}
+
+<p>
+In pratica, classificando in maniera opportuna l'<b>alternativa irrilevante</b> (ovvero <code>PF</code>) si riesce a compromettere la graduatoria finale della competizione.
+Questo è uno dei problemi principali di cui soffrono i sistemi di voto posizionali.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org77f7abf" class="outline-2">
+<h2 id="org77f7abf">Sistemi di Voto Affidabili</h2>
+<div class="outline-text-2" id="text-org77f7abf">
+<p>
+Fin ora abbiamo incontrato alcune tipologie di sistemi di voto, ognuna affetta da "patologie" (problematiche che lo rendono non del tutto affidabile).
+Alcune problematiche incontrate sono state
+</p>
+<ul class="org-ul">
+<li><b>Paradosso di Condorcet</b>: col sistema a maggioranza non risco sempre ad individuare una classifica finale coerente.</li>
+<li><b>Strategic Agenda Setting</b>: col sistema a torneo la graduatoria finale dipende dall'ordinamento iniziale delle alterantive.</li>
+<li><b>Alternative Irrilevanti</b>: nel sistema posizionale si possono classificare le alternative irrilevanti per condizionare la graduatoria finale.</li>
+</ul>
+
+<p>
+Ad questo punto ha senso fare un passo indietro dai sistemi di voto specifici e porsi una domanda più generale:
+</p>
+<blockquote>
+<p>
+<i>esiste un sistema di voto che produca una classifica collettiva (per tre o più alternative) evitando tutte le "patologie" precedentemente descritte?</i>
+</p>
+</blockquote>
+<p>
+o meglio ancora
+</p>
+<blockquote>
+<p>
+<i>riusciamo a definire un sistema di voto sempre <b>affidabile</b>?</i>
+</p>
+</blockquote>
+
+<p>
+Per quanto visto in precedenza, un paio di condizioni <span class="underline">minime</span> per avere l'affidabilità di un sistema di voto sono:
+</p>
+<ul class="org-ul">
+<li>il voto finale deve rappresentare le scelte di tutti i votanti qualora tutti siano d'accordo su qualcosa.</li>
+<li>non deve essere possibile sfruttare le alternative irrilevanti per modificare la graduatoria finale.</li>
+</ul>
+
+<p>
+Per quanto riguarda il paradosso di Condorcet, se esprimiamo la graduatoria finale in termini di ranking \(r\) avremo sempre una classifica non ambigua (basta introdurre un metodo imparziale per lo spareggio).<br />
+</p>
+
+<p>
+Analiziamo ora in maniera più formale le due condizioni minime per ottenere un sistema di voto affidamile.
+</p>
+</div>
+
+<div id="outline-container-orgd7cc863" class="outline-3">
+<h3 id="orgd7cc863">Principio di Paretro - Unanimità</h3>
+<div class="outline-text-3" id="text-orgd7cc863">
+<p>
+Sia \(\sigma\) un <i>sistema di voto</i> con \(n\) alternative e \(k\) votanti.
+Siano i ranking \((r_1, ..., r_k) \in \Pi(\left[ n \right])^k\) dei \(k\) partecipanti.
+Indichiamo con \(r\) il <span class="underline">voto collettivo</span> ruspetto ai ranking \(r_1, ..., r_k\), tali che
+\[
+   \sigma(r_1, ..., r_k, r) = \texttt{True}
+   \]
+In fine, per ogni votante \(h \in \left[ k \right]\) indichiamo la funzione di peso Borda count \(\rho_h\) rispetto a \(r_h\),
+e la funzione \(\rho\) rispetto al voto collettivo \(r\).<br />
+</p>
+
+<p>
+Il principio dell'<b>Unanimità</b> (o <b>Principio di Paretro</b>) vuole che nel caso in cui un'alternativa <code>X</code> è preferita ad un'alternativa <code>Y</code> per <span class="underline">tutti</span> i votanti \(h \in \left[ k \right]\),
+allora anche nella graduatoria finale <code>X</code> deve essere preferito a <code>Y</code>.
+Più formalmente
+\[
+   \forall i,j \in \left[ n \right]\\
+   \left[
+   \forall h \in \left[ k \right] \rho_h(i) > \rho_h(j)
+   \implies \rho(i) > \rho(j)
+   \right]
+   \]
+</p>
+
+<p>
+D'ora in poi ci riferiremo al principio dell'unanimità con <code>U</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8ea9c4a" class="outline-3">
+<h3 id="org8ea9c4a">Principio d'Indipendenza dalle Alternative Irrilevanti</h3>
+<div class="outline-text-3" id="text-org8ea9c4a">
+<p>
+Sia \(\sigma\) un <i>sistema di voto</i> con \(n\) alternative e \(k\) votanti.<br />
+</p>
+
+<p>
+Il principio dell'<b>Indipendenza dalle Alternative Irrilevanti</b> si richiede che per ogni coppia di alternative <code>X</code>, <code>Y</code> il loro ordinamento nella graduatoria finale \(r\) dipende
+<span class="underline">unicamente</span> dalle posizioni relative rispetto alle graduatorie individuali.
+In poche parole, se in una graduatoria finale <code>X</code> è preferita ad <code>Y</code>, anche se introduciamo una nuova alternativa <code>Z</code>, il sistema deve produrre un nuovo ranking in cui <code>X</code> rimane ancora il preferito rispetto a <code>Y</code>.<br />
+</p>
+
+<p>
+Più formalmente
+\[
+   \forall i,j \in \left[ n \right]
+   \forall (r_1, ..., r_k), (r'_1, ..., r'_k) \in \Pi(\left[ n \right])^k\\
+   \left[
+   \left( \forall h \in \left[ k \right] \rho_h(i) > \rho_h(j) \iff \rho'_h(i) > \rho'_h(j) \right)\\
+   \implies \left( \rho(i) > \rho(j) \iff \rho'(i) > \rho'(j) \right)
+   \right]
+   \]
+dove \(\rho'\) è il Borda count collettivo rispetto al ranking \((r'_1, ..., r'_k)\), in accordo col sistema di voto \(\sigma\).<br />
+</p>
+
+<p>
+D'ora in poi ci riferiremo al principio dell'indipendenza dalle alternative irrilevanti con <code>IIA</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc85b24c" class="outline-2">
+<h2 id="orgc85b24c">Il Teorema (di Impossibilità) di Arrow</h2>
+<div class="outline-text-2" id="text-orgc85b24c">
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-06 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-02-22 mar 17:50</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
