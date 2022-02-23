@@ -103,3 +103,7 @@ div.yt-video-container iframe {
     width: 100% !important;
     min-height: 400px !important;
 }
+
+td {
+    text-align: center !important;
+}

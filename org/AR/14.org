@@ -163,6 +163,129 @@
    D'ora in poi ci riferiremo al principio dell'indipendenza dalle alternative irrilevanti con =IIA=.
 
 * Il Teorema (di Impossibilità) di Arrow
-  *[DA FINIRE...]*
+  Nel 1950, Kenneth Arrow mostrò dei risultati sul perché è così complicato trovare un sistema di voto affidabile che non fosse affetto dalle "patologie" descritte in precedenza.
+  Più precisamente nel suo *Teorema di Impossibilità* individua l' _unico_ sistema di voto che riesce a soddisfare entrambi i principi =U= e =IIA=.
 
-   
+  #+begin_quote
+  *Teorema di Arrow*\\
+  /If there are at least three alternatives, then any voting system that satisfies both =U= and =IIA= must correspond to dictatorship by one individual./\\
+
+  Più formalmente, se il sistema di voto \(\sigma\) soddisfa entrambe le caratteristiche =U= e =IIA=, allora per ogni insieme \(\left[ k \right]\) di votanti esiste un votante \(j \in \left[ k \right]\) tale che,
+  per ogni insieme \(\left[ n \right]\) di \(n > 2\) alternative e per ogni \(k\)-upla di ranking \((r_1, ..., r_k) \in \Pi(\left[ n \right])^k\) su di esse, il _voto collettivo_ $r$ rispettivo ai singoli ranking \(r_1, ..., r_k\)
+  e derivato in accordo a \(\sigma\), corrisponde esattamente a \(r = r_j\).\\
+
+  In termini rigorosi
+  \[
+  \forall \left[ k \right] \subset \mathbb{N} \;\; \exists j \in \left[ k \right]\\
+  \left[
+  \forall \left[ n \right] \subset \mathbb{N} : n > 2 \;\; \forall (r_1, ..., r_k) \in \Pi(\left[ n \right])^k \;
+  \sigma(r_1, ..., r_j, ..., r_k, r_j)
+  \right]
+  \]
+  #+end_quote
+
+  In sintesi ciò che vuole dire il teorema è che tale sistema di voto privo di "patologie" individua un singolo votante $j$ per il quale il voto finale collettivo $r$ corrisponde al voto \(r_j\),
+  _indipendentemente_ da quali siano le $n$ alternative.
+  In altri termini ciò equivale a dire che $j$ decide per tutti quanti i votanti, perciò in sintesi l'unico sistema di voto che garantische =U= e =IIA= è la /"dittatura"/.
+
+** Dimostrazione de Teorema di Arrow
+   Prima di procedere con la dimostrazione del teorema di Arrow è necessario introdurre alcuni concetti.
+
+   - Profilo ::
+     dati un insieme \(\left[ n \right]\) di alternative e un insieme \(\left[ k \right]\) di votanti, un *profilo* è una \(k\)-upla di ranking \(P = \langle r_1, ..., r_k \rangle \in \Pi(\left[ n \right])^k\),
+     ciascuno esprimente il voto dei singoli individui rispetto alle $n$ alternative.
+
+     #+attr_html: :align center :width 100%
+     #+caption: Esempio con 6 votanti e alternative =A=, =B=, =C= e =D=.
+     |---------+------------+------------+------------+------------|
+     |         | \(a_{i1}\) | \(a_{i2}\) | \(a_{i3}\) | \(a_{i4}\) |
+     |---------+------------+------------+------------+------------|
+     | /       | <          |            |            |            |
+     | \(r_1\) | A          | B          | C          | D          |
+     | \(r_2\) | B          | A          | C          | D          |
+     | \(r_3\) | A          | C          | B          | D          |
+     | \(r_4\) | D          | C          | B          | A          |
+     | \(r_5\) | B          | C          | A          | D          |
+     | \(r_6\) | A          | D          | C          | B          |
+     |---------+------------+------------+------------+------------|
+
+     \\
+     
+   - Alternativa Polarizzante ::
+     dati un insieme \(\left[ n \right]\) di alternative e un insieme \(\left[ k \right]\) di votanti e un profilo \(P = \langle r_1, ..., r_k \rangle\), una *alternativa polarizzante* per $P$ è un'alternativa
+     \(x \in \left[ n \right]\) tale che _per ogni_ votante \(h \left[ k \right]\)
+     \[
+     \rho_h(x) = 0  \; \lor \; \rho_h(x) = n-1
+     \]
+     ovvero $x$ sta o al primo posto o all'ultimo nei diversi voti di $P$.
+
+     #+attr_html: :align center :width 100%
+     #+caption: Profilo $P$ per il quale =A= è un'alternativa polarizzante.
+     |---------+------------+------------+------------+------------|
+     |         | \(a_{i1}\) | \(a_{i2}\) | \(a_{i3}\) | \(a_{i4}\) |
+     |---------+------------+------------+------------+------------|
+     | /       | <          |            |            |            |
+     | \(r_1\) | *A*        | B          | C          | D          |
+     | \(r_2\) | B          | D          | C          | *A*        |
+     | \(r_3\) | *A*        | C          | B          | D          |
+     | \(r_4\) | *A*        | C          | D          | B          |
+     | \(r_5\) | B          | C          | D          | *A*        |
+     | \(r_6\) | *A*        | D          | C          | B          |
+     |---------+------------+------------+------------+------------|
+
+*** Schema della dimostrazione
+    La dimostrazione del teorema di Arrow è una dimostrazione costruttiva divisa di tre parti:
+    - Parte 1 ::
+      Verrà dimostrato che se $x$ è un'alternativa polarizzante per un profilo $P$, allora avremo che o \(\rho(x) = 0\) oppure \(\rho(x) = n-1\), ovvero o $x$ è
+      all'ultimo posto nel voto finale $r$ oppure è al primo.
+    - Parte 2 ::
+      Definiamo una successione \(P_1, P_2, ..., P_k\) di $k$ profili, dove in ciascuno dei quali una _stessa_ alternativa $x$ è polarizzante.
+      Tramite questi profili individuiamo un potenziale ditattore $j$.
+    - Parte 3 ::
+      Dimostriamo che il dittatore potenziale $j$ è effettivamente il dittatore che cerchiamo per dimostrare il teorema.
+
+-----
+
+*** Parte 1
+    Si vuole dimostrare che se $x$ è un'alternativa polarizzante per un profilo $P$, allora avremo che o \(\rho(x) = 0\) oppure \(\rho(x) = n-1\).\\
+
+    Sia $x$ un'alternativa polarizzante per $P$, e supponiamo per assurdo che nella funzione peso collettiva \(0 < \rho(x) < n-1\).
+    Se questo è vero allora esisteranno altre due alternative \(a,b \in \left[ n \right]\) tali che
+    \[
+    \rho(a) < \rho(x) < \rho(b)
+    \]
+
+    #+ATTR_HTML: :style max-width:500px; :width 100%
+    [[file:../images/ar-lesson14-img1.png]]
+
+    
+    A questo punto creaimo un nuovo profilo \(P' = \langle r'_1, ..., r'_k \rangle\) nel senguente modo:
+    - per ogni votante \(i \in \left[ k \right]\) tale che \(\rho_i(b) < \rho_i(a)\) poniamo il ranking \(r'_i = r_i\).
+    - per ogni votante \(i \in \left[ k \right]\) tale che \(\rho_i(b) > \rho_i(a)\), il ranking \(r'_i\) è ottenuto da \(r_i\) spostando \(a\) direttamente accanto a \(b\), in modo tale
+      da ottenere \(\rho'_i(a) = \rho'_i(b) + 1\).
+      #+ATTR_HTML: :style max-width:500px; :width 100%
+      [[file:../images/ar-lesson14-img2.png]]
+      
+    Poiché $x$ non è stato coinvolto in nessuno spostamento, allora $x$ continua a rimanere un'alternativa polarizzante anche per \(P'\).
+    Infatti, per ogni \(i \in \left[ k \right]\) in \(r'_i\) non sono cambiati gli ordini tra \(x,a\) e \(x,b\) rispetto a \(r_i\).
+    Infatti se in \(r_i\) $x$ era al primo posto (o ultimo) in \(r'_i\) continua a rimanere in tale posizione.
+    Infine per come abbiamo costruito \(P'\) avremo che \(b\) sta _sempre_ in una posizione inferiore rispetto ad \(a\), ovvero \(i \in \left[ k \right]\) \(\rho'_i(b) < \rho'_i(a)\).\\
+
+    Poiché in \(P\) e \(P'\) le posizioni di $a$ rispetto a $x$ non sono cambiate, per il principio =IIA= avremo che
+    \[
+    \rho(a) < \rho(x) \iff \rho'(a) < \rho'(x)
+    \]
+    Per lo stesso motivo avremo che
+    \[
+    \rho(x) < \rho(b) \iff \rho'(x) < \rho'(b)
+    \]
+
+    Infine, per come abbiamo costruito \(P'\), sappiamo che per ogni votante $i$ avremo che \(\rho'_i(b) < \rho'_i(a)\).
+    Perciò per principio di unanimità =U= deve essere necessariamente vero che \(\rho'(b) < \rho'(a)\).\\
+
+    Unendo queste disuguaglianze otterremo un assurdo
+    \[
+    \rho'(a) < \rho'(x) < \rho'(b) < \rho'(a) \;\;\;\square
+    \]
+
+-----

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-22 mar 17:50 -->
+<!-- 2022-02-23 mer 18:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 14</title>
@@ -286,7 +286,16 @@ for the JavaScript code in this tag.
 <li><a href="#org8ea9c4a">Principio d'Indipendenza dalle Alternative Irrilevanti</a></li>
 </ul>
 </li>
-<li><a href="#orgc85b24c">Il Teorema (di Impossibilità) di Arrow</a></li>
+<li><a href="#orgc85b24c">Il Teorema (di Impossibilità) di Arrow</a>
+<ul>
+<li><a href="#orgb79d33f">Dimostrazione de Teorema di Arrow</a>
+<ul>
+<li><a href="#org085bf40">Schema della dimostrazione</a></li>
+<li><a href="#org5f47edf">Parte 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -627,8 +636,310 @@ D'ora in poi ci riferiremo al principio dell'indipendenza dalle alternative irri
 <h2 id="orgc85b24c">Il Teorema (di Impossibilità) di Arrow</h2>
 <div class="outline-text-2" id="text-orgc85b24c">
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Nel 1950, Kenneth Arrow mostrò dei risultati sul perché è così complicato trovare un sistema di voto affidabile che non fosse affetto dalle "patologie" descritte in precedenza.
+Più precisamente nel suo <b>Teorema di Impossibilità</b> individua l' <span class="underline">unico</span> sistema di voto che riesce a soddisfare entrambi i principi <code>U</code> e <code>IIA</code>.
 </p>
+
+<blockquote>
+<p>
+<b>Teorema di Arrow</b><br />
+<i>If there are at least three alternatives, then any voting system that satisfies both <code>U</code> and <code>IIA</code> must correspond to dictatorship by one individual.</i><br />
+</p>
+
+<p>
+Più formalmente, se il sistema di voto \(\sigma\) soddisfa entrambe le caratteristiche <code>U</code> e <code>IIA</code>, allora per ogni insieme \(\left[ k \right]\) di votanti esiste un votante \(j \in \left[ k \right]\) tale che,
+per ogni insieme \(\left[ n \right]\) di \(n > 2\) alternative e per ogni \(k\)-upla di ranking \((r_1, ..., r_k) \in \Pi(\left[ n \right])^k\) su di esse, il <span class="underline">voto collettivo</span> \(r\) rispettivo ai singoli ranking \(r_1, ..., r_k\)
+e derivato in accordo a \(\sigma\), corrisponde esattamente a \(r = r_j\).<br />
+</p>
+
+<p>
+In termini rigorosi
+\[
+  \forall \left[ k \right] \subset \mathbb{N} \;\; \exists j \in \left[ k \right]\\
+  \left[
+  \forall \left[ n \right] \subset \mathbb{N} : n > 2 \;\; \forall (r_1, ..., r_k) \in \Pi(\left[ n \right])^k \;
+  \sigma(r_1, ..., r_j, ..., r_k, r_j)
+  \right]
+  \]
+</p>
+</blockquote>
+
+<p>
+In sintesi ciò che vuole dire il teorema è che tale sistema di voto privo di "patologie" individua un singolo votante \(j\) per il quale il voto finale collettivo \(r\) corrisponde al voto \(r_j\),
+<span class="underline">indipendentemente</span> da quali siano le \(n\) alternative.
+In altri termini ciò equivale a dire che \(j\) decide per tutti quanti i votanti, perciò in sintesi l'unico sistema di voto che garantische <code>U</code> e <code>IIA</code> è la <i>"dittatura"</i>.
+</p>
+</div>
+
+<div id="outline-container-orgb79d33f" class="outline-3">
+<h3 id="orgb79d33f">Dimostrazione de Teorema di Arrow</h3>
+<div class="outline-text-3" id="text-orgb79d33f">
+<p>
+Prima di procedere con la dimostrazione del teorema di Arrow è necessario introdurre alcuni concetti.
+</p>
+
+<dl class="org-dl">
+<dt>Profilo</dt><dd><p>
+dati un insieme \(\left[ n \right]\) di alternative e un insieme \(\left[ k \right]\) di votanti, un <b>profilo</b> è una \(k\)-upla di ranking \(P = \langle r_1, ..., r_k \rangle \in \Pi(\left[ n \right])^k\),
+ciascuno esprimente il voto dei singoli individui rispetto alle \(n\) alternative.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center" width="100%">
+<caption class="t-above"><span class="table-number">Tabella 3:</span> Esempio con 6 votanti e alternative <code>A</code>, <code>B</code>, <code>C</code> e <code>D</code>.</caption>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">\(a_{i1}\)</th>
+<th scope="col" class="org-left">\(a_{i2}\)</th>
+<th scope="col" class="org-left">\(a_{i3}\)</th>
+<th scope="col" class="org-left">\(a_{i4}\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(r_1\)</td>
+<td class="org-left">A</td>
+<td class="org-left">B</td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_2\)</td>
+<td class="org-left">B</td>
+<td class="org-left">A</td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_3\)</td>
+<td class="org-left">A</td>
+<td class="org-left">C</td>
+<td class="org-left">B</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_4\)</td>
+<td class="org-left">D</td>
+<td class="org-left">C</td>
+<td class="org-left">B</td>
+<td class="org-left">A</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_5\)</td>
+<td class="org-left">B</td>
+<td class="org-left">C</td>
+<td class="org-left">A</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_6\)</td>
+<td class="org-left">A</td>
+<td class="org-left">D</td>
+<td class="org-left">C</td>
+<td class="org-left">B</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<br />
+</p></dd>
+
+<dt>Alternativa Polarizzante</dt><dd><p>
+dati un insieme \(\left[ n \right]\) di alternative e un insieme \(\left[ k \right]\) di votanti e un profilo \(P = \langle r_1, ..., r_k \rangle\), una <b>alternativa polarizzante</b> per \(P\) è un'alternativa
+\(x \in \left[ n \right]\) tale che <span class="underline">per ogni</span> votante \(h \left[ k \right]\)
+\[
+     \rho_h(x) = 0  \; \lor \; \rho_h(x) = n-1
+     \]
+ovvero \(x\) sta o al primo posto o all'ultimo nei diversi voti di \(P\).
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center" width="100%">
+<caption class="t-above"><span class="table-number">Tabella 4:</span> Profilo \(P\) per il quale <code>A</code> è un'alternativa polarizzante.</caption>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">\(a_{i1}\)</th>
+<th scope="col" class="org-left">\(a_{i2}\)</th>
+<th scope="col" class="org-left">\(a_{i3}\)</th>
+<th scope="col" class="org-left">\(a_{i4}\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(r_1\)</td>
+<td class="org-left"><b>A</b></td>
+<td class="org-left">B</td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_2\)</td>
+<td class="org-left">B</td>
+<td class="org-left">D</td>
+<td class="org-left">C</td>
+<td class="org-left"><b>A</b></td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_3\)</td>
+<td class="org-left"><b>A</b></td>
+<td class="org-left">C</td>
+<td class="org-left">B</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_4\)</td>
+<td class="org-left"><b>A</b></td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+<td class="org-left">B</td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_5\)</td>
+<td class="org-left">B</td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+<td class="org-left"><b>A</b></td>
+</tr>
+
+<tr>
+<td class="org-left">\(r_6\)</td>
+<td class="org-left"><b>A</b></td>
+<td class="org-left">D</td>
+<td class="org-left">C</td>
+<td class="org-left">B</td>
+</tr>
+</tbody>
+</table></dd>
+</dl>
+</div>
+
+<div id="outline-container-org085bf40" class="outline-4">
+<h4 id="org085bf40">Schema della dimostrazione</h4>
+<div class="outline-text-4" id="text-org085bf40">
+<p>
+La dimostrazione del teorema di Arrow è una dimostrazione costruttiva divisa di tre parti:
+</p>
+<dl class="org-dl">
+<dt>Parte 1</dt><dd>Verrà dimostrato che se \(x\) è un'alternativa polarizzante per un profilo \(P\), allora avremo che o \(\rho(x) = 0\) oppure \(\rho(x) = n-1\), ovvero o \(x\) è
+all'ultimo posto nel voto finale \(r\) oppure è al primo.</dd>
+<dt>Parte 2</dt><dd>Definiamo una successione \(P_1, P_2, ..., P_k\) di \(k\) profili, dove in ciascuno dei quali una <span class="underline">stessa</span> alternativa \(x\) è polarizzante.
+Tramite questi profili individuiamo un potenziale ditattore \(j\).</dd>
+<dt>Parte 3</dt><dd>Dimostriamo che il dittatore potenziale \(j\) è effettivamente il dittatore che cerchiamo per dimostrare il teorema.</dd>
+</dl>
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org5f47edf" class="outline-4">
+<h4 id="org5f47edf">Parte 1</h4>
+<div class="outline-text-4" id="text-org5f47edf">
+<p>
+Si vuole dimostrare che se \(x\) è un'alternativa polarizzante per un profilo \(P\), allora avremo che o \(\rho(x) = 0\) oppure \(\rho(x) = n-1\).<br />
+</p>
+
+<p>
+Sia \(x\) un'alternativa polarizzante per \(P\), e supponiamo per assurdo che nella funzione peso collettiva \(0 < \rho(x) < n-1\).
+Se questo è vero allora esisteranno altre due alternative \(a,b \in \left[ n \right]\) tali che
+\[
+    \rho(a) < \rho(x) < \rho(b)
+    \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson14-img1.png" alt="ar-lesson14-img1.png" style="max-width:500px;" width="100%" />
+</p>
+</div>
+
+
+<p>
+A questo punto creaimo un nuovo profilo \(P' = \langle r'_1, ..., r'_k \rangle\) nel senguente modo:
+</p>
+<ul class="org-ul">
+<li>per ogni votante \(i \in \left[ k \right]\) tale che \(\rho_i(b) < \rho_i(a)\) poniamo il ranking \(r'_i = r_i\).</li>
+<li><p>
+per ogni votante \(i \in \left[ k \right]\) tale che \(\rho_i(b) > \rho_i(a)\), il ranking \(r'_i\) è ottenuto da \(r_i\) spostando \(a\) direttamente accanto a \(b\), in modo tale
+da ottenere \(\rho'_i(a) = \rho'_i(b) + 1\).
+</p>
+
+<div class="figure">
+<p><img src="../images/ar-lesson14-img2.png" alt="ar-lesson14-img2.png" style="max-width:500px;" width="100%" />
+</p>
+</div></li>
+</ul>
+
+<p>
+Poiché \(x\) non è stato coinvolto in nessuno spostamento, allora \(x\) continua a rimanere un'alternativa polarizzante anche per \(P'\).
+Infatti, per ogni \(i \in \left[ k \right]\) in \(r'_i\) non sono cambiati gli ordini tra \(x,a\) e \(x,b\) rispetto a \(r_i\).
+Infatti se in \(r_i\) \(x\) era al primo posto (o ultimo) in \(r'_i\) continua a rimanere in tale posizione.
+Infine per come abbiamo costruito \(P'\) avremo che \(b\) sta <span class="underline">sempre</span> in una posizione inferiore rispetto ad \(a\), ovvero \(i \in \left[ k \right]\) \(\rho'_i(b) < \rho'_i(a)\).<br />
+</p>
+
+<p>
+Poiché in \(P\) e \(P'\) le posizioni di \(a\) rispetto a \(x\) non sono cambiate, per il principio <code>IIA</code> avremo che
+\[
+    \rho(a) < \rho(x) \iff \rho'(a) < \rho'(x)
+    \]
+Per lo stesso motivo avremo che
+\[
+    \rho(x) < \rho(b) \iff \rho'(x) < \rho'(b)
+    \]
+</p>
+
+<p>
+Infine, per come abbiamo costruito \(P'\), sappiamo che per ogni votante \(i\) avremo che \(\rho'_i(b) < \rho'_i(a)\).
+Perciò per principio di unanimità <code>U</code> deve essere necessariamente vero che \(\rho'(b) < \rho'(a)\).<br />
+</p>
+
+<p>
+Unendo queste disuguaglianze otterremo un assurdo
+\[
+    \rho'(a) < \rho'(x) < \rho'(b) < \rho'(a) \;\;\;\square
+    \]
+</p>
+
+<hr />
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -636,7 +947,7 @@ D'ora in poi ci riferiremo al principio dell'indipendenza dalle alternative irri
 <p class="date">Data: 2021-12-06 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-22 mar 17:50</p>
+<p class="date">Created: 2022-02-23 mer 18:37</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
