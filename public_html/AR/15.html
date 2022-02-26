@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-02-26 sab 15:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AR - Lesson 15</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">AR - Lesson 15</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc1f4b54">Dimostrazione Teorema di Arrow</a>
+<ul>
+<li><a href="#org6b93b3e">Parte 2 dimostrazione</a></li>
+<li><a href="#org97900c9">Parte 3 dimostrazione</a>
+<ul>
+<li><a href="#orgc0a2676">Sottofase 3.1</a></li>
+<li><a href="#org3d50d4a">Sottofase 3.2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc1f4b54" class="outline-2">
+<h2 id="orgc1f4b54">Dimostrazione Teorema di Arrow</h2>
+<div class="outline-text-2" id="text-orgc1f4b54">
+<p>
+Riassumendo, il teorema di Arrow ci diceva che <span class="underline">per ogni</span> insieme \(\left[ k \right]\) di votanti esiste un \(j \in \left[ k \right]\) tale che <span class="underline">indipendentemente</span> dalle \(n > 2\) alternative avremo che
+l'unico sistema di voto che rispetta <code>U</code> e <code>IIA</code> condurrà ad un voto collettivo \(r\) esattamente uguale al voto individuale \(r_j\).
+In altri termini, l'unico sistema di voto che rispetta sia <code>U</code> che <code>IIA</code> è la "dittatura".<br />
+</p>
+
+<p>
+Nella <a href="./14.html">lezione precedente</a> è stata dimostrata la prima delle tre parti della dimostrazione del teorema.
+In questa prima fase è stato dimostrato che se un'alternatica \(x\) è <b>polarizzante</b> per un profilo \(P = \langle r_1, ..., r_k \rangle\) allora o \(\rho(x) = 0\) oppure \(rho(x) = n-1\)
+(ovvero o \(x\) si trova all'ultimo posto nel voto collettivo \(r\), oppure all'utlimo).<br />
+</p>
+</div>
+
+<div id="outline-container-org6b93b3e" class="outline-3">
+<h3 id="org6b93b3e">Parte 2 dimostrazione</h3>
+<div class="outline-text-3" id="text-org6b93b3e">
+<p>
+Definiamo una successione di \(k+1\) profili \(P^{(0)}, P^{(1)}, P^{(k)} \in \Pi(\left[ n \right])^k\), dove in ciascuno dei quali una stessa alternativa \(x \in \left[ n \right]\) è <span class="underline">polarizzante</span>.
+Tramite essi individueremo un <i>dittatore potenziale</i>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson15-img1.png" alt="ar-lesson15-img1.png" width="100%" />
+</p>
+</div>
+
+<p>
+Consideriamo tali profili ordinati in modo tale che nel profilo \(P^{(h)} = \langle r^h_1, ..., r^h_k \rangle\) l'alternativa \(x\) è al primo posto nei primi \(h\) ranking, ed ultima nei restainti (come in figura).
+Più precisamente
+\[
+   \rho^{(h)}_i(x) = \begin{cases}
+     n-1 &\forall i \leq h\\
+     0   &\forall i > h
+   \end{cases}
+   \]
+</p>
+
+<p>
+È facile osservare che i due profili \(P^{(h-1)}\) e \(P^{(h)}\) differiscono l'uno dall'altro solo per il modo in cui l'\(h\)-esimo votante giudica l'alternativa \(x\):
+</p>
+<ul class="org-ul">
+<li>nel profilo \(P^{(h-1)}\) il votante \(h\) giudica \(x\) <b>ultimo</b>, ovvero \(\rho^{(h-1)}_h(x) = 0\)</li>
+<li>nel profilo \(P^{(h)}\) il votante \(h\) giudica \(x\) <b>primo</b>, ovvero \(\rho^{(h)}_h(x) = n-1\)</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson15-img2.png" alt="ar-lesson15-img2.png" width="100%" />
+</p>
+</div>
+
+<p>
+Dato che nel primo profilo tutti i votanti hanno \(x\) in ultima posizione, mentre nell'ultimo profilo hanno tutti \(x\) in prima posizione, avremo per <b>principio di unanimità</b> <code>U</code> che
+\[
+   \rho^{(0)}(x) = 0\\
+   \rho^{(k)}(x) = n-1
+   \]
+</p>
+
+<p>
+Dato che dal profilo 0 al profilo \(k\) l'alternativa \(x\) passa da essere all'utlimo posto fino al primo, esisterà certamente un <span class="underline">primo</span> profilo \(j \in \left[ k \right]\) per il quale \(x\) non è più all'ultimo posto.
+Ovvero, per ogni \(h < j\) avremo che \(\rho^{(h)}(x) = 0\) mentre nel profilo \(j\) avremo \(\rho^{(j)}(x) > 0\).<br />
+</p>
+
+<p>
+Inoltre, per quanto visto nella <span class="underline">prima parte della dimostrazione</span>, dato che \(x\) è polarizzante per \(P^{(j)}\) avremo che o \(\rho^{(j)}(x) = 0\) o \(\rho^{(j)}(x) = n-1\).
+Però visto che abbiamo definito \(j\) in modo tale che \(\rho^{(j)}(x) > 0\) allora necessariamente avremo che \(\rho^{(j)}(x) = n-1\).<br />
+</p>
+
+<p>
+Notiamo che il votante \(j\) ha un ruolo decisivo nel posizionare \(x\) nella graduatoria finale del profilo \(P^{(j)}\), perché lo fa passare da essere all'ultimo posto al primo.
+Perciò possiamo dire che il votante \(j\) è il <b>dittatore potenziale</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org97900c9" class="outline-3">
+<h3 id="org97900c9">Parte 3 dimostrazione</h3>
+<div class="outline-text-3" id="text-org97900c9">
+<p>
+In questa ulitma parte dimostreremo che il dittatore potenziale \(j\) trovato nella seconda parte è effettivamente il dittatore del sistema di voto affidabile che rispetta <code>U</code> e <code>IIA</code>.<br />
+</p>
+
+<p>
+Il il profilo \(Q = \langle r^Q_1, ..., r^Q_k \rangle \) con \(k\) votanti su \(n\) alternative.
+Come prima, per ogni votante \(h \in \left[ k \right]\) indichiamo con \(\rho^Q_h\) la funzione peso associata al ranking \(r^Q_h\) del votante \(h\).
+Infine indichiamo che \(r^Q\) il voto collettivo finale (che soddisfa \(\sigma\) e con \(\rho^Q\) la funzione di peso collettiva associata a \(r^Q\).<br />
+</p>
+
+<p>
+Vogliamo dismotrare che <span class="underline">qualunque sia</span> \(Q\) allora \(r^Q = r^Q_j\).
+Più precisamente, <span class="underline">qualunque sia</span> \(Q\), comunque si scelgano due alternative \(y,z \in \left[ n \right]\) allora
+\[
+   \rho^Q(y) > \rho^Q(z) \iff \rho^Q_j(y) > \rho^Q_j(z)
+   \]
+</p>
+
+<p>
+Tale affermazione verrà dimostrata in due sottofasi:
+</p>
+<ol class="org-ol">
+<li>dimostriamo che se \(y \neq x\) e \(z \neq x\) allora \(\rho^Q(y) > \rho^Q(z) \iff \rho^Q_j(y) > \rho^Q_j(z)\).</li>
+<li>dimostriamo che se \(y \neq x\) allora \(\rho^Q(y) > \rho^Q(x) \iff \rho^Q_j(y) > \rho^Q_j(x)\).</li>
+</ol>
+</div>
+
+<div id="outline-container-orgc0a2676" class="outline-4">
+<h4 id="orgc0a2676">Sottofase 3.1</h4>
+<div class="outline-text-4" id="text-orgc0a2676">
+<p>
+Supponiamo di avere che \(y \neq x\) e \(z \neq x\), e senza perdita di generalità supponiamo che \(\rho^Q_j(y) > \rho^Q_j(z)\).<br />
+</p>
+
+<p>
+A questo punto costruiamo a partire da \(Q\) un nuovo profilo \(T = \langle r^T_1, ..., r^T_k \rangle\) nella seguente maniera:
+</p>
+<ul class="org-ul">
+<li>Per ogni votante \(h \leq j\) poniamo \(x\) in testa alla graduatoria.</li>
+<li>Per ogni votante \(h > j\) poniamo \(x\) in ultima posizione della graduatoria.</li>
+<li>Infine, considerando solamente il votante \(j\), poniamo l'aternativa \(y\) in testa la ranking \(r^T_j\).</li>
+</ul>
+
+
+<div id="org2d2cc5e" class="figure">
+<p><img src="../images/ar-lesson15-img3.png" alt="ar-lesson15-img3.png" width="100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Transformazione dal profilo \(Q\) al profilo \(T\).</p>
+</div>
+
+<p>
+Osserviamo che il profilo appena costruito \(T\) è molto simile al profilo \(P^{(j)}\) trovato nella fase 2.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson15-img4.png" alt="ar-lesson15-img4.png" width="100%" />
+</p>
+</div>
+
+<p>
+Dalle parti 1 e 2 della dimostrazione sappiamo che \(\rho^{(j)}(x) = n-1\), perciò è vero che \(\rho^{(j)}(x) > \rho^{(j)}(z)\).
+Inoltre poiché l'oride relativo tra \(x\) e \(z\) rimane invariato sia in \(P^{(j)}\) sia in \(T\), allora per il principio dell'indipendenza dalle alternative irrilevanti <code>IIA</code> avremo che \(\rho^{T}(x) > \rho^{T}(z)\).<br />
+</p>
+
+<p>
+Analogamente possiamo osservare che \(T\) è molto simile anche al profilo \(P^{(j-1)}\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson15-img5.png" alt="ar-lesson15-img5.png" width="100%" />
+</p>
+</div>
+
+<p>
+Come prima, dalla parte 2 della dimostrazione abbiamo trovato un \(j\) in modo tale che \(\rho^{(j-1)}(x) = 0\), perciò avremo che \(\rho^{(j-1)}(x) < \rho^{(j-1)}(y)\).
+Inoltre poiché l'oride relativo tra \(x\) e \(y\) rimane invariato sia in \(P^{(j-1)}\) sia in \(T\), allora per il principio dell'indipendenza dalle alternative irrilevanti <code>IIA</code> avremo che \(\rho^{T}(x) < \rho^{T}(y)\).<br />
+</p>
+
+<p>
+Osserviamo ora la figura <a href="#org2d2cc5e">3</a>.
+L'ordine relativo tra \(y\) e \(z\) rimane invariato sia in \(Q\) che in \(T\), perciò ancora una volta per il principio <code>IIA</code> avremo che \(\rho^Q(y) > \rho^Q(z)\).<br />
+</p>
+
+<p>
+Ricapitolando, siamo partiti dall'assunzione che \(\rho^Q_j(y) > \rho^Q_j(z)\), e costruendo il profilo \(T\) abbiamo dimostrato che tale assunzione implica che \(\rho^Q(y) > \rho^Q(z)\).
+Ovvero abbiamo mostrato che
+</p>
+\begin{equation}
+\rho^Q_j(y) > \rho^Q_j(z) \implies \rho^Q(y) > \rho^Q(z)
+\end{equation}
+<p>
+Dato che \(y\) e \(z\) sono <b>variabili mute</b> (ovvero interscambiabili), possiamo dimostrare alla stessa meniera che
+</p>
+\begin{equation}
+\rho^Q_j(y) < \rho^Q_j(z) \implies \rho^Q(y) < \rho^Q(z)
+\end{equation}
+<p>
+Le due euqaioni (1) e (2) implicano l'ipotesi della sottofase, ovvero
+\[
+    \left[ (1) \land (2) \right]
+    \implies
+    \left[ (y \neq x \land z \neq x) \implies (\rho^Q(y) > \rho^Q(z) \iff \rho^Q_j(y) > \rho^Q_j(z)) \right]
+    \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3d50d4a" class="outline-4">
+<h4 id="org3d50d4a">Sottofase 3.2</h4>
+<div class="outline-text-4" id="text-org3d50d4a">
+<p>
+In questa sottofase si vuole dimostrare che se \(y \neq x\) allora \(\rho^Q(y) > \rho^Q(x) \iff \rho^Q_j(y) > \rho^Q_j(x)\).<br />
+</p>
+
+<p>
+Iniziamo con l'osserva che dato che ci sono <span class="underline">più di due alternative</span>, ovvero \(n > 2\), allora certamente esisterà un'altra alternativa \(z \neq y\) e \(z \neq x\).<br />
+</p>
+
+<p>
+Deriviamo ora dai profili \(P^{(0)}, P^{(1)}, ..., P^{(k)}\) una nuova sequenza di profili \(T^{(0)}, T^{(1)}, ..., T^{(k)}\) spostando la posizione di \(z\):
+</p>
+<ul class="org-ul">
+<li>\(T^{(0)}\) è ottenuta da \(P^{(0)}\) semplicemente spostando \(z\) in ultima posizione per tutti i ranking \(r^{(0)}_1, ..., r^{(0)}_k\).</li>
+<li>Per \(h > 0\), \(T^{(h)}\) è ottenuta da \(P^{(h)}\) spostando \(z\) in prima posizione per tutti i ranking \(i \leq h\), e in ultima per tutti gli altri, ovvero
+\[
+      \rho^{T^{(h)}}_i(x) = \begin{cases}
+       n-1 &\forall i \leq h\\
+       0   &\forall i > h
+     \end{cases}
+     \]</li>
+</ul>
+
+
+<div id="org2c80db8" class="figure">
+<p><img src="../images/ar-lesson15-img6.png" alt="ar-lesson15-img6.png" width="100%" />
+</p>
+<p><span class="figure-number">Figura 6: </span>Sequenza di profili \(T^{(0)}, T^{(1)}, ..., T^{(k)}\).</p>
+</div>
+
+<p>
+Per comodità, per ogni \(h \in \lbrace 0 \rbrace \cup \left[ k \right]\) indichiamo con \(t^h\) il ranking collettivo del profilo \(T^{(h)}\), e con \(\rho^{T^{(h)}}\) la funzione di pesso ad esso associata.<br />
+</p>
+
+<p>
+Esattamente come per i profili \(P^{(0)}, P^{(1)}, ..., P^{(k)}\) (vedi punto 2), esiste un \(\ell \in \left[ k \right]\) tale che \(\rho^{T^{(h)}}(z) = 0\) per ogni \(h < \ell\), mentre \(\rho^{T^{(\ell)}}(z) = n-1\).<br />
+</p>
+
+<p>
+Ancora una volta, esattamente come dimostrato nel punto 3.1, per ogni profilo \(Q\), dato che \(y \neq z\) e dato che \(x \neq z\) allora
+\[
+    \rho^Q(y) > \rho^Q(x) \iff \rho^Q_{\ell}(y) > \rho^Q_{\ell}(x)
+    \]
+Per concludere la dimostrazione basta dimostrare che \(\ell = j\).<br />
+</p>
+
+<dl class="org-dl">
+<dt>Caso \(\ell < j\)</dt><dd><p>
+Dimostriamo che esiste almeno un profilo \(P\) tale che \(\rho^P \neq \rho^{P}_{\ell}\).
+Ricordiamo che nel punto 2 abbiamo scelto \(j\) in modo tale che \(\rho^{(j-1)}(x) = 0\), ovver che
+\[
+      \rho^{(j-1)}(x) < \rho^{(j-1)}(y)
+      \]
+Ma per come è definita la sequenza \(P^{(0)}, P^{(1)}, ..., P^{(k)}\) sappiamo che per ogni profilo \(h\) e per ogni \(i \leq h\) abbiamo che \(\rho^{h}_i(x) = n-1\),
+perciò avremo che \(\rho^{(j-1)}_{\ell}(x) = n-1\) dato che \(\ell < j \implies \ell \leq j-1\).<br />
+</p>
+
+<p>
+Perciò avremo che nel ranking \(\ell\) del profilo profilo \(P^{(j-1)}\) che
+\[
+      \rho^{(j-1)}_{\ell}(x) > \rho^{(j-1)}_{\ell}(y)
+      \]
+Quindi certamente \(\rho^{(j-1)} \neq \rho^{(j-1)}_{\ell}\).<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson15-img7.png" alt="ar-lesson15-img7.png" width="100%" style="max-width: 300px;" />
+</p>
+</div>
+
+<p>
+Questo stesso ragionamento si può applicare per ogni profilo minore di \(j\), perciò per forza non può essere vero che \(\ell < j\).
+</p></dd>
+
+<dt>Caso \(\ell > j\)</dt><dd>Per come abbiamo scelto \(j\) sappiamo che \(\rho^{(j)}(x) = n-1\) e che quindi
+\[
+      \rho^{(j)}(x) > \rho^{(j)}(y)
+      \]
+Però per come abbiamo definito la sequenza di profili \(P^{(0)}, P^{(1)}, ..., P^{(k)}\), sappiamo che per ogni \(i > h\) abbiamo che \(\rho^{h}_i(x) = 0\).
+Perciò dato che \(\ell > j\) allora
+\[
+      \rho^{(j)}_{\ell}(x) < \rho^{(j)}_{\ell}(y)
+      \]
+quindi non può essere vero che \(\ell > j\).</dd>
+</dl>
+
+<p>
+In conclusione, se non è vero che \(\ell < j\) e non è vero che \(\ell > j\) deve necessariamente essere vero che \(\ell = j\) \(\square\).
+</p>
+
+<hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-13 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-02-26 sab 15:55</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
