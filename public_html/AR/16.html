@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-02-27 dom 21:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AR - Lesson 16</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">AR - Lesson 16</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd3e10de">Single-Peaked Preferences and the Median Voter Theorem</a>
+<ul>
+<li><a href="#orgb214547">Single-Peaked Preferences</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd3e10de" class="outline-2">
+<h2 id="orgd3e10de">Single-Peaked Preferences and the Median Voter Theorem</h2>
+<div class="outline-text-2" id="text-orgd3e10de">
+<p>
+Il teorema di Arrow, come anche il paradosso di Condorcet, pongono una prospettiva non rassicurante sui sistemi di voto.
+Tuttavia, un approccio comune di fronte a un risultato di impossibilità è quello di considerare alcuni <span class="underline">casi particolari</span>, i quali sono anche ragionevoli se applicati in un contesto reale, che consentano in qualche modo di "aggirare" i risultati negativi visti fin ora.<br />
+</p>
+
+<p>
+Un punto di partenza è quello di osservare che c'è qualcosa di un po' <i>insolito</i> nel considerare ranking senza alcun vincolo.
+Per fare un esempio, consideriamo le alternative <code>X</code>, <code>Y</code>, <code>Z</code> e i votanti 1, 2, 3 con i seguenti ranking:
+</p>
+<ol class="org-ol">
+<li>\(X >_1 Y >_1 Z\)</li>
+<li>\(Y >_2 Z >_2 X\)</li>
+<li>\(Z >_3 X >_3 Y\)</li>
+</ol>
+<p>
+Supponiamo per esempio che le tre alternative indichino una quantità di investimento in denaro dove <code>X</code> rappresenta un investimento minimo, <code>Y</code> uno medio e <code>Z</code> uno alto.
+Ovviamente la perdita in denaro derivata da un investimento è controbilanciata da un guadagno che segue la regola del "più spendi, più la qualità del ricavato è alta".
+Per quanto riguarda la classifica del primo votante essa ha senso, in quanto egli si accontanta di spendere poco <code>X</code>, altrimenti una quantità media <code>Y</code>, e solo in estremis la quantità elevata <code>Z</code>.
+Il secondo votante segue anche una certa logica, ovvero quella del "spendo un po' di più".
+Infatti preferisce pagare una quantità media <code>Y</code>, eventualmente pagare molto <code>Z</code>, e solo alla fine pagare poco <code>X</code>.
+Quello che non ha senso è la classifica del terzo votante.
+Infatti inizia col dire che preferisce pagare tanto <code>Z</code>, dopodichè preferisce pagare poco <code>X</code>, e in fine preferisce pagare una quantità media <code>Y</code>.<br />
+</p>
+
+<p>
+In altre parole, i primi due elettori hanno preferenze che possono essere spiegate dalla "vicinanza" a una utilità fissata.
+Ognuno di loro ha una quota <b>ideale</b> che vorrebbero invesitre, e valutano le alternative in base a quanto si avvicinano a questo ideale.<br />
+</p>
+
+<p>
+Le preferenze del terzo elettore non possono essere spiegate in questo modo, infatti non esiste una quantità "ideale".<br />
+</p>
+
+<p>
+Ovviamente questo non vuol dire che una persona non possa mantenere queste preferenze.
+Per esempio infatti il terzo giocatore potrebbe applicare il ragionamento del
+</p>
+<blockquote>
+<p>
+<i>"se non siamo disposti a investire abbastanza nell'istruzione per farlo bene, non dovremmo spendere nulla"</i>
+</p>
+</blockquote>
+<p>
+In generale però avere delle preferenze così differenti tra di loro è meno usuale.<br />
+</p>
+
+<p>
+Un altro esempio che rende meglio l'idea è una elezione di un politico.
+Assumiamo che <code>X</code> sia un candidato con orientamento a sinistra, <code>Z</code> un candidato con orientamento a destra e <code>Y</code> un candidato più neutro ("centrale").
+Per esempio per un elettore con preferenze a sinistra avrebbe senso presentare il seguente ranking \(\langle X, Y, Z \rangle\),
+mentre per uno orientanto alla destra avrebbe senso il ranking \(\langle Z, Y, X \rangle\).
+Anche il rankign \(\langle Y, Z, X \rangle\) ha un senso, ovvero quello del
+</p>
+<blockquote>
+<p>
+<i>"non ho un orientamento politico fortemente indirizzato a destra o sinistra perciò voto <code>Y</code>, però se proprio devo scegliere un'alternativa scelgo la destra con <code>Z</code>"</i>
+</p>
+</blockquote>
+<p>
+Ciò che non avrebbe porprio senso sarebbe il rankin \(\langle Z, X, Y \rangle\), in quanto non ha molto senso che una persona di destra abbia come seconda scelta un candidato di sinistra (e viceversa).<br />
+</p>
+</div>
+
+<div id="outline-container-orgb214547" class="outline-3">
+<h3 id="orgb214547">Single-Peaked Preferences</h3>
+<div class="outline-text-3" id="text-orgb214547">
+<p>
+Consideriamo quindi insiemi di alternative che corrispondono a quantità numeriche, o più in generale che abbiano un ordinamento lineare totale.
+È ragionevole presumere che le preferenze individuali tendano ad assomigliare a quelle dei votanti dell'esempio precedente:
+ognuno ha una particolare alternativa <b>ideale</b> nella gamma di alternative, e valutano le alternative in base alla loro <b>vicinanza</b> a questa alternativa ideale.<br />
+</p>
+
+<p>
+Perciò formalmente poniamoci in un contesto con alternative <b>totalmente ordinate</b>
+\[
+   A \equiv \lbrace a_1, ..., a_n | \forall i=1,...,n-1 \left[ a_i < a_{i+1} \right] \rbrace
+   \]
+Dato un votante \(h \in \left[ k \right]\), diremo che il suo ranking \(r_h = \langle a_{h1}, a_{h2}, ..., a_{hn} \rangle\) è <b>single peacked</b> se <span class="underline">comunque</span> si scelgano tre alternative \(a_i < a_j < a_{\ell}\)
+<b>non</b> avremo che \(\rho_h(a_j) < \rho_h(a_i)\) e \(\rho_h(a_j) < \rho_h(a_{\ell})\).
+In termini formali
+\[
+   \forall a_i, a_j, a_{\ell} \in A : a_i < a_j < a_{\ell}\\
+   \lnot\left[
+   \rho_h(a_j) < \rho_h(a_i) \land \rho_h(a_j) < \rho_h(a_{\ell})
+   \right]
+   \]
+Per fare chiarezza consideriamo ciascuna funzione \(\rho_h\) come una funzione su domini ordinati, allora \(\rho_h\) non ha <span class="underline">minimi locali relativi</span>.
+</p>
+
+
+<div id="org29c2ae6" class="figure">
+<p><img src="../images/ar-lesson16-img1.png" alt="ar-lesson16-img1.png" width="100%" style="max-width: 500px;" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Tre ranking <i>single picked</i>.</p>
+</div>
+
+<p>
+A questo punto supponiamo, senza perdita di generalità<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>, che per ogni votante \(h \in \left[ k \right]\), il "picco" (o alternativa ideale) del votante \(h\) <span class="underline">non precedat</span> il picco del votante \(h+1\).
+Ovvero, sia \(P = \langle r_1, ..., r_k \rangle\) un profilo composto da soli ranking <i>single picked</i>.
+Per ogni votante \(h \in \left[ k \right]\) indichiamo con \(M_h\) l'alternativa <span class="underline">preferita</span> del votante \(h\), ovvero
+\[
+   M_h \in A \; : \; \rho_h(M_h) = n-1
+   \]
+Allora i votanti sono ordinati in modo tale che
+\[
+   M_1 \leq M_2 \leq ... \leq M_k
+   \]
+Per esempio in figura <a href="#org29c2ae6">1</a> avremo che il votante verde è il primo votante, il rosso è il secondo e quello bul è l'ultimo.<br />
+</p>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+A meno di un riordinamento dei votanti.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Data: 2021-12-13 lun 00:00</p>
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-02-27 dom 21:13</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
