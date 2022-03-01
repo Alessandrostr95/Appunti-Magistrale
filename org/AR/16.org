@@ -37,7 +37,7 @@
   Assumiamo che =X= sia un candidato con orientamento a sinistra, =Z= un candidato con orientamento a destra e =Y= un candidato più neutro ("centrale").
   Per esempio per un elettore con preferenze a sinistra avrebbe senso presentare il seguente ranking \(\langle X, Y, Z \rangle\),
   mentre per uno orientanto alla destra avrebbe senso il ranking \(\langle Z, Y, X \rangle\).
-  Anche il rankign \(\langle Y, Z, X \rangle\) ha un senso, ovvero quello del
+  Anche il ranking \(\langle Y, Z, X \rangle\) ha un senso, ovvero quello del
   #+begin_quote
   /"non ho un orientamento politico fortemente indirizzato a destra o sinistra perciò voto =Y=, però se proprio devo scegliere un'alternativa scelgo la destra con =Z="/
   #+end_quote
@@ -80,7 +80,79 @@
    \]
    Per esempio in figura [[fig:single-picked]] avremo che il votante verde è il primo votante, il rosso è il secondo e quello bul è l'ultimo.\\
 
-   *[DA FINIRE...]*
-   -----
+** Teorema del Votante Mediano
+   Nel caso in cui le alternative compongono un insieme /totalmente ordinato/ e i ranking di tutti i votanti sono /single peacked/ è possibile utilizzare il sistema
+   di voto a *maggioranza* con la certezza di non incorrere nel paradosso di Condorcet.
 
+   #+begin_quote
+   *Teorema del Votante Mediano*\\
+   Sia \(A \equiv \lbrace a_1, a_2, ..., a_n \rbrace\) un insieme di alternative _totalmente ordinate_ tali che \(a_1 \leq a_2 \leq ... \leq a_n\),
+   e sia \(P = \langle r_1, ..., r_{2k-1} \rangle\) un profilo di \(2k-1\) _ranking single peacked_, ovvero tale che
+   \[
+   M_1 \leq M_2 \leq ... \leq M_{2k-1}
+   \]
+   Allora per ogni alternativa \(y \in A \setminus \lbrace M_k \rangle\) avremo che
+   \[
+   \vert \lbrace h : \rho_h(M_k) > \rho_h(y) \rbrace \vert > \vert \lbrace h : \rho_h(y) > \rho_h(M_k) \rbrace \vert
+   \]
+   #+end_quote
+   
+   In termini più semplici il teorema ci dice che, sotto le sue ipotesi, esiste sempre un'alternativa preferita dalla _maggior parte_ dei votanti,
+   ed essa corrisponde esattamente al _picco_ del votante che si trova in posizione centrale rispetto all'ordinamento \(M_1 \leq M_2 \leq ... \leq M_{2k-1}\).\\
+
+   È facile osservare che tale alternativa \(M_k\) corrisponde alla prima in classifica.\\
+
+   A questo punto rimuovendo l'alternativa \(M_k\), i \(2k-1\) ranking continuano a rimanere /single peacked/, perciò si può pensare di riapplicare lo stesso ragionamento per trovare il secondo classificato, poi il terzo, e così via...
+
+   *[VEDI ESEMPIO SLIDES 61-65]*
+
+*** Dimostrazione Teorema del Votante Mediano
+    Sia \(M_k = a_m\) l'alternativa preferita del votante mediano $k$, ovvero tale che \(\rho_k(a_m) = n-1\).
+    Consideriamo ora l'alternativa \(y = a_t \neq a_m\).
+    Abbiamo due casi
+
+    - Caso \(t > m\) ::
+      Dato che le alternative sono *totalmente ordinate* avremo che se \(t > m\) allora \(a_t > a_m\).
+      Inoltre, per come abbiamo ordinato i votanti, per ogni votante \(h \geq k\) avremo che
+      \[
+      M_h \leq M_k = a_m < a_t
+      \]
+      Infine, dato che i ranking sono tutti *single peacked*, avremo che
+      \[
+      \rho_h(M_h) \geq \rho_h(a_m) > \rho_h(a_t)
+      \]
+      Ovvero tutti i votanti $h$ che _precedono_ $k$ preferiscono \(a_m\) ad \(a_t\).
+
+      #+CAPTION: Il rankign $k$ è quello rosso, il ranging $h$ è quello blu, \(m=4,t=6\).
+      #+ATTR_HTML: :width 100% :style max-width: 500px;
+      [[file:../images/ar-lesson16-img3.png]]
+      
+      Perciò i votanti che preferiscono invece \(a_t\) ad \(a_m\) hanno un indice \(h > k\) (non è detto che siano tutti quelli \(h > k\)).
+      In conclusione abbiamo almeno $k$ individui che preferiscono \(a_m\) ad \(a_t\) e al più \(k-1\) che viceversa preferiscono \(a_t\) ad \(a_m\).
+      Ovvero _la maggio parte_ preferisce \(a_m\) ad \(a_t\) se \(t > m\).
+
+    - Caso \(t < m\) ::
+      Dimostrazione del tutto simmetrica al caso precedente.
+      Dato che le alternative sono *totalmente ordinate* avremo che se \(t < m\) allora \(a_t < a_m\).
+      Inoltre, per come abbiamo ordinato i votanti, per ogni votante \(h \geq k\) avremo che
+      \[
+      M_h \geq M_k = a_m > a_t
+      \]
+      Infine, dato che i ranking sono tutti *single peacked*, avremo che
+      \[
+      \rho_h(M_h) \geq \rho_h(a_m) > \rho_h(a_t)
+      \]
+      Ovvero tutti i votanti $h$ che _succedono_ $k$ preferiscono \(a_m\) ad \(a_t\).
+
+      #+CAPTION: Il rankign $k$ è quello rosso, il ranging $h$ è quello verde, \(m=4,t=2\).
+      #+ATTR_HTML: :width 100% :style max-width: 500px;
+      [[file:../images/ar-lesson16-img4.png]]
+      
+      Perciò i votanti che preferiscono invece \(a_t\) ad \(a_m\) hanno un indice \(h < k\) (non è detto che siano tutti quelli \(h < k\)).
+      In conclusione abbiamo almeno $k$ individui che preferiscono \(a_m\) ad \(a_t\) e al più \(k-1\) che viceversa preferiscono \(a_t\) ad \(a_m\).
+      Ovvero _la maggio parte_ preferisce \(a_m\) ad \(a_t\) se \(t < m\).
+    
+    Applicando questo ragionamento per ogni \(y \in A \setminus \lbrace a_m \rbrace\) avremo che la maggior parte dei votatni preferisce \(a_m = M_k\) \(\square\).
+    -----
+    
 [fn:1] A meno di un riordinamento dei votanti.

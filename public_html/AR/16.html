@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-02-27 dom 21:13 -->
+<!-- 2022-03-01 mar 13:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 16</title>
@@ -274,18 +274,23 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd3e10de">Single-Peaked Preferences and the Median Voter Theorem</a>
+<li><a href="#org220b79c">Single-Peaked Preferences and the Median Voter Theorem</a>
 <ul>
-<li><a href="#orgb214547">Single-Peaked Preferences</a></li>
+<li><a href="#orge2fd69c">Single-Peaked Preferences</a></li>
+<li><a href="#org71a264c">Teorema del Votante Mediano</a>
+<ul>
+<li><a href="#org84cb64a">Dimostrazione Teorema del Votante Mediano</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd3e10de" class="outline-2">
-<h2 id="orgd3e10de">Single-Peaked Preferences and the Median Voter Theorem</h2>
-<div class="outline-text-2" id="text-orgd3e10de">
+<div id="outline-container-org220b79c" class="outline-2">
+<h2 id="org220b79c">Single-Peaked Preferences and the Median Voter Theorem</h2>
+<div class="outline-text-2" id="text-org220b79c">
 <p>
 Il teorema di Arrow, come anche il paradosso di Condorcet, pongono una prospettiva non rassicurante sui sistemi di voto.
 Tuttavia, un approccio comune di fronte a un risultato di impossibilità è quello di considerare alcuni <span class="underline">casi particolari</span>, i quali sono anche ragionevoli se applicati in un contesto reale, che consentano in qualche modo di "aggirare" i risultati negativi visti fin ora.<br />
@@ -337,7 +342,7 @@ Un altro esempio che rende meglio l'idea è una elezione di un politico.
 Assumiamo che <code>X</code> sia un candidato con orientamento a sinistra, <code>Z</code> un candidato con orientamento a destra e <code>Y</code> un candidato più neutro ("centrale").
 Per esempio per un elettore con preferenze a sinistra avrebbe senso presentare il seguente ranking \(\langle X, Y, Z \rangle\),
 mentre per uno orientanto alla destra avrebbe senso il ranking \(\langle Z, Y, X \rangle\).
-Anche il rankign \(\langle Y, Z, X \rangle\) ha un senso, ovvero quello del
+Anche il ranking \(\langle Y, Z, X \rangle\) ha un senso, ovvero quello del
 </p>
 <blockquote>
 <p>
@@ -349,9 +354,9 @@ Ciò che non avrebbe porprio senso sarebbe il rankin \(\langle Z, X, Y \rangle\)
 </p>
 </div>
 
-<div id="outline-container-orgb214547" class="outline-3">
-<h3 id="orgb214547">Single-Peaked Preferences</h3>
-<div class="outline-text-3" id="text-orgb214547">
+<div id="outline-container-orge2fd69c" class="outline-3">
+<h3 id="orge2fd69c">Single-Peaked Preferences</h3>
+<div class="outline-text-3" id="text-orge2fd69c">
 <p>
 Consideriamo quindi insiemi di alternative che corrispondono a quantità numeriche, o più in generale che abbiano un ordinamento lineare totale.
 È ragionevole presumere che le preferenze individuali tendano ad assomigliare a quelle dei votanti dell'esempio precedente:
@@ -376,7 +381,7 @@ Per fare chiarezza consideriamo ciascuna funzione \(\rho_h\) come una funzione s
 </p>
 
 
-<div id="org29c2ae6" class="figure">
+<div id="orge5e3711" class="figure">
 <p><img src="../images/ar-lesson16-img1.png" alt="ar-lesson16-img1.png" width="100%" style="max-width: 500px;" />
 </p>
 <p><span class="figure-number">Figura 1: </span>Tre ranking <i>single picked</i>.</p>
@@ -393,13 +398,121 @@ Allora i votanti sono ordinati in modo tale che
 \[
    M_1 \leq M_2 \leq ... \leq M_k
    \]
-Per esempio in figura <a href="#org29c2ae6">1</a> avremo che il votante verde è il primo votante, il rosso è il secondo e quello bul è l'ultimo.<br />
+Per esempio in figura <a href="#orge5e3711">1</a> avremo che il votante verde è il primo votante, il rosso è il secondo e quello bul è l'ultimo.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org71a264c" class="outline-3">
+<h3 id="org71a264c">Teorema del Votante Mediano</h3>
+<div class="outline-text-3" id="text-org71a264c">
+<p>
+Nel caso in cui le alternative compongono un insieme <i>totalmente ordinato</i> e i ranking di tutti i votanti sono <i>single peacked</i> è possibile utilizzare il sistema
+di voto a <b>maggioranza</b> con la certezza di non incorrere nel paradosso di Condorcet.
+</p>
+
+<blockquote>
+<p>
+<b>Teorema del Votante Mediano</b><br />
+Sia \(A \equiv \lbrace a_1, a_2, ..., a_n \rbrace\) un insieme di alternative <span class="underline">totalmente ordinate</span> tali che \(a_1 \leq a_2 \leq ... \leq a_n\),
+e sia \(P = \langle r_1, ..., r_{2k-1} \rangle\) un profilo di \(2k-1\) <span class="underline">ranking single peacked</span>, ovvero tale che
+\[
+   M_1 \leq M_2 \leq ... \leq M_{2k-1}
+   \]
+Allora per ogni alternativa \(y \in A \setminus \lbrace M_k \rangle\) avremo che
+\[
+   \vert \lbrace h : \rho_h(M_k) > \rho_h(y) \rbrace \vert > \vert \lbrace h : \rho_h(y) > \rho_h(M_k) \rbrace \vert
+   \]
+</p>
+</blockquote>
+
+<p>
+In termini più semplici il teorema ci dice che, sotto le sue ipotesi, esiste sempre un'alternativa preferita dalla <span class="underline">maggior parte</span> dei votanti,
+ed essa corrisponde esattamente al <span class="underline">picco</span> del votante che si trova in posizione centrale rispetto all'ordinamento \(M_1 \leq M_2 \leq ... \leq M_{2k-1}\).<br />
 </p>
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+È facile osservare che tale alternativa \(M_k\) corrisponde alla prima in classifica.<br />
+</p>
+
+<p>
+A questo punto rimuovendo l'alternativa \(M_k\), i \(2k-1\) ranking continuano a rimanere <i>single peacked</i>, perciò si può pensare di riapplicare lo stesso ragionamento per trovare il secondo classificato, poi il terzo, e così via&#x2026;
+</p>
+
+<p>
+<b>[VEDI ESEMPIO SLIDES 61-65]</b>
+</p>
+</div>
+
+<div id="outline-container-org84cb64a" class="outline-4">
+<h4 id="org84cb64a">Dimostrazione Teorema del Votante Mediano</h4>
+<div class="outline-text-4" id="text-org84cb64a">
+<p>
+Sia \(M_k = a_m\) l'alternativa preferita del votante mediano \(k\), ovvero tale che \(\rho_k(a_m) = n-1\).
+Consideriamo ora l'alternativa \(y = a_t \neq a_m\).
+Abbiamo due casi
+</p>
+
+<dl class="org-dl">
+<dt>Caso \(t > m\)</dt><dd><p>
+Dato che le alternative sono <b>totalmente ordinate</b> avremo che se \(t > m\) allora \(a_t > a_m\).
+Inoltre, per come abbiamo ordinato i votanti, per ogni votante \(h \geq k\) avremo che
+\[
+      M_h \leq M_k = a_m < a_t
+      \]
+Infine, dato che i ranking sono tutti <b>single peacked</b>, avremo che
+\[
+      \rho_h(M_h) \geq \rho_h(a_m) > \rho_h(a_t)
+      \]
+Ovvero tutti i votanti \(h\) che <span class="underline">precedono</span> \(k\) preferiscono \(a_m\) ad \(a_t\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson16-img3.png" alt="ar-lesson16-img3.png" width="100%" style="max-width: 500px;" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Il rankign \(k\) è quello rosso, il ranging \(h\) è quello blu, \(m=4,t=6\).</p>
+</div>
+
+<p>
+Perciò i votanti che preferiscono invece \(a_t\) ad \(a_m\) hanno un indice \(h > k\) (non è detto che siano tutti quelli \(h > k\)).
+In conclusione abbiamo almeno \(k\) individui che preferiscono \(a_m\) ad \(a_t\) e al più \(k-1\) che viceversa preferiscono \(a_t\) ad \(a_m\).
+Ovvero <span class="underline">la maggio parte</span> preferisce \(a_m\) ad \(a_t\) se \(t > m\).
+</p></dd>
+
+<dt>Caso \(t < m\)</dt><dd><p>
+Dimostrazione del tutto simmetrica al caso precedente.
+Dato che le alternative sono <b>totalmente ordinate</b> avremo che se \(t < m\) allora \(a_t < a_m\).
+Inoltre, per come abbiamo ordinato i votanti, per ogni votante \(h \geq k\) avremo che
+\[
+      M_h \geq M_k = a_m > a_t
+      \]
+Infine, dato che i ranking sono tutti <b>single peacked</b>, avremo che
+\[
+      \rho_h(M_h) \geq \rho_h(a_m) > \rho_h(a_t)
+      \]
+Ovvero tutti i votanti \(h\) che <span class="underline">succedono</span> \(k\) preferiscono \(a_m\) ad \(a_t\).
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson16-img4.png" alt="ar-lesson16-img4.png" width="100%" style="max-width: 500px;" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Il rankign \(k\) è quello rosso, il ranging \(h\) è quello verde, \(m=4,t=2\).</p>
+</div>
+
+<p>
+Perciò i votanti che preferiscono invece \(a_t\) ad \(a_m\) hanno un indice \(h < k\) (non è detto che siano tutti quelli \(h < k\)).
+In conclusione abbiamo almeno \(k\) individui che preferiscono \(a_m\) ad \(a_t\) e al più \(k-1\) che viceversa preferiscono \(a_t\) ad \(a_m\).
+Ovvero <span class="underline">la maggio parte</span> preferisce \(a_m\) ad \(a_t\) se \(t < m\).
+</p></dd>
+</dl>
+
+<p>
+Applicando questo ragionamento per ogni \(y \in A \setminus \lbrace a_m \rbrace\) avremo che la maggior parte dei votatni preferisce \(a_m = M_k\) \(\square\).
 </p>
 <hr />
+</div>
 </div>
 </div>
 </div>
@@ -418,7 +531,7 @@ A meno di un riordinamento dei votanti.
 <p class="date">Data: 2021-12-13 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-02-27 dom 21:13</p>
+<p class="date">Created: 2022-03-01 mar 13:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
