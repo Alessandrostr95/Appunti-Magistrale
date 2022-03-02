@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-03-02 mer 15:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOSE - Model Driven Architecture</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">SOSE - Model Driven Architecture</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org399dc53">1. Model Driven Architecture</a>
+<ul>
+<li><a href="#org9574e66">1.1. MDA overview</a></li>
+<li><a href="#orgded9c9f">1.2. Problemi di integrazione</a>
+<ul>
+<li><a href="#orgd44c31c">1.2.1. MDA solution</a></li>
+</ul>
+</li>
+<li><a href="#org74ca8bb">1.3. Models as development artifacts</a></li>
+<li><a href="#org1a14914">1.4. Concetti Base del MDA</a>
+<ul>
+<li><a href="#org8cfab5c">1.4.1. MDA viewpoints</a></li>
+</ul>
+</li>
+<li><a href="#orgbc8699e">1.5. Models</a>
+<ul>
+<li><a href="#org6cfaba7">1.5.1. Computational Independent Model (CIM)</a></li>
+<li><a href="#org8b6a46a">1.5.2. Platform Independent Model (PIM)</a></li>
+<li><a href="#org6b4be04">1.5.3. Platform Specific Model (PSM)</a></li>
+</ul>
+</li>
+<li><a href="#org43368be">1.6. Ciclo di vita MDA</a></li>
+<li><a href="#org5127c7c">1.7. Mappings</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org399dc53" class="outline-2">
+<h2 id="org399dc53"><span class="section-number-2">1</span> Model Driven Architecture</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org9574e66" class="outline-3">
+<h3 id="org9574e66"><span class="section-number-3">1.1</span> MDA overview</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+L'Architettura Model-Driven (in breve <code>MDA</code>) parte dalla ben nota idea di <b>separare le specifiche del funzionamento</b> di un sistema <b>dai dettagli</b> del modo in cui il sistema utilizza le capacità della sua piattaforma.<br />
+</p>
+
+<p>
+<code>MDA</code> fornisce un approccio, e consente di fornire strumenti, per:
+</p>
+<ul class="org-ul">
+<li>specificare un sistema <b>indipendentemente</b> dalla piattaforma che lo supporterà.</li>
+<li>specificare le piattaforme sui quali verranno eseguiti i sistemi.</li>
+<li>scegliere una particolare piattaforma adatta a un particolare sistema.</li>
+<li><b>trasformare</b> le specifiche di un sistema in altre specifiche <span class="underline">adatte</span> a una particolare piattaforma.</li>
+</ul>
+<p>
+Perciò i tre principali obiettivi di <code>MDA</code> sono
+</p>
+<ol class="org-ol">
+<li><b>Portability</b>: ovvero la capacità di un software di essere reimpiegato in differenti piattaforme.</li>
+<li><b>Interoperability</b>: è la capacità di un sistema o di un software di <span class="underline">cooperare</span> e di scambiare informazioni o servizi con altri sistemi, in maniera affidabile e con ottimizzazione delle risorse.
+L'obiettivo dell'interoperabilità è dunque facilitare l'interazione fra sistemi differenti, nonché lo scambio e il riutilizzo delle informazioni anche fra sistemi informativi <span class="underline">non omogenei</span>.</li>
+<li><b>Reusability</b>: è l'uso di risorse (assets) software già esistenti all'interno del processo di sviluppo dei un altro prodotto software.</li>
+</ol>
+<p>
+il tutto attraverso la <span class="underline">separazione</span> tra sistema e piattaforma.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgded9c9f" class="outline-3">
+<h3 id="orgded9c9f"><span class="section-number-3">1.2</span> Problemi di integrazione</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In un contesto reale, quando bisogna sviluppare un sistema <i>portatile</i>, che interagisca con sistemi diversi (ovvero <i>interoperabile</i>) e che possibilmente possa essere <i>riutilizzato</i> occorono le seguenti problematiche:
+</p>
+<ul class="org-ul">
+<li>non ci sarà consenso sulle piattaforme hardware sulle quali il sistema dovrà implementato.</li>
+<li>non ci sarà consenso sui sistemi operativi, ovvero sull' <i>"ambiente"</i> nel quale il sistema verrò eseguito.</li>
+<li>non ci sarà consenso sui protocolli di rete attraverso i quali comunicare.</li>
+<li>non ci sarà consenso sui linguaggi di programmazione utilizzati.</li>
+<li>non ci sarà consenso sui linguaggi di modellazione.</li>
+</ul>
+<p>
+Questo sono tipiche problematiche che occorrono in contesti hardware/software/network eterogenei.
+Perciò ci deve mecessariamente essere un consenso sul <span class="underline">linguaggio del metamodello</span>, ovvero sul <span class="underline">meta-metamodello</span>.<br />
+</p>
+
+<p>
+Spesso si cerca di aggirare queste problematiche optando per l'utilizzo di <b>componenti middleware</b>, ovvero del software intermedio che consente di connettere ed interfacciare due sistemi differenti.
+Il problema è che di questi standard ne esistono moltissimi, ognuno con le proprie caratteristiche più o meno adatte a un contesto.
+Inoltre col tempo molti standard scompaiono, ed altrettanti nuovi emergono.
+Perciò altre problematiche sorgono:
+</p>
+<ul class="org-ul">
+<li>qual è il "migliore" per il mio sistema?</li>
+<li>qual è la "migliore scelta successiva", ovvero lo standard che potenzialmente "esploderà" in futuro?</li>
+<li>come costruire software a lungo termine se non ho certezza sulla durata del middleware che scelgo?</li>
+<li>come affrontare il divario ricorrente tra i requisiti aziendali e gli artefatti middleware?</li>
+</ul>
+</div>
+
+<div id="outline-container-orgd44c31c" class="outline-4">
+<h4 id="orgd44c31c"><span class="section-number-4">1.2.1</span> MDA solution</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<dl class="org-dl">
+<dt>PIM</dt><dd>dei <b>Platform Independent Models</b> (in breve <code>PIM</code>) ovvero dei modelli che non considerano le problematiche di interfacciamento con le differenti piattaforme, tralasciando i dettagli middleware.</dd>
+<dt>PSM</dt><dd>dei <b>Platform Specific Models</b> (in breve <code>PSM</code>) ovvero dei modelli che invece si concetrano sulla definizione dei dettagli middleware utili per l'integrazione con le differenti piattaforme.</dd>
+</dl>
+<p>
+A questo punto definito un <code>PIM</code> si passa alla definizione di <b>regole e tecniche di trasformazione</b> che consentano di <span class="underline">ricavare</span> dal <code>PIM</code> i diversi <code>PSM</code>.<br />
+</p>
+
+<p>
+Questa tecnica consente di <b>preservare</b> un <code>PIM</code> nel momento in cui appaiono o si richiede l'utilizzo di nuovi middleware, consentendo così a un modello di essere interoperabile, poratitle e riutilizzabile in futuro.<br />
+</p>
+
+<p>
+Perciò il <code>MDA</code> sposta il focus dal middleware al <b>modelware</b>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74ca8bb" class="outline-3">
+<h3 id="org74ca8bb"><span class="section-number-3">1.3</span> Models as development artifacts</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Di solito, i ruoli di modellatore e programmatore sono completamente separati.
+Infatti i modelli UML sono spesso definiti in maniera <span class="underline">informale</span> ed utilizzati dai programmatori come linee guida per lo sviluppo, non come qualcosa che contribuisce in maniera <i>diretta</i> alla produzione.
+Inoltre il fatto che non siano definiti in maniera formale non li rende adatti ad un <b>utilizzo-macchina</b>, ovvero non avendo una semantica rigorosamente definita non sono <b>machine-readable</b>.<br />
+</p>
+
+<p>
+<code>MDA</code> invece utilizza modelli totalmente formali che possono essere elaborati automaticamente dalla macchina, perciò tali modelli sono considerati essere una parte <i>diretta</i> del processo di produzione.
+Perciò in un tale ambiente, i ruoli di modellatore e programmatore non sono così distinti: l'attività di modellazione (<sub>formale</sub>_) è considerata un'attività di programmazione, mentre la modellazione informale rimane utile come veicolo di comunicazione (per ridurre le ambiguità nelle specifiche).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org1a14914" class="outline-3">
+<h3 id="org1a14914"><span class="section-number-3">1.4</span> Concetti Base del MDA</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+I concetti base del MDA sono:
+</p>
+<dl class="org-dl">
+<dt>Astrazione</dt><dd></dd>
+</dl>
+<p>
+descrizione di qualcosa che omette alcuni dettagli non rilevanti per lo scopo finale (il contrario di "perfezionamento").
+</p>
+
+<dl class="org-dl">
+<dt>Perfezionamento</dt><dd></dd>
+</dl>
+<p>
+una descrizione <span class="underline">più dettagliata</span> conforme ad una specifica astrazione.
+Una coppia di modelli si dice essere in un rapporto di perfezionamento se uno (l'astrazione) è più astratto dell'altro (la <span class="underline">realizzazione</span>).
+</p>
+
+<dl class="org-dl">
+<dt>Model Driven</dt><dd><code>MDA</code> è un approccio allo sviluppo del sistema, che aumenta la potenza dei modelli in quel lavoro.
+Si dice basato su modelli (model driven) perché fornisce un mezzo per utilizzare i modelli che <span class="underline">dirigono</span> il corso di comprensione, progettazione, costruzione, distribuzione, funzionamento, manutenzione e modifica del software.</dd>
+
+<dt>Piattaforma</dt><dd>Una piattaforma è un insieme di tecnologie (ed evenutalmente altri sottosistemi) che forniscono un insieme coerente di funzionalità, attraverso interfacce e modelli di utilizzo specifici, che qualsiasi applicazione da essa supportata può utilizzare senza preoccuparsi dei dettagli di come vengono implementate le diverse funzionalità fornite dalla piattaforma.</dd>
+
+<dt>View</dt><dd>Una rappresentazione dell'intero sistema vista dal punto di vista del relativo insieme di vincoli e obiettivi.</dd>
+
+<dt>Viewpoint</dt><dd>Una specifica delle convenzioni per la costruzione e l'utilizzo di una <i>view</i>.</dd>
+</dl>
+
+<p>
+In termini semplici una <i>view</i> può essere visto come un metamodello di un <i>viewpoint</i>.
+</p>
+</div>
+
+<div id="outline-container-org8cfab5c" class="outline-4">
+<h4 id="org8cfab5c"><span class="section-number-4">1.4.1</span> MDA viewpoints</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<dl class="org-dl">
+<dt>Computation Independent Viewpoint</dt><dd>Il <i>viewpoint indipendente dal calcolo</i> (o <i>Computation Independent Viewpoint</i>) si concentra sull'<sub>ambiente</sub>_ e sui <span class="underline">requisiti</span> del sistema.
+I dettagli della <span class="underline">struttura</span> e dell' <span class="underline">elaborazione</span> del sistema sono nascosti.</dd>
+
+<dt>Platform Independent Viewpoint</dt><dd>Il <i>viewpoint indipendente dalla piattaforma</i> (o <i>Platform Independent Viewpoint</i>) si concentra sul <span class="underline">funzionamento</span> di un sistema, nascondendo i dettagli necessari per una particolare piattaforma.
+In questo viewpoint vine mostrata quella parte della specifica che non cambia da una piattaforma all'altra.
+Tale viewpoint può utilizzare un generico linguaggio di modellazione, oppure anche un linguaggio specifico dell'area in cui verrà utilizzato il sistema.</dd>
+
+<dt>Platform Specific Viewpoint</dt><dd>Il <i>viewpoint specifico della piattaforma</i> (o <i>Platform Specific Viewpoint</i>) combina il punto di vista indipendente dalla piattaforma con un "focus" aggiuntivo sul dettaglio della piattaforma specifica.</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbc8699e" class="outline-3">
+<h3 id="orgbc8699e"><span class="section-number-3">1.5</span> Models</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Vediamo ora più nel dettaglio le diverse categorie di modelli utilizzati nel <code>MDA</code>.
+</p>
+</div>
+
+<div id="outline-container-org6cfaba7" class="outline-4">
+<h4 id="org6cfaba7"><span class="section-number-4">1.5.1</span> Computational Independent Model (CIM)</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+Un <code>CIM</code> è una <i>view</i> di un sistema dal punto di vista indipendente dal calcolo (<i>Computation Independent Viewpoint</i>).
+Tale modello non mostra i dettagli della struttura dei sistemi.
+Un <code>CIM</code> è talvolta chiamato <b>modello di dominio</b>, in quanto nella sua specifica viene utilizzato un vocabolario familiare ai professionisti del dominio in questione.
+I requisiti CIM dovrebbero essere poi riconducibili ai costrutti <code>PIM</code> e <code>PSM</code> che li implementano, e viceversa.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8b6a46a" class="outline-4">
+<h4 id="org8b6a46a"><span class="section-number-4">1.5.2</span> Platform Independent Model (PIM)</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+Un <code>PIM</code> è una <i>view</i> di un sistema dal punto di vista <span class="underline">indipendente dalla piattaforma</span>.
+Tale modello mostra un determinato grado di indipendenza dalla piattaforma in modo tale da essere adatto all'uso su differenti piattaforme, purché simili e coerenti col sistema in questione.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6b4be04" class="outline-4">
+<h4 id="org6b4be04"><span class="section-number-4">1.5.3</span> Platform Specific Model (PSM)</h4>
+<div class="outline-text-4" id="text-1-5-3">
+<p>
+Un <code>PSM</code> è una <i>view</i> di un sistema dal punto di vista specifico della piattaforma.
+Tale modello combina le specifiche del relativo <code>PIM</code> con i dettagli che specificano come quel sistema utilizza un particolare tipo di piattaforma.
+Un <code>PSM</code> fornisce un insieme di concetti tecnici che rappresentano i diversi tipi di parti che compongono una piattaforma, e i servizi che tale piattaforma offre.
+</p>
+
+<blockquote>
+<p>
+<b>Esempio:</b><br />
+Il CORBA Component Model (CCM) fornisce i concetti di EntityComponent, SessionComponent, ProcessComponent, Facet, Receptacle, EventSource e altri.
+Questi concetti vengono utilizzati per specificare l'utilizzo della piattaforma CORBA Component da parte di un'applicazione.
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org43368be" class="outline-3">
+<h3 id="org43368be"><span class="section-number-3">1.6</span> Ciclo di vita MDA</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Come gia visto nel corso di <i>Ingengeria del Software</i>, dopo il rilascio di un software (in un classico ciclo di vita waterfall) sussegue una fase di <span class="underline">mantenimento</span>.
+Certe volte è necessario fare del mantenimento puramente <span class="underline">tecnico</span> del software, come per esempio con la scoperta di bug oppure semplicemente cattive performance.
+In questi casi si ritorna direttamente alla fase di sviluppo, testing e poi rilascio del software.
+Altre volte invece, dopo il rilascio di un software, ci sono problemi a livello di requisiti (per incomprensione oppure semplicemente perché il cliente non sapeva esattamente cosa voleva).
+In questi casi invece si ritorna indietro a monte del processo di sviluppo, avvolte è persino necessario dover ripartire dall'analisi dei requisiti.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson3-img1.png" alt="sose-lesson3-img1.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Un classico modello di ciclo di vita.</p>
+</div>
+
+<p>
+In <code>MDA</code> invece il ciclo di vita è nettamente differnte, grazie proprio al fatto che il ruolo del modellista e del programmattore sono più unificati.
+Innanzittutto dopo la fase di analisi viene generato un <code>PIM</code>, ovvero un modello formale e ben definito, la cui semantica è <i>machine-readble</i>, differentemente da un ciclo di vita classico in cui invece viene generato un modello informale (utile solo come linea guida).
+Dopodiché si passa a una fase di design <span class="underline">low-level</span> in cui viene generato un <code>PSM</code> in base alla piattaforma desiderata.
+Infine la fase di sviluppo, testing e rilascio sono supporate da strumenti che presi i modelli formali <code>PSM</code> generano in maniera <span class="underline">automatica</span> dei artefatti software.<br />
+</p>
+
+<p>
+Data appunto questa automatizzazione e questo forte legame coi modelli <code>PIM</code> e <code>PSM</code>, qualsiasi problematica che occorre in fase di mantenimento (che sia tecnica o di specifiche) necessita un intervento in fase di analisi, ovvero nel processo di definizione del <code>PIM</code>.
+</p>
+
+
+<div class="figure">
+<p><img src="../images/sose-lesson3-img2.png" alt="sose-lesson3-img2.png" style="max-width:400px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Ciclo di vita sviluppo <code>MDA</code>.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5127c7c" class="outline-3">
+<h3 id="org5127c7c"><span class="section-number-3">1.7</span> Mappings</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+Una <b>mappatura</b> <code>MDA</code> (o <b>mapping</b>) fornisce le specifiche per la <span class="underline">trasformazione</span> di un modello <code>PIM</code> in uno specifico <code>PSM</code>.
+Il modello della piattaforma target determinerà la <span class="underline">natura del mapping</span>.<br />
+</p>
+
+<p>
+Un <b>marchio</b> rappresenta un concetto nel <b>PSM</b> e viene applicato a un elemento del <code>PIM</code>, per indicare come tale elemento deve essere trasformato.
+</p>
+
+<blockquote>
+<p>
+<b>Esempio:</b><br />
+<i>"Entity"</i> è un marchio che può essere applicato a classi o oggetti in un <code>PIM</code>.
+Il marchio <i>"Entity"</i> indica che un oggetto contrassegnato come Entity nel <code>PIM</code> corrisponde, in un <code>PSM</code> di tipo <i>CORBA Component</i>, a due oggetti, di tipo <code>HomeInterface</code> ed <code>EntityComponent</code>.
+</p>
+</blockquote>
+<hr />
+
+<div class="figure">
+<p><img src="../images/sose-lesson3-img3.png" alt="sose-lesson3-img3.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Model Transformation (marking approach)</p>
+</div>
+<hr />
+
+<div class="figure">
+<p><img src="../images/sose-lesson3-img4.png" alt="sose-lesson3-img4.png" style="max-width:600px; width:100%" />
+</p>
+</div>
+<hr />
+
+<div class="figure">
+<p><img src="../images/sose-lesson3-img5.png" alt="sose-lesson3-img5.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 5: </span>Metamodel Mapping.</p>
+</div>
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-03-02 mer 15:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
