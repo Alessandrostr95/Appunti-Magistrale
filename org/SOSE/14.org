@@ -1,0 +1,7 @@
+#+title: SOSE - MOF & XMI
+#+date: 
+#+teacher: Andrea D'Ambrogio
+#+setupfile: ../../org-template/appunti.org
+
+*[TODO]*
+-----
