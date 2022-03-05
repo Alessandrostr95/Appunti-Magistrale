@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-05 sab 16:32 -->
+<!-- 2022-03-05 sab 18:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SOSE - QVT Part 2</title>
@@ -255,6 +255,8 @@ for the JavaScript code in this tag.
 <li><a href="#org05a1eb5">The Relations Language</a>
 <ul>
 <li><a href="#org94d1339">Relazioni top-level</a></li>
+<li><a href="#org0fb37a4">Check and Enforce</a></li>
+<li><a href="#orgc268d52">Pattern Matching</a></li>
 </ul>
 </li>
 </ul>
@@ -302,7 +304,7 @@ relation PackageToSchema /* map each package to a schema */
   domain rdbms s:Schema {name = pn}
 }
 </pre>
-<p align="center">Relazione tra =package= UML e =schema= relazionale di basi dati.</p>
+<p align="center">Relazione tra <b>package</b> UML e <b>schema</b> di basi dati relazionale.</p>
 
 <p>
 Una relazione può essere vincolata da due insiemi di <i>predicati</i>, una clausola <b>when</b> e una clausola <b>where</b>.<br />
@@ -367,7 +369,48 @@ Invece le relazioni <span class="underline">non-top-level</span> vengono eseguit
 <li>in maniera <b>trnasitiva</b> quando presenti in clausole <i>where</i> o <i>when</i> di un'altra relazione invocata.</li>
 </ol>
 
+<pre class="example">
+transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS) {
+    top relation PackageToSchema {…}
+    top relation ClassToTable {…}
+    relation AttributeToColumn {…}
+}
+</pre>
+</div>
+</div>
 
+<div id="outline-container-org0fb37a4" class="outline-3">
+<h3 id="org0fb37a4">Check and Enforce</h3>
+<div class="outline-text-3" id="text-org0fb37a4">
+<p>
+È possibile contrassegnare un dominio come <b>checkonly</b> o come <b>enforce</b>.<br />
+</p>
+
+<p>
+Quando una trasformazione è eseguita nella <span class="underline">direzione</span> di un dominio <i>checkonly</i>, viene semplicemente verificata la relazione per vedere se esiste una corrispondenza valida nel modello pertinente che soddisfi la relazione.<br />
+</p>
+
+<p>
+Quando invece viene eseguita una trasformazione nella <span class="underline">direzione</span> del modello di un dominio <i>enforce</i>, se il check fallisce il modello target viene modificato in modo tale da soddisfare la relazione, ovvero seguendo la dinamica del <i>"check-before-enforce"</i>.
+</p>
+
+<pre class="example">
+relation PackageToSchema {
+    checkonly domain uml p:Package {name = pn}
+    enforce domain rdbms s:Schema {name = pn}
+}
+</pre>
+
+<p>
+Nell'esempio, se sto strasformando uno schema <code>s</code> in package <code>p</code> viene solamente verificato che se i due nomi corrispondono.
+Vieceversa, se la trasformazione va da <code>p</code> ad <code>s</code>, se <code>s</code> non ha lo stesso nome di <code>p</code> allora il suo nome verrà <i>forzato</i> ad essere uguale.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc268d52" class="outline-3">
+<h3 id="orgc268d52">Pattern Matching</h3>
+<div class="outline-text-3" id="text-orgc268d52">
 <hr />
 </div>
 </div>
@@ -390,7 +433,7 @@ OCL: <i>Object Constraint Language</i>.
 <div id="postamble" class="status">
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-05 sab 16:32</p>
+<p class="date">Created: 2022-03-05 sab 18:30</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
