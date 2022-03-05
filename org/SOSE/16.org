@@ -1,0 +1,116 @@
+#+title: SOSE - QVT Part 2
+#+date: 
+#+teacher: Andrea D'Ambrogio
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* The Relations Language
+  Una *trasformazione* tra due modelli viene specificata tramite un *insieme di relazioni* che devono essere valide affinché la trasformazione abbia successo.
+  Un esempio è:
+  
+  #+begin_src 
+    transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS)
+    {
+    // … set of relations
+    }
+  #+end_src
+  #+html: <p align="center">Trasformazione da diagramma UML a basi dati relazionale.</p> 
+  
+  È possibile invocare una trasformazione per _verificare_ la coerenza di due modelli o per modificare un modello per _imporre_ la coerenza tra essi.\\
+
+  Le *relazioni* in una trasformazione dichiarano i *vincoli* che devono essere soddisfatti dagli elementi dei modelli da trasformare.
+  Una relazione è definita da due o più *domini* e da una coppia di predicati.\\
+
+  Un *dominio* è una variabile tipizzata, che può essere che può essere associata un modello.
+  Ogni dominio ha un *pattern*, il quale può essere visto come un /grafo di oggetti/ dove ogni associazione e proprietà formano un /arco/, in accordo alle caratteristiche del dominio.\\
+  
+  A livello di linguaggio, un pattern può essere visto come un insieme di *variabili* e *vincoli* che gli elementi del modello relative a tali variabili devono soddisfare per qualificarsi come un legame valido del pattern.
+
+  #+begin_src 
+    relation PackageToSchema /* map each package to a schema */
+    {
+      domain uml p:Package {name = pn}
+      domain rdbms s:Schema {name = pn}
+    }
+  #+end_src
+  #+html: <p align="center">Relazione tra <b>package</b> UML e <b>schema</b> di basi dati relazionale.</p> 
+  
+  Una relazione può essere vincolata da due insiemi di /predicati/, una clausola *when* e una clausola *where*.\\
+  
+  Una clausola *when* specifica le condizioni sotto le quali la relazione sussistere.
+  Per esempio, se vogliamo mettere in realezione una _classe uml_ =c= con una _tabella rdbms_[fn:1] =t= è necessario che il _package uml_ =p= al quale la classe =c= appartiene deve essere in relazione con lo _schema di base dati_ =s= al quale appartiene la tabella =t=.\\
+
+  Una clausola *where* invece specifica le condizioni che devono essere soddisfatte da tutti gli elementi del modello che partecipano alla relazione, e può vincolare qualsiasi variabile nella relazione.
+  Perciò, tornando all'esempio della relazione tra una classe =c= e una tabella =t=, è necessario che ci sia una relazione tra gli _attributi_ della classe =c= e le _colonne_ della tabella =t=.
+  #+begin_src
+    relation ClassToTable
+    {
+      domain uml c:Class {
+	namespace = p:Package {},
+	kind = 'Persistent',
+	name = cn
+      }
+      
+      domain rdbms t:Table {
+	schema = s:Schema {},
+	name = cn,
+	column = cl:Column {
+	  name = cn + '_tid',
+	  type = 'NUMBER'
+	},
+	primaryKey = k:PrimaryKey {
+	  name = cn + '_pk',
+	  column=cl
+	}
+      }
+      
+      when {
+	PackageToSchema(p, s);
+      }
+      
+      where {
+	AttributeToColumn(c, t);
+      }
+    }
+  #+end_src
+  
+  Se necessario, le clausole *when* e *where* possono contenere espressioni =OCL=[fn:2], oltre alle invocazione di altre relazioni.
+
+** Relazioni top-level
+   Una trasformazione =QVT= contiene due tipi di relazioni: *top-level* e *non-top-level*.
+   Se viene invocata una trasformazione allora automaticamente vengono invocate tutte le sue relazioni _top-level_.
+   Invece le relazioni _non-top-level_ vengono eseguite solamente in due casi:
+   1. se invocate *esplicitamente*.
+   2. in maniera *trnasitiva* quando presenti in clausole /where/ o /when/ di un'altra relazione invocata.
+
+   #+begin_src 
+   transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS) {
+       top relation PackageToSchema {…}
+       top relation ClassToTable {…}
+       relation AttributeToColumn {…}
+   }
+   #+end_src
+
+** Check and Enforce
+   È possibile contrassegnare un dominio come *checkonly* o come *enforce*.\\
+
+   Quando una trasformazione è eseguita nella _direzione_ di un dominio /checkonly/, viene semplicemente verificata la relazione per vedere se esiste una corrispondenza valida nel modello pertinente che soddisfi la relazione.\\
+
+   Quando invece viene eseguita una trasformazione nella _direzione_ del modello di un dominio /enforce/, se il check fallisce il modello target viene modificato in modo tale da soddisfare la relazione, ovvero seguendo la dinamica del /"check-before-enforce"/.
+
+   #+begin_src 
+   relation PackageToSchema {
+       checkonly domain uml p:Package {name = pn}
+       enforce domain rdbms s:Schema {name = pn}
+   }
+   #+end_src
+
+   Nell'esempio, se sto strasformando uno schema =s= in package =p= viene solamente verificato che se i due nomi corrispondono.
+   Vieceversa, se la trasformazione va da =p= ad =s=, se =s= non ha lo stesso nome di =p= allora il suo nome verrà /forzato/ ad essere uguale.
+
+** Pattern Matching
+   
+   
+  -----
+[fn:1] rdbms: /Relational Data Base Management System/.
+[fn:2] OCL: /Object Constraint Language/.
