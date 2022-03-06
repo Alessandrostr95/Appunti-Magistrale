@@ -1,0 +1,156 @@
+#+title: AR - Lesson 18
+#+date: <2021-12-13>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Link Analysis and Web Search
+** HITS: Hubs and Authorities
+   Ricapitolando, una volta individuato un sottoinsieme di pagine inerenti alla nostra ricerca, consideriamo maggiormente rilevanti quelle pagine che sono molto puntate (o *indicizzate*) all'interno dell'insieme.\\
+
+   Purtroppo però potrebbe capitare che una pagina venga puntata da tantissime pagine che in realtà sono molto poco rilevanti ai fini della ricerca.
+   Oppure ancora, un utente malevolo a scopi egoistici potrebbe creare tante pagine fittizie che puntano alle sue pagine per avere più rilevanza.\\
+
+   Perciò è utile porsi il seguente questio:
+   #+begin_quote
+   /quando e quanto una pagina è *autorevole* nel conferire rilevanza ad un'altra pagina che punta?/
+   #+end_quote
+
+   L'algoritmo *Hyperlink-Induced Topic Search* (o *HITS*, noto anche come *Hubs & Authorities*) proposto da [[https://it.wikipedia.org/wiki/Jon_Kleinberg][Jon Kleinberg]] consente di valutare la rilevanza delle pagine in funzione dei link che la puntano.\\
+
+   Iniziamo con l'associare ad ogni pagina due *indici*:
+   - un indice di *autorità* che esprime la _rilevanza_ della pagina ai fini della ricerca.
+   - un indice di *hub* che invece esprime l' _autorevolezza_ della pagina a conferire autorità alle pagine alle quali punta.
+
+   Per ogni pagina $i$ della rete indichiamo con \(a_i\) il suo valore di *autorità*, come il numero di pagine (nell'insieme di pagine attinenti alla ricerca) che puntano ad $i$.
+   \[
+   a_i = \vert \{ j : j \mbox{ è attinente alla ricerca} \land j \rightarrow i \} \vert
+   \]
+   Con \(j \rightarrow i\) stiamo ad indicare che la pagina $j$ punta alla pagina $i$.\\
+
+   Assumiamo che a fronte di una ricerca otteniamo un sottoinsieme di $n$ pagine, indichiamo con $M$ la _matrice di adiacenza_ del sottografo indotto dalle $n$ pagine inerenti alla ricerca.
+   \[
+   M\left[i,j \right] = \begin{cases}
+     1 &\mbox{se } i \rightarrow j\\
+     0 &\mbox{altrimenti}
+   \end{cases}\;\;
+   \forall 1 \leq i < j \leq n
+   \]
+   Definendo in questa maniera $M$ avremo che
+   \[
+   a_i = \sum_{j = 1}^{n} M\left[j,i \right]
+   \]
+
+   Indichiamo invece con \(h_i\) l'indice di hub di una pagina $i$.
+   Tale indice potremmo definirlo come il numero di pagine (sempre all'interno del sottoinsieme di nodi inerenti alla ricerca) alle quali $i$ punta.
+   Ovvero
+   \begin{align*}
+     h_i &= \vert \{ j : j \mbox{ è attinente alla ricerca} \land j \leftarrow i \} \vert\\
+     h_i &= \sum_{j = 1}^{n} M\left[i,j \right]
+   \end{align*}
+   
+   Partiamo con l'osservare che possiamo /raffinare/ i due indici appena definiti tramite le seguenti idee:
+   - il valore di autorità di una pagina $i$ dovrebbe essere tanto più eleveto quanto più sono *autorevoli* le pagine $j$ che la puntano.
+   - simmetricamente, il valore di hub di una pagina $i$ dovrebbe essere tanto più elevato quanto più è elevata la *rilevanza* delle pagine $j$ a cui punta.
+
+   Se in qualche modo ci venisse suggerito un valore di hub iniziale \(h^{(0)}_i\) potremmo raffinare il valore \(a_i\) visto in precedenza nella seguente maniera
+   \[
+     a^{(1)}_i = \sum_{j = 1}^{n} M\left[j,i \right] \cdot h^{(0)}_j
+   \]
+   Ovvero l'autorità \(a^{(1)}_i\) è influenzata dall'autorevolezza delle $j$ che la puntano.
+
+   Dato che quindi l'indice di autorità è modificato, possiamo raffinare anche \(h^{(0)}_i\) alla stessa maniera.
+   \[
+     h^{(1)}_i = \sum_{j = 1}^{n} M\left[i,j \right] \cdot a^{(1)}_j
+   \]
+
+   Possiamo quindi applicare questo *metodo iterativo* per raffinare al meglio gli indici di autorità e di hub
+   \begin{align*}
+     a^{(k+1)}_i &= \sum_{j = 1}^{n} M\left[j,i \right] \cdot h^{(k)}_j\\
+     h^{(k+1)}_i &= \sum_{j = 1}^{n} M\left[i,j \right] \cdot a^{(k+1)}_j
+   \end{align*}
+   oppure in forma compatta
+   \begin{align*}
+     a^{(k+1)}_i &= M^T h^{(k)}\\
+     h^{(k+1)}_i &= M a^{(k+1)}
+   \end{align*}
+   e ponendo (in maniera del tutto convenzionale) \(h^{(0)} = \underline{1}\).\\
+
+   Ciò che vogliamo è ottenere ad ongi iterazione che i valori di autorità e di hub descrivano _meglio rispetto all'iterazione precedente_ la rilevanza di una pagina nella ricerca.
+   Ciò che cerchiamo è quindi una sorta di "convergenza" ai valori reali di autorità e di hub.\\
+   
+   Innanzitutto non possiamo parlare di convergenza vera e propria in quanto ogni volta sommiamo valori non negativi.
+   Perciò considereremo una convergenza in presenza di una *opportuna normalizzazione*.\\
+
+   Poi, per ottenere convergenza, è necessario che ad ogni iterazione si ottiene un risultato sempre migliore rispetto a quella precedente.
+   Perciò non vogliamo che accada una situazione del tipo
+   \[
+   \exists i,j : a^{(k)}_i > a^{(k)}_j, \;\; a^{(k+1)}_i < a^{(k+1)}_j, \;\; a^{(k+2)}_i > a^{(k+2)}_j, \;\; ...
+   \]
+
+   #+begin_quote
+   *THM*\\
+   Comunque si scelga un vettore iniziale \(h^{(0)}\) con valori _positivi_, esiste un valore \(c \in \mathbb{R}^+\) e un vettore \(z \in \mathbb{R}^n\) _non nullo_ tali che
+   \[
+   \lim_{k \rightarrow \infty} \frac{h^{(k)}}{c^k} = z
+   \]
+   #+end_quote
+
+   #+begin_quote
+   *Proof*:\\
+   *[DA FINIRE...]*
+   #+end_quote
+   
+   -----
+* Appendice
+** Autovalori e Autovettori
+   Data una matrice \(A \in \mathbb{C}^{n \times n}\), un vettore \(x \in \mathbb{C}^n\) tale che \(x \neq \overline{0}\) e un valore \(\lambda \in \mathbb{C}\), diremo che essi sono rispettivamente un *autovettore* e relativo *autovalore* della matrice $A$ se
+   \[
+   Ax = \lambda x
+   \]
+   ovvero se
+   \[
+   (A - \lambda I)x = 0
+   \]
+
+** Base
+   Una base per uno spazio vettoriale \(\mathbb{R}^n\) è un inseme di $n$ vettori \(z_1, ..., z_n \in \mathbb{R}^n\) tali che ogni altro vettore \(x \in \mathbb{R}^n\) può essere espresso come una *combinazione lineare* della base, ovver
+   \[
+   \forall x \in \mathbb{R}^n \exists p \in \mathbb{R}^n : x = \sum_{i = 1}^{n} p_i \cdot z_i
+   \]
+
+** Vettore Normale
+   Dato un vettore \(z \in \mathbb{R}^n\) esso si dice *normale* se
+   \[
+   z \cdot z = z_1^2 + z_2^2 + ... + z_n^2 = 1
+   \]
+
+** Vettore Ortogonale
+   Dati due vettori \(z_i,z_j \in \mathbb{R}^n\) essi si dice *ortogonali* se
+   \[
+   z_i \cdot z_j = z_{i1}z_{j1} +  z_{i2}z_{j2} + ... +  z_{in}z_{jn} = 0
+   \]
+
+** Base Ortonormale
+   Data una base \(z = (z_1, ..., z_n) \in \mathbb{R}^{n \times n}\) se tutti i vettori sono normali e reciprocamente ortogonali, ovvero se
+   \begin{align*}
+     \forall i = 1, ..., n &: z_i \cdot z_i = z_{i1}^2 + z_{i2}^2 + ... + z_{in}^2 = 1\\
+     \forall i \neq j &: z_i \cdot z_j = z_{i1}z_{j1} +  z_{i2}z_{j2} + ... +  z_{in}z_{jn} = 0
+   \end{align*}
+
+** Matrice Semidefinita Positiva
+   Una matrice \(A\) \(n \times n\) è detta *semidefinita positiva* se
+   \[
+   \forall x \in \mathbb{R}^n : x^T A x \geq 0
+   \]
+
+** Teorema =A=
+   Se $A$ è una matrice a valori _tutti reali_ e _simmetrica_, ovvero \(A = A^T\), allora $A$ avrà $n$ autovalori ed $n$ autovettori reali e distinti, e inoltre tali autovalori formano una base per \(\mathbb{R}^n\).
+
+** Teorema =B=
+   Se $A$ è una matrice _semidefinita positiva_ allora:
+   1. gli autovalori di $A$ sono _non negativi_.
+   2. se $A$ è non nulla, ovvero \(A \neq \underline{0}\), allora $A$ avrà almeno un autovalore \(\lambda > 0\) _strettamente positivo_.
+
+-----
+   
