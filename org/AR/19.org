@@ -1,0 +1,77 @@
+#+title: AR - Lesson 19
+#+date: <2021-12-22>
+#+teacher: Miriam Di Ianni
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* PageRank
+  Mentre con l'algoritmo [[./18.html][HITS]] la rilevanza di una pagina dipende da quante pagine è putanta e a quante punta, esistono contesti in cui la rilevanza non dipende dal numero bensì dalla *qualità* dei link.
+  Ovvero ci sono situazioni in cui l'approvazione è vista come un passaggio diretto da una pagina importante ad un'altra.
+  Per esempio, se un articolo =X= molto importante cita un articolo =Y=, allora =Y= prenderà rilevanza.
+  Simmetricamente, se =X= cita molti articoli importanti allora probabilmente il suo contenuto sarà rilevante per la ricerca.\\
+
+  Questo concetto è quello su cui si basa l'algoritmo *PageRank* per determinare la rilevanza delle pagine rispetto a una ricerca.
+  Tale modello prende il nome da [[https://it.wikipedia.org/wiki/Larry_Page][Larry Page]], fondatore di Google da cui il nome.\\
+
+  Tale algoritmo è ancora una volta un metodo iterativo, basato però sull'analisi dei soli _link entranti_ in una pagina.
+  Ovvero solamente i link che puntano ad una pagina =X= saranno utili per definirne la sua rilevanza.\\
+
+  Tale algoritmo parte dall'assunzione che nella porzione di rete attinente alla ricerca sia presente una unità di *flusso* inizialmente distribuita in maniera equa fra tutti i nodi,
+  ovvero se ci sono $n$ allora inizialmente ognino possiede frazione \(1/n\) di flusso.\\
+
+  In maniera intutitva, durante le iterazioni dell'algoritmo, ogni nodo redistribuisce la propria frazione di flusso alle pagine che punta.
+  Alla fine, dopo un certo numero di iterazioni, la pagina che avrà una frazione più alta sarà quella più rilevante per la ricerca.\\
+
+  Formalmente indichiamo con
+  \[
+  f^{(0)}_i = \frac{1}{n}
+  \]
+  la quantità _iniziale_ di flusso del nodo \(i\)-esimo, per \(i=1,...,n\).\\
+
+  Ad ogni passo, ogni nodo redistribuisce la propria quantità di flusso lungo i suoi archi uscenti in maniera *uniforme*.
+  Perciò avremo che
+  \[
+  f^{(k+1)}_i = \sum_{1 \leq j \leq n :\\j \rightarrow i} \frac{f^{(k)}_j}{d^{(out)}_j}
+  \]
+  dove \(d^{(out)}_j\) indica il _grado uscente_ di $j$, ovvero il numero di nodi puntati da $j$ all'interno del sottografo indotto dalle sole pagine inerenti alla ricerca.\\
+
+  Per notazione indichiamo con \(f^{(k)} = (f^{(k)}_1, ..., f^{(k)}_n)\) il vettore delle quantità di flusso degli $n$ al tempo $k$.\\
+
+  #+begin_quote
+  Se il sottografo indotto dalle pagine attinenti alla ricerca è _fortemente connesso_ allora esiste ed è unico il limite
+  \[
+  \lim_{k \rightarrow \infty} f^{(k)} = f^*
+  \]
+  #+end_quote
+  Sotto l'assunzione di connessione forte, è facile osservare che la quantità di flusso globale rimane sempre 1.\\
+
+  Possiamo quindi pensare al limite \(f^*\) come una *configurazione di equilibrio* in cui
+  \[
+  f^*_i = \sum_{1 \leq j \leq n :\\j \rightarrow i} \frac{f^*_j}{d^{(out)}_j} \;\;\; \forall i=1,...,n
+  \]
+  
+  #+CAPTION: Configurazione di equilibrio \(f^*\) (porvare per credere).
+  #+NAME: fig:cross-references
+  #+ATTR_HTML: :width 100% :style max-width: 500px;
+  [[file:../images/ar-lesson19-img1.png]]
+   
+  Ovviamente la condizione che il grafo sia fortemente connesso è *necessaria* per il correto funzionamento, in quanto se non fosse fortemente connesso tutto il flusso andrebbe a finire tutto in _componenti pozzo_.\\
+  
+  Perciò è necessario modificare opportunamente il PageRank per evitare tutto il flusso si accumuli in componenti pozzo.
+  Una versione modificata è il noto *Scaled PageRank* nel quale ogni pagina _preserva_ un propria porzione di flusso per evitare che tutto si accumuli nei /"vicoli ciechi"/.\\
+
+  Più precisamente, fissato un parametro \(s \in \left[ 0,1 \right]\), e ad ogni iterazione:
+  - una frazione $s$ del flusso di ogni nodo viene redistribuito uniformemente sugli archi uscenti come nel PageRank calssico.
+  - mentre la frazione rimanente \((1-s)\) di ciascun nodo viene ridistribuita sul tutto il grafo in maniera uniforme.
+  Percò, dato che il flusso globale di tutta la sottorete è sempre 1, avremo che ad ogni iterazione ogni nodo riceverà una quantità di flusso di _almeno_ \((1-s)/n\).\\
+
+  Per distiguere, indichiamo con \(r^{(k)}_i\) la quantità di flusso posseduta dal nodo $i$ all'iterazione $k$ nello Scaled Page Rank.
+  D'ora in avanti ci riferiremo ad esso con il termine di *rank*, e non più di flusso.\\
+
+  La formula ricorsiva per calcolare il rank di un nodo al tempo \(k+1\) è
+  \[
+  r^{(k+1)}_i = \Big( \sum_{1 \leq j \leq n :\\j \rightarrow i} s \cdot \frac{r^{(k)}_j}{d^{(out)}_j} \Big) + \frac{1-s}{n}
+  \]
+  
+  *[DA FINIRE...]*
+  -----

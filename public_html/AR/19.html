@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-07 lun 18:06 -->
+<!-- 2022-03-07 lun 20:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SOSE - QVT Part 2</title>
+<title>AR - Lesson 19</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -240,6 +240,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -247,193 +269,137 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">SOSE - QVT Part 2</h1>
+<h1 class="title">AR - Lesson 19</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org774c2b9">The Relations Language</a>
-<ul>
-<li><a href="#orgdf6883b">Relazioni top-level</a></li>
-<li><a href="#org79309cd">Check and Enforce</a></li>
-<li><a href="#orge944f1e">Pattern Matching</a></li>
-</ul>
-</li>
+<li><a href="#orgb782261">PageRank</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org774c2b9" class="outline-2">
-<h2 id="org774c2b9">The Relations Language</h2>
-<div class="outline-text-2" id="text-org774c2b9">
+<div id="outline-container-orgb782261" class="outline-2">
+<h2 id="orgb782261">PageRank</h2>
+<div class="outline-text-2" id="text-orgb782261">
 <p>
-Una <b>trasformazione</b> tra due modelli viene specificata tramite un <b>insieme di relazioni</b> che devono essere valide affinché la trasformazione abbia successo.
-Un esempio è:
-</p>
-
-<pre class="example">
-transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS)
-{
-// … set of relations
-}
-</pre>
-<p align="center">Trasformazione da diagramma UML a basi dati relazionale.</p>
-
-<p>
-È possibile invocare una trasformazione per <span class="underline">verificare</span> la coerenza di due modelli o per modificare un modello per <span class="underline">imporre</span> la coerenza tra essi.<br />
+Mentre con l'algoritmo <a href="./18.html">HITS</a> la rilevanza di una pagina dipende da quante pagine è putanta e a quante punta, esistono contesti in cui la rilevanza non dipende dal numero bensì dalla <b>qualità</b> dei link.
+Ovvero ci sono situazioni in cui l'approvazione è vista come un passaggio diretto da una pagina importante ad un'altra.
+Per esempio, se un articolo <code>X</code> molto importante cita un articolo <code>Y</code>, allora <code>Y</code> prenderà rilevanza.
+Simmetricamente, se <code>X</code> cita molti articoli importanti allora probabilmente il suo contenuto sarà rilevante per la ricerca.<br />
 </p>
 
 <p>
-Le <b>relazioni</b> in una trasformazione dichiarano i <b>vincoli</b> che devono essere soddisfatti dagli elementi dei modelli da trasformare.
-Una relazione è definita da due o più <b>domini</b> e da una coppia di predicati.<br />
+Questo concetto è quello su cui si basa l'algoritmo <b>PageRank</b> per determinare la rilevanza delle pagine rispetto a una ricerca.
+Tale modello prende il nome da <a href="https://it.wikipedia.org/wiki/Larry_Page">Larry Page</a>, fondatore di Google da cui il nome.<br />
 </p>
 
 <p>
-Un <b>dominio</b> è una variabile tipizzata, che può essere che può essere associata un modello.
-Ogni dominio ha un <b>pattern</b>, il quale può essere visto come un <i>grafo di oggetti</i> dove ogni associazione e proprietà formano un <i>arco</i>, in accordo alle caratteristiche del dominio.<br />
+Tale algoritmo è ancora una volta un metodo iterativo, basato però sull'analisi dei soli <span class="underline">link entranti</span> in una pagina.
+Ovvero solamente i link che puntano ad una pagina <code>X</code> saranno utili per definirne la sua rilevanza.<br />
 </p>
 
 <p>
-A livello di linguaggio, un pattern può essere visto come un insieme di <b>variabili</b> e <b>vincoli</b> che gli elementi del modello relative a tali variabili devono soddisfare per qualificarsi come un legame valido del pattern.
-</p>
-
-<pre class="example">
-relation PackageToSchema /* map each package to a schema */
-{
-  domain uml p:Package {name = pn}
-  domain rdbms s:Schema {name = pn}
-}
-</pre>
-<p align="center">Relazione tra <b>package</b> UML e <b>schema</b> di basi dati relazionale.</p>
-
-<p>
-Una relazione può essere vincolata da due insiemi di <i>predicati</i>, una clausola <b>when</b> e una clausola <b>where</b>.<br />
+Tale algoritmo parte dall'assunzione che nella porzione di rete attinente alla ricerca sia presente una unità di <b>flusso</b> inizialmente distribuita in maniera equa fra tutti i nodi,
+ovvero se ci sono \(n\) allora inizialmente ognino possiede frazione \(1/n\) di flusso.<br />
 </p>
 
 <p>
-Una clausola <b>when</b> specifica le condizioni sotto le quali la relazione sussistere.
-Per esempio, se vogliamo mettere in realezione una <span class="underline">classe uml</span> <code>c</code> con una <span class="underline">tabella rdbms</span><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> <code>t</code> è necessario che il <span class="underline">package uml</span> <code>p</code> al quale la classe <code>c</code> appartiene deve essere in relazione con lo <span class="underline">schema di base dati</span> <code>s</code> al quale appartiene la tabella <code>t</code>.<br />
+In maniera intutitva, durante le iterazioni dell'algoritmo, ogni nodo redistribuisce la propria frazione di flusso alle pagine che punta.
+Alla fine, dopo un certo numero di iterazioni, la pagina che avrà una frazione più alta sarà quella più rilevante per la ricerca.<br />
 </p>
 
 <p>
-Una clausola <b>where</b> invece specifica le condizioni che devono essere soddisfatte da tutti gli elementi del modello che partecipano alla relazione, e può vincolare qualsiasi variabile nella relazione.
-Perciò, tornando all'esempio della relazione tra una classe <code>c</code> e una tabella <code>t</code>, è necessario che ci sia una relazione tra gli <span class="underline">attributi</span> della classe <code>c</code> e le <span class="underline">colonne</span> della tabella <code>t</code>.
+Formalmente indichiamo con
+\[
+  f^{(0)}_i = \frac{1}{n}
+  \]
+la quantità <span class="underline">iniziale</span> di flusso del nodo \(i\)-esimo, per \(i=1,...,n\).<br />
 </p>
-<pre class="example">
-relation ClassToTable
-{
-  domain uml c:Class {
-    namespace = p:Package {},
-    kind = 'Persistent',
-    name = cn
-  }
-
-  domain rdbms t:Table {
-    schema = s:Schema {},
-    name = cn,
-    column = cl:Column {
-      name = cn + '_tid',
-      type = 'NUMBER'
-    },
-    primaryKey = k:PrimaryKey {
-      name = cn + '_pk',
-      column=cl
-    }
-  }
-
-  when {
-    PackageToSchema(p, s);
-  }
-
-  where {
-    AttributeToColumn(c, t);
-  }
-}
-</pre>
 
 <p>
-Se necessario, le clausole <b>when</b> e <b>where</b> possono contenere espressioni <code>OCL</code><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, oltre alle invocazione di altre relazioni.
+Ad ogni passo, ogni nodo redistribuisce la propria quantità di flusso lungo i suoi archi uscenti in maniera <b>uniforme</b>.
+Perciò avremo che
+\[
+  f^{(k+1)}_i = \sum_{1 \leq j \leq n :\\j \rightarrow i} \frac{f^{(k)}_j}{d^{(out)}_j}
+  \]
+dove \(d^{(out)}_j\) indica il <span class="underline">grado uscente</span> di \(j\), ovvero il numero di nodi puntati da \(j\) all'interno del sottografo indotto dalle sole pagine inerenti alla ricerca.<br />
 </p>
+
+<p>
+Per notazione indichiamo con \(f^{(k)} = (f^{(k)}_1, ..., f^{(k)}_n)\) il vettore delle quantità di flusso degli \(n\) al tempo \(k\).<br />
+</p>
+
+<blockquote>
+<p>
+Se il sottografo indotto dalle pagine attinenti alla ricerca è <span class="underline">fortemente connesso</span> allora esiste ed è unico il limite
+\[
+  \lim_{k \rightarrow \infty} f^{(k)} = f^*
+  \]
+</p>
+</blockquote>
+<p>
+Sotto l'assunzione di connessione forte, è facile osservare che la quantità di flusso globale rimane sempre 1.<br />
+</p>
+
+<p>
+Possiamo quindi pensare al limite \(f^*\) come una <b>configurazione di equilibrio</b> in cui
+\[
+  f^*_i = \sum_{1 \leq j \leq n :\\j \rightarrow i} \frac{f^*_j}{d^{(out)}_j} \;\;\; \forall i=1,...,n
+  \]
+</p>
+
+
+<div id="org655386a" class="figure">
+<p><img src="../images/ar-lesson19-img1.png" alt="ar-lesson19-img1.png" width="100%" style="max-width: 500px;" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Configurazione di equilibrio \(f^*\) (porvare per credere).</p>
 </div>
 
-<div id="outline-container-orgdf6883b" class="outline-3">
-<h3 id="orgdf6883b">Relazioni top-level</h3>
-<div class="outline-text-3" id="text-orgdf6883b">
 <p>
-Una trasformazione <code>QVT</code> contiene due tipi di relazioni: <b>top-level</b> e <b>non-top-level</b>.
-Se viene invocata una trasformazione allora automaticamente vengono invocate tutte le sue relazioni <span class="underline">top-level</span>.
-Invece le relazioni <span class="underline">non-top-level</span> vengono eseguite solamente in due casi:
-</p>
-<ol class="org-ol">
-<li>se invocate <b>esplicitamente</b>.</li>
-<li>in maniera <b>trnasitiva</b> quando presenti in clausole <i>where</i> o <i>when</i> di un'altra relazione invocata.</li>
-</ol>
-
-<pre class="example">
-transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS) {
-    top relation PackageToSchema {…}
-    top relation ClassToTable {…}
-    relation AttributeToColumn {…}
-}
-</pre>
-</div>
-</div>
-
-<div id="outline-container-org79309cd" class="outline-3">
-<h3 id="org79309cd">Check and Enforce</h3>
-<div class="outline-text-3" id="text-org79309cd">
-<p>
-È possibile contrassegnare un dominio come <b>checkonly</b> o come <b>enforce</b>.<br />
+Ovviamente la condizione che il grafo sia fortemente connesso è <b>necessaria</b> per il correto funzionamento, in quanto se non fosse fortemente connesso tutto il flusso andrebbe a finire tutto in <span class="underline">componenti pozzo</span>.<br />
 </p>
 
 <p>
-Quando una trasformazione è eseguita nella <span class="underline">direzione</span> di un dominio <i>checkonly</i>, viene semplicemente verificata la relazione per vedere se esiste una corrispondenza valida nel modello pertinente che soddisfi la relazione.<br />
+Perciò è necessario modificare opportunamente il PageRank per evitare tutto il flusso si accumuli in componenti pozzo.
+Una versione modificata è il noto <b>Scaled PageRank</b> nel quale ogni pagina <span class="underline">preserva</span> un propria porzione di flusso per evitare che tutto si accumuli nei <i>"vicoli ciechi"</i>.<br />
 </p>
 
 <p>
-Quando invece viene eseguita una trasformazione nella <span class="underline">direzione</span> del modello di un dominio <i>enforce</i>, se il check fallisce il modello target viene modificato in modo tale da soddisfare la relazione, ovvero seguendo la dinamica del <i>"check-before-enforce"</i>.
+Più precisamente, fissato un parametro \(s \in \left[ 0,1 \right]\), e ad ogni iterazione:
 </p>
-
-<pre class="example">
-relation PackageToSchema {
-    checkonly domain uml p:Package {name = pn}
-    enforce domain rdbms s:Schema {name = pn}
-}
-</pre>
+<ul class="org-ul">
+<li>una frazione \(s\) del flusso di ogni nodo viene redistribuito uniformemente sugli archi uscenti come nel PageRank calssico.</li>
+<li>mentre la frazione rimanente \((1-s)\) di ciascun nodo viene ridistribuita sul tutto il grafo in maniera uniforme.</li>
+</ul>
+<p>
+Percò, dato che il flusso globale di tutta la sottorete è sempre 1, avremo che ad ogni iterazione ogni nodo riceverà una quantità di flusso di <span class="underline">almeno</span> \((1-s)/n\).<br />
+</p>
 
 <p>
-Nell'esempio, se sto strasformando uno schema <code>s</code> in package <code>p</code> viene solamente verificato che se i due nomi corrispondono.
-Vieceversa, se la trasformazione va da <code>p</code> ad <code>s</code>, se <code>s</code> non ha lo stesso nome di <code>p</code> allora il suo nome verrà <i>forzato</i> ad essere uguale.
+Per distiguere, indichiamo con \(r^{(k)}_i\) la quantità di flusso posseduta dal nodo \(i\) all'iterazione \(k\) nello Scaled Page Rank.
+D'ora in avanti ci riferiremo ad esso con il termine di <b>rank</b>, e non più di flusso.<br />
 </p>
-</div>
-</div>
 
-<div id="outline-container-orge944f1e" class="outline-3">
-<h3 id="orge944f1e">Pattern Matching</h3>
-<div class="outline-text-3" id="text-orge944f1e">
+<p>
+La formula ricorsiva per calcolare il rank di un nodo al tempo \(k+1\) è
+\[
+  r^{(k+1)}_i = \Big( \sum_{1 \leq j \leq n :\\j \rightarrow i} s \cdot \frac{r^{(k)}_j}{d^{(out)}_j} \Big) + \frac{1-s}{n}
+  \]
+</p>
+
+<p>
+<b>[DA FINIRE&#x2026;]</b>
+</p>
 <hr />
 </div>
 </div>
 </div>
-<div id="footnotes">
-<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
-<div id="text-footnotes">
-
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-rdbms: <i>Relational Data Base Management System</i>.
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
-OCL: <i>Object Constraint Language</i>.
-</p></div></div>
-
-
-</div>
-</div></div>
 <div id="postamble" class="status">
+<p class="date">Data: 2021-12-22 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-07 lun 18:06</p>
+<p class="date">Created: 2022-03-07 lun 20:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

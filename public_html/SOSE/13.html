@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-02 mer 15:04 -->
+<!-- 2022-03-07 lun 18:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SOSE - Model Driven Architecture</title>
@@ -252,41 +252,41 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org399dc53">1. Model Driven Architecture</a>
+<li><a href="#org7bd015a">1. Model Driven Architecture</a>
 <ul>
-<li><a href="#org9574e66">1.1. MDA overview</a></li>
-<li><a href="#orgded9c9f">1.2. Problemi di integrazione</a>
+<li><a href="#org7ef6882">1.1. MDA overview</a></li>
+<li><a href="#org16ad8c7">1.2. Problemi di integrazione</a>
 <ul>
-<li><a href="#orgd44c31c">1.2.1. MDA solution</a></li>
+<li><a href="#org89f803f">1.2.1. MDA solution</a></li>
 </ul>
 </li>
-<li><a href="#org74ca8bb">1.3. Models as development artifacts</a></li>
-<li><a href="#org1a14914">1.4. Concetti Base del MDA</a>
+<li><a href="#orge919e0b">1.3. Models as development artifacts</a></li>
+<li><a href="#org848b6c6">1.4. Concetti Base del MDA</a>
 <ul>
-<li><a href="#org8cfab5c">1.4.1. MDA viewpoints</a></li>
+<li><a href="#org79ec575">1.4.1. MDA viewpoints</a></li>
 </ul>
 </li>
-<li><a href="#orgbc8699e">1.5. Models</a>
+<li><a href="#orgbf6314c">1.5. Models</a>
 <ul>
-<li><a href="#org6cfaba7">1.5.1. Computational Independent Model (CIM)</a></li>
-<li><a href="#org8b6a46a">1.5.2. Platform Independent Model (PIM)</a></li>
-<li><a href="#org6b4be04">1.5.3. Platform Specific Model (PSM)</a></li>
+<li><a href="#orgf81e1ff">1.5.1. Computational Independent Model (CIM)</a></li>
+<li><a href="#orgb0ffc0e">1.5.2. Platform Independent Model (PIM)</a></li>
+<li><a href="#org135f969">1.5.3. Platform Specific Model (PSM)</a></li>
 </ul>
 </li>
-<li><a href="#org43368be">1.6. Ciclo di vita MDA</a></li>
-<li><a href="#org5127c7c">1.7. Mappings</a></li>
+<li><a href="#orgee8897c">1.6. Ciclo di vita MDA</a></li>
+<li><a href="#org9d3d84d">1.7. Mappings</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org399dc53" class="outline-2">
-<h2 id="org399dc53"><span class="section-number-2">1</span> Model Driven Architecture</h2>
+<div id="outline-container-org7bd015a" class="outline-2">
+<h2 id="org7bd015a"><span class="section-number-2">1</span> Model Driven Architecture</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org9574e66" class="outline-3">
-<h3 id="org9574e66"><span class="section-number-3">1.1</span> MDA overview</h3>
+<div id="outline-container-org7ef6882" class="outline-3">
+<h3 id="org7ef6882"><span class="section-number-3">1.1</span> MDA overview</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 L'Architettura Model-Driven (in breve <code>MDA</code>) parte dalla ben nota idea di <b>separare le specifiche del funzionamento</b> di un sistema <b>dai dettagli</b> del modo in cui il sistema utilizza le capacità della sua piattaforma.<br />
@@ -316,8 +316,8 @@ il tutto attraverso la <span class="underline">separazione</span> tra sistema e 
 </div>
 </div>
 
-<div id="outline-container-orgded9c9f" class="outline-3">
-<h3 id="orgded9c9f"><span class="section-number-3">1.2</span> Problemi di integrazione</h3>
+<div id="outline-container-org16ad8c7" class="outline-3">
+<h3 id="org16ad8c7"><span class="section-number-3">1.2</span> Problemi di integrazione</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 In un contesto reale, quando bisogna sviluppare un sistema <i>portatile</i>, che interagisca con sistemi diversi (ovvero <i>interoperabile</i>) e che possibilmente possa essere <i>riutilizzato</i> occorono le seguenti problematiche:
@@ -348,8 +348,8 @@ Perciò altre problematiche sorgono:
 </ul>
 </div>
 
-<div id="outline-container-orgd44c31c" class="outline-4">
-<h4 id="orgd44c31c"><span class="section-number-4">1.2.1</span> MDA solution</h4>
+<div id="outline-container-org89f803f" class="outline-4">
+<h4 id="org89f803f"><span class="section-number-4">1.2.1</span> MDA solution</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <dl class="org-dl">
 <dt>PIM</dt><dd>dei <b>Platform Independent Models</b> (in breve <code>PIM</code>) ovvero dei modelli che non considerano le problematiche di interfacciamento con le differenti piattaforme, tralasciando i dettagli middleware.</dd>
@@ -370,8 +370,8 @@ Perciò il <code>MDA</code> sposta il focus dal middleware al <b>modelware</b>.
 </div>
 </div>
 
-<div id="outline-container-org74ca8bb" class="outline-3">
-<h3 id="org74ca8bb"><span class="section-number-3">1.3</span> Models as development artifacts</h3>
+<div id="outline-container-orge919e0b" class="outline-3">
+<h3 id="orge919e0b"><span class="section-number-3">1.3</span> Models as development artifacts</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 Di solito, i ruoli di modellatore e programmatore sono completamente separati.
@@ -387,8 +387,8 @@ Perciò in un tale ambiente, i ruoli di modellatore e programmatore non sono cos
 </div>
 
 
-<div id="outline-container-org1a14914" class="outline-3">
-<h3 id="org1a14914"><span class="section-number-3">1.4</span> Concetti Base del MDA</h3>
+<div id="outline-container-org848b6c6" class="outline-3">
+<h3 id="org848b6c6"><span class="section-number-3">1.4</span> Concetti Base del MDA</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 I concetti base del MDA sono:
@@ -424,8 +424,8 @@ In termini semplici una <i>view</i> può essere visto come un metamodello di un 
 </p>
 </div>
 
-<div id="outline-container-org8cfab5c" class="outline-4">
-<h4 id="org8cfab5c"><span class="section-number-4">1.4.1</span> MDA viewpoints</h4>
+<div id="outline-container-org79ec575" class="outline-4">
+<h4 id="org79ec575"><span class="section-number-4">1.4.1</span> MDA viewpoints</h4>
 <div class="outline-text-4" id="text-1-4-1">
 <dl class="org-dl">
 <dt>Computation Independent Viewpoint</dt><dd>Il <i>viewpoint indipendente dal calcolo</i> (o <i>Computation Independent Viewpoint</i>) si concentra sull'<sub>ambiente</sub>_ e sui <span class="underline">requisiti</span> del sistema.
@@ -442,16 +442,16 @@ Tale viewpoint può utilizzare un generico linguaggio di modellazione, oppure an
 </div>
 
 
-<div id="outline-container-orgbc8699e" class="outline-3">
-<h3 id="orgbc8699e"><span class="section-number-3">1.5</span> Models</h3>
+<div id="outline-container-orgbf6314c" class="outline-3">
+<h3 id="orgbf6314c"><span class="section-number-3">1.5</span> Models</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Vediamo ora più nel dettaglio le diverse categorie di modelli utilizzati nel <code>MDA</code>.
 </p>
 </div>
 
-<div id="outline-container-org6cfaba7" class="outline-4">
-<h4 id="org6cfaba7"><span class="section-number-4">1.5.1</span> Computational Independent Model (CIM)</h4>
+<div id="outline-container-orgf81e1ff" class="outline-4">
+<h4 id="orgf81e1ff"><span class="section-number-4">1.5.1</span> Computational Independent Model (CIM)</h4>
 <div class="outline-text-4" id="text-1-5-1">
 <p>
 Un <code>CIM</code> è una <i>view</i> di un sistema dal punto di vista indipendente dal calcolo (<i>Computation Independent Viewpoint</i>).
@@ -462,8 +462,8 @@ I requisiti CIM dovrebbero essere poi riconducibili ai costrutti <code>PIM</code
 </div>
 </div>
 
-<div id="outline-container-org8b6a46a" class="outline-4">
-<h4 id="org8b6a46a"><span class="section-number-4">1.5.2</span> Platform Independent Model (PIM)</h4>
+<div id="outline-container-orgb0ffc0e" class="outline-4">
+<h4 id="orgb0ffc0e"><span class="section-number-4">1.5.2</span> Platform Independent Model (PIM)</h4>
 <div class="outline-text-4" id="text-1-5-2">
 <p>
 Un <code>PIM</code> è una <i>view</i> di un sistema dal punto di vista <span class="underline">indipendente dalla piattaforma</span>.
@@ -472,8 +472,8 @@ Tale modello mostra un determinato grado di indipendenza dalla piattaforma in mo
 </div>
 </div>
 
-<div id="outline-container-org6b4be04" class="outline-4">
-<h4 id="org6b4be04"><span class="section-number-4">1.5.3</span> Platform Specific Model (PSM)</h4>
+<div id="outline-container-org135f969" class="outline-4">
+<h4 id="org135f969"><span class="section-number-4">1.5.3</span> Platform Specific Model (PSM)</h4>
 <div class="outline-text-4" id="text-1-5-3">
 <p>
 Un <code>PSM</code> è una <i>view</i> di un sistema dal punto di vista specifico della piattaforma.
@@ -493,8 +493,8 @@ Questi concetti vengono utilizzati per specificare l'utilizzo della piattaforma 
 </div>
 
 
-<div id="outline-container-org43368be" class="outline-3">
-<h3 id="org43368be"><span class="section-number-3">1.6</span> Ciclo di vita MDA</h3>
+<div id="outline-container-orgee8897c" class="outline-3">
+<h3 id="orgee8897c"><span class="section-number-3">1.6</span> Ciclo di vita MDA</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Come gia visto nel corso di <i>Ingengeria del Software</i>, dopo il rilascio di un software (in un classico ciclo di vita waterfall) sussegue una fase di <span class="underline">mantenimento</span>.
@@ -531,8 +531,8 @@ Data appunto questa automatizzazione e questo forte legame coi modelli <code>PIM
 </div>
 </div>
 
-<div id="outline-container-org5127c7c" class="outline-3">
-<h3 id="org5127c7c"><span class="section-number-3">1.7</span> Mappings</h3>
+<div id="outline-container-org9d3d84d" class="outline-3">
+<h3 id="org9d3d84d"><span class="section-number-3">1.7</span> Mappings</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 Una <b>mappatura</b> <code>MDA</code> (o <b>mapping</b>) fornisce le specifiche per la <span class="underline">trasformazione</span> di un modello <code>PIM</code> in uno specifico <code>PSM</code>.
@@ -578,7 +578,7 @@ Il marchio <i>"Entity"</i> indica che un oggetto contrassegnato come Entity nel 
 <div id="postamble" class="status">
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-02 mer 15:04</p>
+<p class="date">Created: 2022-03-07 lun 18:06</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

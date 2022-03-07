@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-07 lun 12:34 -->
+<!-- 2022-03-07 lun 18:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 18</title>
@@ -274,35 +274,36 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org35ad6e0">Link Analysis and Web Search</a>
+<li><a href="#org24e04d1">Link Analysis and Web Search</a>
 <ul>
-<li><a href="#orgdbfe33c">HITS: Hubs and Authorities</a></li>
+<li><a href="#orge2c3a14">HITS: Hubs and Authorities</a></li>
+<li><a href="#orgfd95131">Considerazioni</a></li>
 </ul>
 </li>
-<li><a href="#orgf7ce6c9">Appendice</a>
+<li><a href="#orgcbce75e">Appendice</a>
 <ul>
-<li><a href="#orga195ac5">Autovalori e Autovettori</a></li>
-<li><a href="#orgbf68620">Base</a></li>
-<li><a href="#org8837e0c">Vettore Normale</a></li>
-<li><a href="#org475be41">Vettore Ortogonale</a></li>
-<li><a href="#org73af630">Base Ortonormale</a></li>
-<li><a href="#org7bd1352">Matrice Semidefinita Positiva</a></li>
-<li><a href="#orgbc128f4">Teorema <code>A</code></a></li>
-<li><a href="#orgf30427c">Teorema <code>B</code></a></li>
-<li><a href="#orge4048dc">Teorema <code>C</code></a></li>
+<li><a href="#orgd79a8fb">Autovalori e Autovettori</a></li>
+<li><a href="#org24ae6e4">Base</a></li>
+<li><a href="#org9fcc1ed">Vettore Normale</a></li>
+<li><a href="#org5e897f4">Vettore Ortogonale</a></li>
+<li><a href="#org85cd90e">Base Ortonormale</a></li>
+<li><a href="#org170c615">Matrice Semidefinita Positiva</a></li>
+<li><a href="#org2eea93a">Teorema <code>A</code></a></li>
+<li><a href="#org3be380c">Teorema <code>B</code></a></li>
+<li><a href="#org682a539">Teorema <code>C</code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org35ad6e0" class="outline-2">
-<h2 id="org35ad6e0">Link Analysis and Web Search</h2>
-<div class="outline-text-2" id="text-org35ad6e0">
+<div id="outline-container-org24e04d1" class="outline-2">
+<h2 id="org24e04d1">Link Analysis and Web Search</h2>
+<div class="outline-text-2" id="text-org24e04d1">
 </div>
-<div id="outline-container-orgdbfe33c" class="outline-3">
-<h3 id="orgdbfe33c">HITS: Hubs and Authorities</h3>
-<div class="outline-text-3" id="text-orgdbfe33c">
+<div id="outline-container-orge2c3a14" class="outline-3">
+<h3 id="orge2c3a14">HITS: Hubs and Authorities</h3>
+<div class="outline-text-3" id="text-orge2c3a14">
 <p>
 Ricapitolando, una volta individuato un sottoinsieme di pagine inerenti alla nostra ricerca, consideriamo maggiormente rilevanti quelle pagine che sono molto puntate (o <b>indicizzate</b>) all'interno dell'insieme.<br />
 </p>
@@ -330,7 +331,7 @@ Iniziamo con l'associare ad ogni pagina due <b>indici</b>:
 </p>
 <ul class="org-ul">
 <li>un indice di <b>autorità</b> che esprime la <span class="underline">rilevanza</span> della pagina ai fini della ricerca.</li>
-<li>un indice di <b>hub</b> che invece esprime l' <span class="underline">autorevolezza</span> della pagina a conferire autorità alle pagine alle quali punta.</li>
+<li>un indice di <b>hub</b> che invece esprime l'attitudine della pagina a <span class="underline">conferire autorità</span> alle pagine alle quali punta.</li>
 </ul>
 
 <p>
@@ -626,18 +627,53 @@ L'ultima uguaglianza è vera perché \(x\) ha tutte coordinate positive mentre a
 </p></dd>
 </dl>
 </blockquote>
+</div>
+</div>
 
+<div id="outline-container-orgfd95131" class="outline-3">
+<h3 id="orgfd95131">Considerazioni</h3>
+<div class="outline-text-3" id="text-orgfd95131">
+<p>
+Nel teorema precedente abbiamo dimostrato che la quantità \(\frac{h^{(k)}}{c_1^k}\) tende ad un vettore \(z\) non nullo.
+L'abbiamo dimostrato solamente nel caso \(c_1 > c_2\), però con tecniche analoghe si può dimostrare in qualsiasi caso generale.<br />
+</p>
+
+<p>
+In poche parole, il precedente teorema ci dice che, nel caso in cui \(c_1 > c_2\), qualunque sia il vettore di hub iniziale \(h^{(0)}\) purché a coordinate <b>positive</b>,
+avremo che \(\frac{h^{(k)}}{c_1^k}\) convergerà al vettore \(q_1 z_1\), dove \(q_1 = h^{(0)}z_1\).
+Ciò significa che comunque scegliamo un vettore di hub iniziale, esso convergerà ad un altro vettore <b>parallelo</b> all'autovettore \(z_1\).
+Perciò la convergenza del vettore di hub dipende <span class="underline">solamente</span> dalla matrice \(M\).<br />
+</p>
+
+<p>
+Ricapitolando, l'algoritmo <code>HITS</code> valuta la rilevanza di una pagina presente nel sottoinsieme di pagine inrenti alla ricerca rispetto a due <span class="underline">ruoli</span>:
+</p>
+<ul class="org-ul">
+<li>rispetto al ruolo di <b>autorità</b> che indica la rilevanza della pagina rispetto alla ricerca, e tale quantità è determinata mediante lo studio degli link <b>entranti</b> nella pagina.</li>
+<li>rispetto al ruolo di <b>hub</b> che indica quanta rilevanza da tale pagina alle pagine che essa punta, e tale quantità è invece derminata mediante lo studio dei suo link <b>uscenti</b>.</li>
+</ul>
+
+<p>
+Ciò significa che si può incorrere in situazioni in cui una pagina poco rilevante ai fini di una ricerca conferisca invece rilevanza ad altre pagine.<br />
+</p>
+
+<p>
+In poche parole l'intuizione alla base di <i>Hubs &amp; Authorities</i> si basa sull'idea che le pagine svolgano molteplici ruoli nella rete e, in particolare, che le pagine possano svolgere un potente ruolo di <b>approvazione</b> senza che esse siano fortemente sostenute.
+Perciò l'algotimo <code>HITS</code> se presta bene a modellare tutte quelle situazioni in cui le pagine sono naturalmente partizionate in due sottoinsiemi <b>semanticamente</b> distinti.
+Per esempio quando ricerchiamo degli oggetti da comprare, le pagine dei rivenditori non si puntano a vincenda in quanto sono concorrenti: se si puntano allora si stanno dando rilevanza al concorrente.
+Viceversa, alcuni siti come eBay puntano ad altri rivenditori.
+</p>
 <hr />
 </div>
 </div>
 </div>
-<div id="outline-container-orgf7ce6c9" class="outline-2">
-<h2 id="orgf7ce6c9">Appendice</h2>
-<div class="outline-text-2" id="text-orgf7ce6c9">
+<div id="outline-container-orgcbce75e" class="outline-2">
+<h2 id="orgcbce75e">Appendice</h2>
+<div class="outline-text-2" id="text-orgcbce75e">
 </div>
-<div id="outline-container-orga195ac5" class="outline-3">
-<h3 id="orga195ac5">Autovalori e Autovettori</h3>
-<div class="outline-text-3" id="text-orga195ac5">
+<div id="outline-container-orgd79a8fb" class="outline-3">
+<h3 id="orgd79a8fb">Autovalori e Autovettori</h3>
+<div class="outline-text-3" id="text-orgd79a8fb">
 <p>
 Data una matrice \(A \in \mathbb{C}^{n \times n}\), un vettore \(x \in \mathbb{C}^n\) tale che \(x \neq \overline{0}\) e un valore \(\lambda \in \mathbb{C}\), diremo che essi sono rispettivamente un <b>autovettore</b> e relativo <b>autovalore</b> della matrice \(A\) se
 \[
@@ -651,9 +687,9 @@ ovvero se
 </div>
 </div>
 
-<div id="outline-container-orgbf68620" class="outline-3">
-<h3 id="orgbf68620">Base</h3>
-<div class="outline-text-3" id="text-orgbf68620">
+<div id="outline-container-org24ae6e4" class="outline-3">
+<h3 id="org24ae6e4">Base</h3>
+<div class="outline-text-3" id="text-org24ae6e4">
 <p>
 Una base per uno spazio vettoriale \(\mathbb{R}^n\) è un inseme di \(n\) vettori \(z_1, ..., z_n \in \mathbb{R}^n\) tali che ogni altro vettore \(x \in \mathbb{R}^n\) può essere espresso come una <b>combinazione lineare</b> della base, ovver
 \[
@@ -663,9 +699,9 @@ Una base per uno spazio vettoriale \(\mathbb{R}^n\) è un inseme di \(n\) vettor
 </div>
 </div>
 
-<div id="outline-container-org8837e0c" class="outline-3">
-<h3 id="org8837e0c">Vettore Normale</h3>
-<div class="outline-text-3" id="text-org8837e0c">
+<div id="outline-container-org9fcc1ed" class="outline-3">
+<h3 id="org9fcc1ed">Vettore Normale</h3>
+<div class="outline-text-3" id="text-org9fcc1ed">
 <p>
 Dato un vettore \(z \in \mathbb{R}^n\) esso si dice <b>normale</b> se
 \[
@@ -675,9 +711,9 @@ Dato un vettore \(z \in \mathbb{R}^n\) esso si dice <b>normale</b> se
 </div>
 </div>
 
-<div id="outline-container-org475be41" class="outline-3">
-<h3 id="org475be41">Vettore Ortogonale</h3>
-<div class="outline-text-3" id="text-org475be41">
+<div id="outline-container-org5e897f4" class="outline-3">
+<h3 id="org5e897f4">Vettore Ortogonale</h3>
+<div class="outline-text-3" id="text-org5e897f4">
 <p>
 Dati due vettori \(z_i,z_j \in \mathbb{R}^n\) essi si dice <b>ortogonali</b> se
 \[
@@ -687,9 +723,9 @@ Dati due vettori \(z_i,z_j \in \mathbb{R}^n\) essi si dice <b>ortogonali</b> se
 </div>
 </div>
 
-<div id="outline-container-org73af630" class="outline-3">
-<h3 id="org73af630">Base Ortonormale</h3>
-<div class="outline-text-3" id="text-org73af630">
+<div id="outline-container-org85cd90e" class="outline-3">
+<h3 id="org85cd90e">Base Ortonormale</h3>
+<div class="outline-text-3" id="text-org85cd90e">
 <p>
 Data una base \(z = (z_1, ..., z_n) \in \mathbb{R}^{n \times n}\) essa è detta <b>ortonormale</b> se tutti i vettori sono normali e reciprocamente ortogonali, ovvero se
 </p>
@@ -700,9 +736,9 @@ Data una base \(z = (z_1, ..., z_n) \in \mathbb{R}^{n \times n}\) essa è detta 
 </div>
 </div>
 
-<div id="outline-container-org7bd1352" class="outline-3">
-<h3 id="org7bd1352">Matrice Semidefinita Positiva</h3>
-<div class="outline-text-3" id="text-org7bd1352">
+<div id="outline-container-org170c615" class="outline-3">
+<h3 id="org170c615">Matrice Semidefinita Positiva</h3>
+<div class="outline-text-3" id="text-org170c615">
 <p>
 Una matrice \(A\) \(n \times n\) è detta <b>semidefinita positiva</b> se
 \[
@@ -712,18 +748,18 @@ Una matrice \(A\) \(n \times n\) è detta <b>semidefinita positiva</b> se
 </div>
 </div>
 
-<div id="outline-container-orgbc128f4" class="outline-3">
-<h3 id="orgbc128f4">Teorema <code>A</code></h3>
-<div class="outline-text-3" id="text-orgbc128f4">
+<div id="outline-container-org2eea93a" class="outline-3">
+<h3 id="org2eea93a">Teorema <code>A</code></h3>
+<div class="outline-text-3" id="text-org2eea93a">
 <p>
 Se \(A\) è una matrice a valori <span class="underline">tutti reali</span> e <span class="underline">simmetrica</span>, ovvero \(A = A^T\), allora \(A\) avrà \(n\) autovalori ed \(n\) autovettori reali e distinti, e inoltre tali autovalori formano una <b>base ortonormale</b> per \(\mathbb{R}^n\).
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf30427c" class="outline-3">
-<h3 id="orgf30427c">Teorema <code>B</code></h3>
-<div class="outline-text-3" id="text-orgf30427c">
+<div id="outline-container-org3be380c" class="outline-3">
+<h3 id="org3be380c">Teorema <code>B</code></h3>
+<div class="outline-text-3" id="text-org3be380c">
 <p>
 Se \(A\) è una matrice <span class="underline">semidefinita positiva</span> allora:
 </p>
@@ -734,9 +770,9 @@ Se \(A\) è una matrice <span class="underline">semidefinita positiva</span> all
 </div>
 </div>
 
-<div id="outline-container-orge4048dc" class="outline-3">
-<h3 id="orge4048dc">Teorema <code>C</code></h3>
-<div class="outline-text-3" id="text-orge4048dc">
+<div id="outline-container-org682a539" class="outline-3">
+<h3 id="org682a539">Teorema <code>C</code></h3>
+<div class="outline-text-3" id="text-org682a539">
 <p>
 Se \(A\) ha solamente elementi <span class="underline">reali</span>, allora \(AA^T\) è un matrice <b>simmetrica</b> e <b>semidefinita positiva</b>.
 </p>
@@ -747,10 +783,10 @@ Se \(A\) ha solamente elementi <span class="underline">reali</span>, allora \(AA
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Data: 2021-12-13 lun 00:00</p>
+<p class="date">Data: 2021-12-20 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-07 lun 12:34</p>
+<p class="date">Created: 2022-03-07 lun 18:56</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

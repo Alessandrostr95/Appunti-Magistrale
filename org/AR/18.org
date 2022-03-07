@@ -1,5 +1,5 @@
 #+title: AR - Lesson 18
-#+date: <2021-12-13>
+#+date: <2021-12-20>
 #+teacher: Miriam Di Ianni
 #+setupfile: ../../org-template/appunti.org
 #+options: num:nil
@@ -20,7 +20,7 @@
 
    Iniziamo con l'associare ad ogni pagina due *indici*:
    - un indice di *autorità* che esprime la _rilevanza_ della pagina ai fini della ricerca.
-   - un indice di *hub* che invece esprime l' _autorevolezza_ della pagina a conferire autorità alle pagine alle quali punta.
+   - un indice di *hub* che invece esprime l'attitudine della pagina a _conferire autorità_ alle pagine alle quali punta.
 
    Per ogni pagina $i$ della rete indichiamo con \(a_i\) il suo valore di *autorità*, come il numero di pagine (nell'insieme di pagine attinenti alla ricerca) che puntano ad $i$.
    \[
@@ -245,7 +245,26 @@
      \]
      L'ultima uguaglianza è vera perché $x$ ha tutte coordinate positive mentre abbiamo dimostrato prima che \(z_1\) ne _almeno_ una positiva \(\square\).
    #+end_quote
-   
+
+** Considerazioni   
+   Nel teorema precedente abbiamo dimostrato che la quantità \(\frac{h^{(k)}}{c_1^k}\) tende ad un vettore \(z\) non nullo.
+   L'abbiamo dimostrato solamente nel caso \(c_1 > c_2\), però con tecniche analoghe si può dimostrare in qualsiasi caso generale.\\
+
+   In poche parole, il precedente teorema ci dice che, nel caso in cui \(c_1 > c_2\), qualunque sia il vettore di hub iniziale \(h^{(0)}\) purché a coordinate *positive*,
+   avremo che \(\frac{h^{(k)}}{c_1^k}\) convergerà al vettore \(q_1 z_1\), dove \(q_1 = h^{(0)}z_1\).
+   Ciò significa che comunque scegliamo un vettore di hub iniziale, esso convergerà ad un altro vettore *parallelo* all'autovettore \(z_1\).
+   Perciò la convergenza del vettore di hub dipende _solamente_ dalla matrice $M$.\\
+
+   Ricapitolando, l'algoritmo =HITS= valuta la rilevanza di una pagina presente nel sottoinsieme di pagine inrenti alla ricerca rispetto a due _ruoli_:
+   - rispetto al ruolo di *autorità* che indica la rilevanza della pagina rispetto alla ricerca, e tale quantità è determinata mediante lo studio degli link *entranti* nella pagina.
+   - rispetto al ruolo di *hub* che indica quanta rilevanza da tale pagina alle pagine che essa punta, e tale quantità è invece derminata mediante lo studio dei suo link *uscenti*.
+
+   Ciò significa che si può incorrere in situazioni in cui una pagina poco rilevante ai fini di una ricerca conferisca invece rilevanza ad altre pagine.\\
+
+   In poche parole l'intuizione alla base di /Hubs & Authorities/ si basa sull'idea che le pagine svolgano molteplici ruoli nella rete e, in particolare, che le pagine possano svolgere un potente ruolo di *approvazione* senza che esse siano fortemente sostenute.
+   Perciò l'algotimo =HITS= se presta bene a modellare tutte quelle situazioni in cui le pagine sono naturalmente partizionate in due sottoinsiemi *semanticamente* distinti.
+   Per esempio quando ricerchiamo degli oggetti da comprare, le pagine dei rivenditori non si puntano a vincenda in quanto sono concorrenti: se si puntano allora si stanno dando rilevanza al concorrente.
+   Viceversa, alcuni siti come eBay puntano ad altri rivenditori.
    -----
 * Appendice
 ** Autovalori e Autovettori
