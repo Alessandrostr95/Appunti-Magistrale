@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-06 dom 22:41 -->
+<!-- 2022-03-07 lun 12:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 18</title>
@@ -289,6 +289,7 @@ for the JavaScript code in this tag.
 <li><a href="#org7bd1352">Matrice Semidefinita Positiva</a></li>
 <li><a href="#orgbc128f4">Teorema <code>A</code></a></li>
 <li><a href="#orgf30427c">Teorema <code>B</code></a></li>
+<li><a href="#orge4048dc">Teorema <code>C</code></a></li>
 </ul>
 </li>
 </ul>
@@ -431,14 +432,199 @@ Comunque si scelga un vettore iniziale \(h^{(0)}\) con valori <span class="under
 \[
    \lim_{k \rightarrow \infty} \frac{h^{(k)}}{c^k} = z
    \]
+Analogamente per \(a^{(k)}\).
 </p>
 </blockquote>
 
 <blockquote>
 <p>
-<b>Proof</b>:<br />
-<b>[DA FINIRE&#x2026;]</b>
+<b>Proof</b>: per definizione di \(a^{(1)}\) abbiamo che
+\[
+   h^{(1)} = M a^{(1)} = MM^T h^{(0)}
+   \]
+Perciò "srotolando" la formula che definisce \(h^{(k)}\) avremo che
 </p>
+\begin{align*}
+  h^{(2)} &= M a^{(2)} = MM^T h^{(1)} = (MM^T)(MM^T) h^{(0)} = (MM^{T})^2 h^{(0)}\\
+  h^{(3)} &= M a^{(3)} = MM^T h^{(2)} = (MM^T)(MM^T)^2 h^{(0)} = (MM^{T})^3 h^{(0)}\\
+  &\vdots\\
+  h^{(k)} &= M a^{(k)} = MM^T h^{(k-1)} = (MM^{T})^k h^{(0)}
+\end{align*}
+
+<p>
+Dato che nella matrice di adiacenza ogni elemento appartiene a \(\{ 0,1 \}\), allora per il teorema <code>C</code> avremo che la matrice \(MM^T\) è una matrice <b>simmetrica</b>, <b>semidefinita positiva</b>.
+Inoltre dato che i suoi valori sono tutti non negativi, allora \(MM^T\) è <b>non nulla</b>.<br />
+</p>
+
+<p>
+Dato che siamo nelle ipotesi del teorema <code>A</code>, avremo che la matrice \(MM^T\) ha \(n\) autovettori reali \(z_1, ..., z_n \in \mathbb{R}^n\) distinti, i quali formano una <b>base ortonormale</b> per \(\mathbb{R}^n\).<br />
+</p>
+
+<p>
+Per il teorema <code>B</code> sappiamo che ogni autovettore \(z_i\) di \(MM^T\) ha un relativo autovalore <b>reale non negativo</b> \(c_i \in \mathbb{R}\).
+Senza perdita di generalità assumiamo che gli autovettori siano ordinati in modo tale che i relativi autovalori rispettino il seguente oridine
+\[
+   c_1 \geq c_2 \geq ... \geq c_n
+   \]
+Sempre per il teorema <code>B</code> sappiamo che esiste almeno un autovalore <span class="underline">strettamente positivo</span>, perciò certamente avremo che \(c_1 > 0\).<br />
+</p>
+
+<p>
+Dato che gli autovettori \(z_1, ..., z_n\) formano una base di \(\mathbb{R}^n\) allora possiamo scrivere \(h^{(0)}\) come una <b>combinazione lineare</b> di questi ultimi, del tipo
+\[
+   h^{(0)} = \sum_{i=1}^{n} q_i z_i
+   \]
+e dunque
+</p>
+\begin{align*}
+  h^{(k)} &= (MM^{T})^k h^{(0)} = (MM^{T})^k \sum_{i=1}^{n} q_i z_i\\
+  &= (MM^{T})^{k-1} \sum_{i=1}^{n} q_i (MM^{T}) z_i\\
+  (\textit{per def. di autovettore})&= (MM^{T})^{k-1} \sum_{i=1}^{n} q_i (c_i z_i)\\
+  &= (MM^{T})^{k-2} \sum_{i=1}^{n} q_i c_i(MM^{T}) z_i = (MM^{T})^{k-2} \sum_{i=1}^{n} q_i c_i^2 z_i\\
+  &\vdots\\
+  &= \sum_{i=1}^{n} q_i c_i^k z_i
+\end{align*}
+<p>
+Ovvero abbiamo ottenuto che
+\[
+   h^{(k)} = \sum_{i=1}^{n} q_i c_i^k z_i
+   \]
+Ora <span class="underline">normaliziamo</span> dividendo ambi i membri per \(c_1^k\), ovvero per l'autovalore massimo.
+\[
+   \frac{h^{(k)}}{c_1^k} = \sum_{i=1}^{n} q_i \left( \frac{c_i}{c_1} \right)^k z_i
+   \]
+</p>
+
+<p>
+Individuiamo ora il primo indice \(\ell \leq n\) tale che \(c_{\ell} > c_{\ell + 1}\), ovvero tale che
+\[
+   c_1 = c_2 = ... = c_{\ell} > c_{\ell + 1} \geq ... \geq c_n
+   \]
+Allora per ogni \(i \leq \ell\) avremo che \(\left( \frac{c_i}{c_1} \right)^k = 1\), perciò
+</p>
+\begin{align*}
+  \lim_{k \rightarrow \infty} \frac{h^{(k)}}{c_1^k} &= \lim_{k \rightarrow \infty} \sum_{i=1}^{n} q_i \left( \frac{c_i}{c_1} \right)^k z_i\\
+  &= \lim_{k \rightarrow \infty} (q_1z_1 + q_2z_2 + ... + q_{\ell}z_{\ell} + \\
+  &+ q_{\ell + 1} \left( \frac{c_{\ell + 1}}{c_1} \right)^k z_{\ell + 1} + ... +  q_n \left( \frac{c_n}{c_1} \right)^k z_n)\\
+  &= q_1z_1 + q_2z_2 + ... + q_{\ell}z_{\ell}
+\end{align*}
+
+<p>
+Dimostriamo il teorema <span class="underline">solamente</span> nel caso in cui \(\ell = 1\), ovvero quando
+\[
+   \lim_{k \rightarrow \infty} \frac{h^{(k)}}{c_1^k} = \lim_{k \rightarrow \infty} \frac{(MM^T)^k h^{(0)}}{c_1^k} = q_1z_1
+   \]
+Per concludere la dimostrazione del teorema basti dimostrare che, comunque si scelga \(h^{(0)}\) a coordinate <span class="underline">positivie</span>, avremo che \(q_1 \neq 0\).<br />
+</p>
+
+<p>
+Infatti, sappiamo che \(z_1\) è un vettore <b>reale</b> e <b>non nullo</b> in quanto è un elemento di una <span class="underline">base ortonormale</span> di \(\mathbb{R}^n\).
+Se fosse nullo, avremo che \(z_1\) non sarebbe normale, ovvero
+\[
+   z_1 = \underline{0} \implies z_1 \cdot z_1 = \underline{0} \cdot \underline{0} = 0 \neq 1
+   \]
+</p>
+
+<p>
+Osserviamo inoltre che la base è ortonormale allora \(q_1 = h^{(0)}z_1\), infatti
+</p>
+\begin{align*}
+  h^{(0)}z_1 &= \left(\sum_{i = 1}^{n} q_i z_i \right) \cdot z_1\\
+  &= \sum_{i = 1}^{n} q_i (z_i \cdot z_1)\\
+  &= q_1 \cdot \underbrace{(z_1 \cdot z_1)}_{1} + q_2 \cdot \underbrace{(z_2 \cdot z_1)}_{0} + ... + q_n \cdot \underbrace{(z_n \cdot z_1)}_{0} = q_1
+\end{align*}
+<p>
+Perciò \(q_1 \neq 0\) se e solo se \(h^{(0)}z_1 \neq 0\).
+Dimostriamo quindi che comunque scegliamo \(h^{(0)}\) a coordinate positive \(h^{(0)}z_1 \neq 0\).<br />
+</p>
+
+<dl class="org-dl">
+<dt>Parte 1</dt><dd><p>
+Innanzitutto dimostriamo che esiste un vettore \(y \in \mathbb{R}^n\) a coordinate positive tale che \(y z_1 \neq 0\).
+Supponiamo per assurdo che <span class="underline">ogni</span> vettore \(x \in \mathbb{R}^n\) a coordinate positive vale che \(x z_1 = 0\).
+Scegliamo ora un qualsiasi vettore \(y\) a coordinate positive \(y_i > 0\) per ogni \(i = 1,...,n\).
+Per ogni \(\ell = 1,...,n\) indichiamo il vettore \(y^{\left[ \ell \right]}\) nel segiente modo
+\[
+     y^{\left[ \ell \right]} = \begin{cases}
+     y_i &\mbox{se } i \neq \ell\\
+     y_i + 1 &\mbox{se } i = \ell\\
+     \end{cases}
+     \]
+Per esempio
+\[
+     y^{\left[ 3 \right]} = (y_1, y_2, y_3+1, y_4, ..., y_n)
+     \]
+Dato che stiamo assumendo che per ogni vettore \(x\) a coordinate positive \(x z_1 = 0\), allora il seguente sistema è soddisfatto
+</p>
+\begin{cases}
+  y \cdot z_1 &= 0\\
+  y^{\left[ \ell \right]} \cdot z_1 &= 0
+\end{cases}
+<p>
+per ogni \(\ell = 1, ..., n\).<br />
+</p>
+
+<p>
+Andando a risolvere il sistema avremo che
+</p>
+\begin{cases}
+  y_1 \cdot z_{11} +  y_2 \cdot z_{12} + ... +  y_{\ell} \cdot z_{1\ell} + ... +  y_n \cdot z_{1n} &= 0\\
+  (y_1 + 1) \cdot z_{11} +  y_2 \cdot z_{12} + ... +  y_{\ell} \cdot z_{1\ell} + ... +  y_n \cdot z_{1n} &= 0\\
+  y_1 \cdot z_{11} +  (y_2 + 1) \cdot z_{12} + ... +  y_{\ell} \cdot z_{1\ell} + ... +  y_n \cdot z_{1n} &= 0\\
+  \vdots\\
+  y_1 \cdot z_{11} +  y_2 \cdot z_{12} + ... +  (y_{\ell} + 1) \cdot z_{1\ell} + ... +  y_n \cdot z_{1n} &= 0\\
+  \vdots\\
+  y_1 \cdot z_{11} +  y_2 \cdot z_{12} + ... +  y_{\ell} \cdot z_{1\ell} + ... +  (y_n + 1) \cdot z_{1n} &= 0
+\end{cases}
+<p>
+<br />
+</p>
+\begin{cases}
+  &y_1 \cdot z_{11} +  &y_2 \cdot z_{12} + ... +  &y_{\ell} \cdot z_{1\ell} + ... +  &y_n \cdot z_{1n} &= 0\\
+  &z_{11} &&&&= 0\\
+  &&z_{12} &&&= 0\\
+  &&\vdots&&&\\
+  &&&z_{1\ell} &&= 0\\
+  &&\vdots&&&\\
+  &&&&z_{1n} &= 0
+\end{cases}
+
+<p>
+Ovvero in poche parole, per ogni vettore \(x\) a cooridnate positive \(x z_1 = 0\) se e soltanto se \(z_1 = \underline{0}\).
+Ma da prima sappiamo che \(z_1 \neq 0\), perciò deve necessariamente essere vero che esiste un vettore \(y\) a coordinate positive tale che \(y z_1 \neq 0\).
+</p></dd>
+
+<dt>Parte 2</dt><dd><p>
+In conclusione si vuole dimostrare che per ogni vettore \(y\) a coordinate positive vale che \(y z_1 \neq 0\), quindi questo vale anche per \(h^{(0)}z_1\) dato che \(h^{(0)}\) è un vettore a coordinate positive.<br />
+</p>
+
+<p>
+Dalla parte precedente sappiamo che esiste almeno un vettore \(y\) a coordinate positive tale che \(y z_1 \neq 0\).
+Scriviamo \(y\) come combinazione lineare della base ortonormale composta dagli autovettori di \(MM^T\).
+\[
+     y = p_1z_1 + p_2z_2 + ... + p_nz_n
+     \]
+</p>
+
+<p>
+Come già visto prima avremo che l'esressione \(\frac{(MM^T)^k y}{c_1^k}\) <span class="underline">converge</span> a \(p_1z_1\).
+Inoltre dato che \(\frac{(MM^T)^k y}{c_1^k}\) contiene solo coordinate <span class="underline">non negative</span> avremo che anche \(p_1z_1\) avrà coordinate <span class="underline">non negative</span>.<br />
+</p>
+
+<p>
+Poiché sappiamo che \(y z_1 \neq 0\) e che \(p_1 = y z_1\), allora \(p_1 z_1\) avrà almeno una coordinata <span class="underline">strettamente positiva</span>.
+Ovvero \(z_1\) ha tutte coordinate non negative (\(\geq 0\)) e almeno un positiva (\(> 0\)).
+</p>
+
+<p>
+Consideriamo ora un qualsiasi altro vettore \(x \neq y\) a coordinate positive.
+Abbiamo che
+\[
+     x \cdot z_1 = x_1z_{11} + x_2z_{12} + ... + x_nz_{1n} \neq 0
+     \]
+L'ultima uguaglianza è vera perché \(x\) ha tutte coordinate positive mentre abbiamo dimostrato prima che \(z_1\) ne <span class="underline">almeno</span> una positiva \(\square\).
+</p></dd>
+</dl>
 </blockquote>
 
 <hr />
@@ -505,7 +691,7 @@ Dati due vettori \(z_i,z_j \in \mathbb{R}^n\) essi si dice <b>ortogonali</b> se
 <h3 id="org73af630">Base Ortonormale</h3>
 <div class="outline-text-3" id="text-org73af630">
 <p>
-Data una base \(z = (z_1, ..., z_n) \in \mathbb{R}^{n \times n}\) se tutti i vettori sono normali e reciprocamente ortogonali, ovvero se
+Data una base \(z = (z_1, ..., z_n) \in \mathbb{R}^{n \times n}\) essa è detta <b>ortonormale</b> se tutti i vettori sono normali e reciprocamente ortogonali, ovvero se
 </p>
 \begin{align*}
   \forall i = 1, ..., n &: z_i \cdot z_i = z_{i1}^2 + z_{i2}^2 + ... + z_{in}^2 = 1\\
@@ -530,7 +716,7 @@ Una matrice \(A\) \(n \times n\) è detta <b>semidefinita positiva</b> se
 <h3 id="orgbc128f4">Teorema <code>A</code></h3>
 <div class="outline-text-3" id="text-orgbc128f4">
 <p>
-Se \(A\) è una matrice a valori <span class="underline">tutti reali</span> e <span class="underline">simmetrica</span>, ovvero \(A = A^T\), allora \(A\) avrà \(n\) autovalori ed \(n\) autovettori reali e distinti, e inoltre tali autovalori formano una base per \(\mathbb{R}^n\).
+Se \(A\) è una matrice a valori <span class="underline">tutti reali</span> e <span class="underline">simmetrica</span>, ovvero \(A = A^T\), allora \(A\) avrà \(n\) autovalori ed \(n\) autovettori reali e distinti, e inoltre tali autovalori formano una <b>base ortonormale</b> per \(\mathbb{R}^n\).
 </p>
 </div>
 </div>
@@ -545,6 +731,15 @@ Se \(A\) è una matrice <span class="underline">semidefinita positiva</span> all
 <li>gli autovalori di \(A\) sono <span class="underline">non negativi</span>.</li>
 <li>se \(A\) è non nulla, ovvero \(A \neq \underline{0}\), allora \(A\) avrà almeno un autovalore \(\lambda > 0\) <span class="underline">strettamente positivo</span>.</li>
 </ol>
+</div>
+</div>
+
+<div id="outline-container-orge4048dc" class="outline-3">
+<h3 id="orge4048dc">Teorema <code>C</code></h3>
+<div class="outline-text-3" id="text-orge4048dc">
+<p>
+Se \(A\) ha solamente elementi <span class="underline">reali</span>, allora \(AA^T\) è un matrice <b>simmetrica</b> e <b>semidefinita positiva</b>.
+</p>
 
 <hr />
 </div>
@@ -555,7 +750,7 @@ Se \(A\) è una matrice <span class="underline">semidefinita positiva</span> all
 <p class="date">Data: 2021-12-13 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-06 dom 22:41</p>
+<p class="date">Created: 2022-03-07 lun 12:34</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
