@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-07 lun 20:36 -->
+<!-- 2022-03-08 mar 22:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 19</title>
@@ -274,14 +274,16 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb782261">PageRank</a></li>
+<li><a href="#org749fde5">PageRank</a></li>
+<li><a href="#orgb085d76">PageRank e Random Walk</a></li>
+<li><a href="#org4e404e6">Modern Web Search</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb782261" class="outline-2">
-<h2 id="orgb782261">PageRank</h2>
-<div class="outline-text-2" id="text-orgb782261">
+<div id="outline-container-org749fde5" class="outline-2">
+<h2 id="org749fde5">PageRank</h2>
+<div class="outline-text-2" id="text-org749fde5">
 <p>
 Mentre con l'algoritmo <a href="./18.html">HITS</a> la rilevanza di una pagina dipende da quante pagine è putanta e a quante punta, esistono contesti in cui la rilevanza non dipende dal numero bensì dalla <b>qualità</b> dei link.
 Ovvero ci sono situazioni in cui l'approvazione è vista come un passaggio diretto da una pagina importante ad un'altra.
@@ -350,7 +352,7 @@ Possiamo quindi pensare al limite \(f^*\) come una <b>configurazione di equilibr
 </p>
 
 
-<div id="org655386a" class="figure">
+<div class="figure">
 <p><img src="../images/ar-lesson19-img1.png" alt="ar-lesson19-img1.png" width="100%" style="max-width: 500px;" />
 </p>
 <p><span class="figure-number">Figura 1: </span>Configurazione di equilibrio \(f^*\) (porvare per credere).</p>
@@ -383,13 +385,245 @@ D'ora in avanti ci riferiremo ad esso con il termine di <b>rank</b>, e non più 
 
 <p>
 La formula ricorsiva per calcolare il rank di un nodo al tempo \(k+1\) è
+</p>
+\begin{equation}
+r^{(k+1)}_i = \Big( \sum_{1 \leq j \leq n :\\j \rightarrow i} s \cdot \frac{r^{(k)}_j}{d^{(out)}_j} \Big) + \frac{1-s}{n}
+\end{equation}
+
+<p>
+Dato un vettore di ranking \(r^{(k)} = (r^{(k)}_1, r^{(k)}_2, ..., r^{(k)}_n)\) la tempo \(k\), difiniamo con \(N\) la matrice \(n \times n\) che descirve il processo iterativo, ovvero tale che
 \[
-  r^{(k+1)}_i = \Big( \sum_{1 \leq j \leq n :\\j \rightarrow i} s \cdot \frac{r^{(k)}_j}{d^{(out)}_j} \Big) + \frac{1-s}{n}
+  r^{(k+1)} = N r^{(k)}
   \]
 </p>
 
 <p>
-<b>[DA FINIRE&#x2026;]</b>
+Per definizione la matrice \(N\) è definita come segue
+\[
+  N [ i,j ] = \begin{cases}
+    \frac{s}{d^{(out)}_j} + \frac{1-s}{n} &\mbox{se } j \rightarrow i\\
+    \frac{1-s}{n} &\mbox{altrimenti}
+  \end{cases} \;\; \forall 1 \leq i,j \leq n
+  \]
+Infatti avremo che il ranking \(i\)-esimo di \(r^{(k+1)}\) sarà
+</p>
+\begin{align*}
+  r^{(k+1)} = \sum_{j = 1}^{n} N [ i,j ] r^{(k)}_j &= \bigg( \sum_{1 \leq j \leq n :\\ j \rightarrow i} \Big( \frac{s}{d^{(out)}_j} + \frac{1-s}{n} \Big) r^{(k)}_j \bigg) + \bigg( \sum_{1 \leq j \leq n :\\ j \not\to i} \frac{1-s}{n}r^{(k)}_j \bigg)\\
+  &= \bigg( \sum_{1 \leq j \leq n :\\ j \rightarrow i} \frac{s}{d^{(out)}_j}r^{(k)}_j \bigg) + \bigg( \sum_{j = 1}^{n} \frac{1-s}{n}r^{(k)}_j \bigg)\\
+  &= \bigg( \sum_{1 \leq j \leq n :\\ j \rightarrow i} \frac{s}{d^{(out)}_j}r^{(k)}_j \bigg) + \frac{1-s}{n}\underbrace{\bigg( \sum_{j = 1}^{n} r^{(k)}_j \bigg)}_{\scriptsize{\mbox{tutto il flusso}}}\\
+  &= \bigg( \sum_{1 \leq j \leq n :\\ j \rightarrow i} \frac{s}{d^{(out)}_j}r^{(k)}_j \bigg) + \frac{1-s}{n}
+\end{align*}
+<p>
+ovvero la definizione data nell'eq. (1).<br />
+</p>
+
+<p>
+Anche in questo caso possiamo pensare al vettore \(r^*\) che definisce una <b>configurazione di equilibrio</b>, ovvero tale che
+\[
+  r^* = Nr^*
+  \]
+</p>
+
+<p>
+Osserviamo che \(r^*\) (se esiste) è un autovettore di \(N\) con le seguenti proprietà:
+</p>
+<ul class="org-ul">
+<li>il rispettivo autovalore è \(\lambda = 1\).</li>
+<li>la somma degli elementi di \(r^*\) è pari a 1.</li>
+<li>ha tutti elementi <span class="underline">non negativi</span>.</li>
+<li>possibilmente che \(r^*\) è l' <span class="underline">unico</span> autovettore con tali prorpietà (così da avere un unico punto di convergenza).</li>
+</ul>
+<p>
+Ma chi ci assicura che tale autovettore (con relativo autovalore) esista?<br />
+</p>
+
+<blockquote>
+<p>
+<b>Teorema di Perron</b><br />
+Sia \(A\) un matrice \(n \times n\) con valori <span class="underline">reali positivi</span>, allora
+</p>
+<ul class="org-ul">
+<li>\(A\) ha un autovalore \(c \in \mathbb{R}^+\) tale che \(c > \vert c' \vert\) per ogni altro autovalore \(c'\) di \(A\).</li>
+<li>l'autovettore di \(A\) corrispondente a \(c\) è <span class="underline">unico</span> ed ha elementi <span class="underline">reali positivi</span> la cui somma è pari a 1.</li>
+</ul>
+</blockquote>
+
+<p>
+La nostra matrice \(N\) rispetta tali condizioni, perciò possiamo applicare il teorema di <i>Perron</i> e dire che esiste una coppia autovalore-autovettore \((r^*, c)\) che rispetta le porprietà.
+Se potessimo anche essere certi \(c = 1\) potremmo concludere che \(r^* = N r^*\).<br />
+</p>
+
+<p>
+Per fortuna esiste un teorema che ci viene in salvo.
+</p>
+<blockquote>
+<p>
+<b>Teorema</b><br />
+Sia \(A\) una matrice stocastica, ovvero una matrice <span class="underline">quadrata</span> \(n \times n\) la cui somma degli elementi su ciascuna riga (o colonna) è pari a 1.
+Allora \(A\) ha un autovalore \(\lambda\) tale che \(\lambda = 1\) e \(\lambda\) è l'autovalore di <span class="underline">modulo massimo</span>.
+</p>
+</blockquote>
+
+<p>
+Osserviamo che \(N\) è una matrice stocastica per colonne.
+Infatti, poiché è vero che fissato un nodo \(j\) avremo che
+\[
+  \sum_{1 \leq i \leq n :\\ j \to i} \frac{1}{d^{(out)}_j}
+  \]
+(convincersi di questo prima di proseguire) allora
+</p>
+\begin{align*}
+  \sum_{1 \leq i \leq n} N [ i,j ] &= \Big( \sum_{1 \leq i \leq n :\\ j \to i} \frac{s}{d^{(out)}_j} + \frac{1 - s}{n} \Big) + \Big( \sum_{1 \leq i \leq n :\\ j \not\to i} \frac{1 - s}{n} \Big)\\
+  &= \Big( \sum_{1 \leq i \leq n :\\ j \to i} \frac{s}{d^{(out)}_j} \Big) + \Big( \sum_{1 \leq i \leq n} \frac{1 - s}{n} \Big)\\
+  &= s + (1-s) = 1
+\end{align*}
+
+<p>
+In conclusione per il teorema di <i>Perron</i> e per quello sulle matrici stocastiche averemo che l'algoritmo Scaled PageRank converge ad un <b>punto fisso</b> \(r^* = Nr^*\).
+</p>
+
+<blockquote>
+<p>
+<b>Esempio Matrice Stocastica</b><br />
+</p>
+\begin{equation*}
+N = \left [
+\begin{array}{ccc}
+  \frac{1-s}{3} & \frac{s}{2} + \frac{1-s}{3} & s +\frac{1-s}{3}\\
+  s + \frac{1-s}{3} & \frac{1-s}{3} & \frac{1-s}{3}\\
+  \frac{1-s}{3} & \frac{s}{2} + \frac{1-s}{3} & \frac{1-s}{3}
+\end{array}
+\right ]
+\end{equation*}
+
+
+<div class="figure">
+<p><img src="../images/ar-lesson19-img2.png" alt="ar-lesson19-img2.png" width="100%" style="max-width: 250px;" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Sottografo indotto dalle pagine inerenti alla ricerca</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgb085d76" class="outline-2">
+<h2 id="orgb085d76">PageRank e Random Walk</h2>
+<div class="outline-text-2" id="text-orgb085d76">
+<p>
+Abbiamo visto concettualmente che l'idea dietro al PageRank è quella di avere una sorta di fluido che <i>"scorre"</i> tra le pagine individuate essere inerenti alla ricerca.<br />
+</p>
+
+<p>
+Esiste una relazione tra questo concetto di fluido e le cosidette <b>Random Walk</b>, o <b>percorso aleatorio</b>.
+Una Random Walk funziona nella seguente maniera:
+</p>
+<ul class="org-ul">
+<li>dato un grafo \(G\) scegliamo <span class="underline">uniformemente a caso</span> un nodo \(u\) da cui iniziare il percorso.</li>
+<li>al passo successivo passiamo da \(u\) ad uno dei suoi vicini in maniera del tutto <span class="underline">uniforme</span>.</li>
+<li>e così via&#x2026;</li>
+</ul>
+
+<p>
+Cerchiamo di calcolare la probabilità di trovarsi su di un dato nodo \(i\) dopo una random walk lunga \(k\) passi.
+Più formalmente, per ogni \(i \in V\) indichiamo con \(w^{(k)}_i\) la v.a. binaria che:
+</p>
+<ul class="org-ul">
+<li>vale 1 se dopo \(k\) passi del random walk ci troviamo esattamente sul nodo 1.</li>
+<li>0 altrimenti.</li>
+</ul>
+
+<p>
+Scegliendo il primo noto della random walk in maniera uniforme avremo che
+\[
+  \mathcal{P}(w^{(0)}_i = 1) = \frac{1}{n} = f^{(0)}_i
+  \]
+</p>
+
+<p>
+Al tempo \(k = 1\) avremo invece che la probabilità che il cammino aleatoria finisca sul nodo \(i\) è pari alla probabilità che un suo vicino \(j\) sia il nodo iniziale del cammino, moltiplicata per la probabilità che \(j\) si passi esattamente ad \(i\).
+</p>
+\begin{align*}
+  \mathcal{P}(w^{(1)}_i = 1) &= \sum_{j \in V:\\ j \to i} \left( \mathcal{P}(w^{(0)}_j = 1) \cdot \frac{1}{d^{(out)}_j} \right)\\
+  \sum_{j \in V:\\ j \to i} \frac{f^{(0)}_j}{d^{(out)}_j} = f^{(1)}_i
+\end{align*}
+
+<p>
+In maniera induttiva per ogni \(k > 0\)
+</p>
+\begin{align*}
+  \mathcal{P}(w^{(k+1)}_i = 1) &= \sum_{j \in V:\\ j \to i} \left( \mathcal{P}(w^{(k)}_j = 1) \cdot \frac{1}{d^{(out)}_j} \right)\\
+  \sum_{j \in V:\\ j \to i} \frac{f^{(k)}_j}{d^{(out)}_j} = f^{(k+1)}_i
+\end{align*}
+
+<p>
+Ovvero la quantità di flusso del nodo \(i\) dopo \(k\) iterazioni e pari alla probabilità di finire esattamente sul nodo \(i\) dopo \(k\) passi del random walk.<br />
+</p>
+
+<p>
+Consideriamo una versione "scalata" del random walk per lo <i>Scaled PageRank</i>.
+Le regole di questa versione di random walk sono:
+</p>
+<ul class="org-ul">
+<li>fissare un parametro \(s \in [ 0,1 ]\).</li>
+<li>scegliere <span class="underline">uniformemente a caso</span> un nodo iniziale \(u\) da cui partire.</li>
+<li>da \(u\):
+<ul class="org-ul">
+<li>con probabilità \(s\) proseguiamo la random walk, ovvero scegliamo <span class="underline">uniformemente a caso</span> un suo vicino su cui avviarci.</li>
+<li>con probabilità \(1 - s\) rincominciamo la random walk, ovvero scegliamo <span class="underline">uniformemente a caso</span> un altro nodo del grafo da cui iniziare.</li>
+</ul></li>
+<li>e così via&#x2026;</li>
+</ul>
+
+<p>
+Pper ogni nodo \(i \in V\) indichiamo con \(\omega^{(k)}_i\) la v.a. binaria che:
+</p>
+<ul class="org-ul">
+<li>vale 1 se dopo \(k\) passi del random walk ci troviamo esattamente sul nodo 1.</li>
+<li>0 altrimenti.</li>
+</ul>
+
+<p>
+Come prima abbiamo che
+\[
+  \mathcal{P}(\omega^{(0)}_i = 1) = \frac{1}{n} = r^{(0)}_i
+  \]
+per \(k = 1\)
+</p>
+\begin{align*}
+  \mathcal{P}(\omega^{(1)}_i = 1) &= s \cdot \Big( \sum_{j \in V:\\ j \to i} \mathcal{P}(\omega^{(0)}_j = 1) \cdot \frac{1}{d^{(out)}_j} \Big) + (1-s) \cdot \frac{1}{n}\\
+  &= \sum_{j \in V:\\ j \to i} \Big( s \cdot \frac{r^{(0)}_j}{d^{(out)}_j} \Big) + \frac{1 - s}{n}\\
+  &= r^{(1)}_i
+\end{align*}
+<p>
+e quindi più in generale
+</p>
+\begin{align*}
+  \mathcal{P}(\omega^{(k+1)}_i = 1) &= s \cdot \Big( \sum_{j \in V:\\ j \to i} \mathcal{P}(\omega^{(k)}_j = 1) \cdot \frac{1}{d^{(out)}_j} \Big) + (1-s) \cdot \frac{1}{n}\\
+  &= \sum_{j \in V:\\ j \to i} \Big( s \cdot \frac{r^{(k)}_j}{d^{(out)}_j} \Big) + \frac{1 - s}{n}\\
+  &= r^{(k+1)}_i
+\end{align*}
+
+<p>
+Ovvero lo scaled rank di una pagina \(i\) dopo \(k\) iterazioni dell'algoritmo <i>Scaled PageRank</i> equivale alla probabilità di trovarsi esattamente sul nodo \(i\) dopo \(k\) passi di questo scaled random walk.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4e404e6" class="outline-2">
+<h2 id="org4e404e6">Modern Web Search</h2>
+<div class="outline-text-2" id="text-org4e404e6">
+<p>
+L'enorme crescita del Web, in termini di numero di pagine e numero di argomenti trattati, ha richiesto col tempo di raffinare le vecchie tecniche di link analysis e web search.
+Una tecnica è quella di analizzare i link combinando il <b>contenuto</b> delle pagine, come per esempio usando gli <b>anchor text</b>, ovvero delle parole chiave che descrivono in qualche maniera il contenuto di un link.
+Oppure ancora considerando con quale frequenza o quante volte una pagina viene effettivamente aperta.<br />
+</p>
+
+<p>
+Spesso ci sono anche motivi commerciali per cercare di apparire primi nei ranking di una ricerca.
+Infatti è nata una vera e propria industria dietro le tecniche di ranking.
+Da una parte ci sono i web designer che cercano di comprendere gli algoritmi di ranking usati dai motori di ricerca, e cercano un modo per poterli sfruttare a loro vantaggio.
+D'altra parte ci sono i progettisti di motori di ricerca che vengono indotti nel cercare di modificare è migliorare i propri algoritmi di ranking.
+Ecco perché gli algoritmi di ranking effettivi vengono spesso tenuti segreti.
 </p>
 <hr />
 </div>
@@ -399,7 +633,7 @@ La formula ricorsiva per calcolare il rank di un nodo al tempo \(k+1\) è
 <p class="date">Data: 2021-12-22 mer 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-07 lun 20:36</p>
+<p class="date">Created: 2022-03-08 mar 22:05</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
