@@ -10,7 +10,7 @@ Nella [[./01.html][lezione 1]] si è visto che in un /Erdős–Rény random grap
 Per comprendere meglio il perché di questo andamento è necessario enunciare (quantomeno in maniera informale e intuitiva) il [[https://en.wikipedia.org/wiki/Central_limit_theorem][teorema del limite centrale]].
 
 #+begin_quote
-#+html: <hr>
+-----
 
 #+attr_html: align: center
 *Teorema del limite centrale*\\
@@ -51,10 +51,9 @@ Per comprendere meglio il perché di questo andamento è necessario enunciare (q
     
     
     #+caption: Esempio distribuzione Normale 
-    #+attr_html: :width 60%
+    #+attr_html: :width 100% :style max-width: 400px;
     [[../images/ar-lesson02-img1.png]]
-
-#+html: <hr>
+    -----
 #+end_quote
 
 Questo teorema è utile a comprendere il fenomeno interessato in quanto il numero di nodi di grado $k$ in un /Erdős–Rény random graph/
@@ -85,7 +84,7 @@ a quanto ci si aspetta nel modello /Erdős–Rény/, implica che non è del tutt
 
 
     #+caption: Esempio di scala /lineare/ (a sinistra) e scala /log-log/ (a destra)
-    #+attr_html: :width 60%
+    #+attr_html: :width 100% :style max-width: 600px;
     [[../images/ar-lesson02-img2.png]]
 
     Come si può notare nell'immagine precedente, è difficile stabilire ad occhio quale delle due funzioni è power law.
@@ -93,8 +92,7 @@ a quanto ci si aspetta nel modello /Erdős–Rény/, implica che non è del tutt
     Questo perché $\log{(y)} \approx -c \log{(k)}$.
        
    
-
-#+html: <hr>
+    -----
 
 
 * Fenomeno /rich-get-richer/
@@ -156,33 +154,45 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
     \end{cases}
     \;\;\; \forall i > j
     \]
-    Perciò la probabilità che esista un arco diretto $(i,j)$ può essere calcolata come segue
-    \[
-    \mathcal{P}(\delta_{i,j} = 1) = p \cdot \mathcal{P}\left( \mbox{viene scleto } j \right) +
-    (1-p) \cdot \mathcal{P}\left( \mbox{scelgo un nodo } h : \delta_{h,j} = 1 \right)\\
-    = \frac{p}{i-1} + (1-p)\mathcal{P} \left( \bigcup_{h < j : (h,j) \in E} \mbox{viene scleto } h \right)\\
-    = \frac{p}{i-1} + (1-p)\sum_{h < j : (h,j) \in E} \mathcal{P} \left( \mbox{viene scleto } h \right) \;\;\; (1)\\
-    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{h < j : (h,j) \in E} 1 \;\;\; (2)\\
-    = \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} 
-    \]
+    Perciò la probabilità che esista un arco diretto \((i,j)\) può essere calcolata come segue
+    \begin{align*}
+      \mathcal{P}(\delta_{i,j} = 1)
+      &= p \cdot \mathcal{P}\left( \mbox{viene scleto } j \right) + (1-p) \cdot \mathcal{P}\left( \mbox{scelgo un nodo } h : \delta_{h,j} = 1 \right)\\
+      &= \frac{p}{i-1} + (1-p)\mathcal{P} \Big( \bigcup_{h < i : (h,j) \in E} \mbox{viene scleto } h \Big)\\
+      \textbf{(1)}&= \frac{p}{i-1} + (1-p)\sum_{h < i : (h,j) \in E} \mathcal{P} \left( \mbox{viene scleto } h \right)\\
+      \textbf{(2)}&= \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{h < i : (h,j) \in E} 1\\
+      &= \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} 
+    \end{align*}
     dove:
     - *(1)* la probabilità dell'unione di eventi /disgiunti/ è pari alla somma delle loro probabilità.
     - *(2)* la probabilità di scegliere un nodo $h < i$ è equamente distribuita come $\frac{1}{i-1}$.
 
     Facciamo una considerazione: dato che ogni nodo $i > 2$ ha esattamente un arco uscente, deve essere
-    necessariamente vero che $\mathcal{P}(\exists j < i : (i,j) \in E ) = 1$.
-    Infatti $\mathcal{P}(\exists j < i : (i,j) \in E ) = \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E )$.
+    necessariamente vero che
+    \[
+    \mathcal{P}(\exists j < i : (i,j) \in E ) = 1
+    \]
+    Infatti
+    \[
+    \mathcal{P}(\exists j < i : (i,j) \in E ) = \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E )
+    \]
     Questo si può dimostrare per induzione su $i$:
-    - per $i = 2$ avremo che $\sum_{1 \leq j < 2} \mathcal{P}( (2,j) \in E ) = \mathcal{P}( (2,1) \in E ) = 1$, e questo è vero *per costruzione*.
-    - supponiamo sia vero per $i \leq k - 1$, per $i = k$ avremo che
+    - per \(i = 2\) avremo che
       \[
-      \sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E ) = \sum_{1 \leq j < i} \left[ \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j}  \right]\\ 
-      = \sum_{1 \leq j < i} \frac{p}{i-1} + \sum_{1 \leq j < i} \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} \;\;\; \mbox{spezzo la serie}\\
-      = \frac{(i-1)p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq j < i} \sum_{1 \leq h < i} \delta_{h,j}\\
-      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \underbrace{ \sum_{1 \leq j < i} \delta_{h,j} }_{\small{ \mbox{1 solo arco uscente} }} \;\;\; \mbox{inverto le due serie}\\
-      = p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} 1\\
-      = p + (1 - p) = 1
+      \sum_{1 \leq j < 2} \mathcal{P}( (2,j) \in E ) = \mathcal{P}( (2,1) \in E ) = 1
       \]
+      e questo è vero *per costruzione*.
+    - supponiamo sia vero per \(i \leq k - 1\), per \(i = k\) avremo che
+      \begin{align*}
+	\sum_{1 \leq j < i} \mathcal{P}( (i,j) \in E )
+	&= \sum_{1 \leq j < i} \left[ \frac{p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j}  \right]\\ 
+	&= \sum_{1 \leq j < i} \frac{p}{i-1} + \sum_{1 \leq j < i} \Big( \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \delta_{h,j} \Big) \;\;\; \mbox{spezzo la serie}\\
+	&= \frac{(i-1)p}{i-1} + \frac{(1-p)}{i-1} \sum_{1 \leq j < i} \sum_{1 \leq h < i} \delta_{h,j}\\
+	&= p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} \underbrace{ \sum_{1 \leq j < i} \delta_{h,j} }_{h \scriptsize{\mbox{ ha 1 solo arco uscente}}} \;\;\; \mbox{inverto le due serie}\\
+	&= p + \frac{(1-p)}{i-1} \sum_{1 \leq h < i} 1\\
+	&= p + \frac{(1-p)}{i-1}(i-1)\\
+	&= p + (1 - p) = 1
+      \end{align*}
       
     Siamo ora pronti a verificare la reale presenza di una /power law/.
     Questo procedimento avverrà in 4 fase:
@@ -192,18 +202,18 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
     4. Individuazione di una /power law/.
 
 **** *Legge aleatoria*
-     Sia la /v.a. discreta/ $D_j(t)$ che esprima il grado entrante del nodo $j$ al tempo $t$ del processo di generazione del grafo.
-     Si osservi che $D_j(t)$ è difinita *solamente* per $t \geq j$, e che $D_j(j) = 0$ per ogni $j$ (per costruzione).\\
+     Sia la /v.a. discreta/ \(D_j(t)\) che esprima il grado entrante del nodo $j$ al tempo $t$ del processo di generazione del grafo.
+     Si osservi che \(D_j(t)\) è difinita *solamente* per \(t \geq j\), e che \(D_j(j) = 0\) per ogni $j$ (per costruzione).\\
 
      Ritornando alla variazione del grado entrante nel tempo, possiamo dire che dal tempo $t$ al tempo $t+1$ esso potrà essere aumentato di *al più* una unità.
-     Perciò possiamo esprimere la variazione nel tempo del grado entrante del nodo $j$ come la differenza $D_j(t+1) - D_j(t)$.\\
+     Perciò possiamo esprimere la variazione nel tempo del grado entrante del nodo $j$ come la differenza \(D_j(t+1) - D_j(t)\).\\
 
      Possiamo quindi calcolare la probabilità che il grado del nodo $j$ aumenti di 1 come
-     \[
-     \mathcal{P}(D_j(t+1) - D_j(t) = 1) = \mathcal{P}(\delta_{t+1, j} = 1)\\
-     = \frac{p}{(t+1)-1} + \frac{(1-p)}{(t+1)-1} \sum_{1 \leq h < (t+1)} \delta_{h,j}\\
-     = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)
-     \]
+     \begin{align*}
+       \mathcal{P}(D_j(t+1) - D_j(t) = 1) &= \mathcal{P}(\delta_{t+1, j} = 1)\\
+       &= \frac{p}{(t+1)-1} + \frac{(1-p)}{(t+1)-1} \sum_{1 \leq h < (t+1)} \delta_{h,j}\\
+       &= \frac{p}{t} + \frac{(1-p)}{t}D_j(t)
+     \end{align*}
 
 **** *Approssimazione deterministica e continua*
      Stabilita la legge $\mathcal{P}(D_j(t+1) - D_j(t) = 1) = \frac{p}{t} + \frac{(1-p)}{t}D_j(t)$, la si vuole approssimare.
@@ -211,35 +221,40 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 
      Per prima cosa si può rimuovere il fattore aleatorio e renderla deterministica con la seguente approssimazione
      \begin{cases}
-     X_j(j) = 0\\
-     X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
+       X_j(j) = 0\\
+       \\
+       X_j(t+1) - X_j(t) = \frac{p}{t} + \frac{(1-p)}{t}X_j(t)
      \end{cases}
-     $\forall t \geq j$.\\
+     \(\forall t \geq j\).\\
      
      La seconda approssimazione da fare è passare dal /discreto/ al /continuo/
      \begin{cases}
-     x_j(j) = 0\\
-     \frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
+       x_j(j) = 0\\
+       \\
+       \frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)
      \end{cases}     
      Non è detto che questa approssimazione si avvicini alla legge reale.
-     Notare in fine che la seconda equazione del sistema è una /equazione differenziale/[fn:6]
+     Notare in fine che la seconda equazione del sistema è una /equazione differenziale/[fn:6].
 
 **** *Risoluzione equazione differenziale*
-     Si vuole risolvere la seguente eq. differenziale $\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)$.
-     Per prima cosa la si può raccogliere il fattore $1/t$
+     Si vuole risolvere la seguente eq. differenziale \(\frac{d}{dt}x_j(t) = \frac{p}{t} + \frac{(1-p)}{t}x_j(t)\).
+     Per prima cosa si può raccogliere il fattore \(1/t\)
      \[ \frac{d}{dt}x_j(t) = \frac{1}{t} \left[ p + (1-p)x_j(t) \right] \]
-     e poi dividendo entrambi i membri per $\left[ p + (1-p)x_j(t) \right]$
+     e poi dividendo entrambi i membri per \(\left[ p + (1-p)x_j(t) \right]\)
      \[ \frac{1}{p + (1-p)x_j(t)}  \frac{d}{dt}x_j(t) = \frac{1}{t} \]
 
-     A questo punto si può procedere integrando in $dt$
+     A questo punto si può procedere integrando in \(dt\)
      \[
      \int \frac{1}{p + (1-p)x_j(t)}  \frac{d x_j(t)}{dt} \, dt = \int \frac{dt}{t}\\
+     \\
      \int \frac{d x_j(t)}{p + (1-p)x_j(t)} = \int \frac{dt}{t}
      \]
-     Moltiplichiamo entrambi i membri per $(1-p)$
+     Moltiplichiamo entrambi i membri per \((1-p)\)
      \[ \int \frac{(1-p) d x_j(t)}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t} \]
-     Poniamo poi $y = p + (1-p)x_j(t)$.
-     La sua derivata di $y$ sarà $y' = \frac{dy}{dx_j(t)} = (1-p)x_j(t)$, ovvero il numeratore della frazione nel primo integrale.
+     Poniamo poi \(y = p + (1-p)x_j(t)\).
+     La derivata di $y$ sarà
+     \[ y' = \frac{dy}{dx_j(t)} = (1-p)\]
+     ovvero il numeratore della frazione nel primo integrale.
      \[ \int \frac{y'}{y} \, dx_j(t) = (1-p) \int \frac{dt}{t} \]
      Il quale si può semplificare come
      \[
@@ -248,7 +263,7 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 
      Adesso che è rimasto solo il fattore $y$ al primo membro, risostituiamo col valore origianle 
      \[
-     \int \frac{d \left[p + (1-p) x_j(t) \right]}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t}
+     \int \frac{dy}{y} = \int \frac{d \left[p + (1-p) x_j(t) \right]}{p + (1-p)x_j(t)} = (1-p) \int \frac{dt}{t}
      \]
      A questo punto è facile integrare, ottenendo che
      \[ \ln{\left( p + (1-p) x_j(t) \right)} = (1-p) \ln{(t)} + c \]
@@ -362,14 +377,96 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
   Questo è dovuto al fatto che la popolarità di una canzone in una playlist piuttosto che in un altra dipendeva da come si evolvevano le fasi iniziali.
   #+end_quote
 
-  Ciò che mostra questo esperimento è *il processo che conduce alla popolarità è fortemente sensibile alle condizioni iniziali*.
+  Ciò che mostra questo esperimento è che *il processo che conduce alla popolarità è fortemente sensibile alle condizioni iniziali*.
   Perciò si potrebbe inizialmente sfruttare il *feedback* per cercare di influenzare la popolarità di una entità della rete.
   
-** La lunga coda
-  
-[da finire ...]
+* La lunga coda
+  La distribuzione della popolarità dei nodi di una rete può avere importanti effetti su attività commerciali.
+  Per esempio consideriamo un sito di vendita di libri online.
+  Il gestore del sito potrebbe chiedersi:
+  #+begin_quote
+  /è più conveniente vendere _tante copie di un pochi libri molto popolari_, oppure è meglio vendere _poche copie ma di tantissimi libri poco popolari_?/
+  #+end_quote
+  Anche in questo caso ci stiamo interessando alla popolarità, però non vogliamo sapere quanti nodi hanno grado $k$ (ovvero sono popolari) bensì vogliamo
+  sapere se il volume di affare di tanti libri poco popolari è paragonabile a quello di pochi libri molto popolari.\\
 
------ 
+  Come prima cosa enumeriamo i libri a disposizione in un ordine _non crescente_ di popolarità.
+  Ovvero, siano i libri \(\{ 1, ..., n \}\) disponibili nel magazzino online, assumiamo che essi sono ordinati in modo tale che la popolarità (o grado entrante) \(\delta(i)\) del libro $i$ è 
+  _non maggiore_ di quella di \(i+1\).
+  \[
+  \delta(1) \geq \delta(2) \geq ... \geq \delta(n)
+  \]
+  # scatter(books, p, label=:none, c=:red, markersize=6, xlabel="books", ylabel="in-degree", xticks=1:16, yticks=0:5, ylim=(0,5.5))
+  #+ATTR_HTML: :width 100% :style max-width: 500px;
+  [[file:../images/ar-lesson02-img3.png]]
+
+  A questo punto, assumiamo che il numero di nodi avente una certa popolarità _aumenti_ al diminurie della popolairtà.
+  Ovvero i il numero di nodi con popolarità 100 sarà _minore_ di quelli con popolarità 99, che a sua volta sarà pià piccolo di quelli con popolairtà 98, ecc...\\
+
+  Sotto questa assunzione possiamo *raggrupare* i nodi con la stessa popolarità in un unico punto nel grafico, ottenendo così il seguente
+  
+  # scatter(nbooks, p, label=:none, c=:blue, markersize=7, xlabel="books' quantity", ylabel="in-degree", xticks=1:16, yticks=0:5, ylim=(0,5.5), shape=:rect)
+  #+ATTR_HTML: :width 100% :style max-width: 500px;
+  #+NAME: fig:grafico1
+  [[file:../images/ar-lesson02-img4.png]]
+
+  Osserviamo che invertendo gli assi, otteniamo nuovamente il grafico che ci dice il numero di nodi che hanno un determinato grado entrante (ovvero ciò che abbiamo analizzato in queste lezioni).
+  
+  # scatter(p, nbooks, label=:none, c=:blue, markersize=7, ylabel="books' quantity", xlabel="in-degree", yticks=0:6, xticks=1:5, ylim=(0,6.5), shape=:rect)
+  #+CAPTION: Grafico con assi invertite.
+  #+NAME: fig:grafico2
+  #+ATTR_HTML: :width 100% :style max-width: 500px;
+  [[file:../images/ar-lesson02-img5.png]]
+
+  Indichiamo formalmente con \(\#(k) = n\) la funzione che data la popolarità $k$ ci dice il numero di libri $n$ con tale probabilità, come quello mostrato in figura [[fig:grafico2]].\\
+
+  Quello che interessa a noi è identificare la funzione che descrive il grafico [[fig:grafico1]], ovvero la funzione \(\#^-1(n) = k\) che dato un numero di libri $n$ aventi la stessa popolarità ci dice la loro popolarità esatta $k$.
+  Sempre ammettendo che la funzione \(\#(\cdot)\) sia _invertibile_.\\
+  
+  È possibile dimostrare che se la funzione \(\f(\cdot)\) che esprime *la frazione* di libri (nodi) che hanno popolarità (grado entrante) $k$ è una *PowerLaw*,
+  allora anche la funzione \(\#(\cdot)\) (che invece esprime il numero esatto, e non una frazione) è una *PowerLaw*.
+  Ovvero
+  \[
+  n = \#(k) \approx k^{-c}
+  \]
+  per qualche \(c > 0\).\\
+  
+  Da essa è poi facile ricavarne l'inversa
+  \[
+  k = \#^-1(n) \approx n^{-1/c}
+  \]
+
+  Se quindi \(k \approx n^{-1/c}\), dove $k$ è un livello di popolarità ed $n$ è il numero di nodi con tale popolarità, possiamo osservare graficamente
+  che $k$ decresce *mooolto* lentamente.
+  
+  # plot(1:10^5, n -> 100*n^(-.2), xticks=(0:2*10^4:10^5, ["1", "2x10^4", "4x10^4", "6x10^4", "8x10^4", "10^5"]), yticks=0:10:100, ylims=(0,110), label=:none, w=2, xlabel="books' quantity", ylabel="in-degree")
+  # plot(3:100, n -> 100*n^(-.3), xticks=(3:20:100, ["1", "2x10^3", "4x10^3", "6x10^3", "8x10^3", "10^5"]), yticks=0:10:100, ylims=(0,110), label=:none, w=2, xlabel="books' quantity", ylabel="in-degree")
+  #+NAME: fig:grafico3
+  #+ATTR_HTML: :width 100% :style max-width: 500px;
+  [[file:../images/ar-lesson02-img6.png]]
+  
+  Come possiamo vedere dalla Figura [[fig:grafico3]], la popolarità $k$ al crescere del numero dei libri decresce molto lentamente.
+  Si crea appunto una *lunga coda*.\\
+
+  Dato che in genere il *volume di affari* ricavabile dalla vendita di un gruppo di prodotti è proporzionale alla loro popolairtà,
+  l'area di quelli poco popolari, ovvero l'area sotto la *lunga coda*, è _tutt'altro che trascurabile_.\\
+
+** Gli effeti del Web-Search
+   Ci chiediamo ora se l'utilizzo dei motori di ricerca su internet hanno un impatto su fenomeno del /rich-get-richer/.\\
+   
+   Da una parte il fenomeno è *amplificato*, in quanto i motori di ricerca tendono a proproti come primi risultati le pagine più "famose" (inerentemente alla tua ricerca).\\
+
+   D'altra parte l'effetto è *mitigato*, in quanto la ricerca è soggetta a una "scrematura" delle pagine in base alle parole usate per la ricerca.
+   Infatti l'utilizzo di parole inusuali possono poartare come risultato della ricerca pagine che non sono "famose".\\
+
+   Per quello visto prima, un venditore è interessato a promuovere i suoi prodotti "di nicchia" (quelli meno popolari), appunto per cercare di ricavare
+   il guadagno dalla lunga coda.\\
+
+   Per questo motivo i venditori online cercano sempre di rendirizzare gli utenti verso i prodotti "in coda", per esempio tramite l'utilizzo del cosidetto *recommendation system*
+   i quali invitano gli utenti a visitare le pagine meno popolari.\\
+
+   In poche parole gli strumenti di web-search sono un esempio di utilizzo degli *effetti feedback*, i quali a volte amplificano l'effetto rich-get-richer, mentre altre volte lo mitigano.
+   -----
   
 [fn:1] /i.i.d./ sta per /indipendenti e identicamente distribuite/.
 [fn:2] [Broder et al., 2000]
