@@ -1,0 +1,81 @@
+#+title: CP2 - Lesson 1
+#+date: <2022-03-08>
+#+teacher: Claudio Macci
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Eventi e Probabilità
+  #+begin_quote
+  *Definizione 1.1.* Uno *Spazio di Probabilità* è una terna ordinata \((\Omega, \mathcal{F}, \mathcal{P})\) tale che:
+  - \(\Omega\) è un insieme *non vuoto* che rappresenta l'insieme dei possibili risultati del fenomeno aleatorio analizzato.
+  - \(\mathcal{F}\) è una *famiglia di sottoinsiemi* di \(\Omega\) detti *eventi*.
+    Ovviamente si richiede che \(\mathcal{F}\) abbia la proprietà di chiusura rispetto agli operatori insiemistici.
+    Nel caso in cui \(\Omega\) è un insieme *finito e numerabile*, allora ha senso porre \(\mathcal{F} \equiv 2^{\Omega}\).
+  - \(\mathcal{P}\) è una *misura di probabilità* (vedi definizione successiva).
+  #+end_quote
+  \\
+  #+begin_quote
+  *Definizione 1.2.* una *misura di probabilità* \(\mathcal{P}\) è unafunzione \(\mathcal{P} : \mathcal{F} \to [ 0, \infty )\) tale che \(\mathcal{P}(\Omega) = 1\) e,
+  per ogni successione di eventi \(\{ E_n \}_n\) _disgiunti a due a due_ (cioè tali che \( E_i \cap E_j = \emptyset\) per ogni \(i \neq j\)), si ha
+  \[
+  \mathcal{P}\Big(\bigcup_n E_n\Big) = \sum_n \mathcal{P}(E_n)
+  \]
+  #+end_quote
+  
+  #+begin_quote
+  *Conseguenze della definizione 1.2.*
+  1. \(\emptyset \in \mathcal{F}\) e \(\mathcal{P}(\emptyset) = 0\).
+  2. Per ogni coppia di eventi \(E,F \in \mathcal{F}\) tali che \(E \subset F\) si ha che \(\mathcal{P}(E) \leq \mathcal{P}(F)\).
+  3. Dal punto (2) si ricava che per ogni evento  \(E \in \mathcal{F}\)
+     - \(\mathcal{P}(E) \in [ 0,1 ]\), perché \(E \subseteq \Omega\).
+     - \(\mathcal{P}(E) = 1 - \mathcal{P}(E^C)\) e viceversa \(\mathcal{P}(E^C) = 1 - \mathcal{P}(E)\).
+  4. Per ogni coppia di eventi \(E,F \in \mathcal{F}\) si ha che \(\mathcal{P}(E) = \mathcal{P}(E \cap F) + \mathcal{P}(E \cap F^C)\), infatti
+     \begin{align*}
+       \mathcal{P}(E)
+       &= \mathcal{P}(E \cap \Omega)\\
+       &= \mathcal{P}(E \cap (F \cup F^C))\\
+       &= \mathcal{P}((E \cap F) \cup (E \cap F^C))\\
+       &= \mathcal{P}(E \cap F) +  \mathcal{P}(E \cap F^C)
+     \end{align*}
+  #+end_quote
+
+  Osserviamo che nel caso in cui \(\Omega\) è discreto e finito, allora avremo che esso sarà pari all'unione delle singole componenti, ovvero
+  \[
+  \Omega \equiv \bigcup_n \{ \omega_n \}
+  \]
+  Perciò con la sola conoscienza dell'insieme di probabilità \(\lbrace \mathcal{P}( \{ \omega_n \} ) \rbrace_n\) possiamo ricavare la probabilità di qualsias evento \(E \in \mathcal{F}\)
+  \[
+  E \equiv \bigcup_{n : \omega_n \in E} \{ \omega_n \}
+  \implies \mathcal{P}(E) = \sum_{n : \omega_n \in E} \mathcal{P}(\{ \omega_n \})
+  \]
+  
+  
+  #+begin_quote
+  *Lemma 1.1.*
+  Per ogni coppia di eventi \(E_1,E_2 \in \mathcal{F}\) si ha che
+  \[
+  \mathcal{P}(E_1 \cup E_2) = \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2)
+  \]
+  #+end_quote
+  
+  #+begin_quote
+  Osserviamo graficamente che
+  \[
+  E_1 \cup E_2 = (E_1 \cap E_2^C) \cup (E_1 \cap E_2) \cup (E_1^C \cap E_2)
+  \]
+  *[FARE IMMAGINE]*\\
+  
+  E dato che si tratta di tutti e tre insiemi reciprocamente disgiunti avremo che 
+  \[
+  \mathcal{P}(E_1 \cup E_2) = \mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2) + \mathcal{P}(E_1^C \cap E_2)
+  \]
+  Infine sommando e sottraendo per \(\mathcal{P}(E_1 \cap E_2)\) avremo che
+  \begin{align*}
+    \mathcal{P}(E_1 \cup E_2)
+    &= \mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2) + \mathcal{P}(E_1^C \cap E_2)\\
+    &= \underbrace{\mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2)}_{= \mathcal{P}(E_1)} + \underbrace{\mathcal{P}(E_1^C \cap E_2) + \mathcal{P}(E_1 \cap E_2)}_{= \mathcal{P}(E_2)} - \mathcal{P}(E_1 \cap E_2)\\
+    &= \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2) \;\; \square
+  \end{align*}
+  #+end_quote
+  
+  -----
