@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-10 gio 15:46 -->
+<!-- 2022-03-10 gio 21:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CP2 - Lesson 1</title>
@@ -342,8 +342,8 @@ Perciò con la sola conoscienza dell'insieme di probabilità \(\lbrace \mathcal{
   E \equiv \bigcup_{n : \omega_n \in E} \{ \omega_n \}
   \implies \mathcal{P}(E) = \sum_{n : \omega_n \in E} \mathcal{P}(\{ \omega_n \})
   \]
+<br />
 </p>
-
 
 <blockquote>
 <p>
@@ -357,7 +357,7 @@ Per ogni coppia di eventi \(E_1,E_2 \in \mathcal{F}\) si ha che
 
 <blockquote>
 <p>
-Osserviamo graficamente che
+<b>Proof</b> Osserviamo graficamente che
 \[
   E_1 \cup E_2 = (E_1 \cap E_2^C) \cup (E_1 \cap E_2) \cup (E_1^C \cap E_2)
   \]
@@ -378,7 +378,129 @@ Infine sommando e sottraendo per \(\mathcal{P}(E_1 \cap E_2)\) avremo che
   &= \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2) \;\; \square
 \end{align*}
 </blockquote>
+<p>
+<br />
+</p>
+<blockquote>
+<p>
+<b>Lemma 1.2 (Union Bound).</b>
+Per ogni famgilia finita (o successione) di eventi \(\{E_n\}_n\) si ha che
+\[
+  \mathcal{P}(\bigcup_n E_n) \leq \sum_n \mathcal{P}(E_n)
+  \]
+</p>
+</blockquote>
 
+<blockquote>
+<p>
+<b>Proof</b> consideriamo la seguente successione di eventi \(\{\hat{E}_n\}_n\) tali che
+</p>
+\begin{align*}
+  \hat{E}_1 &= E_1\\
+  \hat{E}_h &= E_h \cap (E_1 \cup ... \cup E_{h-1})^C \;\; \forall 2 \leq h \leq n
+\end{align*}
+
+<p>
+Tale successione ha la seguenti proprietà
+</p>
+<ul class="org-ul">
+<li>\(\bigcup_n \hat{E}_n = \bigcup_n E_n\)</li>
+<li>gli eventi di \(\{\hat{E}_n\}_n\) sono <span class="underline">disgiunti a due a due</span>.</li>
+</ul>
+
+<p>
+Inoltre essendo che \(\hat{E}_n = E_n \cap (E_1 \cup ... \cup E_{n-1})^C \subset E_n\) per ogni \(n\), avremo che
+\[
+  \mathcal{P}\Big( \bigcup_n E_n \Big) = \mathcal{P}\Big( \bigcup_n \hat{E}_n \Big) = \sum_n \mathcal{P}( \hat{E}_n ) \leq \sum_n \mathcal{P}( E_n ) \;\square
+  \]
+</p>
+</blockquote>
+<p>
+<br />
+</p>
+<blockquote>
+<p>
+<b>Lemma 1.3 (Principio di inclusione-esclusione)</b>
+Per ogni famiglia <span class="underline">finita</span> di eventi \(\{ E_1 \}_n\) si ha che
+\[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \sum_i \mathcal{P}(E_i) - \sum_{i < j} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{n-1}\mathcal{P}(E_1 \cap ... \cap E_n)
+  \]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Proof</b>
+Dimostriamo il principio per induizione su \(n\).<br />
+</p>
+
+<p>
+Per \(n = 2\) ciò è vero grazie al Lemma 1.1.<br />
+</p>
+
+<p>
+Supponiamo sia vero per \(n-1\), dimostriamo allora per induzione che è vero anche per \(n \geq 3\).
+Iniziamo ponendo
+\[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}((E_1 \cup ... \cup E_{n-1}) \cap E_n)
+  \]
+e per distribuzione dell'intersezione rispetto all'unione
+\[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}\Big( \bigcup_{i=1}^{n-1} (E_i \cap E_n) \Big)
+  \]
+Applicando l'ipotesi induttiva per i primi \(n-1\) eventi avremo che
+</p>
+\begin{align*}
+  &\mathcal{P}(E_1 \cup ... \cup E_n) =\\
+  &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
+  &= \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}( (E_i \cap E_n) \cap (E_j \cap E_n) ) + ... + (-1)^{(n-1)-1} \mathcal{P}( (E_1 \cap E_n) \cap ... \cap (E_{n-1} \cap E_n) ) \Big\rbrace\\
+  &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
+  &- \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1} \cap E_n) \Big\rbrace
+\end{align*}
+
+<p>
+Infine, grazie al segno <code>-</code> prima delle parentesi graffe, possiamo combianre
+\[
+  \sum_{i \leq n-1} \mathcal{P}(E_i)
+  \mbox{ e }
+  \mathcal{P}(E_n)
+  \]
+\[
+  \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j)
+  \mbox{ e }
+  \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n)
+  \]
+\[
+  \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k)
+  \mbox{ e }
+  \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n)
+  \]
+\[
+  \vdots
+  \]
+ottenendo così la formula del teorema \(\square\).
+</p>
+</blockquote>
+<p>
+<br />
+</p>
+<blockquote>
+<p>
+<b>Definizione 1.3 (Indipendenza tra eventi).</b>
+Due eventi \(E,F \in \mathcal{F}\) si dicono <b>indipendenti</b> se
+\[
+  \mathcal{P}(E \cap F) = \mathcal{P}(E)\mathcal{P}(F)
+  \]
+Più in generale, data una sequenza di eventi \(E_1, ..., E_n\) essi sono indipendenti <b>se e solo se</b> dato un qualsiasi sottoinsiemi
+\(\{ E_{i1}, ..., E_{ik} \}\) di \(k \geq 2\) si ha che
+\[
+  \mathcal{P}(E_{i1} \cap ... \cap E_{ik}) = \mathcal{P}(E_{i1}) \cdot ... \cdot \mathcal{P}(E_{ik})
+  \]
+</p>
+</blockquote>
+<p>
+<b>[DA FINIRE]</b>
+</p>
 <hr />
 </div>
 </div>
@@ -387,7 +509,7 @@ Infine sommando e sottraendo per \(\mathcal{P}(E_1 \cap E_2)\) avremo che
 <p class="date">Data: 2022-03-08 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-10 gio 15:46</p>
+<p class="date">Created: 2022-03-10 gio 21:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

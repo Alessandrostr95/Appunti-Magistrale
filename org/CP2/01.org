@@ -48,7 +48,7 @@
   E \equiv \bigcup_{n : \omega_n \in E} \{ \omega_n \}
   \implies \mathcal{P}(E) = \sum_{n : \omega_n \in E} \mathcal{P}(\{ \omega_n \})
   \]
-  
+  \\
   
   #+begin_quote
   *Lemma 1.1.*
@@ -59,7 +59,7 @@
   #+end_quote
   
   #+begin_quote
-  Osserviamo graficamente che
+  *Proof* Osserviamo graficamente che
   \[
   E_1 \cup E_2 = (E_1 \cap E_2^C) \cup (E_1 \cap E_2) \cup (E_1^C \cap E_2)
   \]
@@ -77,5 +77,97 @@
     &= \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2) \;\; \square
   \end{align*}
   #+end_quote
+  \\
+  #+begin_quote
+  *Lemma 1.2 (Union Bound).*
+  Per ogni famgilia finita (o successione) di eventi \(\{E_n\}_n\) si ha che
+  \[
+  \mathcal{P}(\bigcup_n E_n) \leq \sum_n \mathcal{P}(E_n)
+  \]
+  #+end_quote
+
+  #+begin_quote
+  *Proof* consideriamo la seguente successione di eventi \(\{\hat{E}_n\}_n\) tali che
+  \begin{align*}
+    \hat{E}_1 &= E_1\\
+    \hat{E}_h &= E_h \cap (E_1 \cup ... \cup E_{h-1})^C \;\; \forall 2 \leq h \leq n
+  \end{align*}
+
+  Tale successione ha la seguenti proprietà
+  - \(\bigcup_n \hat{E}_n = \bigcup_n E_n\)
+  - gli eventi di \(\{\hat{E}_n\}_n\) sono _disgiunti a due a due_.
+
+  Inoltre essendo che \(\hat{E}_n = E_n \cap (E_1 \cup ... \cup E_{n-1})^C \subset E_n\) per ogni $n$, avremo che
+  \[
+  \mathcal{P}\Big( \bigcup_n E_n \Big) = \mathcal{P}\Big( \bigcup_n \hat{E}_n \Big) = \sum_n \mathcal{P}( \hat{E}_n ) \leq \sum_n \mathcal{P}( E_n ) \;\square
+  \]
+  #+end_quote
+  \\
+  #+begin_quote
+  *Lemma 1.3 (Principio di inclusione-esclusione)*
+  Per ogni famiglia _finita_ di eventi \(\{ E_1 \}_n\) si ha che
+  \[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \sum_i \mathcal{P}(E_i) - \sum_{i < j} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{n-1}\mathcal{P}(E_1 \cap ... \cap E_n)
+  \]
+  #+end_quote
   
+  #+begin_quote
+  *Proof*
+  Dimostriamo il principio per induizione su $n$.\\
+
+  Per \(n = 2\) ciò è vero grazie al Lemma 1.1.\\
+
+  Supponiamo sia vero per \(n-1\), dimostriamo allora per induzione che è vero anche per \(n \geq 3\).
+  Iniziamo ponendo
+  \[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}((E_1 \cup ... \cup E_{n-1}) \cap E_n)
+  \]
+  e per distribuzione dell'intersezione rispetto all'unione
+  \[
+  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}\Big( \bigcup_{i=1}^{n-1} (E_i \cap E_n) \Big)
+  \]
+  Applicando l'ipotesi induttiva per i primi \(n-1\) eventi avremo che
+  \begin{align*}
+    &\mathcal{P}(E_1 \cup ... \cup E_n) =\\
+    &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
+    &= \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}( (E_i \cap E_n) \cap (E_j \cap E_n) ) + ... + (-1)^{(n-1)-1} \mathcal{P}( (E_1 \cap E_n) \cap ... \cap (E_{n-1} \cap E_n) ) \Big\rbrace\\
+    &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
+    &- \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1} \cap E_n) \Big\rbrace
+  \end{align*}
+
+  Infine, grazie al segno =-= prima delle parentesi graffe, possiamo combianre
+  \[
+  \sum_{i \leq n-1} \mathcal{P}(E_i)
+  \mbox{ e }
+  \mathcal{P}(E_n)
+  \]
+  \[
+  \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j)
+  \mbox{ e }
+  \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n)
+  \]
+  \[
+  \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k)
+  \mbox{ e }
+  \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n)
+  \]
+  \[
+  \vdots
+  \]
+  ottenendo così la formula del teorema \(\square\).
+  #+end_quote
+  \\
+  #+begin_quote
+  *Definizione 1.3 (Indipendenza tra eventi).*
+  Due eventi \(E,F \in \mathcal{F}\) si dicono *indipendenti* se
+  \[
+  \mathcal{P}(E \cap F) = \mathcal{P}(E)\mathcal{P}(F)
+  \]
+  Più in generale, data una sequenza di eventi \(E_1, ..., E_n\) essi sono indipendenti *se e solo se* dato un qualsiasi sottoinsiemi
+  \(\{ E_{i1}, ..., E_{ik} \}\) di \(k \geq 2\) si ha che
+  \[
+  \mathcal{P}(E_{i1} \cap ... \cap E_{ik}) = \mathcal{P}(E_{i1}) \cdot ... \cdot \mathcal{P}(E_{ik})
+  \]
+  #+end_quote
+  *[DA FINIRE]*
   -----
