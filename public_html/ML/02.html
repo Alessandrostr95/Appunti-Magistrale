@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-11 ven 11:42 -->
+<!-- 2022-03-15 mar 23:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CP2 - Lesson 1</title>
+<title>ML - Lesson 02</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,287 +269,222 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">CP2 - Lesson 1</h1>
+<h1 class="title">ML - Lesson 02</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org00abfd0">Eventi e Probabilità</a></li>
+<li><a href="#org97b5ede">Fondamenti del Machine Learning</a>
+<ul>
+<li><a href="#org36c0ebb">Supervised Learning</a></li>
+<li><a href="#orgff3aef4">Unsupervised Learning</a></li>
+<li><a href="#org8d7e9fa">Reinforcement Learning</a></li>
+<li><a href="#org615e761">Definizioni</a></li>
+<li><a href="#orgd316290">Prediction Risk</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org00abfd0" class="outline-2">
-<h2 id="org00abfd0">Eventi e Probabilità</h2>
-<div class="outline-text-2" id="text-org00abfd0">
-<blockquote>
+<div id="outline-container-org97b5ede" class="outline-2">
+<h2 id="org97b5ede">Fondamenti del Machine Learning</h2>
+<div class="outline-text-2" id="text-org97b5ede">
 <p>
-<b>Definizione 1.1.</b> Uno <b>Spazio di Probabilità</b> è una terna ordinata \((\Omega, \mathcal{F}, \mathcal{P})\) tale che:
+Intuitivamente, l'obiettivo principale del <b>Machine Learning</b> è quello di cercare di apprendere <b>caretteristiche comuni</b> (o <b>patterns</b>), sulla base di <b>esempi</b> (il <b>training set</b>),
+in modo tale da ricavare un <b>modello</b> che ci consenta di fare <b>predizioni</b>.
+Per predizione si intende inferire informazioni da dei dati in input, senza però che venga definito in maniera formale come estrapolare queste informazioni (altrimenti si definirebbe direttamente un agloritmo).<br />
 </p>
-<ul class="org-ul">
-<li>\(\Omega\) è un insieme <b>non vuoto</b> che rappresenta l'insieme dei possibili risultati del fenomeno aleatorio analizzato.</li>
-<li>\(\mathcal{F}\) è una <b>famiglia di sottoinsiemi</b> di \(\Omega\) detti <b>eventi</b>.
-Ovviamente si richiede che \(\mathcal{F}\) abbia la proprietà di chiusura rispetto agli operatori insiemistici.
-Nel caso in cui \(\Omega\) è un insieme <b>finito e numerabile</b>, allora ha senso porre \(\mathcal{F} \equiv 2^{\Omega}\).</li>
-<li>\(\mathcal{P}\) è una <b>misura di probabilità</b> (vedi definizione successiva).</li>
-</ul>
-</blockquote>
+
+<p>
+Un <b>training set</b> composto da \(n\) items, è rappresentato come un insieme di vettori \(x_1, ..., x_n \in \mathbb{K}^d\) (per qualche dominio \(\mathbb{K}\) e costante \(d > 0\)).
+Insieme agli \(n\) items, il training set è provvisto di un insieme di valroti \(t_1, ..., t_n\), detti valori <b>target</b>, che indicano le informazioni <i>reali</i> che siamo interessati a predire.
+Come già accennato esso viene utilizzato per derivare un <b>modello di previsione</b> in grado di stimare il più precisamente possibile i target reali, che ovviamente dipenderà fortemente dal training set a disposizione.<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ml-lesson2-img1.png" alt="ml-lesson2-img1.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>L'approccio può ossere applicato in maniera <b>iterativa</b>.</p>
+</div>
+
+<p>
+Lo scopo finale è infine quello di predire il target con le migliori prestazioni possibili, sia in termini di <i>efficienza</i> che di <i>correttezza</i>.
+</p>
+</div>
+
+<div id="outline-container-org36c0ebb" class="outline-3">
+<h3 id="org36c0ebb">Supervised Learning</h3>
+<div class="outline-text-3" id="text-org36c0ebb">
+<p>
+[descrizione informale]
+</p>
+</div>
+</div>
+<div id="outline-container-orgff3aef4" class="outline-3">
+<h3 id="orgff3aef4">Unsupervised Learning</h3>
+<div class="outline-text-3" id="text-orgff3aef4">
+<p>
+[descrizione informale]
+</p>
+</div>
+</div>
+<div id="outline-container-org8d7e9fa" class="outline-3">
+<h3 id="org8d7e9fa">Reinforcement Learning</h3>
+<div class="outline-text-3" id="text-org8d7e9fa">
+<p>
+[descrizione informale]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org615e761" class="outline-3">
+<h3 id="org615e761">Definizioni</h3>
+<div class="outline-text-3" id="text-org615e761">
+<p>
+Innanzitutto si parte col definire un <b>dominio</b> \(\mathscr{X}\) iniziale di oggetti sui quali noi vogliamo fare predizioni.
+Modelliamo ognuno di questi oggetti come un vettore \(x \in \mathbb{R}^d\).
+Indichiamo gli elementi del vottore col termine <b>features</b>.
+Infine diremo che la <b>dimensionalità</b> del nostro problema è pari al numero di features degli elementi (ovvero \(d\)).<br />
+</p>
+
+<p>
+Dato che in genere noi vogliamo <i>classificare</i> gli elementi di \(\mathscr{Y}\), indichaimo con \(\mathscr{Y}\) l'insieme delle <i>"etichette"</i> possibili che possiamo assegnare agli elementi di \(\mathscr{X}\).
+Più precisamente, quando \(\mathscr{Y}\) è continuo, allora diremo che stiamo trattando un problema di <b>regressione</b>, quando invece \(\mathscr{Y}\) è dicreto, allora diremo che è un problema di <b>classificazione</b>.<br />
+</p>
+
+<p>
+Un <b>training set</b> \(\mathscr{T} \subseteq \mathscr{X} \times \mathscr{Y}\) è un insieme di <i>coppie ordinte</i> \((x_1, t_1), ..., (x_n, t_n)\), oguna delle quali formata da un item \(x_i \in \mathscr{X}\) e dal suo relativo valore target (effettivo) \(t_i \in \mathscr{Y}\).
+Generalmente si indica con \(\mathbf{X} \in \mathbb{R}^{n \times d}\) la matrice degli item \(x_1, ..., x_n\), detta anche <b>feature matrix</b>, e con \(t \in \mathbb{R}^n\) il vettore dei relativi valori target, detto <b>target vector</b>.
+</p>
+\begin{equation*}
+\mathbf{X} = \left (
+\begin{array}{ccc}
+  x_{11} & x_{12} & \cdots & x_{1d}\\
+  x_{21} & x_{22} & \cdots & x_{2d}\\
+  \vdots & \vdots & \ddots & \vdots\\
+  x_{n1} & x_{n2} & \cdots & x_{nd}
+\end{array}
+\right ) \in \mathbb{R}^{n \times d}
+\end{equation*}
+
+\begin{equation*}
+t = \left (
+\begin{array}{ccc}
+  t_1\\
+  t_2\\
+  \vdots\\
+  t_n
+\end{array}
+\right ) \in \mathbb{R}^{n}
+\end{equation*}
 <p>
 <br />
-</p>
-<blockquote>
-<p>
-<b>Definizione 1.2.</b> una <b>misura di probabilità</b> \(\mathcal{P}\) è unafunzione \(\mathcal{P} : \mathcal{F} \to [ 0, \infty )\) tale che \(\mathcal{P}(\Omega) = 1\) e,
-per ogni successione di eventi \(\{ E_n \}_n\) <span class="underline">disgiunti a due a due</span> (cioè tali che \( E_i \cap E_j = \emptyset\) per ogni \(i \neq j\)), si ha
+Dato un training set \(\mathscr{T}\), un apprenditore automatico \(A\) è un algoritmo che ritorna una <b>regola di predizione</b> (<i>classificatore</i> o <i>regressore</i> in base al dominio) del tipo
 \[
-  \mathcal{P}\Big(\bigcup_n E_n\Big) = \sum_n \mathcal{P}(E_n)
-  \]
-</p>
-</blockquote>
-
-<blockquote>
-<p>
-<b>Conseguenze della definizione 1.2.</b>
-</p>
-<ol class="org-ol">
-<li>\(\emptyset \in \mathcal{F}\) e \(\mathcal{P}(\emptyset) = 0\).</li>
-<li>Per ogni coppia di eventi \(E,F \in \mathcal{F}\) tali che \(E \subset F\) si ha che \(\mathcal{P}(E) \leq \mathcal{P}(F)\).</li>
-<li>Dal punto (2) si ricava che per ogni evento  \(E \in \mathcal{F}\)
-<ul class="org-ul">
-<li>\(\mathcal{P}(E) \in [ 0,1 ]\), perché \(E \subseteq \Omega\).</li>
-<li>\(\mathcal{P}(E) = 1 - \mathcal{P}(E^C)\) e viceversa \(\mathcal{P}(E^C) = 1 - \mathcal{P}(E)\).</li>
-</ul></li>
-<li><p>
-Per ogni coppia di eventi \(E,F \in \mathcal{F}\) si ha che \(\mathcal{P}(E) = \mathcal{P}(E \cap F) + \mathcal{P}(E \cap F^C)\), infatti
-</p>
-\begin{align*}
-  \mathcal{P}(E)
-  &= \mathcal{P}(E \cap \Omega)\\
-  &= \mathcal{P}(E \cap (F \cup F^C))\\
-  &= \mathcal{P}((E \cap F) \cup (E \cap F^C))\\
-  &= \mathcal{P}(E \cap F) +  \mathcal{P}(E \cap F^C)
-\end{align*}</li>
-</ol>
-</blockquote>
-
-<p>
-Osserviamo che nel caso in cui \(\Omega\) è discreto e finito, allora avremo che esso sarà pari all'unione delle singole componenti, ovvero
-\[
-  \Omega \equiv \bigcup_n \{ \omega_n \}
-  \]
-Perciò con la sola conoscienza dell'insieme di probabilità \(\lbrace \mathcal{P}( \{ \omega_n \} ) \rbrace_n\) possiamo ricavare la probabilità di qualsias evento \(E \in \mathcal{F}\)
-\[
-  E \equiv \bigcup_{n : \omega_n \in E} \{ \omega_n \}
-  \implies \mathcal{P}(E) = \sum_{n : \omega_n \in E} \mathcal{P}(\{ \omega_n \})
-  \]
+   A(\mathscr{T}) = h : \mathscr{X} \to \mathscr{Y}
+   \]
 <br />
-</p>
-
-<blockquote>
-<p>
-<b>Lemma 1.1.</b>
-Per ogni coppia di eventi \(E_1,E_2 \in \mathcal{F}\) si ha che
-\[
-  \mathcal{P}(E_1 \cup E_2) = \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2)
-  \]
-</p>
-</blockquote>
-
-<blockquote>
-<p>
-<b>Proof</b> Osserviamo graficamente che
-\[
-  E_1 \cup E_2 = (E_1 \cap E_2^C) \cup (E_1 \cap E_2) \cup (E_1^C \cap E_2)
-  \]
-<b>[FARE IMMAGINE]</b><br />
+Noi assumiamo che ogni oggeto del training set \(\mathscr{T}\) è campionato dal dominio \(\mathscr{X}\) in accordo a una <b>distribuzione</b> \(\mathscr{D}_1\).
+Perciò, per ogni elemento \(x \in \mathscr{X}\) avremo che \(p_{\mathscr{D}_1}(x)\) è la porbabilità che \(x\) sia presente nell'insieme \(\mathscr{T}\).<br />
 </p>
 
 <p>
-E dato che si tratta di tutti e tre insiemi reciprocamente disgiunti avremo che 
-\[
-  \mathcal{P}(E_1 \cup E_2) = \mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2) + \mathcal{P}(E_1^C \cap E_2)
-  \]
-Infine sommando e sottraendo per \(\mathcal{P}(E_1 \cap E_2)\) avremo che
+Analogamente assumiamo che anghe i rispettivi valori target degli elementi in \(\mathscr{T}\) sono campionati in accordo a una distribuzione \(\mathscr{D}_2\), <b>condizionata</b> sugli elementi di \(\mathscr{X}\).
+Perciò, per ogni \(t \in \mathscr{Y}\) avremo che \(p_{\mathscr{D}_2}(t \vert x)\) è la porbabilità che osservando il valore di target di \(x\) nel training set \(\mathscr{T}\), esso sia pari a \(t\).<br />
 </p>
-\begin{align*}
-  \mathcal{P}(E_1 \cup E_2)
-  &= \mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2) + \mathcal{P}(E_1^C \cap E_2)\\
-  &= \underbrace{\mathcal{P}(E_1 \cap E_2^C) + \mathcal{P}(E_1 \cap E_2)}_{= \mathcal{P}(E_1)} + \underbrace{\mathcal{P}(E_1^C \cap E_2) + \mathcal{P}(E_1 \cap E_2)}_{= \mathcal{P}(E_2)} - \mathcal{P}(E_1 \cap E_2)\\
-  &= \mathcal{P}(E_1) + \mathcal{P}(E_2) - \mathcal{P}(E_1 \cap E_2) \;\; \square
-\end{align*}
-</blockquote>
+
 <p>
+<b>IMPORTANTE:</b> per il momento trascuriamo questa definizione generale probabilistica, e assumiamo che la relazione tra oggetti e valori di target sia deterministica, ovvero una funzione ben definita \(f\) tale che \(t_i = f(x_i)\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd316290" class="outline-3">
+<h3 id="orgd316290">Prediction Risk</h3>
+<div class="outline-text-3" id="text-orgd316290">
+<p>
+Fissiamo un elemetno \(x \in \mathscr{X}\), con un rispettivo valore di target \(y \in \mathscr{Y}\) (nelle nostre assunzioni avremo \(y = f(x)\)).
+</p>
+
+<p>
+Dato un generico predittore \(h : \mathscr{X} \to \mathscr{Y}\), l'<b>errore</b> rispetto \(x\) si ottiene confrontando la preizione \(h(x)\) e il reale valore target \(y\).
+Il rapporto tra i due valori (predizione e target effettivo), è fatta in accordo a una <b>regola</b> che predefiniamo a priori e che dipende dal contesto.
+Per esempio, sbagliare a riconoscere il numero 2 o il numero 8 scritti a mano sono errori poco gravi e con uguale gravità.
+Viceversa, dare un <i>falso negativo</i> nella diagnosi di un tumore è decisamente molto più grave che dare un <i>flaso positivo</i>.<br />
+Tale regola di paragone è nota come <b>Loss Function</b>
+\[
+   L : \mathscr{Y} \times \mathscr{Y} \to \mathbf{R}
+   \]
+</p>
+
+<p>
+L'<b>errore di predizione</b> di una predizione \(h(x)\) è ricavata semplicemente applicando la <i>loss function</i>
+\[
+   \mathscr{R}(h(x), y) = L(h(x), y)
+   \]
 <br />
-</p>
-<blockquote>
-<p>
-<b>Lemma 1.2 (Union Bound).</b>
-Per ogni famgilia finita (o successione) di eventi \(\{E_n\}_n\) si ha che
+Consideriamo ora il caso in cui il valore target \(y\) non è definito deterministicamente come \(y = f(x)\), ma ripsetta la probabilità condizionata \(p_{\mathscr{D}_2}(y \vert x)\).
+Allora in questo caso l'errore di predizione è definito come la <span class="underline">media</span> della loss function al variare di tutti i possibili valori target \(y\) che \(x\) può assumere.
 \[
-  \mathcal{P}(\bigcup_n E_n) \leq \sum_n \mathcal{P}(E_n)
-  \]
-</p>
-</blockquote>
-
-<blockquote>
-<p>
-<b>Proof</b> consideriamo la seguente successione di eventi \(\{\hat{E}_n\}_n\) tali che
-</p>
-\begin{align*}
-  \hat{E}_1 &= E_1\\
-  \hat{E}_h &= E_h \cap (E_1 \cup ... \cup E_{h-1})^C \;\; \forall 2 \leq h \leq n
-\end{align*}
-
-<p>
-Tale successione ha la seguenti proprietà
-</p>
-<ul class="org-ul">
-<li>\(\bigcup_n \hat{E}_n = \bigcup_n E_n\)</li>
-<li>gli eventi di \(\{\hat{E}_n\}_n\) sono <span class="underline">disgiunti a due a due</span>.</li>
-</ul>
-
-<p>
-Inoltre essendo che \(\hat{E}_n = E_n \cap (E_1 \cup ... \cup E_{n-1})^C \subset E_n\) per ogni \(n\), avremo che
+   \mathscr{R}(h(x)) = \mathbb{E}_{\mathscr{D}_2} [ L(h(x), y) ] = \int_{\mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(y \vert x) \, dy
+   \]
+oppure nel caso di \(\mathscr{Y}\) discreto
 \[
-  \mathcal{P}\Big( \bigcup_n E_n \Big) = \mathcal{P}\Big( \bigcup_n \hat{E}_n \Big) = \sum_n \mathcal{P}( \hat{E}_n ) \leq \sum_n \mathcal{P}( E_n ) \;\square
-  \]
-</p>
-</blockquote>
-<p>
+   \mathscr{R}(h(x)) = \mathbb{E}_{\mathscr{D}_2} [ L(h(x), y) ] = \sum_{y \in \mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(y \vert x)
+   \]
 <br />
-</p>
-<blockquote>
-<p>
-<b>Lemma 1.3 (Principio di inclusione-esclusione)</b>
-Per ogni famiglia <span class="underline">finita</span> di eventi \(\{ E_1 \}_n\) si ha che
+Alla luce di questo, possiamo dire che predittore \(h^*\) è ottimo se minimizza la sua misura di rischio di predizione.
+Nel caso di \(\mathscr{Y}\) avremo
 \[
-  \mathcal{P}(E_1 \cup ... \cup E_n) = \sum_i \mathcal{P}(E_i) - \sum_{i < j} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{n-1}\mathcal{P}(E_1 \cap ... \cap E_n)
-  \]
-</p>
-</blockquote>
-
-<blockquote>
-<p>
-<b>Proof</b>
-Dimostriamo il principio per induizione su \(n\).<br />
-</p>
-
-<p>
-Per \(n = 2\) ciò è vero grazie al Lemma 1.1.<br />
-</p>
-
-<p>
-Supponiamo sia vero per \(n-1\), dimostriamo allora per induzione che è vero anche per \(n \geq 3\).
-Iniziamo ponendo
+   h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} L(h(x), f(x))
+   \]
+oppure nel caso continuo
 \[
-  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}((E_1 \cup ... \cup E_{n-1}) \cap E_n)
-  \]
-e per distribuzione dell'intersezione rispetto all'unione
-\[
-  \mathcal{P}(E_1 \cup ... \cup E_n) = \mathcal{P}(E_1 \cup ... \cup E_{n-1}) + \mathcal{P}(E_n) - \mathcal{P}\Big( \bigcup_{i=1}^{n-1} (E_i \cap E_n) \Big)
-  \]
-Applicando l'ipotesi induttiva per i primi \(n-1\) eventi avremo che
-</p>
-\begin{align*}
-  &\mathcal{P}(E_1 \cup ... \cup E_n) =\\
-  &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
-  &= \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}( (E_i \cap E_n) \cap (E_j \cap E_n) ) + ... + (-1)^{(n-1)-1} \mathcal{P}( (E_1 \cap E_n) \cap ... \cap (E_{n-1} \cap E_n) ) \Big\rbrace\\
-  &= \sum_{i \leq n-1} \mathcal{P}(E_i) - \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j) + \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1}) + \mathcal{P}(E_n)\\
-  &- \Big\lbrace \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n) - \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n) + ... + (-1)^{(n-1)-1}\mathcal{P}(E_1 \cap ... \cap E_{n-1} \cap E_n) \Big\rbrace
-\end{align*}
-
-<p>
-Infine, grazie al segno <code>-</code> prima delle parentesi graffe, possiamo combianre
-\[
-  \sum_{i \leq n-1} \mathcal{P}(E_i)
-  \mbox{ e }
-  \mathcal{P}(E_n)
-  \]
-\[
-  \sum_{i < j \leq n-1} \mathcal{P}(E_i \cap E_j)
-  \mbox{ e }
-  \sum_{i \leq n-1} \mathcal{P}(E_i \cap E_n)
-  \]
-\[
-  \sum_{i < j < k \leq n-1} \mathcal{P}(E_i \cap E_j \cap E_k)
-  \mbox{ e }
-  \sum_{i < j} \mathcal{P}(E_i \cap E_j \cap E_n)
-  \]
-\[
-  \vdots
-  \]
-ottenendo così la formula del teorema \(\square\).
-</p>
-</blockquote>
-<p>
+   h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathbb{E}_{\mathscr{D}_2} [ L(h(x), f(x)) ]
+   \]
 <br />
+Il problema di queste definizioni è che generalmente non sono noti ne \(f\) ne la distribuzione  \(\mathscr{D}_2\) di \(p_{\mathscr{D}_2}(y \vert x)\).
+Per risolvere questo incoveniente, basta calcolare il fattore di rischio rispetto al variare del solo elemento \(x\).<br />
 </p>
-<blockquote>
-<p>
-<b>Definizione 1.3 (Indipendenza tra eventi).</b>
-Due eventi \(E,F \in \mathcal{F}\) si dicono <b>indipendenti</b> se
-\[
-  \mathcal{P}(E \cap F) = \mathcal{P}(E)\mathcal{P}(F)
-  \]
-Più in generale, data una sequenza di eventi \(E_1, ..., E_n\) essi sono indipendenti <b>se e solo se</b> dato un qualsiasi sottoinsiemi
-\(\{ E_{i1}, ..., E_{ik} \}\) di \(k \geq 2\) si ha che
-\[
-  \mathcal{P}(E_{i1} \cap ... \cap E_{ik}) = \mathcal{P}(E_{i1}) \cdot ... \cdot \mathcal{P}(E_{ik})
-  \]
-</p>
-</blockquote>
-<p>
-<br />
-</p>
-<blockquote>
-<p>
-<b>Definizione 1.4 (Probabilità condizionata)</b>
-Dati due eventi \(E,F \in \mathcal{F}\) tali che \(P(F) \neq 0\), <span class="underline">la probabilità condizionata di \(E\) sapendo che si è verificato \(F\)</span> è definita come segue:
-\[
-  \mathcal{P}(E \vert F) = \frac{ \mathcal{P}(E \cap F) }{ \mathcal{P}(F) }
-  \]
-</p>
-</blockquote>
 
-<blockquote>
 <p>
-<b>Conseguenze della definizione 1.4.</b>
-</p>
-<ul class="org-ul">
-<li>\(\mathcal{P}(\Omega \vert F) = 1\), infatti
+Per comincire, osserviamo che nel caso in cui \(y\) è deterministicamente definita da \(f\), essa è comunque dipendente da \(x\).
+Perciò possiamo calcolare il valore medio al variare del solo \(x\) nel seguente modo
 \[
-    \mathcal{P}(\Omega \vert F) = \frac{ \mathcal{P}(\Omega \cap F) }{ \mathcal{P}(F) } = \frac{ \mathcal{P}(F) }{ \mathcal{P}(F) } = 1
-    \]</li>
-<li>Se \(E,F\) sono <span class="underline">indipendenti</span>, allora \(\mathcal{P}(E \vart F) = \mathcal{P}(E)\), infatti
+   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,f} [ L(h(x), f(x)) ] = \int_{\mathscr{X}} L(h(x), f(x)) \cdot p_{\mathscr{D}_1}(x) \, dx
+   \]
+Invece, quando \(y\) dipende dalla distribuzione \(\mathscr{D}_2\) in maniera condizionata dalla scelta di \(x\), possiamo calcolare il rischio come la media di una v.a. <b>multivariabile</b>, ovvero
 \[
-    \mathcal{P}(E \vert F) = \frac{ \mathcal{P}(E \cap F) }{ \mathcal{P}(F) } = \frac{ \mathcal{P}(E)\mathcal{P}(F) }{ \mathcal{P}(F) } = \mathcal{P}(E)
-    \]
-infatti, il termine <i>"indipendenti"</i> si spiega con il fatto che, se si sa che \(F\) si è verificato, allora la probabilità condizionata \(\mathcal{P}(E \vert F)\) non cambia rispetto a quella non condizionata \(\mathcal{P}(E)\).</li>
-<li>\(\mathcal{P}(E \cap F) = \mathcal{P}(E \vert F)\mathcal{P}(F)\) (banale).</li>
-</ul>
-</blockquote>
-<p>
+   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,\mathscr{D}_2} [ L(h(x), f(x)) ] = \int_{\mathscr{X}}\int_{\mathscr{Y}} L(h(x), f(x)) \cdot p_{\mathscr{D}_2}(f(x) \vert x) \, df(x) \, dx
+   \]
 <br />
-</p>
-<blockquote>
-<p>
-<b>Teorema 1.6 (Probabilità Totali)</b>
-Sia la successione finita \(\{E_n\}_n\) che formano una <b>partizione</b> di \(\Omega\), ovvero di eventi <span class="underline">disgiunti a due a due</span> tali che \(\bigcup_n E_n = \Omega\).
-Allora per ogni evento \(B \in \mathcal{F}\) è vera la seguente uguagliaza
+A questo punto, riscritto tutto in funzione del solo paramtro \(x\), proseguiamo osservando che le uniche informazioni certe, relative a \(\mathscr{D}_1,\mathscr{D}_2\) o \(f\), ce le abbiamo rispetto al training set \(\mathscr{T}\).
+Perciò empiricamente possiamo impiegare una media aritmetica rispetto alle sole informazioni di \(\mathscr{T}\)
 \[
-  \mathcal{P}(B) = \sum_{n}\mathcal{P}(B \vert E_n)\mathcal{P}(E_n)
-  \]
+   \mathscr{\overline{R}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
+   \]
+<br />
+Concludiamo dicendo che l'approccio del machine learning consiste nel derivare un predittore \(h\) che (quantomeno in maniera approssimata) minimzza il <b>rischio empirico</b> calcolato rispetto alle informazioni contenute nel training set \(\mathscr{T}\).<br />
 </p>
-</blockquote>
+
+<p>
+Perciò il problema dell'apprendimento automatico si riduce un problema di minimizzazione in un certo spazio delle funzioni \(\mathscr{H}\), ovvero l'insieme di tutti i possibili predittori \(h\).
+\[
+   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}(h)
+   \]
+</p>
 <hr />
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Data: 2022-03-08 mar 00:00</p>
+<p class="date">Data: 2022-03-15 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-11 ven 11:42</p>
+<p class="date">Created: 2022-03-15 mar 23:07</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

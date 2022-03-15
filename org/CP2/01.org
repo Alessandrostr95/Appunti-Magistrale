@@ -169,5 +169,35 @@
   \mathcal{P}(E_{i1} \cap ... \cap E_{ik}) = \mathcal{P}(E_{i1}) \cdot ... \cdot \mathcal{P}(E_{ik})
   \]
   #+end_quote
-  *[DA FINIRE]*
+  \\
+  #+begin_quote
+  *Definizione 1.4 (Probabilità condizionata)*
+  Dati due eventi \(E,F \in \mathcal{F}\) tali che \(P(F) \neq 0\), _la probabilità condizionata di $E$ sapendo che si è verificato $F$_ è definita come segue:
+  \[
+  \mathcal{P}(E \vert F) = \frac{ \mathcal{P}(E \cap F) }{ \mathcal{P}(F) }
+  \]
+  #+end_quote
+  
+  #+begin_quote
+  *Conseguenze della definizione 1.4.*
+  - \(\mathcal{P}(\Omega \vert F) = 1\), infatti
+    \[
+    \mathcal{P}(\Omega \vert F) = \frac{ \mathcal{P}(\Omega \cap F) }{ \mathcal{P}(F) } = \frac{ \mathcal{P}(F) }{ \mathcal{P}(F) } = 1
+    \]
+  - Se \(E,F\) sono _indipendenti_, allora \(\mathcal{P}(E \vart F) = \mathcal{P}(E)\), infatti
+    \[
+    \mathcal{P}(E \vert F) = \frac{ \mathcal{P}(E \cap F) }{ \mathcal{P}(F) } = \frac{ \mathcal{P}(E)\mathcal{P}(F) }{ \mathcal{P}(F) } = \mathcal{P}(E)
+    \]
+    infatti, il termine /"indipendenti"/ si spiega con il fatto che, se si sa che $F$ si è verificato, allora la probabilità condizionata \(\mathcal{P}(E \vert F)\) non cambia rispetto a quella non condizionata \(\mathcal{P}(E)\).
+  - \(\mathcal{P}(E \cap F) = \mathcal{P}(E \vert F)\mathcal{P}(F)\) (banale).
+  #+end_quote
+  \\
+  #+begin_quote
+  *Teorema 1.6 (Probabilità Totali)*
+  Sia la successione finita \(\{E_n\}_n\) che formano una *partizione* di \(\Omega\), ovvero di eventi _disgiunti a due a due_ tali che \(\bigcup_n E_n = \Omega\).
+  Allora per ogni evento \(B \in \mathcal{F}\) è vera la seguente uguagliaza
+  \[
+  \mathcal{P}(B) = \sum_{n}\mathcal{P}(B \vert E_n)\mathcal{P}(E_n)
+  \]
+  #+end_quote
   -----
