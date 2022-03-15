@@ -9,7 +9,7 @@
 
   La sintassi del linguaggio =QVT= è conforme al metamodello =MOF 2.0=.
   Supponiamo di voler transformare un modello =Ma= in un al modello =Mb=, i quali sono rispettivamenti conformi ai metamodelli basati su =MOF= =MMa= ed =MMb=.
-  Una trasformazione scritta in =QVT= dovrà quindi basarsi /basarsi/ su entrambi i metamodelli *sorgente* (=MMa=) e *target* (=MMb=).
+  Una trasformazione scritta in =QVT= dovrà quindi basarsi su /entrambi/ i metamodelli *sorgente* (=MMa=) e *target* (=MMb=).
   Tale trasformazione verrà quindi /eseguita/ da un engine che, preso in *input* il modello =Ma= conforme a =MMa=, restituirà come output un modello =Mb= conforme al metamodello =MMb=.
 
   #+ATTR_HTML: :style max-width:600px; width:100%

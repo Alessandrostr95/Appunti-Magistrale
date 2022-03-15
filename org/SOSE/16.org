@@ -109,7 +109,29 @@
    Vieceversa, se la trasformazione va da =p= ad =s=, se =s= non ha lo stesso nome di =p= allora il suo nome verrà /forzato/ ad essere uguale.
 
 ** Pattern Matching
-   
+   *[NON C'HA SENSO!]* forse intende che nell'espressione di tipo *template* vengono instanziate le variabili che rappresentano gli elementi del dominio.
+   Un esempio di espressione *template* è
+   #+begin_src 
+   c:Class{
+     namespace = p:Package {...};
+     kind = 'Persistent';
+     name = cn;
+   }
+   #+end_src
+
+** Creazione di oggetti e keys mediante templates
+   Un'espressione *object template* funge appunto da /template/ per istanziare un oggetto nel dominio di destinazione.
+   *[Manco questo c'ha senso]*
+
+** Propagazione di modifiche
+   L'effetto della propagazione di una modifica del un modello sorgente, equivale semanticamente a eseguire nuovamente l' *intera trasformazione* per ottenere una nuova versione coerente del modello target.
+
+   Invece, QVT garantisce che solo le parti del modello target coinvolte dalla modifica vengano rigenerate:
+   - il /check-before-enforces/ assicura che gli elementi del modello target che soddisfano le relazioni non vengano toccati.
+   - la selezione degli oggetti basata su chiavi garantisce che gli oggetti esistenti vengano aggiornati ove applicabile.
+   - il concetto di eliminazione garantisce che un oggetto venga eliminato solo quando nessun'altra regola richiede che esista.
+
+    
    
   -----
 [fn:1] rdbms: /Relational Data Base Management System/.

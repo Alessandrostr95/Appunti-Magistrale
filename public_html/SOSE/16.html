@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-07 lun 18:06 -->
+<!-- 2022-03-14 lun 18:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SOSE - QVT Part 2</title>
@@ -252,20 +252,22 @@ for the JavaScript code in this tag.
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org774c2b9">The Relations Language</a>
+<li><a href="#org05a1eb5">The Relations Language</a>
 <ul>
-<li><a href="#orgdf6883b">Relazioni top-level</a></li>
-<li><a href="#org79309cd">Check and Enforce</a></li>
-<li><a href="#orge944f1e">Pattern Matching</a></li>
+<li><a href="#org94d1339">Relazioni top-level</a></li>
+<li><a href="#org0fb37a4">Check and Enforce</a></li>
+<li><a href="#orgc268d52">Pattern Matching</a></li>
+<li><a href="#org332dd03">Creazione di oggetti e keys mediante templates</a></li>
+<li><a href="#orgb70aea4">Propagazione di modifiche</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org774c2b9" class="outline-2">
-<h2 id="org774c2b9">The Relations Language</h2>
-<div class="outline-text-2" id="text-org774c2b9">
+<div id="outline-container-org05a1eb5" class="outline-2">
+<h2 id="org05a1eb5">The Relations Language</h2>
+<div class="outline-text-2" id="text-org05a1eb5">
 <p>
 Una <b>trasformazione</b> tra due modelli viene specificata tramite un <b>insieme di relazioni</b> che devono essere valide affinché la trasformazione abbia successo.
 Un esempio è:
@@ -356,9 +358,9 @@ Se necessario, le clausole <b>when</b> e <b>where</b> possono contenere espressi
 </p>
 </div>
 
-<div id="outline-container-orgdf6883b" class="outline-3">
-<h3 id="orgdf6883b">Relazioni top-level</h3>
-<div class="outline-text-3" id="text-orgdf6883b">
+<div id="outline-container-org94d1339" class="outline-3">
+<h3 id="org94d1339">Relazioni top-level</h3>
+<div class="outline-text-3" id="text-org94d1339">
 <p>
 Una trasformazione <code>QVT</code> contiene due tipi di relazioni: <b>top-level</b> e <b>non-top-level</b>.
 Se viene invocata una trasformazione allora automaticamente vengono invocate tutte le sue relazioni <span class="underline">top-level</span>.
@@ -379,9 +381,9 @@ transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS) {
 </div>
 </div>
 
-<div id="outline-container-org79309cd" class="outline-3">
-<h3 id="org79309cd">Check and Enforce</h3>
-<div class="outline-text-3" id="text-org79309cd">
+<div id="outline-container-org0fb37a4" class="outline-3">
+<h3 id="org0fb37a4">Check and Enforce</h3>
+<div class="outline-text-3" id="text-org0fb37a4">
 <p>
 È possibile contrassegnare un dominio come <b>checkonly</b> o come <b>enforce</b>.<br />
 </p>
@@ -408,9 +410,49 @@ Vieceversa, se la trasformazione va da <code>p</code> ad <code>s</code>, se <cod
 </div>
 </div>
 
-<div id="outline-container-orge944f1e" class="outline-3">
-<h3 id="orge944f1e">Pattern Matching</h3>
-<div class="outline-text-3" id="text-orge944f1e">
+<div id="outline-container-orgc268d52" class="outline-3">
+<h3 id="orgc268d52">Pattern Matching</h3>
+<div class="outline-text-3" id="text-orgc268d52">
+<p>
+<b>[NON C'HA SENSO!]</b> forse intende che nell'espressione di tipo <b>template</b> vengono instanziate le variabili che rappresentano gli elementi del dominio.
+Un esempio di espressione <b>template</b> è
+</p>
+<pre class="example">
+c:Class{
+  namespace = p:Package {...};
+  kind = 'Persistent';
+  name = cn;
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org332dd03" class="outline-3">
+<h3 id="org332dd03">Creazione di oggetti e keys mediante templates</h3>
+<div class="outline-text-3" id="text-org332dd03">
+<p>
+Un'espressione <b>object template</b> funge appunto da <i>template</i> per istanziare un oggetto nel dominio di destinazione.
+<b>[Manco questo c'ha senso]</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb70aea4" class="outline-3">
+<h3 id="orgb70aea4">Propagazione di modifiche</h3>
+<div class="outline-text-3" id="text-orgb70aea4">
+<p>
+L'effetto della propagazione di una modifica del un modello sorgente, equivale semanticamente a eseguire nuovamente l' <b>intera trasformazione</b> per ottenere una nuova versione coerente del modello target.
+</p>
+
+<p>
+Invece, QVT garantisce che solo le parti del modello target coinvolte dalla modifica vengano rigenerate:
+</p>
+<ul class="org-ul">
+<li>il <i>check-before-enforces</i> assicura che gli elementi del modello target che soddisfano le relazioni non vengano toccati.</li>
+<li>la selezione degli oggetti basata su chiavi garantisce che gli oggetti esistenti vengano aggiornati ove applicabile.</li>
+<li>il concetto di eliminazione garantisce che un oggetto venga eliminato solo quando nessun'altra regola richiede che esista.</li>
+</ul>
+
 <hr />
 </div>
 </div>
@@ -433,7 +475,7 @@ OCL: <i>Object Constraint Language</i>.
 <div id="postamble" class="status">
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-07 lun 18:06</p>
+<p class="date">Created: 2022-03-14 lun 18:27</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
