@@ -84,7 +84,7 @@
    L : \mathscr{Y} \times \mathscr{Y} \to \mathbf{R}
    \]
 
-   L'*errore di predizione* di una predizione \(h(x)\) è ricavata semplicemente applicando la /loss function/
+   L'*errore di predizione* di un predittore \(h(x)\) rispetto ad $x$ è ricavata semplicemente applicando la /loss function/
    \[
    \mathscr{R}(h(x), y) = L(h(x), y)
    \]
@@ -104,26 +104,27 @@
    \[
    h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} L(h(x), f(x))
    \]
-   oppure nel caso continuo
+   oppure nel caso probabilistico
    \[
    h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathbb{E}_{\mathscr{D}_2} [ L(h(x), f(x)) ]
    \]
    \\
-   Il problema di queste definizioni è che generalmente non sono noti ne \(f\) ne la distribuzione  \(\mathscr{D}_2\) di \(p_{\mathscr{D}_2}(y \vert x)\).
-   Per risolvere questo incoveniente, basta calcolare il fattore di rischio rispetto al variare del solo elemento $x$.\\
+   Avvolte si necessita di misurare l'errore di un predittore $h$ in maniera più generale, e non in funzione dei singoli oggetti $x$ in input.
+   In questo caso, basta calcolare la *media* di \(\mathscr{R}\) al varirare di tutte le $x$ del dominio.\\
 
-   Per comincire, osserviamo che nel caso in cui $y$ è deterministicamente definita da $f$, essa è comunque dipendente da $x$.
-   Perciò possiamo calcolare il valore medio al variare del solo $x$ nel seguente modo
+   Nel caso di $y$ deterministicamente ricavato da una /funzione/ $f$ avremo 
    \[
    \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,f} [ L(h(x), f(x)) ] = \int_{\mathscr{X}} L(h(x), f(x)) \cdot p_{\mathscr{D}_1}(x) \, dx
    \]
    Invece, quando $y$ dipende dalla distribuzione \(\mathscr{D}_2\) in maniera condizionata dalla scelta di $x$, possiamo calcolare il rischio come la media di una v.a. *multivariabile*, ovvero
    \[
-   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,\mathscr{D}_2} [ L(h(x), f(x)) ] = \int_{\mathscr{X}}\int_{\mathscr{Y}} L(h(x), f(x)) \cdot p_{\mathscr{D}_2}(f(x) \vert x) \, df(x) \, dx
+   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,\mathscr{D}_2} [ L(h(x), y) ] = \int_{\mathscr{X}}\int_{\mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(f(x) \vert x) \, dy \, dx
    \]
    \\
-   A questo punto, riscritto tutto in funzione del solo paramtro $x$, proseguiamo osservando che le uniche informazioni certe, relative a \(\mathscr{D}_1,\mathscr{D}_2\) o $f$, ce le abbiamo rispetto al training set \(\mathscr{T}\).
-   Perciò empiricamente possiamo impiegare una media aritmetica rispetto alle sole informazioni di \(\mathscr{T}\)
+   Il problema principale di queste definizioni è che generalmente non sono noti ne la funzione $f$ ne la distribuzione  \(\mathscr{D}_2\) di \(p_{\mathscr{D}_2}(y \vert x)\).
+   Osservando che le uniche informazioni certe di cui siamo in possesso (relative a \(\mathscr{D}_1,\mathscr{D}_2\) o $f$) ce le abbiamo rispetto ai dati del training set \(\mathscr{T}\).\\
+   
+   Perciò empiricamente possiamo impiegare una *media aritmetica* rispetto alle sole informazioni di \(\mathscr{T}\) per ottenere il cosidetto *rischio empirico* \(\mathscr{\overline{R}}(h)\).
    \[
    \mathscr{\overline{R}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
    \]
