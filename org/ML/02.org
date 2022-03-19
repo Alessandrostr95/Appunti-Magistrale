@@ -126,13 +126,14 @@
    
    Perciò empiricamente possiamo impiegare una *media aritmetica* rispetto alle sole informazioni di \(\mathscr{T}\) per ottenere il cosidetto *rischio empirico* \(\mathscr{\overline{R}}(h)\).
    \[
-   \mathscr{\overline{R}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
+   \mathscr{\overline{R}}_{\mathscr{T}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
    \]
    \\
    Concludiamo dicendo che l'approccio del machine learning consiste nel derivare un predittore $h$ che (quantomeno in maniera approssimata) minimzza il *rischio empirico* calcolato rispetto alle informazioni contenute nel training set \(\mathscr{T}\).\\
 
    Perciò il problema dell'apprendimento automatico si riduce un problema di minimizzazione in un certo spazio delle funzioni \(\mathscr{H}\), ovvero l'insieme di tutti i possibili predittori $h$.
    \[
-   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}(h)
+   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}_{\mathscr{T}}(h)
    \]
+   L'insieme di funzioni \(\mathscr{H}\) nel quale effettuiamo la ricerca è anche detto *hypothesis set* (*insieme di ipotesi*) o *inductive bias*.
    -----

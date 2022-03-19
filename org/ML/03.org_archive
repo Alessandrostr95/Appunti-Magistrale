@@ -1,0 +1,35 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/alessandro/Appunti-Magistrale/org/ML/03.org
+
+
+* Tradeoff tra bias e varianza
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2022-03-17 gio 17:00
+  :ARCHIVE_FILE: ~/Appunti-Magistrale/org/ML/03.org
+  :ARCHIVE_CATEGORY: 03
+  :END:
+  Se prendo una classe $H$ con una sola funzione, avremo che il miglior predittore (unico) è *indipendente* dal training set.
+  Anche nel caso delle rette, ci sarà uno ottimo $h^*$, però in generale anche le altre funzioni non sbagliano in maniera troppo differente da $h^*$.
+  Perciò c'è /poca dipendenza/ da $T$.
+  Infatti, cambiando $T$, il predittore ottimo $h^*$ non cambierà molto.
+  In questo caso si parla di alto *bias* e bassa *varianza*.
+
+  Se incece considero un polinomio di grado $n = |T|$ ($H$ è molto ampio), avrò un predittore ottimo $h^*$ molto preciso, e molto dipendente da $T$.
+  Infatti, cambiando il $T$, cambia di molto $h^*$.
+  Diremo che c'è alta *varianza* e basso *bias*.
+   
+  #+caption: Bias vs Varianza.
+  [[file:image_path]]
+   
+   
+  - più il bias è basso (più è bassa la dipendenza da $T$) più è preciso il predittore $h^*$.
+  - più è bassa la varianza (più è ampio $H$), più è preciso $h^*$ rispetto al solo $T$.
+     
+  Perciò
+  \[
+  R(h^*) = \varepsilon_B + \varepsilon_V
+  \]
+  - \varepsilon_B
+  - \varepsilon_V

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-18 ven 12:27 -->
+<!-- 2022-03-18 ven 13:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ML - Lesson 02</title>
@@ -466,7 +466,7 @@ Osservando che le uniche informazioni certe di cui siamo in possesso (relative a
 <p>
 Perciò empiricamente possiamo impiegare una <b>media aritmetica</b> rispetto alle sole informazioni di \(\mathscr{T}\) per ottenere il cosidetto <b>rischio empirico</b> \(\mathscr{\overline{R}}(h)\).
 \[
-   \mathscr{\overline{R}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
+   \mathscr{\overline{R}}_{\mathscr{T}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
    \]
 <br />
 Concludiamo dicendo che l'approccio del machine learning consiste nel derivare un predittore \(h\) che (quantomeno in maniera approssimata) minimzza il <b>rischio empirico</b> calcolato rispetto alle informazioni contenute nel training set \(\mathscr{T}\).<br />
@@ -475,8 +475,9 @@ Concludiamo dicendo che l'approccio del machine learning consiste nel derivare u
 <p>
 Perciò il problema dell'apprendimento automatico si riduce un problema di minimizzazione in un certo spazio delle funzioni \(\mathscr{H}\), ovvero l'insieme di tutti i possibili predittori \(h\).
 \[
-   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}(h)
+   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}_{\mathscr{T}}(h)
    \]
+L'insieme di funzioni \(\mathscr{H}\) nel quale effettuiamo la ricerca è anche detto <b>hypothesis set</b> (<b>insieme di ipotesi</b>) o <b>inductive bias</b>.
 </p>
 <hr />
 </div>
@@ -487,7 +488,7 @@ Perciò il problema dell'apprendimento automatico si riduce un problema di minim
 <p class="date">Data: 2022-03-15 mar 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-18 ven 12:27</p>
+<p class="date">Created: 2022-03-18 ven 13:03</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

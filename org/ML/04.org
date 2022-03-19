@@ -1,0 +1,20 @@
+#+title: ML - Lesson 04
+#+date: <2022-03-18>
+#+teacher: Giorgio Gambosi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+** Approcci alternativi
+   [[./03.html][< conclusione lezione precedente]].\\
+   Una prima idea vista è quella di scegleire il miglior predittore \(h^*\) con il quale fare predizioni.
+
+   Un altro approccio invece è quello di usare *più* predittori, /combinando/ insieme tutte le relative predizioni per trovarne una singola.
+   Questo approccio è noto come *approccio ensamble*.\\
+   
+   Per fare questo, è sensato *pesare* le predizioni di tutti i predittori sulla base delle loro relative /affidabilità/.
+   
+   Perciò voglaimo trovare una distribuzione $p^*$ ed usare essa per predire la probabilità del traget \(p^*(y \vert x)\), per ogni elemento $x$.
+   Serve quindi definire una *funzione di valutazione* $q$ che definisce una /misura di qualità/ di una distribuzione $p$ rispetto a $T$.
+   
+   Se $q$ a sua volta prende una forma di distribuzione, allora la scelta di $p^*$ si ottiene /combinando/ \(q \circ p\).
+   

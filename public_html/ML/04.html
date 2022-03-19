@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-17 gio 14:47 -->
+<!-- 2022-03-18 ven 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SOSE - QVT Part 2</title>
+<title>ML - Lesson 04</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -240,6 +240,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -247,237 +269,49 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">SOSE - QVT Part 2</h1>
+<h1 class="title">ML - Lesson 04</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org774c2b9">The Relations Language</a>
-<ul>
-<li><a href="#orgdf6883b">Relazioni top-level</a></li>
-<li><a href="#org79309cd">Check and Enforce</a></li>
-<li><a href="#orge944f1e">Pattern Matching</a></li>
-<li><a href="#org84cf3e7">Creazione di oggetti e keys mediante templates</a></li>
-<li><a href="#org7eca4fe">Propagazione di modifiche</a></li>
-</ul>
-</li>
+<li><a href="#org07e955d">Approcci alternativi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org774c2b9" class="outline-2">
-<h2 id="org774c2b9">The Relations Language</h2>
-<div class="outline-text-2" id="text-org774c2b9">
+<div id="outline-container-org07e955d" class="outline-2">
+<h2 id="org07e955d">Approcci alternativi</h2>
+<div class="outline-text-2" id="text-org07e955d">
 <p>
-Una <b>trasformazione</b> tra due modelli viene specificata tramite un <b>insieme di relazioni</b> che devono essere valide affinché la trasformazione abbia successo.
-Un esempio è:
-</p>
-
-<pre class="example">
-transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS)
-{
-// … set of relations
-}
-</pre>
-<p align="center">Trasformazione da diagramma UML a basi dati relazionale.</p>
-
-<p>
-È possibile invocare una trasformazione per <span class="underline">verificare</span> la coerenza di due modelli o per modificare un modello per <span class="underline">imporre</span> la coerenza tra essi.<br />
+<a href="./03.html">&lt; conclusione lezione precedente</a>.<br />
+Una prima idea vista è quella di scegleire il miglior predittore \(h^*\) con il quale fare predizioni.
 </p>
 
 <p>
-Le <b>relazioni</b> in una trasformazione dichiarano i <b>vincoli</b> che devono essere soddisfatti dagli elementi dei modelli da trasformare.
-Una relazione è definita da due o più <b>domini</b> e da una coppia di predicati.<br />
+Un altro approccio invece è quello di usare <b>più</b> predittori, <i>combinando</i> insieme tutte le relative predizioni per trovarne una singola.
+Questo approccio è noto come <b>approccio ensamble</b>.<br />
 </p>
 
 <p>
-Un <b>dominio</b> è una variabile tipizzata, che può essere che può essere associata un modello.
-Ogni dominio ha un <b>pattern</b>, il quale può essere visto come un <i>grafo di oggetti</i> dove ogni associazione e proprietà formano un <i>arco</i>, in accordo alle caratteristiche del dominio.<br />
+Per fare questo, è sensato <b>pesare</b> le predizioni di tutti i predittori sulla base delle loro relative <i>affidabilità</i>.
 </p>
 
 <p>
-A livello di linguaggio, un pattern può essere visto come un insieme di <b>variabili</b> e <b>vincoli</b> che gli elementi del modello relative a tali variabili devono soddisfare per qualificarsi come un legame valido del pattern.
-</p>
-
-<pre class="example">
-relation PackageToSchema /* map each package to a schema */
-{
-  domain uml p:Package {name = pn}
-  domain rdbms s:Schema {name = pn}
-}
-</pre>
-<p align="center">Relazione tra <b>package</b> UML e <b>schema</b> di basi dati relazionale.</p>
-
-<p>
-Una relazione può essere vincolata da due insiemi di <i>predicati</i>, una clausola <b>when</b> e una clausola <b>where</b>.<br />
+Perciò voglaimo trovare una distribuzione \(p^*\) ed usare essa per predire la probabilità del traget \(p^*(y \vert x)\), per ogni elemento \(x\).
+Serve quindi definire una <b>funzione di valutazione</b> \(q\) che definisce una <i>misura di qualità</i> di una distribuzione \(p\) rispetto a \(T\).
 </p>
 
 <p>
-Una clausola <b>when</b> specifica le condizioni sotto le quali la relazione sussistere.
-Per esempio, se vogliamo mettere in realezione una <span class="underline">classe uml</span> <code>c</code> con una <span class="underline">tabella rdbms</span><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> <code>t</code> è necessario che il <span class="underline">package uml</span> <code>p</code> al quale la classe <code>c</code> appartiene deve essere in relazione con lo <span class="underline">schema di base dati</span> <code>s</code> al quale appartiene la tabella <code>t</code>.<br />
-</p>
-
-<p>
-Una clausola <b>where</b> invece specifica le condizioni che devono essere soddisfatte da tutti gli elementi del modello che partecipano alla relazione, e può vincolare qualsiasi variabile nella relazione.
-Perciò, tornando all'esempio della relazione tra una classe <code>c</code> e una tabella <code>t</code>, è necessario che ci sia una relazione tra gli <span class="underline">attributi</span> della classe <code>c</code> e le <span class="underline">colonne</span> della tabella <code>t</code>.
-</p>
-<pre class="example">
-relation ClassToTable
-{
-  domain uml c:Class {
-    namespace = p:Package {},
-    kind = 'Persistent',
-    name = cn
-  }
-
-  domain rdbms t:Table {
-    schema = s:Schema {},
-    name = cn,
-    column = cl:Column {
-      name = cn + '_tid',
-      type = 'NUMBER'
-    },
-    primaryKey = k:PrimaryKey {
-      name = cn + '_pk',
-      column=cl
-    }
-  }
-
-  when {
-    PackageToSchema(p, s);
-  }
-
-  where {
-    AttributeToColumn(c, t);
-  }
-}
-</pre>
-
-<p>
-Se necessario, le clausole <b>when</b> e <b>where</b> possono contenere espressioni <code>OCL</code><sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>, oltre alle invocazione di altre relazioni.
-</p>
-</div>
-
-<div id="outline-container-orgdf6883b" class="outline-3">
-<h3 id="orgdf6883b">Relazioni top-level</h3>
-<div class="outline-text-3" id="text-orgdf6883b">
-<p>
-Una trasformazione <code>QVT</code> contiene due tipi di relazioni: <b>top-level</b> e <b>non-top-level</b>.
-Se viene invocata una trasformazione allora automaticamente vengono invocate tutte le sue relazioni <span class="underline">top-level</span>.
-Invece le relazioni <span class="underline">non-top-level</span> vengono eseguite solamente in due casi:
-</p>
-<ol class="org-ol">
-<li>se invocate <b>esplicitamente</b>.</li>
-<li>in maniera <b>trnasitiva</b> quando presenti in clausole <i>where</i> o <i>when</i> di un'altra relazione invocata.</li>
-</ol>
-
-<pre class="example">
-transformation umlRdbms (uml : SimpleUML, rdbms : SimpleRDBMS) {
-    top relation PackageToSchema {…}
-    top relation ClassToTable {…}
-    relation AttributeToColumn {…}
-}
-</pre>
-</div>
-</div>
-
-<div id="outline-container-org79309cd" class="outline-3">
-<h3 id="org79309cd">Check and Enforce</h3>
-<div class="outline-text-3" id="text-org79309cd">
-<p>
-È possibile contrassegnare un dominio come <b>checkonly</b> o come <b>enforce</b>.<br />
-</p>
-
-<p>
-Quando una trasformazione è eseguita nella <span class="underline">direzione</span> di un dominio <i>checkonly</i>, viene semplicemente verificata la relazione per vedere se esiste una corrispondenza valida nel modello pertinente che soddisfi la relazione.<br />
-</p>
-
-<p>
-Quando invece viene eseguita una trasformazione nella <span class="underline">direzione</span> del modello di un dominio <i>enforce</i>, se il check fallisce il modello target viene modificato in modo tale da soddisfare la relazione, ovvero seguendo la dinamica del <i>"check-before-enforce"</i>.
-</p>
-
-<pre class="example">
-relation PackageToSchema {
-    checkonly domain uml p:Package {name = pn}
-    enforce domain rdbms s:Schema {name = pn}
-}
-</pre>
-
-<p>
-Nell'esempio, se sto strasformando uno schema <code>s</code> in package <code>p</code> viene solamente verificato che se i due nomi corrispondono.
-Vieceversa, se la trasformazione va da <code>p</code> ad <code>s</code>, se <code>s</code> non ha lo stesso nome di <code>p</code> allora il suo nome verrà <i>forzato</i> ad essere uguale.
+Se \(q\) a sua volta prende una forma di distribuzione, allora la scelta di \(p^*\) si ottiene <i>combinando</i> \(q \circ p\).
 </p>
 </div>
 </div>
-
-<div id="outline-container-orge944f1e" class="outline-3">
-<h3 id="orge944f1e">Pattern Matching</h3>
-<div class="outline-text-3" id="text-orge944f1e">
-<p>
-<b>[NON C'HA SENSO!]</b> forse intende che nell'espressione di tipo <b>template</b> vengono instanziate le variabili che rappresentano gli elementi del dominio.
-Un esempio di espressione <b>template</b> è
-</p>
-<pre class="example">
-c:Class{
-  namespace = p:Package {...};
-  kind = 'Persistent';
-  name = cn;
-}
-</pre>
 </div>
-</div>
-
-<div id="outline-container-org84cf3e7" class="outline-3">
-<h3 id="org84cf3e7">Creazione di oggetti e keys mediante templates</h3>
-<div class="outline-text-3" id="text-org84cf3e7">
-<p>
-Un'espressione <b>object template</b> funge appunto da <i>template</i> per istanziare un oggetto nel dominio di destinazione.
-<b>[Manco questo c'ha senso]</b>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org7eca4fe" class="outline-3">
-<h3 id="org7eca4fe">Propagazione di modifiche</h3>
-<div class="outline-text-3" id="text-org7eca4fe">
-<p>
-L'effetto della propagazione di una modifica del un modello sorgente, equivale semanticamente a eseguire nuovamente l' <b>intera trasformazione</b> per ottenere una nuova versione coerente del modello target.
-</p>
-
-<p>
-Invece, QVT garantisce che solo le parti del modello target coinvolte dalla modifica vengano rigenerate:
-</p>
-<ul class="org-ul">
-<li>il <i>check-before-enforces</i> assicura che gli elementi del modello target che soddisfano le relazioni non vengano toccati.</li>
-<li>la selezione degli oggetti basata su chiavi garantisce che gli oggetti esistenti vengano aggiornati ove applicabile.</li>
-<li>il concetto di eliminazione garantisce che un oggetto venga eliminato solo quando nessun'altra regola richiede che esista.</li>
-</ul>
-
-
-
-<hr />
-</div>
-</div>
-</div>
-<div id="footnotes">
-<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
-<div id="text-footnotes">
-
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
-rdbms: <i>Relational Data Base Management System</i>.
-</p></div></div>
-
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
-OCL: <i>Object Constraint Language</i>.
-</p></div></div>
-
-
-</div>
-</div></div>
 <div id="postamble" class="status">
+<p class="date">Data: 2022-03-18 ven 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-17 gio 14:47</p>
+<p class="date">Created: 2022-03-18 ven 15:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
