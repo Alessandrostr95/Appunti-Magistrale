@@ -272,7 +272,7 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      
 
      Per calcolare la costante $C$ basta considerare la condizione iniziale per cui $x_j(j) = 0$, ottenendo che
-     \[ p = C \cdot j^{1-p} \implies C = \frac{p}{ j^(1-p) } \]
+     \[ p = C \cdot j^{1-p} \implies C = \frac{p}{ j^{(1-p)} } \]
 
      Concludendo che
      \[
