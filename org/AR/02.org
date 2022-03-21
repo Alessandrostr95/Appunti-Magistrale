@@ -277,9 +277,9 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      Concludendo che
      \[
      p + (1-p) x_j(t) = C \cdot t^{1-p}\\
-     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^(1-p) } \cdot t^{1-p} = p \left( \frac{j}{t}  \right)^{1-p}\\
-     (1-p) x_j(t) = p \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\\
-     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]
+     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^{(1-p)} } \cdot t^{1-p} = p \left( \frac{t}{j}  \right)^{1-p}\\
+     (1-p) x_j(t) = p \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right]\\
+     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right]
      \]
 
 **** *Individuazione Power Law*
@@ -298,10 +298,10 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
 
      Risolvendo questa disequazione per trovere i valori di $j$ che rispettano la disuguaglianza
      \[
-     \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\\
-     \left( \frac{j}{t}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
-     \left( \frac{j}{t}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
-     \frac{j}{t} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
+     \frac{p}{1-p} \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right] \geq k\\
+     \left( \frac{t}{j}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
+     \left( \frac{t}{j}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
+     \frac{t}{j} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
      j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }
      \]
 
@@ -380,6 +380,7 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
   Ciò che mostra questo esperimento è che *il processo che conduce alla popolarità è fortemente sensibile alle condizioni iniziali*.
   Perciò si potrebbe inizialmente sfruttare il *feedback* per cercare di influenzare la popolarità di una entità della rete.
   
+
 * La lunga coda
   La distribuzione della popolarità dei nodi di una rete può avere importanti effetti su attività commerciali.
   Per esempio consideriamo un sito di vendita di libri online.

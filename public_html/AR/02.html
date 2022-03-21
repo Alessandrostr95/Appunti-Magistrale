@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-21 lun 12:31 -->
+<!-- 2022-03-21 lun 16:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AR - Lesson 02-03</title>
@@ -673,9 +673,9 @@ Per calcolare la costante \(C\) basta considerare la condizione iniziale per cui
 Concludendo che
 \[
      p + (1-p) x_j(t) = C \cdot t^{1-p}\\
-     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^(1-p) } \cdot t^{1-p} = p \left( \frac{j}{t}  \right)^{1-p}\\
-     (1-p) x_j(t) = p \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]\\
-     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]
+     p + (1-p) x_j(t) = t^{1-p} \cdot e^c =  \frac{p}{ j^{(1-p)} } \cdot t^{1-p} = p \left( \frac{t}{j}  \right)^{1-p}\\
+     (1-p) x_j(t) = p \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right]\\
+     x_j(t) = \frac{p}{1-p} \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right]
      \]
 </p>
 </div>
@@ -703,10 +703,10 @@ perciò \(x_j(t) \geq k\) se e solo se \(\frac{p}{1-p} \left[ \left( \frac{j}{t}
 <p>
 Risolvendo questa disequazione per trovere i valori di \(j\) che rispettano la disuguaglianza
 \[
-     \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k\\
-     \left( \frac{j}{t}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
-     \left( \frac{j}{t}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
-     \frac{j}{t} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
+     \frac{p}{1-p} \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right] \geq k\\
+     \left( \frac{t}{j}  \right)^{1-p} - 1 \geq k\frac{1-p}{p}\\
+     \left( \frac{t}{j}  \right)^{1-p} \geq k\frac{1-p}{p} + 1\\
+     \frac{t}{j} \geq \left[ k\frac{1-p}{p} + 1 \right]^{ \frac{1}{1-p} }\\
      j \leq t \left[ k \frac{1-p}{p} + 1 \right]^{ - \frac{1}{1-p} }
      \]
 </p>
@@ -827,6 +827,7 @@ Perciò si potrebbe inizialmente sfruttare il <b>feedback</b> per cercare di inf
 </p>
 </div>
 </div>
+
 
 <div id="outline-container-org6d8e5d7" class="outline-2">
 <h2 id="org6d8e5d7"><span class="section-number-2">4</span> La lunga coda</h2>
@@ -1018,7 +1019,7 @@ si ricordi che la derivata di una funzione del tipo \(y = \left[ h(x) \right]^n\
 <p class="date">Data: 2021-10-11 lun 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-21 lun 12:31</p>
+<p class="date">Created: 2022-03-21 lun 16:15</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
