@@ -293,8 +293,8 @@ se una persona è famosa ed ha molti follower tenderà a diventare sempre più p
      \]
 
      Per definizione quindi un nodo $j$ appartiene all'insieme $A_t(k)$ se e solo se $j \leq t$ e $x_j(t) \leq k$.
-     Ma sappiamo dalla precedente eq. differenziale che $x_j(t) = \frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right]$,
-     perciò $x_j(t) \geq k$ se e solo se $\frac{p}{1-p} \left[ \left( \frac{j}{t}  \right)^{1-p} - 1 \right] \geq k$.\\
+     Ma sappiamo dalla precedente eq. differenziale che $x_j(t) = \frac{p}{1-p} \left[ \left( \frac{t}{j}  \right)^{1-p} - 1 \right]$,
+     perciò $x_j(t) \geq k$ se e solo se $\frac{p}{1-p} \left[ \left( \frac{t}{j} \right)^{1-p} - 1 \right] \geq k$.\\
 
      Risolvendo questa disequazione per trovere i valori di $j$ che rispettano la disuguaglianza
      \[
