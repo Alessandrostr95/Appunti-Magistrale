@@ -210,7 +210,7 @@
     \[
     u_i(t_i, g(r_{-i}, r^*_i)) \geq u_i(t_i, g(r_{-i}, r_i))
     \]
-    ovvero la strategie \(r_i\) è /dominante/ per il player $i$.
+    ovvero la strategie \(r^*_i\) è /dominante/ per il player $i$.
 
 *** Meccanismo Truthfull
     Se per ogni player la strategia dominante è quella di dichiarare i propri tipi privati, allora il meccanismo si dice *Truthfull* (o *Strategy-proof* o *incentive compatible*).
