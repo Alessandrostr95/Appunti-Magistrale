@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-03-25 ven 13:22 -->
+<!-- 2022-03-25 ven 15:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ML - Lesson 05</title>
@@ -282,8 +282,17 @@ for the JavaScript code in this tag.
 <li><a href="#orgfe68ef0">Absolute Loss</a></li>
 <li><a href="#org5f22e5f">Huber Loss</a></li>
 <li><a href="#orgf61705c">0/1 Loss.</a></li>
+<li><a href="#org0af8c5c">Perceptron loss (non surrogata).</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#org1f47896">Altri metodi</a>
+<ul>
+<li><a href="#orgfeb2211">Momentum Gradient Descent</a></li>
+<li><a href="#orgabe85c9">Nesterov Optimization</a></li>
+<li><a href="#org60f9799">Dinamically updating learning rate</a></li>
+<li><a href="#org7334eed">Metodi del secondo ordine</a></li>
 </ul>
 </li>
 </ul>
@@ -608,6 +617,156 @@ Una <i>funzione surrogata</i> approssima la 0/1 loss <b>sempre dall'alto</b>, e 
 </p>
 </div>
 </div>
+
+<div id="outline-container-org0af8c5c" class="outline-4">
+<h4 id="org0af8c5c">Perceptron loss (non surrogata).</h4>
+<div class="outline-text-4" id="text-org0af8c5c">
+<p>
+Se \(y\) "azzecca" \(t\), allora l'errore è 0.
+Se \(y\) sbaglia \(t\), allora viene assegnato un valore un valore tanto alto tanto più è differente \(y\) da \(t\).<br />
+</p>
+
+<p>
+Vantaggi:
+</p>
+<ul class="org-ul">
+<li>convessa.</li>
+<li>gradiente continuo quasi ovunque.</li>
+</ul>
+
+<p>
+Possiamo renderla surrogata spostando "in avanti" di 1 la funzione, diventando così <b>surrogata</b>.
+</p>
+
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1f47896" class="outline-2">
+<h2 id="org1f47896">Altri metodi</h2>
+<div class="outline-text-2" id="text-org1f47896">
+</div>
+<div id="outline-container-orgfeb2211" class="outline-3">
+<h3 id="orgfeb2211">Momentum Gradient Descent</h3>
+<div class="outline-text-3" id="text-orgfeb2211">
+<p>
+Nel GD lo spostamento è proporzionale alla derivata dell'altitudine.
+Se lo pensiamo in maniera fisica, ottengo che l'altitudine definisce l'<b>energia potenziala</b> di un punto \(\theta\).
+Perciò, la derivata della funzione loss è pari alla <i>velocità</i> rispetto all'energia potenziale.
+Quindi ci muoviamo con una data accelerazione (e quindi velocità) nella superficie.
+</p>
+
+<p>
+Perciò
+\[
+   \theta^{(k+1)} = \theta^{(k)} + v^{(k+1)}
+   \]
+\[
+   v^{(k+1)} = v^{(k)} - \eta J'(\theta^{(k)})
+   \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/ml-lesson6-img1.png" alt="ml-lesson6-img1.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 7: </span>Momentum Gradient Descent.</p>
+</div>
+
+<p>
+La funzione di velocità è ricorsiva, perciò la possiamo scrivere come una sommatoria
+</p>
+\begin{align*}
+  v^{(k+1)} &= v^{(k)} - \eta J'(\theta^{(k)}) = - \eta J'(\theta^{(k)}) + v^{(k)}\\
+  &= - \eta J'(\theta^{(k)}) - \eta J'(\theta^{(k-1)}) + v^{(k-1)}\\
+  &\vdots\\
+  &= - \eta \sum_{i=0}^k J'(\theta^{(i)}) + v^{(0)}
+\end{align*}
+
+<p>
+Si può introdurre anche un <b>parametro di tuning</b> aggiuntivo \(\lambda \in \left[ 0, 1 \right] \) del tipo
+\[
+   v^{(k+1)} = \lambda v^{(k)} - \eta J'(\theta^{(k)})
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgabe85c9" class="outline-3">
+<h3 id="orgabe85c9">Nesterov Optimization</h3>
+<div class="outline-text-3" id="text-orgabe85c9">
+<p>
+L'idea è qualla di calcolare il gradiente non su \(\theta^{(k)}\) ma su un punto più vicino di \(\theta^{(k)}\) a \(\theta^{(k+1)}\).
+Non avendo punti più vicini, possiamo usare \(v^{(k)}\) per stimare il punti più vicino \(\overline{\theta}^{(k)}\).
+</p>
+\begin{align*}
+  \overline{\theta}^{(k)} &= \theta^{(k)} + \gamma v^{(k)}\\
+  v^{(k+1)} &=  \gamma v^{(k)} - \eta J'(\overline{\theta}^{(k)})\\
+  \theta^{(k+1)} &= \theta^{(k)} + v^{(k+1)}
+\end{align*}
+
+
+
+<div class="figure">
+<p><img src="../images/ml-lesson6-img2.png" alt="ml-lesson6-img2.png" style="max-width:450px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 8: </span>Nesterov Optimization.</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org60f9799" class="outline-3">
+<h3 id="org60f9799">Dinamically updating learning rate</h3>
+<div class="outline-text-3" id="text-org60f9799">
+<p>
+Quando il learning rate \(\eta\) è grande, va bene se siamo lontani dall'ottimo.
+Se siamo vicini invece, un \(\eta\) troppo grande potrebbe farci andare <i>"oltre"</i> il valore ottimo.
+Perciò l'idea è quella di <b>aggiornare</b> progressivamente \(\eta\).<br />
+</p>
+
+<p>
+Per esempio possiamo far decrescere \(\eta\) in maniera inversamente esponeziale o polinomiale ad ogni epoca.<br />
+</p>
+
+<p>
+Oppure aggiornando \(\eta\) in base all'andamento del gradiente.<br />
+</p>
+
+<p>
+<b>[VEDI ADAGRAD]</b><br />
+</p>
+
+<p>
+idea:
+</p>
+<ul class="org-ul">
+<li>se siamo in un punto in cui stiamo scendendo molto lentamente, conviene accelerare la discesa aumentando \(\eta\).</li>
+<li>se siamo in un punto in cui la discesa è molto ripida, allora conviene scendere a piccoli passi ponendo \(\eta\) più piccolo.
+Tanto in un piccolo passo comunque scendo di molto.
+Con un passo più grande, potrei scendere troppo e andare oltre.</li>
+</ul>
+
+<p>
+<b>[VEDI ADADELTA]</b><br />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7334eed" class="outline-3">
+<h3 id="org7334eed">Metodi del secondo ordine</h3>
+<div class="outline-text-3" id="text-org7334eed">
+<p>
+Esempio: metodo di newton.
+\[
+   \theta^{(k+1)} = \theta^{(k)} - \frac{ J'(\theta^{(k)}) }{ J''(\theta^{(k)}) }
+   \]
+</p>
+
+<hr />
+</div>
 </div>
 </div>
 </div>
@@ -615,7 +774,7 @@ Una <i>funzione surrogata</i> approssima la 0/1 loss <b>sempre dall'alto</b>, e 
 <p class="date">Data: 2022-03-24 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-03-25 ven 13:22</p>
+<p class="date">Created: 2022-03-25 ven 15:19</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

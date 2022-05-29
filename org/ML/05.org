@@ -212,13 +212,91 @@
     -----
     *[DA FINIRE]*
 
-# *** Perceptron loss (non surrogata).
-#    Se $y$ "azzecca" $t$, allora l'errore è 0.
-#    Se $y$ sbaglia $t$, allora viene assegnato un valore un valore tanto alto tanto più è differente $y$ da $t$.\\
-#    
-#    Vantaggi:
-#   - convessa.
-#   - gradiente continuo quasi ovunque.
-#     
-#   Possiamo renderla surrogata spostando "in avanti" di 1 la funzione, diventando così *surrogata*.
+*** Perceptron loss (non surrogata).
+    Se $y$ "azzecca" $t$, allora l'errore è 0.
+    Se $y$ sbaglia $t$, allora viene assegnato un valore un valore tanto alto tanto più è differente $y$ da $t$.\\
+    
+    Vantaggi:
+   - convessa.
+   - gradiente continuo quasi ovunque.
+     
+   Possiamo renderla surrogata spostando "in avanti" di 1 la funzione, diventando così *surrogata*.
+
+   -----
+
+# FORSE LO METTO IN LESZIONE 3
+* Altri metodi
+** Momentum Gradient Descent
+   Nel GD lo spostamento è proporzionale alla derivata dell'altitudine.
+   Se lo pensiamo in maniera fisica, ottengo che l'altitudine definisce l'*energia potenziala* di un punto \(\theta\).
+   Perciò, la derivata della funzione loss è pari alla /velocità/ rispetto all'energia potenziale.
+   Quindi ci muoviamo con una data accelerazione (e quindi velocità) nella superficie.
+   
+   Perciò
+   \[
+   \theta^{(k+1)} = \theta^{(k)} + v^{(k+1)}
+   \]
+   \[
+   v^{(k+1)} = v^{(k)} - \eta J'(\theta^{(k)})
+   \]
+   
+   #+caption: Momentum Gradient Descent.
+   #+ATTR_HTML: :style max-width:450px; width:100%
+   [[file:../images/ml-lesson6-img1.png]]
+   
+   La funzione di velocità è ricorsiva, perciò la possiamo scrivere come una sommatoria
+   \begin{align*}
+     v^{(k+1)} &= v^{(k)} - \eta J'(\theta^{(k)}) = - \eta J'(\theta^{(k)}) + v^{(k)}\\
+     &= - \eta J'(\theta^{(k)}) - \eta J'(\theta^{(k-1)}) + v^{(k-1)}\\
+     &\vdots\\
+     &= - \eta \sum_{i=0}^k J'(\theta^{(i)}) + v^{(0)}
+   \end{align*}
+
+   Si può introdurre anche un *parametro di tuning* aggiuntivo \(\lambda \in \left[ 0, 1 \right] \) del tipo
+   \[
+   v^{(k+1)} = \lambda v^{(k)} - \eta J'(\theta^{(k)})
+   \]
+   
+** Nesterov Optimization
+   L'idea è qualla di calcolare il gradiente non su \(\theta^{(k)}\) ma su un punto più vicino di \(\theta^{(k)}\) a \(\theta^{(k+1)}\).
+   Non avendo punti più vicini, possiamo usare \(v^{(k)}\) per stimare il punti più vicino \(\overline{\theta}^{(k)}\).
+   \begin{align*}
+     \overline{\theta}^{(k)} &= \theta^{(k)} + \gamma v^{(k)}\\
+     v^{(k+1)} &=  \gamma v^{(k)} - \eta J'(\overline{\theta}^{(k)})\\
+     \theta^{(k+1)} &= \theta^{(k)} + v^{(k+1)}
+   \end{align*}
+   
+   
+   #+caption: Nesterov Optimization.
+   #+ATTR_HTML: :style max-width:450px; width:100%
+   [[file:../images/ml-lesson6-img2.png]]
+
+
+** Dinamically updating learning rate
+   Quando il learning rate \(\eta\) è grande, va bene se siamo lontani dall'ottimo.
+   Se siamo vicini invece, un \(\eta\) troppo grande potrebbe farci andare /"oltre"/ il valore ottimo.
+   Perciò l'idea è quella di *aggiornare* progressivamente \(\eta\).\\
+
+   Per esempio possiamo far decrescere \(\eta\) in maniera inversamente esponeziale o polinomiale ad ogni epoca.\\
+   
+   Oppure aggiornando \(\eta\) in base all'andamento del gradiente.\\
+
+   *[VEDI ADAGRAD]*\\
+   
+   idea:
+   - se siamo in un punto in cui stiamo scendendo molto lentamente, conviene accelerare la discesa aumentando \(\eta\).
+   - se siamo in un punto in cui la discesa è molto ripida, allora conviene scendere a piccoli passi ponendo \(\eta\) più piccolo.
+     Tanto in un piccolo passo comunque scendo di molto.
+     Con un passo più grande, potrei scendere troppo e andare oltre.
+   
+   *[VEDI ADADELTA]*\\
+
+
+** Metodi del secondo ordine
+   Esempio: metodo di newton.
+   \[
+   \theta^{(k+1)} = \theta^{(k)} - \frac{ J'(\theta^{(k)}) }{ J''(\theta^{(k)}) }
+   \]
+
+   ------
    

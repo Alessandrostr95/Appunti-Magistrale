@@ -1,0 +1,46 @@
+#+title: ML - Lesson 06
+#+date: <2022-03-25>
+#+teacher: Giorgio Gambosi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Approcci Probabilistici
+  Fin ora abbiamo visto approcci funzionali, in cui il predittore è una *funzione* che associa degli oggetti a dei valori target.
+  L'altro approccio noto è invece quello ricercare una *distribuzione* \(p(y \vert x)\) che approssima al meglio la distribuzione \(p_{\mathscr{D}_2}(y \vert x)\).
+
+  Recap:
+  - campioniamo di punti $x$ nel dataset con la probabilità \(p_{\mathscr{D}_1}(x)\), che d'ora in poi assumeremo per semplicità *uniforme*.
+  - fissato un oggetto $x$, sappiamo che esso assume un valore di target $y$ con probabilità \(p_{\mathscr{D}_2}(y \vert x)\).
+
+  L'approccio è identico a contesto funzionale.
+  Perciò definiamo una classe di distribuzioni condizionali, e cerchiamo di inferire a partire dai dati la migliore distribuzione condizionale \(p^*\) che si avvicina di più a \(p_{d2}\).\\
+
+  In fine, definiamo una *strategia di decisione*, che data la distribuzione del nostro modello, estrate una predizione finale.\\
+
+  Come sempre, paremetriziamo le distribuzioni della nostra classe, e cerchiamo il vettore di parametri che ci ottimizza la relativa distribuzione.\\
+  
+
+# *** Esempio
+#    Consideriamo un insieme di ogetto con *una sola feature*.
+#    Dopodiché, fissato un valore $x$, assumiamo che la famiglia di distribuzioni condizionate che descrivono quali valori $y$ può assumere $x$, è una famiglia di distribuzioni Gaussiane.
+#    Perciò, tale famiglia è parametrizzata da /media/ e /varianza/.
+
+  La qualità della distribuzione dato un dataset $T$ è la cosidetta /likelyhood/ (/verosimiglianza/).
+
+  -----
+  -----
+
+  Con l'approccio probabilistico, si vuole predire una *distribuzione* sulla probabilità che un dato oggetto abbia un dato target.
+  Sappiamo che esiste una reale distribuzione $p(y|x)$, che generalmente *non conosciamo*.
+
+  Come prima cosa assumiamo che nel nostro training set $T$, il target $t_i$ associato all'oggetto $x_i$ sia la sua media, ovvero
+  \[
+  \mathbb{E} \left[ x_i \right] = t_i
+  \]
+
+  Dopodiché, necessitiamo di paragonare una distribuzione $h$ del nostro predittore con quella reale $p$.
+  Non conoscendo $p$, *assumiamo* che $p$ sia una *gaussiana* centrata in $t_i$, ovvero 
+  \[
+  p \approx \mathcal{N}(t_i, 0)
+  \]
+

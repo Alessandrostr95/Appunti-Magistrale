@@ -1,0 +1,5 @@
+#+title: ML - Lesson 11
+#+date: <2022-04-21>
+#+teacher: Giorgio Gambosi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil

@@ -1,0 +1,1189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-05-29 dom 11:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catene di Markov</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Catene di Markov</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgaaad1e9">Catene di Markov</a>
+<ul>
+<li><a href="#org4915d61">Matrice di Transazione</a></li>
+<li><a href="#orgcd7a7db">Distribuzione marginale</a></li>
+<li><a href="#orgad35488">Matrice di transazione ad \(m\) passi</a></li>
+<li><a href="#org3efa941">Grafo associato</a></li>
+<li><a href="#org724772a">Relazione \(\leftrightarrow\) di "comunicazione tra stati"</a></li>
+<li><a href="#org1e7bcec">Irriducibilità</a></li>
+<li><a href="#org0fa3246">Stati ricorrenti e transienti</a></li>
+<li><a href="#orga1bcdf1">Lemma</a></li>
+<li><a href="#org16b82ed">Tempo medio di primo arrivo</a></li>
+<li><a href="#org1fd3016">Stati ricorrenti positivi e ricorrenti nulli</a>
+<ul>
+<li><a href="#orgd674728">Esempio stato ricorrente nullo</a></li>
+</ul>
+</li>
+<li><a href="#orge5b0daa">Lemma</a></li>
+<li><a href="#org52845d3">Periodicità e aperiodicità di una catena di Markov</a></li>
+<li><a href="#org5e4fdd0">Ergodicità</a></li>
+<li><a href="#orga7dad95">Corollario</a></li>
+<li><a href="#orgb291bcb">Distribuzione stazionaria (o invariante)</a></li>
+<li><a href="#orga546a23">Teorema 7.7 - Convergenza a distribuzioni stazionarie</a>
+<ul>
+<li><a href="#orgb4e7766">Osservazioni su teorema 7.7</a></li>
+</ul>
+</li>
+<li><a href="#orgbc0211e">Esempi</a>
+<ul>
+<li><a href="#org242bc3b">ES. 1</a></li>
+<li><a href="#org7c15f2a">ES. 2 - distribuzione stazionaria</a></li>
+</ul>
+</li>
+<li><a href="#orgf48ca76">ES. 3 - matrice bistocastica</a></li>
+<li><a href="#org69176d8">Teorema 7.10 - distribuzioni reversibili</a></li>
+<li><a href="#orgd19c10e">Teorema 7.11</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgaaad1e9" class="outline-2">
+<h2 id="orgaaad1e9">Catene di Markov</h2>
+<div class="outline-text-2" id="text-orgaaad1e9">
+<p>
+Sia una <i>famiglia</i> di variabili aleatorie \(\lbrace X_t : t \in I \rbrace\), tale che tutte le variabili aleatorie sono definite su di un insieme
+<b>discreto</b> \(V\), e con \(t \in I \subseteq \mathbb{N}\).
+Tale famiglia è dette <b>catena di Markov</b> se vale che
+</p>
+
+\begin{equation}
+\label{org8bfe6db}
+P(X_t = j \vert X_{t-1} = i, X_{t-2} = i_{t-2}, ..., X_0 = i_0 ) = P(X_t = j \vert X_{t-1} = i) = p^{(t)}_{ij}
+\end{equation}
+
+<p>
+Possiamo quindi vedere una catena di Markov come un <b>processo</b>, nel quale una variabile \(X\) cambia stato nel tempo, e dove \(X_t = j\) sta ad indicare che lo stato di \(X\) al tempo \(t\) è \(j\).
+Perciò d'ora ci riferiremo a \(V\) come l'<b>insieme degli stati</b>.<br />
+</p>
+
+<p>
+Un'osservazione intuitiva che si può fare riguardo la definizione di catena di Markov (vedi \eqref{org8bfe6db}) è che lo stato della catena al tempo \(t\) dipende <b>solamente</b> dallo stato al tempo precedente \(t-1\).
+Questa proprietà è anche nota come <b>mancanza di memoria</b> di una catena di Markov, in quanto una volta arrivati in uno stato ci si "dimentica" di tutto ciò che è accaduto in precedenza,
+e lo stato successivo dipende solamente dallo stato in cui ci si trova.<br />
+</p>
+
+<p>
+Se i valori di \(p^{(t)}_{ij}\) non dipendono da \(t\), allora si parla di catene di Markov <b>omogenee</b>.
+In tal caso scriveremo semplicemente \(p_{ij}\).
+Perciò \(p_{ij}\) indica la probabilità di passare dallo stato \(i\) allo stato \(j\).<br />
+</p>
+
+<p>
+D'ora in poi ci riferiremo <b>solo</b> a catene omogenee.
+</p>
+</div>
+
+<div id="outline-container-org4915d61" class="outline-3">
+<h3 id="org4915d61">Matrice di Transazione</h3>
+<div class="outline-text-3" id="text-org4915d61">
+<p>
+Consideriamo un insieme di stati \(V = \lbrace 1,2,..., n \rbrace\) <b>finito</b>.
+Allora possiamo definire la <b>matrice di transazione</b> \(P \in \left[ 0,1 \right] \)
+</p>
+\begin{equation}
+P = \left (
+\begin{array}{ccccc}
+p_{11} & ... & p_{1j} & ... & p_{1n} \\
+\vdots     &     &  \ddots   &      & \vdots \\
+p_{i1} & ... & p_{ij} & ... & p_{in}\\
+\vdots     &     &  \ddots   &      & \vdots \\
+p_{n1} & ... & p_{nj} & ... & p_{nn}
+\end{array}
+\right )
+\end{equation}
+
+<p>
+L'elemento in riga \(i\) e colonna \(j\) indica la probabilità di passare dallo stato \(i\) allo stato \(j\) (appunto \(p_{ij}\)).
+Osservare che la somma degli elementi di una riga deve essere pari ad 1, infatti per ogni \(i \in V\)
+</p>
+\begin{align*}
+  \sum_{j \in V} p_{ij}
+  &= \sum_{j \in V} P(X_t = j \vert X_{t-1} = i)\\
+  &= P\bigg( \bigcup_{j \in V} \lbrace X_t = j \rbrace \vert X_{t-1} = i \bigg)\\
+  &= P(X_t \in V \vert X_{t-1} = i) = 1
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgcd7a7db" class="outline-3">
+<h3 id="orgcd7a7db">Distribuzione marginale</h3>
+<div class="outline-text-3" id="text-orgcd7a7db">
+<p>
+Per ogni tempo \(t \in I\) indichiamo con \(p_i(t)\) la probabilità che al tempo \(t\) la catena si trovi esattamente nello stato \(i\), ovvero
+\[
+   p_i(t) = P(X_t = i)
+   \]
+Possiamo quindi definire una <b>distribuzione marginale</b> \(\overline{p}(t)\) al tempo \(t\) come il vettore
+\[
+   \overline{p}(t) = (p_1(t), ..., p_i(t), ...)_{i \in V}
+   \]
+</p>
+
+<p>
+Osservare che essendo \(\overline{p}(t)\) una <span class="underline">distribuzione</span> avremo che
+\[
+   \sum_{i \in V} p_i(t) = 1
+   \]
+infatti
+</p>
+\begin{align*}
+  \sum_{i \in V} p_i(t)
+  &= \sum_{i \in V} P(X_t = i)\\
+  &= P\bigg( \bigcup_{i \in V} \lbrace X_t = i \rbrace \bigg)\\
+  &= P(X_t \in V) = 1
+\end{align*}
+
+<p>
+Definire questa distribuzione è molto utile perché ci consente di calcolare in maniera ricorsiva lo stato di una catena al tempo \(t\).
+Infatti, per le probabilità totali abbiamo che
+\[
+   \underbrace{P(X_t = j)}_{p_j(t)} = \sum_{i \in V} \underbrace{P(X_t = j \vert X_{t-1} = i)}_{p_{ij}} \underbrace{P(X_{t-1} = i)}_{p_i(t)}
+   \]
+Perciò applicando l'uguaglianza \(p_j(t) = \sum_{i \in V} p_i(t)p_{ij}\) ad ogni \(j \in V\) otterremo la formula ricorsiva
+</p>
+
+\begin{equation}
+\label{org15680d7}
+\overline{p}(t) = \overline{p}(t-1) P
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orgad35488" class="outline-3">
+<h3 id="orgad35488">Matrice di transazione ad \(m\) passi</h3>
+<div class="outline-text-3" id="text-orgad35488">
+<p>
+Sia un intermo \(m \geq 1\), e consideriamo la matrice \(P^{m}\) costituita dalle probabilità
+</p>
+\begin{equation}
+P^{(m)} = \left (
+\begin{array}{ccccc}
+p^{(m)}_{11} & ... & p^{(m)}_{1j} & ... & p^{(m)}_{1n} \\
+\vdots     &     &  \ddots   &      & \vdots \\
+p^{(m)}_{i1} & ... & p^{(m)}_{ij} & ... & p^{(m)}_{in}\\
+\vdots     &     &  \ddots   &      & \vdots \\
+p^{(m)}_{n1} & ... & p^{(m)}_{nj} & ... & p^{(m)}_{nn}
+\end{array}
+\right )
+\end{equation}
+<p>
+\[
+   p^{(m)}_{ij} = P(X_{t + m} = j \vert X_t = i)
+   \]
+</p>
+
+<p>
+Anche in questo caso avremo che ogni riga è una <i>distribuzione</i>, infatti per ogni riga \(i\) avremo che
+</p>
+\begin{align*}
+  \sum_{j \in V} p^{(m)}_{ij}
+  &= \sum_{j \in V} P(X_{t + m} = j \vert X_t = i)\\
+  &= P\bigg( \bigcup_{j \in V} \lbrace X_{t + m} = j \rbrace \vert X_t = i \bigg)\\
+  &= P(X_{t + m} \in V \vert X_t = i) = 1
+\end{align*}
+
+<p>
+Abbiamo quiandi <i>generalizzato</i> la matrice di transazione \(P = P^{(1)}\) semplicemente ponendo \(m = 1\).<br />
+</p>
+
+<p>
+Consideriamo ora un \(m \geq 2\) ed una <b>partizione degli eventi</b> \(\lbrace \lbrace X_{t+m} = h \rbrace : h \in V \rbrace\)
+ed applichiamo i seguenti calcoli
+</p>
+\begin{align*}
+  p^{(m)}_{ij}
+  &= P(X_{t+m} = j \vert X_t = i)\\
+  &= \sum_{h \in V} P(X_{t+m} = j, X_{t+m-1} = h \vert X_t = i)\\
+  &= \sum_{h \in V} \frac{P(X_{t+m} = j, X_{t+m-1} = h,  X_t = i)}{P(X_t = i)}\\
+  &= \sum_{h \in V} \frac{P(X_{t+m} = j, X_{t+m-1} = h,  X_t = i)}{P(X_t = i)} \cdot \overbrace{ \frac{P(X_{t+m-1} = h,  X_t = i)}{P(X_{t+m-1} = h,  X_t = i)} }^{= 1}\\
+  &= \sum_{h \in V} \frac{P(X_{t+m} = j, X_{t+m-1} = h,  X_t = i)}{P(X_{t+m-1} = h,  X_t = i)} \cdot \frac{P(X_{t+m-1} = h,  X_t = i)}{P(X_t = i)}\\
+  &= \sum_{h \in V} P(X_{t+m} = j \vert X_{t+m-1} = h, X_t = i)P(X_{t+m-1} = h \vert X_t = i)
+\end{align*}
+
+<p>
+A questo punto sfruttando la <i>mancanza di memoria</i> delle catene di Markov avremo che
+\[
+   P(X_{t+m} = j \vert X_{t+m-1} = h, X_t = i) = P(X_{t+m} = j \vert X_{t+m-1} = h) = p_{hj}
+   \]
+mentre per definizione matrice di transizione a \(m\) passi
+\[
+   P(X_{t+m-1} = h \vert X_t = i) = p^{(m-1)}_{ih}
+   \]
+</p>
+
+<p>
+Sostituendo quindi nell'espressione otteremo la seguente uguaglianza
+\[
+   p^{(m)}_{ij} = \sum_{h \in V} p^{(m-1)}_{ih} p_{hj}
+   \]
+per ogni coppia di \(i,j \in V\).<br />
+</p>
+
+<p>
+Al variare di \(i,j\), tale relazione ci consente di ricavare la seguente nuova relazione relazione
+\[
+   P^{(m)} = P^{(m-1)}P
+   \]
+</p>
+
+<p>
+A questo punto, ponendo \(P = P^{(1)}\) possiamo dire che per ogni \(m \geq 1\) è vero che
+\[
+   P^{(m)} = P^m
+   \]
+</p>
+
+<p>
+In conclusione, possiamo anche dare una <i>generalizzazione</i> della formula \eqref{org15680d7}.
+Infatti riapplicandola \(m\) volte avremo che
+</p>
+
+\begin{align*}
+  \overline{p}(t)
+  &= \overline{p}(t-1) P = \overline{p}(t-2) PP\\
+  &\\
+  &= \; ... \; = \overline{p}(t-m) \underbrace{P...P}_{m \text{ volte}}\\
+  &\\
+  &= \overline{p}(t-m) P^m = \overline{p}(t-m) P^{(m)} 
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-org3efa941" class="outline-3">
+<h3 id="org3efa941">Grafo associato</h3>
+<div class="outline-text-3" id="text-org3efa941">
+<p>
+È possibile associare ad una catena di Markov <span class="underline">omogenea</span> un grafo diretto dove:
+</p>
+<ul class="org-ul">
+<li>l'insieme dei nodi corrisponde con l'insieme degli stati \(V\).</li>
+<li>per ogni coppia di nodi \(i,j\) esiste l'arco <span class="underline">diretto</span> \((i,j) \in E\) se \(p_{ij} > 0\).</li>
+<li>ogni arco \((i,j)\) è pesato col valore \(p_{ij}\).</li>
+</ul>
+
+<p>
+<b>[mettere immagine]</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org724772a" class="outline-3">
+<h3 id="org724772a">Relazione \(\leftrightarrow\) di "comunicazione tra stati"</h3>
+<div class="outline-text-3" id="text-org724772a">
+<p>
+Dati due stati \(i,j \in V\), si dice che essi <b>comunicano</b> se esistono due interi \(n,m\) tali che \(p^{(n)}_{ij} > 0\) e \(p^{(m)}_{ji} > 0\).
+Ovvero sia la probabilità di raggiungere lo stato \(j\) partendo da \(i\), sia la probabilità di raggiungere lo stato \(i\) partendo dallo stato \(j\), sono <span class="underline">non nulle</span>.
+In simboli diremo che \(i \leftrightarrow j\).<br />
+</p>
+
+<p>
+Equivalentemente possiamo vedere questa relazione come la presenza di cammini che collegano \(i\) e \(j\) nel grafo associato alla catena.
+Ovvero \(i \leftrightarrow j\) se e solo se nel grafo associato alla catena, \(i\) e \(j\) sono <b>fortemente connessi</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.<br />
+</p>
+
+<p>
+Osservare che la relazione \(\leftrightarrow\) è una relazione d'equivalenza, ovvero è <i>riflessiva</i>, <i>simmetrica</i> e <i>transitiva</i>.
+</p>
+<ul class="org-ul">
+<li>per la riflessività basta porre \(n = m = 0\) e otteremo che \(p^{(0)}_{ii} = 1 > 0\).</li>
+<li>sicuramente se \(i \leftrightarrow j\) allora è certamente vero \(j \leftrightarrow i\), infatti basta inverire i ruoli di \(n\) ed \(m\).</li>
+<li>infine si vuole dimostrare che se \(i \leftrightarrow j\) e \(j \leftrightarrow h\) allora \(i \leftrightarrow h\).
+Se \(i \leftrightarrow j\) e \(j \leftrightarrow h\) sono veri, allora sicuramente esistono dei \(n_1, n_2, m_1, m_2\) tali che "\(p^{(n_1)}_{ij} > 0\), \(p^{(m_1)}_{ji} > 0\)" e "\(p^{(n_2)}_{jh} > 0\), \(p^{(m_2)}_{hj} > 0\)".
+Allora avremo che
+\[
+     p^{(n_1 + n_2)}_{ih} = \sum_{r \in V} p^{(n_1)}_{ir}p^{(n_2)}_{rh} \geq \underbrace{p^{(n_1)}_{ij}}_{> 0} \underbrace{p^{(n_2)}_{jh}}_{> 0} > 0
+     \]
+Simmetricamente per \(m_1, m_2\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1e7bcec" class="outline-3">
+<h3 id="org1e7bcec">Irriducibilità</h3>
+<div class="outline-text-3" id="text-org1e7bcec">
+<p>
+Una matrice di Markov omogenea si dice <b>irriducibile</b> se \(V\) risulta essere un una classe d'equivalenza rispetto a \(\leftrightarrow\).
+Analogamente, c'è irriducibilità se e solo se il grafo inerente risulta essere <b>fortemente connesso</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0fa3246" class="outline-3">
+<h3 id="org0fa3246">Stati ricorrenti e transienti</h3>
+<div class="outline-text-3" id="text-org0fa3246">
+<p>
+Sia \(r^t_{ij}\) la probabilità che partendo dallo stato \(i\) si raggiunge per la prima volta lo stato \(j\) dopo \(t\) passi.
+\[
+   r^t_{ij} := P(X_t=j, X_{t-1} \neq j, ..., X_1 \neq j \vert X_0 = i)
+   \]
+Uno stato \(i \in V\) si dice
+</p>
+<ul class="org-ul">
+<li><b>ricorrente</b> se <span class="underline">è certo</span> che una volta raggiunto \(i\) <i>prima o poi</i> si ritransita da \(i\), ovvero se
+\[
+     \sum_{t \geq 1} r^t_{ii} = 1
+     \]</li>
+<li><b>transiente</b> se <span class="underline">non è detto</span> che una volta raggiunto \(i\) <i>prima o poi</i> si ritransita da \(i\), ovvero se
+\[
+     \sum_{t \geq 1} r^t_{ii} < 1
+     \]</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga1bcdf1" class="outline-3">
+<h3 id="orga1bcdf1">Lemma</h3>
+<div class="outline-text-3" id="text-orga1bcdf1">
+<p>
+Gli stati di una classe di equivalenza di \(\leftrightarrow\), ovvero tutti i nodi di una stessa componente fortemente connessa nel grafo associato alla catena, sono tutti dello <b>stesso tipo</b>: o <i>transienti</i> o <i>ricorrenti</i>.<br />
+</p>
+
+<p>
+<b>Proof</b><br />
+Supponiamo <i>per assurdo</i>, che in una stessa classe di equivalenza di \(\leftrightarrow\), esista uno stato \(i\) <span class="underline">transiente</span> e uno stato \(j\) <span class="underline">ricorrente</span> (con \(i \neq j\) ovviamente).
+Dato che \(i \leftrightarrow j\) certamente esistono due \(n, m \geq 1\) tali che \(p^{(n)}_{ij} > 0\) e \(p^{(m)}_{ji} > 0\).
+Considerando ogni tempo \(t \geq 1\), lo stato \(i\) verrà visitato un numero <b>finito</b> di volte (perché transiente) mentre \(j\) un numero <b>infinito</b> (perché ricorrente).<br />
+</p>
+
+<p>
+A questo punto, ogni volta che la catena raggiunge lo stato \(j\) si può pensare di effettuare un esperimento aleatorio Bernulliano con due risultati:
+</p>
+<dl class="org-dl">
+<dt>successo</dt><dd>se dopo \(m\) passi raggiungo lo stato \(i\), e ciò accade con probabilità \(p^{(m)}_{ji} > 0\).</dd>
+<dt>fallimento</dt><dd>se dopo \(m\) passi <span class="underline">non</span> raggiungo lo stato \(i\), e ciò accade con probabilità \(1 - p^{(m)}_{ji} > 0\).</dd>
+</dl>
+
+<p>
+Ripetendo questo esperimento ogni volta che la catena raggiunge \(j\), possiamo pensare ad un unico esperimento <b>geometrico</b>, con infiniti tentativi.
+Dati appunto gli infiniti tentativi, e dato che la probabilità di successo è <b>non nulla</b>, allora prima o poi si raggiungerà lo stato \(i\), ovvero la probabilità
+che da un certo istante in poi \(i\) non venga più raggiunto è nulla.
+Lo stato \(i\) quindi non può essere transiente se \(j\) è ricorrente \(\square\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org16b82ed" class="outline-3">
+<h3 id="org16b82ed">Tempo medio di primo arrivo</h3>
+<div class="outline-text-3" id="text-org16b82ed">
+<p>
+Sia \(h_{ij}\) il <i>tempo medio di primo arrivo in \(j\) partendo da \(i\)</i>.
+Esso è quindi definito come
+\[
+   h_{ij} := \begin{cases}
+       \sum_{t \geq 1} t \cdot r^t_{ij} &\mbox{se } \sum_{t \geq 1} r^t_{ij} = 1\\
+       \infty &\mbox{se } \sum_{t \geq 1} r^t_{ij} < 1
+   \end{cases}
+   \]
+Se invece \(i = j\) si parla di tempo di <i>primo ritorno in</i> \(i\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1fd3016" class="outline-3">
+<h3 id="org1fd3016">Stati ricorrenti positivi e ricorrenti nulli</h3>
+<div class="outline-text-3" id="text-org1fd3016">
+<p>
+Sia uno stato \(i \in V\) <b>ricorente</b>.
+Allora \(i\) si dice <b>ricorrente positivo</b> se \(h_{ii} < \infty\), mentre si dice <b>ricorrente nullo</b> se \(h_{ii} = \infty\).
+</p>
+</div>
+
+<div id="outline-container-orgd674728" class="outline-4">
+<h4 id="orgd674728">Esempio stato ricorrente nullo</h4>
+<div class="outline-text-4" id="text-orgd674728">
+<p>
+Sia \(V = \lbrace 1, 2, ... \rbrace\) è consideriamo la seguente matrice di transizione.
+\[
+    p_{ij} := \begin{cases}
+      \frac{i}{i+1} &\mbox{se } j = i + 1\\
+      \frac{1}{i+1} &\mbox{se } j = 1\\
+      0 &\mbox{altrimenti}
+    \end{cases}
+    \]
+</p>
+
+
+<div class="figure">
+<p><img src="../images/markov2.png" alt="markov2.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Grafo associato.</p>
+</div>
+
+<p>
+Il grafo è irriducibile, perciò sappiamo che gli stati sono tutti di uno stesso tipo: tutti ricorrenti o tutti transienti.
+Perciò, concentriamoci solamente sullo stato \(i = 1\), e calcoliamo il valore di \(r^t_{11}\) la variare di \(t \geq 1\).<br />
+</p>
+
+<p>
+Per \(t = 1\) avremo semplicemente che
+\[
+    r^1_{11} = P(X_1 = 1 \vert X_0 = 1) = p_{11} =  \frac12
+    \]
+</p>
+
+<p>
+Consideriamo invece \(t \geq 2\)
+</p>
+\begin{align*}
+  r^t_{11}
+  &= P(X_t = 1, X_{t-1} = t, ..., X_2 = 3, X_1 = 2 \vert X_0 = 1)\\
+  &= \bigg( \prod_{i=1}^{t-1} p_{i,i+1} \bigg) \cdot p_{t1}\\
+  &= \bigg( \prod_{i=1}^{t-1} \frac{i}{i+1} \bigg) \cdot \frac{1}{t+1}\\
+  &= \frac{(t-1)!}{t!} \cdot \frac{1}{t+1}\\
+  &= \frac{(t-1)!}{(t+1)!} = \frac{1}{t(t+1)}
+\end{align*}
+
+<p>
+Osservare che la formula calcolata per \(t \geq 2\) vale anche per \(t = 1\).
+Perciò possiamo affermare che
+\[
+    r^t_{11} = \frac{1}{t(t+1)} \;\; \forall t \geq 1
+    \]
+È possibile dimostrare che lo stato 1 è ricorrente, ovvero che \(\sum_{t \geq 1} r^t_{11} = 1\), infatti
+</p>
+\begin{align*}
+  \sum_{t \geq 1} r^t_{11}
+  &= \sum_{t \geq 1} \frac{1}{t(t+1)}\\
+  &= \lim_{n \to \infty} \sum_{t = 1}^{n} \frac{1}{t(t+1)}\\
+  &= \lim_{n \to \infty} \sum_{t = 1}^{n} \frac{1}{t} - \frac{1}{t+1}\\
+  &= \lim_{n \to \infty} \left( 1 - \frac{1}{2} + \frac{1}{2} - \frac{1}{3} + \frac{1}{3} - ... - \frac{1}{n} + \frac{1}{n} - \frac{1}{n+1} \right)\\
+  &= \lim_{n \to \infty} \left( 1 - \frac{1}{n+1} \right) = 1
+\end{align*}
+
+<p>
+Infine si può dimostrare che lo stato 1 è <b>nullo</b>, ovvero \(h_{11} = \infty\).
+Infatti
+\[
+    h_{11} = \sum_{t \geq 1} t \cdot r^t_{11} = \sum_{t \geq 1} \frac{t}{t(t+1)} = \sum_{t \geq 1} \frac{1}{t+1} = \infty
+    \]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5b0daa" class="outline-3">
+<h3 id="orge5b0daa">Lemma</h3>
+<div class="outline-text-3" id="text-orge5b0daa">
+<p>
+Sia \(V\) un insieme di stati <b>finito</b>.
+Allora avremo che:
+</p>
+<ol class="org-ol">
+<li><i>almeno uno</i> stato è ricorrente.</li>
+<li><i>tutti</i> gli stati ricorrenti sono ricorrenti <b>positivi</b>.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org52845d3" class="outline-3">
+<h3 id="org52845d3">Periodicità e aperiodicità di una catena di Markov</h3>
+<div class="outline-text-3" id="text-org52845d3">
+<p>
+Uno stato \(j\) è detto <b>periodico</b> se esiste un \(\Delta_j > 1\) tale che
+\[
+   P(X_{t+s} = j \vert X_t = j) = 0 \implies \Delta_j \;\; \not\vert \;\; s\\
+   \Delta_j \;\; \vert \;\; s \implies P(X_{t+s} = j \vert X_t = j) > 0 
+   \]
+In termini semplici, \(j\) è periodico se:
+</p>
+<ol class="org-ol">
+<li>se la probabilità di ritornare in \(j\) (partendo da \(j\)) dopo \(k \cdot \Delta_j\) passi è non nulla (per ogni \(k \geq 1\))</li>
+<li>metre la probabilità di ritornare in \(j\) dopo \(k \neq \Delta_j\) passi è sempre nulla.<br /></li>
+</ol>
+
+<p>
+Un modo alternativo di vedere la periodicità di uno stato \(j\) è la seguente:
+consideriamo un \(\Delta_j\) definito come
+\[
+   \Delta_j := M.C.D. \lbrace s \geq 1 : p^{(s)}_{jj} > 0 \rbrace
+   \]
+Se \(\Delta_j = 1\) allora \(j\) è <b>aperiodico</b>, altrimenti è periodico di periodo \(\Delta_j\).<br />
+</p>
+
+<p>
+Una catena di Markov si dice periodica se <b>tutti</b> i suoi stati sono periodici.
+Contrariamente si dice aperiodica se anche <b>un solo</b> stato è aperiodico.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5e4fdd0" class="outline-3">
+<h3 id="org5e4fdd0">Ergodicità</h3>
+<div class="outline-text-3" id="text-org5e4fdd0">
+<p>
+Uno stato \(j\) che è <span class="underline">aperiodico</span> e <span class="underline">ricorrente positivo</span> è detto <b>ergodico</b>.
+Analogamente una catena è detta ergodica se tutti i suoi stati sono ergodici.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga7dad95" class="outline-3">
+<h3 id="orga7dad95">Corollario</h3>
+<div class="outline-text-3" id="text-orga7dad95">
+<p>
+Sia \(V\) un insieme di stati <b>finito</b>.
+Sia la catena omogenea \(\lbrace X_t : t \geq 1 \rbrace\) definita su \(V\).
+Se tale catena <b>irriducibile</b> e <b>aperiodica</b> allora essa è anche <b>ergodica</b>.<br />
+</p>
+
+<p>
+<b>Proof:</b>
+Per ipotesi di irriducibilità sappiamo che il grafo associato è fortemente connesso, perciò tutti gli stati appartengono alla stessa classe d'equivalenza.
+Siccome \(V\) è finito sappiamo che esiste <i>almeno</i> uno stato ricorrente.
+Inoltre sappiamo che gli stati di una stessa componente sono <i>tutti dello stesso tipo</i>.
+Perciò abbiamo che tutti gli stati della catena sono ricorrenti.
+Inoltre, siccome gli stati sono finiti, avremo che sono <i>ricorrenti positivi</i>.
+Infine, dato che per ipotesi tutti gli stati sono aperiodici, avremo che tutti gli stati sono <b>apreiodici</b> e <b>ricorrenti positivi</b>:
+ergo tutti gli stati sono ergodici \(\square\).<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb291bcb" class="outline-3">
+<h3 id="orgb291bcb">Distribuzione stazionaria (o invariante)</h3>
+<div class="outline-text-3" id="text-orgb291bcb">
+<p>
+Consideriamo una catena di Markov <i>omogenea</i> definita sull'insieme di stati \(V\), e con matrice di transizione \(P\).
+Allora una distribuzione \(\overline{\pi} = (\pi_i)_{i \in V}\) è detta <b>stazionaria</b> (o <b>invariante</b>) se <span class="underline">punto fisso</span> del seguente sistema
+\[
+   \overline{\pi} = \overline{\pi}P
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga546a23" class="outline-3">
+<h3 id="orga546a23">Teorema 7.7 - Convergenza a distribuzioni stazionarie</h3>
+<div class="outline-text-3" id="text-orga546a23">
+<p>
+Sia una catena di Markov <b>irriducibile</b> ed <b>ergodica</b>, definita su un insieme di stati \(V\) <b>finito</b>.
+Allora:
+</p>
+<ol class="org-ol">
+<li>Esiste un'unica distribuzione stazionaria \(\overline{\pi} = (\pi_i)_{i \in V}\).</li>
+<li>Per ogni coppia di stati \(i,j \in V\) esiste il limite
+\[
+      \lim_{t \to \infty} p_{ji}^{(t)} = \pi_i = \frac{1}{h_{ii}}
+      \]</li>
+</ol>
+
+<p>
+<b>Oss:</b> Quindi, sotto le ipotesi del teorema, la probabilità di essere in un certo stato \(i\) pertempi grandi è un valore vicino a \(\pi_i\) e non dipende dal punto di partenza della catena.
+</p>
+</div>
+
+<div id="outline-container-orgb4e7766" class="outline-4">
+<h4 id="orgb4e7766">Osservazioni su teorema 7.7</h4>
+<div class="outline-text-4" id="text-orgb4e7766">
+<ul class="org-ul">
+<li>Le condizioni del teorema equivalgono a richiedere l' <b>aperiodicità</b> della catena.</li>
+<li>Dato che \(V\) è finito, l'esistenza di <i>alemno</i> una distribuzione stazionaria è garantita in ogni caso.</li>
+<li>Dato che \(V\) è finito, esiste <i>almeno</i> una classe d'equivalenza rispetto a \(\leftrightarrow\) costituita da tutti stati ricorrenti.
+Inoltre, una volta che la catena raggiunge uno di questi stati, non ne uscirà mai più.
+Ognuna di queste classi consente di individuare una sottocatena irriducibile e con stati ricorrenti; quindi il <b>Teorema 7.7</b> si può applicare a ciascuna di queste sottocatene nei casi in cui si abbia aperiodicità.</li>
+<li>Supponiamo di avere una catena con stati finiti \(V\) tale che
+\[
+      V \equiv T \cup C_1 \cup ... \cup C_k
+      \]
+dove \(T\) è l'insieme di tutti gli stati <i>transienti</i>, mentre \(C_1, ..., C_k\) sono le classi d'equivalenza rispetto a \(\leftrightarrow\), costituite da da soli stati <i>ricorrenti</i>.
+Quindi tali componenti non comunicano mai tra di loro.<br />
+Ogni distribuzione stazionaria \(\overline{\pi} = (\pi_i)_{i \in V}\) è una particolare <b>combinazione lineare</b> delle distribuzioni stazionarie sulle componenti \(C_1, ..., C_k\), e con 0 sugli stati di \(T\).
+Ovvero
+\[
+      \overline{\pi} = \sum_{j = 1}^k \alpha_j \overline{\pi}^{(j)}
+      \]
+dove:
+<ul class="org-ul">
+<li>\(\alpha_1, ..., \alpha_k \geq 0\)</li>
+<li>\(\sum_{j=1}^k \alpha_j = 1\)</li>
+<li>\(\overline{\pi}^{(j)} = (\pi^{(j)}_i)_{i \in V}\) è l'unica distribuzione stazionaria della componente \(C_j\), e con \(\pi^{(j)}_i = 0\) se \(i \not\in C_j\).</li>
+<li><p>
+Nelle ipotesi del teorema 7.7 possiamo dire che, qualunque sia la distribuzione iniziale \(\overline{p}(0)\), si ha che
+\[
+	\lim_{t \to \infty} \mathbb{E}\left[ f(X_t) \right] = \sum_{i \in V} f(i) \pi_i
+	\]
+qualunque sia la funzione \(f : V \to \mathbb{R}\).
+Infatti
+</p>
+\begin{align*}
+  \mathbb{E}\left[ f(X_t) \right]
+  &= \sum_{i,j \in V} f(i) P(X_0 = j, X_t = i)\\
+  &= \sum_{i,j \in V} f(i) P(X_0 = j, X_t = i)\\
+  &= \sum_{i,j \in V} f(i) P(X_t = i \vert X_0 = j)P(X_0 = j)\\
+  &= \sum_{i,j \in V} f(i) p^{(t)}_{ji}p_j(0)\\
+  &= \sum_{j \in V} p_j(0) \sum_{i \in V} f(i) p^{(t)}_{ji}
+\end{align*}
+<p>
+Essendo \(V\) finito, possiamo scambiare l'ordine del limite da fuori le sommatorie a denstro, ottenedo così
+</p>
+\begin{align*}
+  \lim_{t \to \infty} \mathbb{E}\left[ f(X_t) \right]
+  &= \lim_{t \to \infty} \sum_{j \in V} p_j(0) \sum_{i \in V} f(i) p^{(t)}_{ji}\\
+  &= \sum_{j \in V} p_j(0) \lim_{t \to \infty} \sum_{i \in V} f(i) p^{(t)}_{ji}\\
+  &= \sum_{j \in V} p_j(0) \sum_{i \in V} f(i) \lim_{t \to \infty} p^{(t)}_{ji}\\
+  &= \sum_{j \in V} p_j(0) \sum_{i \in V} f(i) \pi_i\\
+  &= \sum_{i \in V} f(i) \pi_i
+\end{align*}</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbc0211e" class="outline-3">
+<h3 id="orgbc0211e">Esempi</h3>
+<div class="outline-text-3" id="text-orgbc0211e">
+</div>
+<div id="outline-container-org242bc3b" class="outline-4">
+<h4 id="org242bc3b">ES. 1</h4>
+<div class="outline-text-4" id="text-org242bc3b">
+<p>
+Consideriamo la seguente catena di Markov omogenea definita su \(V = \lbrace 1,2 \rbrace\), con la seguente matrice di transizione
+</p>
+\begin{equation*}
+P = \left (
+\begin{array}{cc}
+  0 & 1 \\
+  1 & 0
+\end{array}
+\right )
+\end{equation*}
+
+<ol class="org-ol">
+<li>Verificare che <span class="underline">non</span> esiste \(\lim_{t \to \infty} p^{(t)}_{ji}\), per qualunque \(i,j \in V\).</li>
+<li>Verificare che la catena ha periodo 2.</li>
+</ol>
+</div>
+
+<ul class="org-ul">
+<li><a id="org2d858e4"></a>Soluzione 1<br />
+<div class="outline-text-5" id="text-org2d858e4">
+<p>
+Consideriamo la matrice di transizione al variare di \(t\)
+</p>
+\begin{equation*}
+P^{(2)} = P^2 = \left (
+\begin{array}{cc}
+  0 & 1 \\
+  1 & 0
+\end{array}
+\right )
+\left (
+\begin{array}{cc}
+  0 & 1 \\
+  1 & 0
+\end{array}
+\right ) =
+\left (
+\begin{array}{cc}
+  1 & 0 \\
+  0 & 1
+\end{array}
+\right ) = I
+\end{equation*}
+
+<p>
+\[
+     P^{(3)} = P^3 = P^2P = IP = P
+     \]
+\[
+     P^{(4)} = P^4 = P^3P = PP = I
+     \]
+Si può quindi dedurre che
+\[
+     P^{(t)} = \begin{cases}
+       I &\mbox{se } t \mbox{ è pari}\\
+       P &\mbox{se } t \mbox{ è dispari}
+     \end{cases}
+     \]
+da cui segue che
+\[
+     p^{(t)}_{11} = p^{(t)}_{22} = \begin{cases}
+       1 &\mbox{se } t \mbox{ è pari}\\
+       0 &\mbox{se } t \mbox{ è dispari}
+     \end{cases}
+     \]
+e
+\[
+     p^{(t)}_{12} = p^{(t)}_{21} = \begin{cases}
+       0 &\mbox{se } t \mbox{ è pari}\\
+       1 &\mbox{se } t \mbox{ è dispari}
+     \end{cases}
+     \]
+In conclusione il limite in questione non esiste, in quanto il valore di \(p^{(t)}_{ji}\) oscilla sempre tra 0 e 1.
+</p>
+</div>
+</li>
+
+<li><a id="orgff0596d"></a>Soluzione 2<br />
+<div class="outline-text-5" id="text-orgff0596d">
+<p>
+Banalmente, se si osserva il grafo associato a \(P\) si può osservare che partendo da 1 non è possibile ritornarci con un numero dispari di passi.
+Analogamente per lo stato 2.
+Ergo, la catena ha periodo 2.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org7c15f2a" class="outline-4">
+<h4 id="org7c15f2a">ES. 2 - distribuzione stazionaria</h4>
+<div class="outline-text-4" id="text-org7c15f2a">
+<p>
+Sia la catena definita su \(V = \lbrace 0,1 \rbrace\) con
+</p>
+\begin{equation*}
+P = \left (
+\begin{array}{cc}
+  1-p & p \\
+  q & 1-q
+\end{array}
+\right )
+\end{equation*}
+<p>
+per qualche \(p,q \in (0,1)\).<br />
+</p>
+
+<p>
+Si vuole calcolare la distribuzione stazionaria per \(P\).
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgca7e212"></a>Soluzione<br />
+<div class="outline-text-5" id="text-orgca7e212">
+<p>
+Certamente \(\overline{\pi} = (\pi_0, \pi_1)\) è stazionaria se
+</p>
+\begin{equation*}
+(\pi_0, \pi_1) = (\pi_0, \pi_1) \left (
+\begin{array}{cc}
+  1-p & p \\
+  q & 1-q
+\end{array}
+\right )
+\end{equation*}
+<p>
+e se
+\[
+     \pi_0 + \pi_1 = 1
+     \]
+Iniziamo quindi col risolvere il primo sistema
+</p>
+
+\begin{cases}
+  \pi_0 &= \pi_0 (1-p) + \pi_1 q\\
+  \pi_1 &= \pi_0 p + \pi_1 (1-q)
+\end{cases}
+
+\begin{cases}
+  \pi_0 p &= \pi_1 q\\
+  \pi_1 q &= \pi_0 p
+\end{cases}
+
+\begin{cases}
+  \pi_0 &= \frac{q}{p} \pi_1\\
+  \pi_1 &= \frac{p}{q} \pi_0
+\end{cases}
+
+<p>
+Ora è necessario verificare il vincolo \(\pi_0 + \pi_1 = 1\)
+</p>
+\begin{align*}
+  \pi_0 + \pi_1 &= 1\\
+  \frac{q}{p} \pi_1 + \pi_1 &= 1\\
+  \frac{q + p}{p} \pi_1 &= 1\\
+  \pi_1 &= \frac{p}{p + q}\\
+  \implies \pi_0 &= \frac{q}{p + q}
+\end{align*}
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf48ca76" class="outline-3">
+<h3 id="orgf48ca76">ES. 3 - matrice bistocastica</h3>
+<div class="outline-text-3" id="text-orgf48ca76">
+<p>
+Una matrice \(A\) è detta bistocastica se la somma degli elementi per ogni riga e per ogni colonna è sempre 1.
+Nel caso delle matrici di transizione \(P\) è necessario che solo le somme degli elementi per colonna sia pari ad 1, in quanto per definizione le righe sono delle distribuzioni.
+Sia un insieme di stati \(V\) <b>finito</b> e consideriamo la distribuzione uniforme
+\[
+   \pi_i = \frac{1}{\vert V \vert} \;\; \forall i \in V
+   \]
+Dimostrare che \(\overline{\pi} = (\pi_i)_{i \in V}\) è stazionaria.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org21c6126"></a>Soluzione<br />
+<div class="outline-text-5" id="text-org21c6126">
+<p>
+Si vuole dimostrare che \(\overline{\pi} = \overline{\pi}P\).
+Consideriamo il solo elemento \(i\)-esimo.
+Se \(\overline{\pi}\) è stazionaria allora è vero che
+</p>
+
+\begin{align*}
+  \pi_i
+  &= \sum_{j \in V} \pi_j p_{ji}\\
+  &= \sum_{j \in V} \frac{1}{\vert V \vert} p_{ji}\\
+  &= \frac{1}{\vert V \vert} \underbrace{\sum_{j \in V} p_{ji}}_{= 1}\\
+  &= \frac{1}{\vert V \vert} = \pi_i \;\;\; \square
+\end{align*}
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org69176d8" class="outline-3">
+<h3 id="org69176d8">Teorema 7.10 - distribuzioni reversibili</h3>
+<div class="outline-text-3" id="text-org69176d8">
+<p>
+Sia \(\overline{\pi} = (\pi_i)_{i \in V}\) una distribuzione su \(V\), e supponiamo che sia anche <b>reversibile</b>, ovvero che
+\[
+   \pi_i p_{ij} = \pi_j p_{ji} \;\; \forall i,j \in V
+   \]
+Allora \(\overline{\pi}\) è anche <i>stazionaria</i>.
+</p>
+
+<p>
+<b>Proof:</b>
+</p>
+\begin{align*}
+  \pi_i
+  &= \sum_{j \in V} \pi_j p_{ji}\\
+  &= \sum_{j \in V} \pi_i p_{ij}\\
+  &= \pi_i \underbrace{\sum_{j \in V} p_{ij}}_{= 1} = \pi_i \;\;\; \square
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgd19c10e" class="outline-3">
+<h3 id="orgd19c10e">Teorema 7.11</h3>
+<div class="outline-text-3" id="text-orgd19c10e">
+<p>
+Supponiamo di avere una catena irriducibile e aperiodica.
+Allora vale che:
+</p>
+<ol class="org-ol">
+<li>Nel caso di \(V\) <span class="underline">finito</span> vale che:
+<ul class="org-ul">
+<li>c'è <b>ergodicità</b>.</li>
+<li>per ogni \(i,j \in V\) esiste \(\lim_{t \to \infty} p^{(t)}_{ji}\) <b>indipendente</b> da \(j\).</li>
+<li>si ha un'<b>unica</b> distribuzione stazionaria \(\overline{\pi}\).</li>
+<li>per ogni \(i,j \in V\) avremo che \(\lim_{t \to \infty} p^{(t)}_{ji} = \pi_i > 0\).</li>
+</ul></li>
+<li>Nel caso di \(V\) <span class="underline">infinito</span> vale che:
+<ul class="org-ul">
+<li>non esistono stati ricorrenti positivi.</li>
+<li>per ogni \(i,j \in V\) si ha \(\lim_{t \to \infty} p^{(t)}_{ji} = 0\).</li>
+<li>non esiste distribuzione stazionaria.</li>
+</ul></li>
+</ol>
+<p>
+<i>Dimostrazione omessa</i>.
+</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Note a pi&egrave; di pagina: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+esiste un cammino che da \(i\) arriva a \(j\), e ne esiste un altro che da \(j\) arriva ad \(i\).
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-05-29 dom 11:45</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+#+title: ML - Lesson 08
+#+date: <2022-04-01>
+#+teacher: Giorgio Gambosi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Approccio Bayesiano
+  Nell'approccio statistico assumo che una distribuzione sia uguale ai risultati dei miei esperimenti.
+
+  Nell'approccio bayesiano invece assumo che una distribuzione di probabilità in realtà a sua volta ha una *probabilità*.
+  Per rendere le idee, consideriamo una distribuzione di bernulli di parametro \(\phi = 0.3\).
+  Assumiamo inoltre che \(\phi\) sia distribuita come una normale su $0.3$, ovvero \(p^*(\phi) \approx \mathcal{N}(0.3,1)\).
+
+  Noi vogliamo stimare il parametro \(\phi\) reale, e non conosciamo la distribuzione reale \(p^*\).
+  Perciò assumiamo a *priori* che sia uniformemente distribuita, ovvero
+  \[
+  p(\phi) = 0.5
+  \]
+
+  Dopodiché osserviamo una serie di $n$ esperimenti $X$, e in base a questo possiamo *aggiustare a posteriori* il nostro $p$, grazie alla formula di bayes
+  \[
+  p(\phi \vert X) = \frac{ p(X \vert \phi)p(\phi) }{ p(X) }
+  \]
+  dove \(p(\phi)\) è la nostra distribuzione fatta a priori, mentre assumiamo che $p(X)$ sia uniformemente distribuito.\\
+
+  Ovviamente, più $X$ è grande più (per la teoria dei grandi numeri) la distribuzione a posteriori \(p(\phi \vert X)\) tenderà a quella reale \(p^*(\phi)\).
+  
+  Ricapitolando
+  - \(p(\theta)\) indica la nostra *conoscenza a priori* di \(\theta\) prima di osservare gli esperimenti in $X$.
+  - \(p(\theta \vert X)\) indica la nostra *conoscenza a posteriori* di \(\theta\) dopo aver osservato gli esperimenti in $X$.
+  - \(p(X \vert \theta)\) misura quanto i dati osservati da $X$ sono coerenti col modello, assumendo che la distribuzione parametrizzata da \(\theta\) (ovvero la *verosimiglianza*).
+  - \(p(X) = \sum_{\theta'} p(X \vert \theta')p(\theta')\) è la probabilità che $X$ sia osservato, considerando tutti i possibili valori di \(\theta\).

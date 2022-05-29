@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-<!-- 2022-04-21 gio 16:10 -->
+<!-- 2022-03-31 gio 17:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ML - Lesson 02</title>
+<title>ML - Lesson 07</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Alessandro Straziota" />
 <style type="text/css">
@@ -269,226 +269,193 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="/"> HOME </a>
 </div><div id="content">
-<h1 class="title">ML - Lesson 02</h1>
+<h1 class="title">ML - Lesson 07</h1>
 <div id="table-of-contents">
 <h2>Indice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org97b5ede">Fondamenti del Machine Learning</a>
+<li><a href="#org7f25dd8">Verosimiglianza - likelyhood</a>
 <ul>
-<li><a href="#org36c0ebb">Supervised Learning</a></li>
-<li><a href="#orgff3aef4">Unsupervised Learning</a></li>
-<li><a href="#org8d7e9fa">Reinforcement Learning</a></li>
-<li><a href="#org615e761">Definizioni</a></li>
-<li><a href="#orgd316290">Prediction Risk</a></li>
+<li><a href="#org65f706a">Esempio</a>
+<ul>
+<li><a href="#orgd4e380a">Log-likelihood per variabile di bernulliana</a></li>
+</ul>
+</li>
+<li><a href="#orgee1663a">Modelli lineari</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org97b5ede" class="outline-2">
-<h2 id="org97b5ede">Fondamenti del Machine Learning</h2>
-<div class="outline-text-2" id="text-org97b5ede">
+<div id="outline-container-org7f25dd8" class="outline-2">
+<h2 id="org7f25dd8">Verosimiglianza - likelyhood</h2>
+<div class="outline-text-2" id="text-org7f25dd8">
 <p>
-Intuitivamente, l'obiettivo principale del <b>Machine Learning</b> è quello di cercare di apprendere <b>caretteristiche comuni</b> (o <b>patterns</b>), sulla base di <b>esempi</b> (il <b>training set</b>),
-in modo tale da ricavare un <b>modello</b> che ci consenta di fare <b>predizioni</b>.
-Per predizione si intende inferire informazioni da dei dati in input, senza però che venga definito in maniera formale come estrapolare queste informazioni (altrimenti si definirebbe direttamente un agloritmo).<br />
+Sia un dataset \(\mathscr{T}\), e sia una distribuzione \(p\) sui parametri \(\theta\).
 </p>
 
 <p>
-Un <b>training set</b> composto da \(n\) items, è rappresentato come un insieme di vettori \(x_1, ..., x_n \in \mathbb{K}^d\) (per qualche dominio \(\mathbb{K}\) e costante \(d > 0\)).
-Insieme agli \(n\) items, il training set è provvisto di un insieme di valroti \(t_1, ..., t_n\), detti valori <b>target</b>, che indicano le informazioni <i>reali</i> che siamo interessati a predire.
-Come già accennato esso viene utilizzato per derivare un <b>modello di previsione</b> in grado di stimare il più precisamente possibile i target reali, che ovviamente dipenderà fortemente dal training set a disposizione.<br />
+La <b>somiglianza</b> tra il dataset \(\mathscr{T}\) e i parametri \(\theta\) è definita come
+\[
+  \mathscr{L}(\theta \vert \mathscr{T}) = p(\mathscr{T} | \theta)
+  \]
 </p>
 
 
-<div class="figure">
-<p><img src="../images/ml-lesson2-img1.png" alt="ml-lesson2-img1.png" style="max-width:600px; width:100%" />
+<p>
+\[
+  \theta^* = arg \max_{\theta}{\mathscr{L}(\theta \vert \mathscr{T})} =
+  arg \max_{\theta}{p(X \vert \theta)} =
+  arg \max_{\theta}{\prod_{i=1}^{n} p(x_i \vert \theta)}
+  \]
 </p>
-<p><span class="figure-number">Figura 1: </span>L'approccio può ossere applicato in maniera <b>iterativa</b>.</p>
+
+<p>
+Per trovare \(\theta^*\), come prima, calcoliamo la derivata e troviamo il punto di miminimo.
+Purtroppo calcolare la drivata di un prodotto di \(n\) elementi, è complicato.
+Perciò è più facile calcolare la media del <b>logaritmo</b> della porbabilità.
+Tanto il logaritmo è monoto, e il \(theta\) che passimizza \(p\) massimizza anche il logaritmo di \(p\).
+</p>
+
+<p>
+\[
+  \theta^* = arg \max_{\theta}{\prod_{i=1}^{n} p(x_i \vert \theta)} = arg \sum_{\theta}{\prod_{i=1}^{n} \log{p(x_i \vert \theta)}}
+  \]
+</p>
+
+<hr />
 </div>
-
-<p>
-Lo scopo finale è infine quello di predire il target con le migliori prestazioni possibili, sia in termini di <i>efficienza</i> che di <i>correttezza</i>.
-</p>
+<div id="outline-container-org65f706a" class="outline-3">
+<h3 id="org65f706a">Esempio</h3>
+<div class="outline-text-3" id="text-org65f706a">
 </div>
-
-<div id="outline-container-org36c0ebb" class="outline-3">
-<h3 id="org36c0ebb">Supervised Learning</h3>
-<div class="outline-text-3" id="text-org36c0ebb">
+<div id="outline-container-orgd4e380a" class="outline-4">
+<h4 id="orgd4e380a">Log-likelihood per variabile di bernulliana</h4>
+<div class="outline-text-4" id="text-orgd4e380a">
 <p>
-[descrizione informale]
-</p>
-</div>
-</div>
-<div id="outline-container-orgff3aef4" class="outline-3">
-<h3 id="orgff3aef4">Unsupervised Learning</h3>
-<div class="outline-text-3" id="text-orgff3aef4">
-<p>
-[descrizione informale]
-</p>
-</div>
-</div>
-<div id="outline-container-org8d7e9fa" class="outline-3">
-<h3 id="org8d7e9fa">Reinforcement Learning</h3>
-<div class="outline-text-3" id="text-org8d7e9fa">
-<p>
-[descrizione informale]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org615e761" class="outline-3">
-<h3 id="org615e761">Definizioni</h3>
-<div class="outline-text-3" id="text-org615e761">
-<p>
-Innanzitutto si parte col definire un <b>dominio</b> \(\mathscr{X}\) iniziale di oggetti sui quali noi vogliamo fare predizioni.
-Modelliamo ognuno di questi oggetti come un vettore \(x \in \mathbb{R}^d\).
-Indichiamo gli elementi del vottore col termine <b>features</b>.
-Infine diremo che la <b>dimensionalità</b> del nostro problema è pari al numero di features degli elementi (ovvero \(d\)).<br />
-</p>
-
-<p>
-Dato che in genere noi vogliamo <i>classificare</i> gli elementi di \(\mathscr{Y}\), indichaimo con \(\mathscr{Y}\) l'insieme delle <i>"etichette"</i> possibili che possiamo assegnare agli elementi di \(\mathscr{X}\).
-Più precisamente, quando \(\mathscr{Y}\) è continuo, allora diremo che stiamo trattando un problema di <b>regressione</b>, quando invece \(\mathscr{Y}\) è dicreto, allora diremo che è un problema di <b>classificazione</b>.<br />
-</p>
-
-<p>
-Un <b>training set</b> \(\mathscr{T} \subseteq \mathscr{X} \times \mathscr{Y}\) è un insieme di <i>coppie ordinte</i> \((x_1, t_1), ..., (x_n, t_n)\), oguna delle quali formata da un item \(x_i \in \mathscr{X}\) e dal suo relativo valore target (effettivo) \(t_i \in \mathscr{Y}\).
-Generalmente si indica con \(\mathbf{X} \in \mathbb{R}^{n \times d}\) la matrice degli item \(x_1, ..., x_n\), detta anche <b>feature matrix</b>, e con \(t \in \mathbb{R}^n\) il vettore dei relativi valori target, detto <b>target vector</b>.
-</p>
-\begin{equation*}
-\mathbf{X} = \left (
-\begin{array}{ccc}
-  x_{11} & x_{12} & \cdots & x_{1d}\\
-  x_{21} & x_{22} & \cdots & x_{2d}\\
-  \vdots & \vdots & \ddots & \vdots\\
-  x_{n1} & x_{n2} & \cdots & x_{nd}
-\end{array}
-\right ) \in \mathbb{R}^{n \times d}
-\end{equation*}
-
-\begin{equation*}
-t = \left (
-\begin{array}{ccc}
-  t_1\\
-  t_2\\
-  \vdots\\
-  t_n
-\end{array}
-\right ) \in \mathbb{R}^{n}
-\end{equation*}
-<p>
-<br />
-Dato un training set \(\mathscr{T}\), un apprenditore automatico \(A\) è un algoritmo che ritorna una <b>regola di predizione</b> (<i>classificatore</i> o <i>regressore</i> in base al dominio) del tipo
+Caso \(X\) bernulliana
 \[
-   A(\mathscr{T}) = h : \mathscr{X} \to \mathscr{Y}
-   \]
-<br />
-Noi assumiamo che ogni oggeto del training set \(\mathscr{T}\) è campionato dal dominio \(\mathscr{X}\) in accordo a una <b>distribuzione</b> \(\mathscr{D}_1\).
-Perciò, per ogni elemento \(x \in \mathscr{X}\) avremo che \(p_{\mathscr{D}_1}(x)\) è la porbabilità che \(x\) sia presente nell'insieme \(\mathscr{T}\).<br />
+    p(x \vert \phi) = \phi^x(1-\phi)^x
+    \]
 </p>
 
+<ul class="org-ul">
+<li>Verosimiglianza</li>
+</ul>
 <p>
-Analogamente assumiamo che anghe i rispettivi valori target degli elementi in \(\mathscr{T}\) sono campionati in accordo a una distribuzione \(\mathscr{D}_2\), <b>condizionata</b> sugli elementi di \(\mathscr{X}\).
-Perciò, per ogni \(t \in \mathscr{Y}\) avremo che \(p_{\mathscr{D}_2}(t \vert x)\) è la porbabilità che osservando il valore di target di \(x\) nel training set \(\mathscr{T}\), esso sia pari a \(t\).<br />
+\[
+    L(\phi \vert X) = \prod_{i=1}^{n} \phi^{x_i} (1- \phi)^{1 - x_i}
+    \]
 </p>
-
+<ul class="org-ul">
+<li>Log-verosimiglianza</li>
+</ul>
 <p>
-<b>IMPORTANTE:</b> per il momento trascuriamo questa definizione generale probabilistica, e assumiamo che la relazione tra oggetti e valori di target sia deterministica, ovvero una funzione ben definita \(f\) tale che \(t_i = f(x_i)\).<br />
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgd316290" class="outline-3">
-<h3 id="orgd316290">Prediction Risk</h3>
-<div class="outline-text-3" id="text-orgd316290">
-<p>
-Fissiamo un elemetno \(x \in \mathscr{X}\), con un rispettivo valore di target \(y \in \mathscr{Y}\) (nelle nostre assunzioni avremo \(y = f(x)\)).
-</p>
-
-<p>
-Dato un generico predittore \(h : \mathscr{X} \to \mathscr{Y}\), l'<b>errore</b> rispetto \(x\) si ottiene confrontando la preizione \(h(x)\) e il reale valore target \(y\).
-Il rapporto tra i due valori (predizione e target effettivo), è fatta in accordo a una <b>regola</b> che predefiniamo a priori e che dipende dal contesto.
-Per esempio, sbagliare a riconoscere il numero 2 o il numero 8 scritti a mano sono errori poco gravi e con uguale gravità.
-Viceversa, dare un <i>falso negativo</i> nella diagnosi di un tumore è decisamente molto più grave che dare un <i>flaso positivo</i>.<br />
-Tale regola di paragone è nota come <b>Loss Function</b>
 \[
-   L : \mathscr{Y} \times \mathscr{Y} \to \mathbf{R}
-   \]
-</p>
-
-<p>
-L'<b>errore di predizione</b> di un predittore \(h(x)\) rispetto ad \(x\) è ricavata semplicemente applicando la <i>loss function</i>
-\[
-   \mathscr{R}(h(x), y) = L(h(x), y)
-   \]
-<br />
-Consideriamo ora il caso in cui il valore target \(y\) non è definito deterministicamente come \(y = f(x)\), ma ripsetta la probabilità condizionata \(p_{\mathscr{D}_2}(y \vert x)\).
-Allora in questo caso l'errore di predizione è definito come la <span class="underline">media</span> della loss function al variare di tutti i possibili valori target \(y\) che \(x\) può assumere.
-\[
-   \mathscr{R}(h(x)) = \mathbb{E}_{\mathscr{D}_2} [ L(h(x), y) ] = \int_{\mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(y \vert x) \, dy
-   \]
-oppure nel caso di \(\mathscr{Y}\) discreto
-\[
-   \mathscr{R}(h(x)) = \mathbb{E}_{\mathscr{D}_2} [ L(h(x), y) ] = \sum_{y \in \mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(y \vert x)
-   \]
-<br />
-Alla luce di questo, possiamo dire che predittore \(h^*\) è ottimo se minimizza la sua misura di rischio di predizione.
-Nel caso di \(\mathscr{Y}\) avremo
-\[
-   h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} L(h(x), f(x))
-   \]
-oppure nel caso probabilistico
-\[
-   h^*(x) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathscr{R}(h(x), f(x)) = arg \min_{h : \mathscr{X} \to \mathscr{Y}} \mathbb{E}_{\mathscr{D}_2} [ L(h(x), f(x)) ]
-   \]
-<br />
-Avvolte si necessita di misurare l'errore di un predittore \(h\) in maniera più generale, e non in funzione dei singoli oggetti \(x\) in input.
-In questo caso, basta calcolare la <b>media</b> di \(\mathscr{R}\) al varirare di tutte le \(x\) del dominio.<br />
-</p>
-
-<p>
-Nel caso di \(y\) deterministicamente ricavato da una <i>funzione</i> \(f\) avremo 
-\[
-   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,f} [ L(h(x), f(x)) ] = \int_{\mathscr{X}} L(h(x), f(x)) \cdot p_{\mathscr{D}_1}(x) \, dx
-   \]
-Invece, quando \(y\) dipende dalla distribuzione \(\mathscr{D}_2\) in maniera condizionata dalla scelta di \(x\), possiamo calcolare il rischio come la media di una v.a. <b>multivariabile</b>, ovvero
-\[
-   \mathscr{R}(h) = \mathbb{E}_{\mathscr{D}_1,\mathscr{D}_2} [ L(h(x), y) ] = \int_{\mathscr{X}}\int_{\mathscr{Y}} L(h(x), y) \cdot p_{\mathscr{D}_2}(f(x) \vert x) \, dy \, dx
-   \]
-<br />
-Il problema principale di queste definizioni è che generalmente non sono noti ne la funzione \(f\) ne la distribuzione  \(\mathscr{D}_2\) di \(p_{\mathscr{D}_2}(y \vert x)\).
-Osservando che le uniche informazioni certe di cui siamo in possesso (relative a \(\mathscr{D}_1,\mathscr{D}_2\) o \(f\)) ce le abbiamo rispetto ai dati del training set \(\mathscr{T}\).<br />
-</p>
-
-<p>
-Perciò empiricamente possiamo impiegare una <b>media aritmetica</b> rispetto alle sole informazioni di \(\mathscr{T}\) per ottenere il cosidetto <b>rischio empirico</b> \(\mathscr{\overline{R}}(h)\).
-\[
-   \mathscr{\overline{R}}_{\mathscr{T}}(h) = \frac{1}{\vert \mathscr{T} \vert } \sum_{(x_i,t_i) \in \mathscr{T}} L(h(x), t)
-   \]
-<br />
-Concludiamo dicendo che l'approccio del machine learning consiste nel derivare un predittore \(h\) che (quantomeno in maniera approssimata) minimzza il <b>rischio empirico</b> calcolato rispetto alle informazioni contenute nel training set \(\mathscr{T}\).<br />
-</p>
-
-<p>
-Perciò il problema dell'apprendimento automatico si riduce un problema di minimizzazione in un certo spazio delle funzioni \(\mathscr{H}\), ovvero l'insieme di tutti i possibili predittori \(h\).
-\[
-   h^* = arg \min_{h \in \mathscr{H}} \mathscr{\overline{R}}_{\mathscr{T}}(h)
-   \]
-L'insieme di funzioni \(\mathscr{H}\) nel quale effettuiamo la ricerca è anche detto <b>hypothesis set</b> (<b>insieme di ipotesi</b>) o <b>inductive bias</b>.
+    l(\phi \vert X) = \sum_{i=1}^{n} \left( x_i\log{\phi} +  (1 - x_i)\log{(1- \phi)} \right)
+    \]
 </p>
 <hr />
 </div>
 </div>
 </div>
+<div id="outline-container-orgee1663a" class="outline-3">
+<h3 id="orgee1663a">Modelli lineari</h3>
+<div class="outline-text-3" id="text-orgee1663a">
+<p>
+Consideriamo la regressione lineare come <b>combinazione linerare delle features</b>
+\[
+   y(x,w) = w_0 + w_1x_1 + w_2x_2 + ... + w_dx_d
+   \]
+</p>
+
+<p>
+dove con \(w\) indichiamo \(\theta\), e \(x\) è un oggetto del training set.<br />
+</p>
+
+
+<p>
+Consideriamo invece un insieme di funzioni \(\phi = \{ \phi_1, ..., \phi_m \}\) definite come \(\phi_i : R^d \to R\) tali che
+\[
+   y(x,w) = \sum_{j=1}^{m} w_j\phi(x)
+   \]
+Perciò \(y\) mappa ogni vettore \(x = (x_1, ..., x_d) \in R^d\) in un vettore \(\phi(x) = (\phi_1(x), ..., \phi_m(x)) \in R^m\).
+</p>
+
+<p>
+Un <b>esempio</b> di insieme \(\phi\) è 
+\[
+   \phi_1(x) = x_1\\
+   \phi_2(x) = x_1^2\\
+   \phi_3(x) = x_1^3\\
+   \vdots\\
+   \phi_i(x) = x_i^i\\
+   \vdots\\
+   \phi_m(x) = x_i^m
+   \]
+</p>
+
+<p>
+Perciò \(\phi\) è una proiezione da \(R^d\) a \(R^m\), dove in genere \(m > d\) per non perdere informazioni.
+</p>
+
+<p>
+Altri esempi sono:
+</p>
+<ul class="org-ul">
+<li>Polynomial
+\[
+     \phi_j(x) = x^j
+     \]</li>
+<li>Gaussiane
+\[
+     \phi_j(x) = \exp{ \left( - \frac{ (x - \mu_j)^2 }{ 2s } \right) }
+     \]</li>
+<li>Sigmoid
+\[
+     \phi_j(x) = \sigma \left( \frac{x - \mu_j}{s} \right) = \frac{1}{1 + e^{- \frac{x - \mu_j}{s}}}
+     \]</li>
+<li>Hyperbolic tangent
+\[
+     \phi_j(x) = \tanh{(x)}
+     \]</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/ml-lesson7-img1.png" alt="ml-lesson7-img1.png" style="max-width:450px; width:100%" />
+</p>
+</div>
+
+<p>
+Indichiamo la matrice \(\overline{X}\) come
+\[
+   \overline{X} = (\underline{1} \vert X) \in R^{m \times (d+1)}
+   \]
+</p>
+
+<p>
+<b>NOTA</b> \(y(x,w)\) <b>non</b> lineare in \(X\), bensì lineare in \(\phi(X)\).
+Perciò, data questa linearità in \(\phi(X)\), possiamo applicare la <b>square loss</b> per ricavare il seguente rischio empirico
+\[
+   E(w) = \frac{1}{2} \sum_{x_i \in X}(y(x_i, w) - t_i)^2 = \frac{1}{2} \sum_{x_i \in X}(w \cdot \phi(x_i) - t_i)^2 =
+   \frac{1}{2} \sum_{x_i \in X}(w_0 + w_1 \phi(x_{i1}) + w_2 \phi(x_{i2}) + ... + w_d \phi(x_{id}) - t_i)^2
+   \]
+</p>
+
+<p>
+A questo punto, si può pensare di riapplicare la discesa del gradiente.
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Data: 2022-03-15 mar 00:00</p>
+<p class="date">Data: 2022-03-31 gio 00:00</p>
 <p class="author">Autore: Alessandro Straziota</p>
 <p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
-<p class="date">Created: 2022-04-21 gio 16:10</p>
+<p class="date">Created: 2022-03-31 gio 17:58</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

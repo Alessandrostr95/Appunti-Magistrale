@@ -1,0 +1,37 @@
+#+title: ML - Lesson 09
+#+date: <2022-04-07>
+#+teacher: Giorgio Gambosi
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+Supponiamo di voler stiamre le due classi \(C_0, C_1\) con distribuzione
+\[
+p(C_0 \vert x)\\
+p(C_1 \vert x)
+\]
+Un classificatore *Bayesiano* (binario) effettuare predizioni sull'appartenenza di un punto $x$ in una classe \(C_1\) o \(C_2\), sulla base della stiama di $p$.
+
+Osserviamo che
+\[
+p(C_1 \vert x) > p(C_0 \vert x) \iff p(C_1 \vert x) > \frac12 \iff x \in C_1
+\]
+
+Osserviamo
+\[
+p(C_1 \vert x) = \frac{p(x \vert C_1)p(C_1)}{p(x)}\\
+p(C_0 \vert x) = \frac{p(x \vert C_0)p(C_0)}{p(x)}
+\]
+
+\[
+\implies p(x \vert C_1)p(C_1) > p(x \vert C_0)p(C_0) \iff x \in C_1
+\]
+Dove:
+- \(p(x \vert C_1)\) = sapendo di avendo pescato un punto in \(C_1\), qual è la probabilità che essa sia *esattamente* $x$ (ovvero la /distribuzione/ dei punti in \(C_1\)).
+- \(p(C_1)\) = probabilità che pescando un punto a caso esso finisca in \(C_1\).
+
+Assumiamo che \(p(x \vert C_i)\) sia un gaussiana centrata in \(\mu_i\) (il punto medio di \(C_i\)).
+Mentre \(p(C_1) = \frac{\vert C_1 \vert}{\vert C_0 \vert + \vert C_1 \vert}\), ovvero la *probabilità a priori* del modello.
+
+- Caso *non* supervisionato: \(p(x \vert X)\).
+- Caso supervisionato: \(p(t \vert x; X)\).
+
