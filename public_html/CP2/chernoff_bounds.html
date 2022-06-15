@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<head>
+<!-- 2022-06-15 mer 21:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chernoff bounds</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alessandro Straziota" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="/appunti.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Chernoff bounds</h1>
+<div id="table-of-contents">
+<h2>Indice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org92e1250">Funzione generatrice di momenti</a></li>
+<li><a href="#orge016c7a">Teorema 4.1 - legame tra fgm e momenti</a></li>
+<li><a href="#orge73b9cd">FGM di una geometrica</a></li>
+<li><a href="#orgb880028">Teorema 4.2</a></li>
+<li><a href="#org36a9828">Teorema 4.3</a>
+<ul>
+<li><a href="#orgce2453c">Osservazione</a></li>
+</ul>
+</li>
+<li><a href="#org94669c1">Chernoff bounds per una singola v.a. \(X\)</a></li>
+<li><a href="#org067febe">Poisson trials</a></li>
+<li><a href="#orgacae338">Teorema 4.4</a></li>
+<li><a href="#org7c7592d">Teorema 4.5</a>
+<ul>
+<li><a href="#orgb380dfb">Corollario 4.6</a></li>
+<li><a href="#orgaff43d3">Esercizio: Binom(\(n, \frac{1}{2}\))</a>
+<ul>
+<li><a href="#orgafdc2f0">Caso 1</a></li>
+<li><a href="#orgba2b665">Caso 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org40dc178">Teorema 4.7</a>
+<ul>
+<li><a href="#orgc34ef8e">Corollario 4.8</a></li>
+<li><a href="#org51116e0">Corollario 4.9</a></li>
+<li><a href="#org05530a5">Corollario 4.10</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org92e1250" class="outline-2">
+<h2 id="org92e1250">Funzione generatrice di momenti</h2>
+<div class="outline-text-2" id="text-org92e1250">
+<p>
+Si dice <b>funzione generatrice dei momenti</b> ( <span class="underline">fgm</span> ) di una variabile aleatoria \(X\) la seguente funzione:
+\[
+   M_X : \mathbb{R} \to (0, \infty) \cup \lbrace \infty \rbrace\\
+   M_X(t) := \mathbb{E} \left[ e^{tX} \right]
+   \]
+Osserviamo che:
+</p>
+<ul class="org-ul">
+<li><p>
+se \(P(X \geq 0) = 1\) (ovvero se \(X\) assume <span class="underline">sempre</span> valori non negativi) allora \(M_X\) è <b>crescente</b> e quindi per ogni \(t \leq 0\) si ha che \(M_X(t) \leq M_X(0) = 1 < \infty\).
+</p>
+
+<div class="figure">
+<p><img src="../images/cp2_chernoff_bounds_1.png" alt="cp2_chernoff_bounds_1.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 1: </span>Caso \(X \geq 0\).</p>
+</div></li>
+<li><p>
+viceversa se \(P(X \leq 0) = 1\) (ovvero se \(X\) assume <span class="underline">sempre</span> valori non positivi) allora \(M_X\) è <b>decrescente</b> e quindi per ogni \(t \geq 0\) si ha che \(M_X(t) \leq M_X(0) = 1 < \infty\).
+</p>
+
+<div class="figure">
+<p><img src="../images/cp2_chernoff_bounds_2.png" alt="cp2_chernoff_bounds_2.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Caso \(X \leq 0\).</p>
+</div></li>
+<li><p>
+banalmente se \(X = 0\) avremo che \(M_X(t) = 1\) per ogni valore di \(t \in \mathbb{R}\).
+</p>
+
+<div class="figure">
+<p><img src="../images/cp2_chernoff_bounds_3.png" alt="cp2_chernoff_bounds_3.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 3: </span>Caso \(X = 0\).</p>
+</div></li>
+<li><p>
+se \(X\) è limitata all'intervallo \(\left[ a,b \right]\), ovvero \(P(a \leq X \leq b) = 1\), allora certamente \(M_X(t) < \infty\) per ogni \(t \in \mathbb{R}\).
+Più formalmente
+\[
+     X \in \left[ a,b \right] \implies \forall t \in \mathbb{R} M_X(t) < \infty
+     \]
+Non è sempre vera invece l'implicazione inversa, ovvero
+\[
+     \forall t \in \mathbb{R} M_X(t) < \infty \;\not\!\!\!\implies X \in \left[ a,b \right]
+     \]
+Per esempio, consideriamo \(X \sim \text{Poisson}(\lambda)\) con \(\lambda > 0\), si ha che
+</p>
+\begin{align*}
+  M_X(t)
+  &= \sum_{n \geq 0}e^{tn}P(X = n)\\
+  &= \sum_{n \geq 0}e^{tn}\frac{\lambda^n}{n!}e^{-\lambda}\\
+  &= e^{-\lambda} \cdot \sum_{n \geq 0}\frac{(e^{t}\lambda)^n}{n!}\\
+  &= e^{-\lambda}e^{\lambda e^t}\\
+  &= e^{\lambda(e^t - 1)} < \infty \;\;\forall t \in \mathbb{R}
+\end{align*}</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge016c7a" class="outline-2">
+<h2 id="orge016c7a">Teorema 4.1 - legame tra fgm e momenti</h2>
+<div class="outline-text-2" id="text-orge016c7a">
+<p>
+Consideriamo un <i>intorno finito</i> dell'origine \((-\delta, \delta)\) (con \(\delta > 0\)) e supponiamo che \(M_X\) sia <span class="underline">finita</span> in quell'intorno, ovvero che
+\[
+  M_X(t) < \infty \;\; \forall t \in (-\delta, \delta)
+  \]
+In tal caso allora si può derivare rispetto a \(t\) in tale intervallo, ottenendo quindi
+\[
+  M_X^{(n)}(0) = \mathbb{E} \left[ X^n \right] \;\; \forall n > 0
+  \]
+</p>
+
+<p>
+<b>Proof:</b> assumiamo che sia legittimo invertire l'operazione di derivazione con quella di valore atteso, ovvero che
+\[
+  \frac{d}{dX}\mathbb{E}\left[ f(X) \right] = \mathbb{E}\left[ f'(X) \right]
+  \]
+A questo punto, derivando \(n > 0\) volte in \(t\) avremo che
+\[
+  M^{(n)}_X(t) = \mathbb{E} \left[ X^n e^{tX} \right]
+  \]
+In fine valutando tale derivata nel punto \(t = 0\) avremo che \(M_X^{(n)}(0) = \mathbb{E} \left[ X^n \right]\) \(\square\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge73b9cd" class="outline-2">
+<h2 id="orge73b9cd">FGM di una geometrica</h2>
+<div class="outline-text-2" id="text-orge73b9cd">
+<p>
+Calcoliamo la f.g.m. di \(X \sim \text{Geom}(p)\).
+</p>
+\begin{align*}
+  M_X(t)
+  &= \sum_{n \geq 1} e^{tn}P(X = n)\\
+  &= \sum_{n \geq 1} e^{tn}(1-p)^{n-1}p\\
+  &= \frac{p}{1-p}\sum_{n \geq 1} (e^t(1-p))^n\\
+  &=
+  \begin{cases}
+    \frac{p}{1-p}\frac{e^t(1-p)}{1 - e^t(1-p)} &\mbox{se } e^t(1-p) < 1\\
+    \infty &\mbox{se } e^t(1-p) \geq 1
+  \end{cases}\\
+  &=
+  \begin{cases}
+    \frac{pe^t}{1 - e^t(1-p)} &\mbox{se } t < -\log{(1-p)}\\
+    \infty &\mbox{se } t \geq -\log{(1-p)}
+  \end{cases}
+\end{align*}
+<p>
+perciò \(M_X(t) < \infty\) non è soddisfatta per alcuni valori di \(t\) (ovvero quando \(t \geq -\log{(1-p)}\)).<br />
+</p>
+
+<p>
+Un altro caso limite è quando \(p=1\).
+In questo caso ricadiamo nel primo caso
+\[
+  t < -\log{0} = - (-\infty) = \infty \implies M_X(t) = e^t \;\; \forall t \in \mathbb{R}
+  \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb880028" class="outline-2">
+<h2 id="orgb880028">Teorema 4.2</h2>
+<div class="outline-text-2" id="text-orgb880028">
+<p>
+Siano \(X,Y\) due variabili aleatorie con f.g.m. <i>coincidente</i> in un dato intorno dell'origine, cioè esiste un \(\delta > 0\) tale che \(M_X(t) = M_Y(t)\) per ogni \(t \in (-\delta, \delta)\).
+Allora \(X\) ed \(Y\) hanno la stessa distribuzione.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org36a9828" class="outline-2">
+<h2 id="org36a9828">Teorema 4.3</h2>
+<div class="outline-text-2" id="text-org36a9828">
+<p>
+Siano \(X_1, ..., X_n\) variabili aleatorie <b>indipendenti</b>.
+Allora vale che
+\[
+  M_{X_1 + X_2 + ... + X_n}(t) = \prod_{i = 1}^{n} M_{X_i}(t)
+  \]
+</p>
+
+<p>
+<b>Proof:</b>
+Osserviamo che
+\[
+  M_{X_1 + X_2 + ... + X_n}(t) = \mathbb{E}\left[ e^{t(X_1 + X_2 + ... + X_n)} \right] = \mathbb{E}\left[ \prod_{i = 1}^{n} e^{tX_i} \right]
+  \]
+Inoltre, dato che \(X_1, X_2, ..., X_n\) sono tutte indipendenti, allora saranno indipendenti anche le variabili \(e^{tX_1}, e^{tX_2}, ..., e^{tX_n}\), per qualsiasi \(t\) scegliamo.
+Perciò
+\[
+  \mathbb{E}\left[ \prod_{i = 1}^{n} e^{tX_i} \right] = \prod_{i = 1}^{n} \mathbb{E}\left[ e^{tX_i} \right] = \prod_{i = 1}^{n} M_{X_i}(t) \;\; \square
+  \]
+</p>
+</div>
+
+<div id="outline-container-orgce2453c" class="outline-3">
+<h3 id="orgce2453c">Osservazione</h3>
+<div class="outline-text-3" id="text-orgce2453c">
+<p>
+Combinando questo risultato con il Teorema 4.2, possiamo dedurre che la somma di v.a. aleatorie ha una certa distribuzione se riconosciamo l’espressione della sua f.g.m. (a patto che sia finita in un intorno dell’origine).
+Per esempio, consideriamo le v.a. \(X_1, ..., X_n\) <span class="underline">indipendenti</span> e <i>Poissoniane</i> di parametri \(\lambda_1, ..., \lambda_n\) rispettivamente.
+Si avrà che
+</p>
+\begin{align*}
+  M_{X_1 + X_2 + ... + X_n}(t)
+  &= \prod_{i = 1}^{n} M_{X_i}(t)\\
+  &= \prod_{i = 1}^{n} \mathbb{E} \left[ e^{tX_i} \right]\\
+  &= \prod_{i = 1}^{n} e^{\lambda_i(e^t-1)}\\
+  &= e^{(e^t-1)\sum_{i=1}^{n}\lambda_i}
+\end{align*}
+<p>
+Possiamo quindi concludere istantaneamente che la variabile aleatoria \(X_1 + ... + X_n\) è una Poisson di parametro \(\lambda_1 + ... + \lambda_n\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org94669c1" class="outline-2">
+<h2 id="org94669c1">Chernoff bounds per una singola v.a. \(X\)</h2>
+<div class="outline-text-2" id="text-org94669c1">
+<p>
+Fissiamo un \(a \in \mathbb{R}\).
+Si vuole stiamre la probabilità che \(X \geq a\)  e che \(X \leq a\).<br />
+</p>
+
+<dl class="org-dl">
+<dt>Caso \(X \geq a\)</dt><dd>Per \(t > 0\) la funzione \(x \mapsto e^{tx}\) è una funzione monotona crescente, allora avremo che
+\[
+    \lbrace X \geq a \rbrace \equiv \lbrace e^{tX} \geq e^{ta} \rbrace
+    \]
+Perciò, applicando la <b>disuguaglianza di Markov</b> avremo che
+\[
+    P(X \geq a) = P(e^{tX} \geq e^{ta}) \leq \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{ta}} = \frac{M_X(t)}{e^{ta}}
+    \]
+Dopodiché, per ottenere un bound più preciso, basta scegliere un \(t > 0\) che minimizza l'ultimo membro della disuguaglianza, ovvero
+\[
+    P(X \geq a) \leq \inf_{t > 0}\frac{M_X(t)}{e^{ta}}
+    \]</dd>
+<dt>Caso \(X \leq a\)</dt><dd>Analogamente a prima, per \(t < 0\) la funzione \(x \mapsto e^{tx}\) è una funzione monotona decrescente, allora avremo che
+\[
+    \lbrace X \leq a \rbrace \equiv \lbrace e^{tX} \geq e^{ta} \rbrace
+    \]
+Perciò, applicando ancora una vola la <b>disuguaglianza di Markov</b> otterremo
+\[
+    P(X \leq a) = P(e^{tX} \geq e^{ta}) \leq \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{ta}} = \frac{M_X(t)}{e^{ta}}
+    \]
+Dopodiché, per ottenere un bound più preciso, basta scegliere un \(t < 0\) che minimizza l'ultimo membro della disuguaglianza, ovvero
+\[
+    P(X \geq a) \leq \inf_{t < 0}\frac{M_X(t)}{e^{ta}}
+    \]</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org067febe" class="outline-2">
+<h2 id="org067febe">Poisson trials</h2>
+<div class="outline-text-2" id="text-org067febe">
+<p>
+Nelle <b>Poisson trials</b> consideriamo le v.a. \(X_1, ..., X_n\) indipendenti e Bernoulliane di parametri \(p_1, ..., p_n \in \left[ 0,1 \right]\).
+Consideriamo ora la v.a. \(X\) definita come segue
+\[
+  X := \sum_{i = 1}^{n} X_i\\
+  \mu := \mathbb{E}\left[ X \right] = \sum_{i = 1}^{n}\mathbb{E}\left[ X_i \right] = \sum_{i = 1}^{n}p_i
+  \]
+Osserviamo che nel caso \(p_1 = p_2 = ... = p_n\) si parla di <b>Bernoulli trials</b> e \(X\) ha una distribuzione <b>binomiale</b>.<br />
+</p>
+
+<p>
+Calcoliamo ora la f.g.m. di tali variabili
+</p>
+\begin{align*}
+  M_{X_i}(t)
+  &= \mathbb{E}\left[ e^{tX_i} \right]\\
+  &= e^{t \cdot 1} P(X_i = 1) + e^{t \cdot 0} P(X_i = 0)\\
+  &= e^tp_i + (1 - p_i)\\
+  &= 1 + p_i(e^t - 1) \;\; \forall t \in \mathbb{R}
+\end{align*}
+
+<p>
+Per il Teorema 4.3 si ha quindi che
+\[
+  M_X(t) = \prod_{i = 1}^{n}M_{X_i}(t) = \prod_{i = 1}^{n} (1 + p_i(e^t - 1)) \;\; \forall t \in \mathbb{R}
+  \]
+</p>
+
+<p>
+Inoltre poiché \(e^x \geq 1 + x\) per ogni \(x \in \mathbb{R}\) possiamo dare un ulteriore bound
+</p>
+\begin{align*}\label{eqn:1}
+  M_X(t)
+  &= \prod_{i = 1}^{n} (1 + p_i(e^t - 1))\\
+  &\leq \prod_{i = 1}^{n} e^{p_i(e^t - 1)}\\
+  &= e^{\sum_{i=1}^np_i(e^t - 1)}\\
+  &= e^{\mu(e^t - 1)}
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgacae338" class="outline-2">
+<h2 id="orgacae338">Teorema 4.4</h2>
+<div class="outline-text-2" id="text-orgacae338">
+<p>
+Consideriamo lo schema delle <i>Poisson trials</i> visto in precedenza.
+Avremo quindi le seguenti stime:
+</p>
+<ol class="org-ol">
+<li>Per ogni \(\delta > 0\)
+\[
+     P(X \geq (1+\delta)\mu) \leq \left( \frac{e^{\delta}}{(1+\delta)^{(1+\delta)}} \right)^{\mu}
+     \]</li>
+<li>Per \(\delta \in (0, 1 ]\) 
+\[
+     P(X \geq (1+\delta)\mu) \leq e^{-\frac{\delta^2}{3}\mu}
+     \]</li>
+<li>Sia \(\mu \neq 0\) (<b>importante!</b>). Per ogni \(R \geq 6\mu\) si ha
+\[
+     P(X \geq R) \leq 2^{-R}
+     \]</li>
+</ol>
+
+<p>
+<b>Proof:</b> la (2) e la (3) seguono dalla (1).
+Sia \(t > 0\). Applicando il <i>Markov Bound</i> si ha che
+\[
+  P(X \geq (1+\delta)\mu) = P(e^{tX} \geq e^{t(1+\delta)\mu}) \leq \frac{\mathbb{E}\left[ e^{tX}  \right]}{e^{t(1+\delta)\mu}}
+  \]
+Dalla sezione precedente sappiamo che nello schema delle Poisson trials vale la seguente disuguaglianza
+\[
+  M_X(t) \leq e^{\mu(e^t - 1)}
+  \]
+da cui segue
+\[
+  P(X \geq (1+\delta)\mu)
+  \leq \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{t(1+\delta)\mu}} = \frac{M_X(t)}{e^{t(1+\delta)\mu}}
+  \leq e^{\mu(e^t - 1 - t(1+\delta))}
+  \]
+</p>
+
+<p>
+A questo punto non resta che <span class="underline">ottimizzare</span> (minimizzare) rispetto al parametro \(t\).
+Consideriamo quindi la seguente funzione
+\[
+  f_\delta(t) = e^t - 1 - t(1+\delta)
+  \]
+Il bound ottiene il valore minimo quando la funzione \(f_\delta(t)\) assume valori minimi.
+Calcoliamo quindi la sua derivata rispetto a \(t\)
+\[
+  f'_\delta(t) = e^t - 1 - (1+\delta)
+  \]
+Tale funzione ha un punto di minimo quando \(f'_\delta(t)\) si annulla, ovvero per \(t = \log{(1+\delta)}\).
+</p>
+
+<div class="figure">
+<p><img src="../images/cp2_chernoff_bounds_4.png" alt="cp2_chernoff_bounds_4.png" style="max-width:600px; width:100%" />
+</p>
+<p><span class="figure-number">Figura 4: </span>\(f_\delta(t)\).</p>
+</div>
+
+<p>
+Andando in fine a sostituire il \(t\) ottimo nella limitazione otteremo che
+</p>
+\begin{align*}
+  P(X \geq (1+\delta)\mu) &\leq e^{\mu(1+\delta - 1 - (1+\delta)\log{(1+\delta)})}\\
+  &= \left( \frac{e^\delta}{e^{(1+\delta)\log{(1+\delta)}}} \right)^\mu\\
+  &= \left( \frac{e^\delta}{(1+\delta)^{1+\delta}} \right)^\mu
+\end{align*}
+
+<p>
+Per ottenere la (2), considerando la (1) avremo che per ogni \(\delta \in (0, 1 ]\)
+\[
+  \frac{e^\delta}{(1+\delta)^{1+\delta}} \leq e^{-\delta^2/3}
+  \iff \delta - (1+\delta)\log{(1+\delta)} \leq -\delta^2/3
+  \]
+</p>
+
+<p>
+<b>[da finire (non molto utile&#x2026;)]</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7c7592d" class="outline-2">
+<h2 id="org7c7592d">Teorema 4.5</h2>
+<div class="outline-text-2" id="text-org7c7592d">
+<p>
+Consideriamo lo schema delle <i>Poisson trials</i> visto in precedenza.
+Avremo quindi le seguenti stime:
+</p>
+<ol class="org-ol">
+<li>Per ogni \(\delta \in (0, 1 ]\)
+\[
+     P(X \leq (1-\delta)\mu) \leq \left( \frac{e^{-\delta}}{(1-\delta)^{(1-\delta)}} \right)^{\mu}
+     \]</li>
+<li>Per \(\delta \in (0, 1 ]\) 
+\[
+     P(X \leq (1-\delta)\mu) \leq e^{-\frac{\delta^2}{2}\mu}
+     \]</li>
+</ol>
+<p>
+Le dimostrazioni delle due stime sono molto simili a quelle analoghe del Teorema 4.4.
+</p>
+</div>
+
+<div id="outline-container-orgb380dfb" class="outline-3">
+<h3 id="orgb380dfb">Corollario 4.6</h3>
+<div class="outline-text-3" id="text-orgb380dfb">
+<p>
+Consideriamo lo schema delle <i>Poisson trials</i> visto in precedenza.
+Avremo quindi per ogni \(\delta \in (0, 1 ]\) che
+\[
+   P(\vert X - \mu \vert \geq \delta \mu) \leq 2 e^{-\frac{\delta^2}{3}\mu}
+   \]
+<b>Proof:</b>
+</p>
+\begin{align*}
+  P(\vert X - \mu \vert \geq \delta \mu)
+  &= P(X - \mu \geq \delta \mu) + P(X - \mu \leq -\delta \mu)\\
+  &= P(X \geq (1+\delta) \mu) + P(X \leq (1-\delta) \mu)\\
+  &\leq e^{-\frac{\delta^2}{3}\mu} + e^{-\frac{\delta^2}{2}\mu}\\
+  &= 2 e^{-\frac{\delta^2}{3}\mu} \;\; \square
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgaff43d3" class="outline-3">
+<h3 id="orgaff43d3">Esercizio: Binom(\(n, \frac{1}{2}\))</h3>
+<div class="outline-text-3" id="text-orgaff43d3">
+<p>
+Sia la v.a. \(X \sim \text{Binom}(n, \frac{1}{2})\) con media \(\mu = \frac{n}{2}\).
+Questo caso rientra nel caso delle <i>Bernoulli trials</i> e quindi possiamo fare riferimeno ai risultati sulle <i>Poisson trials</i>.
+Stiamre
+</p>
+<ol class="org-ol">
+<li>\[
+       P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{\sqrt{6n\log{n}}}{2} \right)
+       \]</li>
+<li>\[
+      P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{n}{4} \right)
+      \]</li>
+</ol>
+</div>
+
+<div id="outline-container-orgafdc2f0" class="outline-4">
+<h4 id="orgafdc2f0">Caso 1</h4>
+<div class="outline-text-4" id="text-orgafdc2f0">
+<p>
+Come primo passo moltiplichiamo e dividiamo per \(n\) il secondo elemento della disuguaglianza
+\[
+    P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{\sqrt{6n\log{n}}}{2} \right) =
+    P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{\sqrt{6n\log{n}}}{n} \cdot \frac{n}{2} \right)
+    \]
+Ponendo \(\delta = \frac{\sqrt{6n\log{n}}}{n}\) possiamo applicare il Chernoff Bound
+</p>
+\begin{align*}
+  P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{\sqrt{6n\log{n}}}{2} \right)
+  &\leq 2 e^{ -\frac{n}{2} \cdot \frac{6n \log{n}}{3n^2}  }\\
+  &= 2 e^{-\log{n}}\\
+  &= \frac{2}{n}
+\end{align*}
+<p>
+Osservare che si ottiene una stima migliore rispetto alla disuguaglianza di Chebyshev, la quale da come delimitazione superiore \(\frac{1}{6\log{n}}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgba2b665" class="outline-4">
+<h4 id="orgba2b665">Caso 2</h4>
+<div class="outline-text-4" id="text-orgba2b665">
+<p>
+Osserviamo che \(\frac{n}{4} = \frac{1}{2} \cdot \frac{n}{2}\).
+Perciò ponendo \(\delta = \frac{1}{2}\) avremo che
+\[
+    P\left( \Big\vert X - \frac{n}{2} \Big\vert \geq \frac{n}{4} \right)
+    \leq 2 e^{ -\frac{n}{2} \cdot \left( \frac{1}{2} \right)^2 \cdot \frac{1}{3} } = 2 e^{-{n}{24}}
+    \]
+Ancora una volta si ottiene una stima migliore rispetto al Chebyshev bound, il quale risulta essere \(\frac{n}{4}\).
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org40dc178" class="outline-2">
+<h2 id="org40dc178">Teorema 4.7</h2>
+<div class="outline-text-2" id="text-org40dc178">
+<p>
+Siano le v.a. \(Z_1, ..., Z_n\) i.i.d. e tali che
+\[
+  P(Z_i = 1) = P(Z_i = -1) = \frac12 \;\; \forall i = 1, ..., n
+  \]
+Consideriamo la v.a.
+\[
+  Z = \sum_{i = 1}^{n} Z_i
+  \]
+Allora
+\[
+  P(Z \geq a) \leq e^{- \frac{a^2}{2n}}
+  \]
+per ogni \(a > 0\).
+</p>
+
+<p>
+<b>Proof:</b> dato che \(Z_1, ..., Z_n\) sono i.i.d. avremo che la loro fgm è identica
+\[
+  M_{Z_i}(t) = \mathbb{E}\left[ e^{tZ_i} \right] = e^{t \cdot 1} \frac12 + e^{t \cdot (-1)} \frac12 = \frac{e^t + e^{-t}}{2} \; (= \cosh{(t)})
+  \]
+Applicando l'<a href="https://it.wikipedia.org/wiki/Funzione_esponenziale#Definizioni">espansione in serie di Taylor</a> avremo che
+\[
+  M_{Z_i}(t) = \frac{1}{2} \left( \sum_{n \geq 0} \frac{t^n}{n!} + \sum_{n \geq 0} \frac{-t^n}{n!} \right) = \sum_{n \geq 0} \frac{t^{2n}}{(2n)!}
+  \]
+L'ultima uguaglianza segue osservando che i termini dispari si cancellano perché opposti, mentre quelli pari coincidono e appaiono due volte, semplificando il fattore \(\frac{1}{2}\).<br />
+</p>
+
+<p>
+Cerchiamo ora di stimare il termine interno alla serie.
+</p>
+\begin{align*}
+  \frac{ t^{2n} }{(2n)!}
+  &= \frac{ (t^2)^n }{(2n)!}\\
+  &= \frac{2^n}{2^n} \cdot \frac{ (t^2)^n }{(2n)!}\\
+  &= \left( \frac{t^2}{2} \right)^n \cdot \frac{ 2^n }{(2n)!}\\
+  &= \left( \frac{t^2}{2} \right)^n \cdot \frac{ 2^n }{(2n) \cdot (2n-1) \cdot (2n-2) \cdot ... \cdot 2 \cdot 1}\\
+  &= \left( \frac{t^2}{2} \right)^n \cdot \frac{ \overbrace{2 \cdot 2 \cdot ... \cdot 2}^{n} }{(2n)(2n-2)(2n-4)... 4 \cdot 2} \cdot \frac{ 1 }{(2n-1)(2n-3)...3 \cdot 1}\\
+  &= \left( \frac{t^2}{2} \right)^n \cdot \frac{ 1 }{(n)(n-1)(n-2)... 2 \cdot 1} \cdot \frac{ 1 }{(2n-1)(2n-3)... 3 \cdot 1}\\
+  &= \left( \frac{t^2}{2} \right)^n \cdot \frac{ 1 }{n!} \cdot \frac{ 1 }{(2n-1)(2n-3)... 3 \cdot 1}\\
+  &\leq \left( \frac{t^2}{2} \right)^n \cdot \frac{ 1 }{n!}
+\end{align*}
+
+<p>
+A questo punto, riapplicando l'espansione in serie di Taylor nel senso inverso otterremo
+\[
+  M_{Z_i}(t) = \sum_{n \geq 0} \frac{t^{2n}}{(2n)!}
+  \leq \sum_{n \geq 0} \left( \frac{t^2}{2} \right)^n \frac{ 1 }{n!} = e^{t^2/2}
+  \]
+</p>
+
+<p>
+Osserviamo ora che per monotonia della funzione esponenziale avremo la seguente uguaglianza tra eventi per ogni \(a > 0\)
+\[
+  \lbrace Z \geq a \rbrace \equiv \lbrace e^{tZ} \geq e^{ta} \rbrace \;\; \forall t > 0
+  \]
+Pertanto
+</p>
+\begin{align*}
+  P(Z \geq a)
+  &= P(e^{tZ} \geq e^{ta})\\
+  &\leq \frac{ \mathbb{E}\left[ e^{tZ} \right] }{e^{ta}}\\
+  &= \frac{ \prod_{i=1}^{n} \mathbb{E}\left[ e^{tZ_i} \right] }{e^{ta}}\\
+  &= \frac{ \prod_{i=1}^{n} M_{Z_i}(t) }{e^{ta}}\\
+  &\leq \frac{ \prod_{i=1}^{n} e^{t^2/2} }{e^{ta}}\\
+  &= e^{\frac{n}{2}t^2 - ta}
+\end{align*}
+
+<p>
+Ora per minimizzare tale limitazione superiore bisogna minimzzare il valore dell'esponente \(\frac{n}{2}t^2 - ta\), e ciò accade per \(t = a/n\).
+Sostituendo quindi col valore ottimale si ottiene il teorema
+\[
+  P(Z \geq a) \leq e^{\frac{n}{2}t^2 - ta} = e^{\frac{n}{2}\frac{a^2}{n^2} - \frac{a}{n}a} = e^{-\frac{a^2}{2n}} \;\; \square
+  \]
+</p>
+</div>
+
+<div id="outline-container-orgc34ef8e" class="outline-3">
+<h3 id="orgc34ef8e">Corollario 4.8</h3>
+<div class="outline-text-3" id="text-orgc34ef8e">
+<p>
+Nella tesi del teorema 4.7 si ha che
+\[
+   P(\vert Z \vert \geq a) \leq 2e^{-\frac{a^2}{2n}}
+   \]
+<b>Proof:</b>
+\[
+   P(\vert Z \vert \geq a) = P(Z \geq a) + P(Z \leq -a) = P(Z \geq a) + P(-Z \geq a) = 2P(Z \geq a)
+   \]
+dove l'ultima disuguaglianza deriva dal fatto che \(Z\) e \(-Z\) hanno la stessa distribuzione per ipotesi del teorema 4.7 \(\square\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org51116e0" class="outline-3">
+<h3 id="org51116e0">Corollario 4.9</h3>
+<div class="outline-text-3" id="text-org51116e0">
+<p>
+Siano le v.a. \(Y_1, ..., Y_n\) <span class="underline">indipendenti</span> e <span class="underline">Bernoulliane</span> di parametro \(1/2\).
+Sia poi \(Y := \sum_{i = 1}^{n} Y_i\).
+Avremo quindi le seguenti stime
+</p>
+<ol class="org-ol">
+<li>Per ogni \(a > 0\)
+\[
+      P(Y \geq a + \mu) \leq e^{-2\frac{a^2}{n}}
+      \]</li>
+<li>Per ogni \(\delta > 0\)
+\[
+      P(Y \geq (1 + \delta)\mu) \leq e^{-\delta^2\mu}
+      \]</li>
+</ol>
+<p>
+<b>Proof:</b> [DA FARE&#x2026;]   
+</p>
+</div>
+</div>
+
+<div id="outline-container-org05530a5" class="outline-3">
+<h3 id="org05530a5">Corollario 4.10</h3>
+<div class="outline-text-3" id="text-org05530a5">
+<p>
+Nelle stesse ipotesi del corollario 4.9 si ha che
+</p>
+<ol class="org-ol">
+<li>Per ogni \(a \in (0, \mu)\)
+\[
+      P(Y \geq \mu - a) \leq e^{-2\frac{a^2}{n}}
+      \]</li>
+<li>Per ogni \(\delta \in (0, 1)\)
+\[
+      P(Y \geq (1 - \delta)\mu) \leq e^{-\delta^2\mu}
+      \]</li>
+</ol>
+<p>
+<b>Proof:</b> [DA FARE&#x2026;]
+</p>
+
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autore: Alessandro Straziota</p>
+<p class="email">Email: <a href="mailto:alessandrostr95@gmail.com">alessandrostr95@gmail.com</a></p>
+<p class="date">Created: 2022-06-15 mer 21:05</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
