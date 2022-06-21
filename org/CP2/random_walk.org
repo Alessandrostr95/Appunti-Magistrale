@@ -1,0 +1,125 @@
+#+title: Random Walk
+#+date: 
+#+teacher: Claudio Macci
+#+setupfile: ../../org-template/appunti.org
+#+options: num:nil
+
+* Introduzione
+  Consideriamo il modello di *passeggiata aleatoria* (*random walk*) su grafi _non orientati_.
+  Sia quindi un grafo \(G(V,E)\) con $V$ *finito* e con archi non diretti.
+  Supponiamo inoltre che ogni nodo abbia _almeno un_ arco incidente, ovvero \(\forall i \in V\) si ha che \(d(i) \geq 1\).\\
+
+  Immaginare di avere una /particella/ che si muove a caso sul grafo e, ad ogni passo, indipendentemente da quel che è successo prima,
+  si sceglie a caso uno dei \(d(i)\) archi che partono dal nodo $i$ (quindi si tratta di una situazione con scelta equiprobabile degli archi tra cui scegliere).\\
+
+  Il calcolo dei valori \(\lbrace d(i) : i \in  E \rbrace\) dipende da /"come si considerano i loop"/ (cioè gli archi che vanno da un nodo in se stesso).
+  Si possono contare come archi doppi, o come archi singoli.
+  Facciamo un esempio.\\
+
+  Supponiamo di avere un grafo con \(V = \lbrace 1,2 \rbrace\) ed \(E = \lbrace (1,2), (1,1) \rbrace\).
+  Possiamo contare il self-loop \((1,1)\) in due modi:
+  1. contare in maniera doppia, perché l'arco \((1,1)\) tocca il nodo 1 per due volte. Perciò \(d(1) = 3, d(2) = 1\) da cui \(d(1) + d(2) = 2 \vert E \vert\).
+  2. contare in maniera singola. Perciò \(d(1) = 2, d(2) = 1\) da cui \(d(1) + d(2) = 3 \neq 2 \vert E \vert\).
+
+  Più in generale, considerando il primo case, definiamo
+  \[
+  D := \sum_{i \in V} d(i) = 2 \vert E \vert
+  \]
+
+  Vediamo invece come è definita una passeggiata aleatoria in entrambi i casi.
+  Una passeggiata aleatoria è quindi una catena di Markov omogenea \(\lbrace X_t : t \geq 0 \rbrace\) tale che
+  \[
+  p_{ij} = \frac{d(i,j)}{d(i)} \;\; \forall i,j \in V
+  \]
+  dove con \(d(i,j)\) si indica il numero di archi tra $i$ e $j$.
+  In effetti ha senso considerare \(d(i,j)\) nel caso di self-loop.
+  Infatti nel caso 1 avremo che \(d(i,i) = 2)\), mentre nel caso 2 avremo \(d(i,i) = 1\).
+  Quindi, più in generale
+  1. caso arco doppio
+     \[
+     d(i,j) = \begin{cases}
+       0 &\mbox{se } (i,j) \notin E\\
+       1 &\mbox{se } (i,j) \in E \land i \neq j\\
+       2 &\mbox{se } (i,j) \in E \land i = j
+     \end{cases}
+     \]
+  2. caso arco singolo
+     \[
+     d(i,j) = \begin{cases}
+       0 &\mbox{se } (i,j) \notin E\\
+       1 &\mbox{se } (i,j) \in E
+     \end{cases}
+     \]
+  Osservare inoltre che, essengo $G$ non orientato, avremo che \(d(i,j) = d(j,i)\).\\
+
+  Per capire meglio le differenze tra i due modelli, consideriamo ancora l'esempio precedente, e vediamo come varia $P$.
+  1. caso arco doppio, si ha che \(d(1,1) = 2, d(1,2) = d(2,1) = 1, d(2,2) = 0\), quindi
+     \begin{equation*}
+     P = \left (
+     \begin{array}{cc}
+     2/3 & 1/3 \\
+     1 & 0
+     \end{array}
+     \right )
+     \end{equation*}
+  2. caso arco singolo, si ha che \(d(1,1) = 1, d(1,2) = d(2,1) = 1, d(2,2) = 0\), quindi
+     \begin{equation*}
+     P = \left (
+     \begin{array}{cc}
+     1/2 & 1/2 \\
+     1 & 0
+     \end{array}
+     \right )
+     \end{equation*}
+
+** Lemma 7.12
+   Consideriamo una passeggiata aleatoria su un grafo, e supponiamo che sia un grafo _connesso_ (e con almeno due elementi).
+   Allora si ha aperiodicità se e solo se il grafo /"non è bipartito"/.\\
+
+   *Proof:* per ipotesi di connettività c'è anche /irriducibilità/.
+   Perciò tutti gli stati hanno lo stesso periodo \(\Delta\), con
+   \[
+   \Delta = M.C.D. \lbrace t \geq 1 : p_{ii}^(t) > 0 \rbrace \;\; \forall i \in V
+   \]
+
+   Allora, se il grafo è bipartito (tutti i cammini da uno stato in se stesso è costituito da un numero $s$ *pari* di archi), si ha che \(p_{jj} = 0\) per $s$ _dispari_.
+   Allora certamente ci sarà periodicità di periodo \(\Delta = 2\).\\
+
+   Viceversa, se il grafo non è bipartito, si ha un \(M.C.D.\) di un insieme con numeri pari dispari.
+   Allora si ha \(\Delta = 1\) e quindi c’è aperiodicità \(\square\).
+  
+* Teorema 7.13 generalizzato
+  Consideriamo una passeggiata aleatoria su un grafo.
+  Allora abbiamo le seguenti affermazioni.
+
+  1. La distribuzione \(\overline{\pi}\) dove
+     \[
+     \pi_i = \frac{d(i)}{D} \;\; \forall i \in V
+     \]
+     è una distribuzione stazionaria.
+  2. Supponiamo anche che il grafo sia *connesso*, con *almeno due nodi* e *non bipartito*.
+     Allora
+     \[
+     \lim_{t \to \infty} p_{ji}^{(t)} = \frac{d(i)}{D} = \frac{1}{h_ii}
+     \]
+
+  *Proof:*
+  1. Per ogni nodo \(i \in V\) si ha che
+     \begin{align*}
+       \sum_{j \in V} \pi_j p_{ji}
+       &= \sum_{j \in V} \frac{d(j)}{D} \cdot \frac{d(j,i)}{d(j)}\\
+       &= \frac{1}{D} \sum_{j \in V} d(j,i)\\
+       &= \frac{1}{D} \sum_{j \in V} d(i,j)\\
+       &= \frac{d(i)}{D}\\
+       &= \pi_i
+     \end{align*}
+     perciò avremo che \(\overline{\pi} = \overline{\pi} P\).
+
+  2. Per ipotesi di connettività avremo che $P$ è irriducibile, inoltre dato che è non bipartito avremo che c'è anche aperiodicità (per teorema 7.12).
+     Inoltre per definizione $V$ è finito, perciò possiamo applicare il teorema 7.7 (vedi [[./markov_chains.html][qua]]) possiamo dire che
+     \[
+     \lim_{t \to \infty} p_{ji}^{(t)} = \pi_i = \frac{d(i)}{D} = \frac{1}{h_ii} \;\;\; \square
+     \]
+
+  *Osservazione* non è detto che nelle ipotesi del teorema \(\overline{\pi} = (\frac{d(i)}{D})_{i \in V}\) sia l'unica distribuzione stazionaria.
+-----

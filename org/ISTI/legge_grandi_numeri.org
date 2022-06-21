@@ -1,0 +1,43 @@
+* Legge dei grandi numeri
+Siano \(X_1, ..., X_n\) v.a. i.i.d (/variabili aleatorie indipendenti e identicamente distribuiite/), con media \(E( X_i ) = \mu\).
+Sia la loro *media campionaria*
+\[
+\overline{X}_n = \frac{X_1 + ... + X_n}{n}
+\]
+
+La /legge dei grandi numeri/ dice che
+\[
+\lim_{n \to \infty} \overline{X}_n = \mu
+\]
+
+
+*Proof:*
+\[
+E(\overline{X}_n) = E(\frac{X_1 + ... + X_n}{n}) = \sum_{i=1}^{n} E(\frac{X_i}{n}) =
+\frac{1}{n} \sum_{i=1}^{n} E(X_i) = \mu
+\]
+
+\[
+VAR(\overline{X}_n) = VAR(\frac{X_1 + ... + X_n}{n}) = \frac{1}{n^2} VAR(X_1 + ... + X_n) =
+frac{1}{n^2} \left[\sum_{i = 1}^{n}VAR(X_i)  - \sum_{i \neq j}\underbrace{COV(X_i, X_j)}_{=0}  \right] =
+frac{1}{n^2} \sum_{i = 1}^{n}VAR(X_i) = frac{1}{n^2} n \sigma^2 = \frac{\sigma^2}{n}
+\]
+
+* Teoremi del limite centrale
+
+* Legge dei piccoli numeri
+Una binomiale \(Bin(n,p)\) si può approssimare ad una Poisson se
+1. $n$ è grande
+2. $p$ è piccolo
+3. $np$ non è molto grande.
+
+Più formalmente, sia una v.a. \(X ~ Bin(n,p)\) tale che
+1. $n \to \infty$
+2. $p \to 0$
+3. $np \to \lambda$
+allora essa si può approssimare come una poisson $Po(\lambda)$.\\
+
+*Proof:*
+\[
+P(X = k) = \frac{n(n-1)...(n-k+1)}{k!}p^k(1-p)^{n-k}
+\]
